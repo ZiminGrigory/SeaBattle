@@ -16,7 +16,9 @@ SOURCES += src/main.cpp\
     src/playerCell.cpp \
     src/ship.cpp \
     src/playerField.cpp \
-    src/enemyField.cpp
+    src/enemyField.cpp \
+    src/humanPlayer.cpp \
+    src/aiPlayer.cpp
 
 HEADERS  += src/mainwindow.h \
     src/enemyCell.h \
@@ -24,6 +26,9 @@ HEADERS  += src/mainwindow.h \
     src/playerCell.h \
     src/ship.h \
     src/playerField.h \
-    src/enemyField.h
+    src/enemyField.h \
+    src/player.h \
+    src/humanPlayer.h \
+    src/aiPlayer.h
 
 FORMS    += gui/mainwindow.ui

@@ -20,7 +20,7 @@ public:
     /**
       * Attack cell and return the result.
       */
-    AttackStatus attacked();
+    AttackStatus attack();
     /**
       * Mark this cell depending on result of attack.
       */

@@ -6,7 +6,7 @@ PlayerCell::PlayerCell(QObject *parent) :
 {
 }
 
-AttackStatus PlayerCell::attacked()
+AttackStatus PlayerCell::attack()
 {
     if (ship)
     {
