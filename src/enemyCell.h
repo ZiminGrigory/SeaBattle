@@ -20,16 +20,12 @@ public:
       */
     void mark(AttackStatus res);
     AttackStatus getAttackStatus();
-signals:
-    /**
-      * Signal emitted when the cell being attacked.
-      */
-    void attacked();
-public slots:
     /**
       * Attack this cell.
+      *
+      * @return true if this cell could be attacked, false otherwise.
       */
-    void attack();
+    bool attack();
 private:
     /**
       * HIDE cell is a cell that has not attacked yet,

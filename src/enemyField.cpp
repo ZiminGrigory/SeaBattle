@@ -1,9 +1,9 @@
 #include "enemyField.h"
 
 EnemyField::EnemyField(QObject *parent) :
-    QObject(parent),
-    mapper(this)
+    QObject(parent)
 {
+    /*
     for (int i = 0; i < FIELD_ROW_NUM; i++)
     {
         for (int j = 0; j < FIELD_COL_NUM; j++)
@@ -13,6 +13,7 @@ EnemyField::EnemyField(QObject *parent) :
         }
     }
     connect(&mapper, SIGNAL(mapped(int)), this, SLOT(attack(int)));
+    */
 }
 
 void EnemyField::attackResult(AttackStatus res)
@@ -45,10 +46,19 @@ void EnemyField::attackResult(AttackStatus res)
     }
 }
 
-void EnemyField::attack(int id)
+bool EnemyField::attack(int id)
 {
-    lastAttackedCellId = id;
-    emit attacked(id);
+    int x = id / FIELD_ROW_NUM;
+    int y = id - x * FIELD_ROW_NUM;
+    if (!checkCoord(x, y) || !field[x][y].attack())
+    {
+        return false;
+    }
+    else
+    {
+        lastAttackedCellId = id;
+        return true;
+    }
 }
 
 void EnemyField::markKilled(int x, int y, QStack<Coord> *markedCells)

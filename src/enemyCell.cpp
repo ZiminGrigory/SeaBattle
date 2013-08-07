@@ -9,12 +9,13 @@ EnemyCell::EnemyCell(QObject *parent) :
 
 void EnemyCell::mark(AttackStatus res)
 {
+    state = VISIBLE;
     attackStatus = res;
 }
 
-void EnemyCell::attack()
+bool EnemyCell::attack()
 {
-    emit attacked();
+    return (state == HIDE);
 }
 
 AttackStatus EnemyCell::getAttackStatus()

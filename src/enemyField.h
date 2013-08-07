@@ -26,19 +26,15 @@ public:
       * This method called to inform field about result of last attack.
       */
     void attackResult(AttackStatus res);
+    /**
+      * Method should be called by player to inform field about chosen cell on enemy field that will attacked.
+      *
+      * @return true if chosen cell could be attacked, false otherwise.
+      */
+    bool attack(int id);
 
     // for test purpose
     friend class EnemyFieldTest;
-signals:
-    /**
-      * Emits when the cell being attack.
-      */
-    void attacked(int id);
-private slots:
-    /**
-      * This slot connected with signal "attack" from cells.
-      */
-    void attack(int id);
 private:
     typedef QPair<int, int> Coord;
     /**
@@ -46,16 +42,12 @@ private:
       */
     void markKilled(int x, int y, QStack<Coord>* markedCell);
     /**
-      * Check are x & y correct coordinates.
+      * Check are x & y correct coordinates of cell.
       */
     bool checkCoord(int x, int y);
 
     EnemyCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
     int lastAttackedCellId;
-    /**
-      * Bundles signals from cells.
-      */
-    QSignalMapper mapper;
 };
 
 #endif // ENEMYFIELD_H
