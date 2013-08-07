@@ -18,12 +18,13 @@ public:
     /**
       * Mark the cell depending on result of attack.
       */
-    void mark(AttackResult res);
+    void mark(AttackStatus res);
+    AttackStatus getAttackStatus();
 signals:
     /**
       * Signal emitted when the cell being attacked.
       */
-    attacked();
+    void attacked();
 public slots:
     /**
       * Attack this cell.
@@ -43,6 +44,7 @@ private:
       * state defines the visibility of the cell.
       */
     State state;
+    AttackStatus attackStatus;
 };
 
 #endif // ENEMYCELL_H

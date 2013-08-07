@@ -1,8 +1,9 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-enum AttackResult
+enum AttackStatus
 {
+    NOT_ATTACKED,
     MISS,
     WOUNDED,
     KILLED

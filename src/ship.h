@@ -9,6 +9,7 @@ class Ship : public QObject
 public:
     explicit Ship(QObject* parent = 0);
     
+    virtual int damage() = 0;
 signals:
     
 public slots:

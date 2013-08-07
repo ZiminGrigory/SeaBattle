@@ -19,7 +19,7 @@ public:
     /**
       * Attack cell with id given by argument. Return the result of attack.
       */
-    AttackResult attacked(int id);
+    AttackStatus attacked(int id);
 
 private:
     PlayerCell field[FIELD_ROW_NUM][FIELD_COL_NUM];

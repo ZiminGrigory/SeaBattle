@@ -20,11 +20,11 @@ public:
     /**
       * Attack cell and return the result.
       */
-    AttackResult attacked();
+    AttackStatus attacked();
     /**
       * Mark this cell depending on result of attack.
       */
-    void mark(AttackResult res);
+    void mark(AttackStatus res);
 private:
     /**
       * Pointer to the ship placed on this cell.
