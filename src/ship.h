@@ -12,6 +12,7 @@ class Ship : public QObject
 public:
     virtual ~Ship() {}
     virtual int damage() = 0;
+    virtual int size() const = 0;
 };
 
 #endif // SHIP_H

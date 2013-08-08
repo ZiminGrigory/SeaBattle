@@ -14,11 +14,11 @@ SOURCES += src/main.cpp\
         src/mainwindow.cpp \
     src/enemyCell.cpp \
     src/playerCell.cpp \
-    src/ship.cpp \
     src/playerField.cpp \
     src/enemyField.cpp \
     src/humanPlayer.cpp \
-    src/aiPlayer.cpp
+    src/aiPlayer.cpp \
+    src/gameMaster.cpp
 
 HEADERS  += src/mainwindow.h \
     src/enemyCell.h \
@@ -29,6 +29,9 @@ HEADERS  += src/mainwindow.h \
     src/enemyField.h \
     src/player.h \
     src/humanPlayer.h \
-    src/aiPlayer.h
+    src/aiPlayer.h \
+    src/gameMaster.h \
+    src/fleetFactory.h \
+    src/cellShip.h
 
 FORMS    += gui/mainwindow.ui
