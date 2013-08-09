@@ -2,7 +2,9 @@
 #define PLAYER_H
 
 #include <QObject>
+#include <QSharedPointer>
 
+#include "ship.h"
 #include "playerField.h"
 #include "enemyField.h"
 
@@ -20,6 +22,9 @@ public:
 signals:
     /**
       * This signal must be emitted when player chose a cell to attack (id is an identifier of a cell).
+      * Player can emit this signal only after turn() slot was called,
+      * and after this wait until turn() will called again.
+      * (otherwise game will crash and we all gonna die!!!).
       */
     void turnMade(int id);
 public slots:
@@ -40,6 +45,9 @@ public slots:
 protected:
     PlayerField myField;
     EnemyField enemyField;
+
+    typedef QSharedPointer<Ship> ptrShip;
+    QVector<ptrShip> fleet;
 };
 
 inline void Player::turnResult(AttackStatus attackResult)
