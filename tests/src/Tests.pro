@@ -35,6 +35,8 @@ HEADERS += \
     ../../src/player.h \
     ../../src/humanPlayer.h \
     ../../src/aiPlayer.h \
-    aiPlayerTest.h
+    aiPlayerTest.h \
+    gameMasterTest.h \
+    playerTest.h
 
 
