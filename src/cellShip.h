@@ -11,22 +11,29 @@ template <int cells> class CellShip : public Ship
 {
 public:
     CellShip():
-        health(cells)
+        _health(cells)
     {}
-    int damage();
-    int size() const;
+    inline int damage();
+    inline int health() const;
+    inline int size() const;
 private:
-    int health;
+    int _health;
 };
 
 template <int cells>
-int CellShip::damage()
+inline int CellShip<cells>::damage()
 {
-    return health--;
+    return --_health;
 }
 
 template <int cells>
-int CellShip::size() const
+inline int CellShip<cells>::health() const
+{
+    return _health;
+}
+
+template <int cells>
+inline int CellShip<cells>::size() const
 {
     return cells;
 }

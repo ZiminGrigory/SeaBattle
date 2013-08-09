@@ -13,13 +13,11 @@
 class FleetFactory
 {
 public:
-    FleetFactory();
-
     typedef QSharedPointer<Ship> ptrShip;
-    inline QVector<ptrShip> createFleet();
+    virtual QVector<ptrShip> createFleet() const;
 };
 
-inline QVector<FleetFactory::ptrShip> FleetFactory::createFleet()
+inline QVector<FleetFactory::ptrShip> FleetFactory::createFleet() const
 {
     // create a standart set of ships
     QVector<ptrShip> fleet(0);
