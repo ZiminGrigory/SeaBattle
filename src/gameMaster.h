@@ -10,7 +10,7 @@ class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-    explicit GameMaster(QObject* parent = 0);
+    explicit GameMaster(Player* plr1, Player* plr2, const FleetFactory &fleetCreator, QObject* parent = 0);
 
 public slots:
     /**

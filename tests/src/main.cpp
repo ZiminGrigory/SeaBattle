@@ -3,6 +3,7 @@
 #include "enemyFieldTest.h"
 #include "playerTest.h"
 #include "aiPlayerTest.h"
+#include "gameMasterTest.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,9 @@ int main(int argc, char *argv[])
 
     AIPlayerTest aiPlayerTest;
     QTest::qExec(&aiPlayerTest);
+
+    GameMasterTest gameMasterTest;
+    QTest::qExec(&gameMasterTest);
 
     return a.exec();
 }

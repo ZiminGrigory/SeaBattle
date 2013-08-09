@@ -10,6 +10,7 @@ class AIPlayerTest : public QObject
 {
     Q_OBJECT
 private slots:
+    // test that ai can make turnes, and after turn turnMade() signal called one time.
     void turnTest()
     {
         AIPlayer player;

@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     ../../src/playerField.cpp \
     ../../src/enemyField.cpp \
     ../../src/humanPlayer.cpp \
-    ../../src/aiPlayer.cpp
+    ../../src/aiPlayer.cpp \
+    ../../src/gameMaster.cpp \
 
 HEADERS += \
     enemyFieldTest.h \
@@ -35,6 +36,7 @@ HEADERS += \
     ../../src/player.h \
     ../../src/humanPlayer.h \
     ../../src/aiPlayer.h \
+    ../../src/gameMaster.h \
     aiPlayerTest.h \
     gameMasterTest.h \
     playerTest.h

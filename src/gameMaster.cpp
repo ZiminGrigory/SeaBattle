@@ -1,12 +1,21 @@
 #include "gameMaster.h"
 
-GameMaster::GameMaster(QObject* parent):
-    QObject(parent)
+GameMaster::GameMaster(Player *plr1, Player *plr2, const FleetFactory& fleetCreator, QObject* parent):
+    QObject(parent),
+    player1(plr1),
+    player2(plr2)
 {
+    player1->createFleet(fleetCreator);
+    player2->createFleet(fleetCreator);
 
+    turnedPlayer = player1;
+    waitingPlayer = player2;
 
     connect(player1.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
     connect(player2.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
+
+    connect(player1.data(), SIGNAL(attackResult(AttackStatus)), this, SLOT(informPlayer(AttackStatus)));
+    connect(player2.data(), SIGNAL(attackResult(AttackStatus)), this, SLOT(informPlayer(AttackStatus)));
 }
 
 void GameMaster::offerTurn()
@@ -16,7 +25,7 @@ void GameMaster::offerTurn()
 
 void GameMaster::informOpponent(int id)
 {
-    informPlayer(waitingPlayer->enemyTurn(id));
+    waitingPlayer->enemyTurn(id);
 }
 
 void GameMaster::informPlayer(AttackStatus attackResult)
@@ -45,5 +54,13 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         // next turn make the same player
     }
 
-    offerTurn();
+    if (waitingPlayer->lose())
+    {
+        // to do: end game and send message about win.
+    }
+    else
+    {
+        // else continue game
+        offerTurn();
+    }
 }

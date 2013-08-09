@@ -10,12 +10,7 @@ class HumanPlayerTest : public QObject
 {
     Q_OBJECT
 private slots:
-    // test that after calling of attack slot of EnemyField player emits turnMade() signal.
-    // (it
-    void turnTest()
-    {
 
-    }
 };
 
 #endif // HUMANPLAYERTEST_H
