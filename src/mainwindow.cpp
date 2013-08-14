@@ -6,8 +6,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
-	Field *field = new Field;
-	ui->testLayout->addWidget(field);
+	Field *fieldFirst = new Field;
+	Field *fieldSecond = new Field;
+	ui->horizontalLayout->addWidget(fieldFirst);
+	ui->horizontalLayout->addWidget(fieldSecond);
 }
 
 MainWindow::~MainWindow()

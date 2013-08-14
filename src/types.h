@@ -12,4 +12,6 @@ enum AttackStatus
 const int FIELD_ROW_NUM = 10;
 const int FIELD_COL_NUM = 10;
 
+const int sizeOfCube = 200;
+
 #endif // TYPES_H

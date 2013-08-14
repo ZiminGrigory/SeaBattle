@@ -1,6 +1,6 @@
 #include "cell.h"
 
-Cell::Cell()
+Cell::Cell(int x, int y): y(y), x(x)
 {
 }
 
@@ -23,7 +23,7 @@ void Cell::changeStatusOfCell(const int &status)
 
 QRectF Cell::boundingRect() const
 {
-	return QRectF(0,0,45,45); //to do make automatically
+	return QRectF(0,0,x,y);
 }
 
 QPainterPath Cell::shape() const
