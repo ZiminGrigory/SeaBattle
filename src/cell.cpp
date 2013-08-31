@@ -1,20 +1,21 @@
 #include "cell.h"
+#include <QDebug>
+#include <QCursor>
 
-Cell::Cell(int x, int y): y(y), x(x)
+Cell::Cell(int x, int y): y(y), x(x), color(Qt::white)
 {
 }
 
 
 void Cell::changeStatusOfCell(const int &status)
 {
-	QPainter *painter = new QPainter;
 	//для теста, потом здесь будут картинки, а мб и не будет картинок
 	switch (status) {
-		case MISS: painter->setBrush(QBrush(Qt::blue));
+		case MISS: color = Qt::blue;
 		break;
-		case WOUNDED: painter->setBrush(QBrush(Qt::red));
+		case WOUNDED: color = Qt::red;
 		break;
-		case KILLED: painter->setBrush(QBrush(Qt::black));
+		case KILLED: color = Qt::black;
 		break;
 	}
 	this->update();
@@ -35,9 +36,29 @@ QPainterPath Cell::shape() const
 
 void Cell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+
+	painter->setBrush(QBrush(color));
 	painter->drawRect(boundingRect());
 }
 
 void Cell::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
+	emit attacked(this);
+}
+
+void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+	difference = mapToParent(QCursor::pos());
+}
+
+
+void Cell::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+	QPointF first = mapToParent(this->pos());
+	QPointF cursor = mapToParent(QCursor::pos());
+	QPointF secondTmp = first + cursor - difference;
+	QPointF second = mapFromScene(secondTmp.toPoint());
+	second.setX(qAbs(second.x()));
+	second.setY(qAbs(second.y()));
+	emit getCoordinate(mapFromScene(first), second);
 }
