@@ -23,6 +23,7 @@ SOURCES += main.cpp \
     ../../src/humanPlayer.cpp \
     ../../src/aiPlayer.cpp \
     ../../src/gameMaster.cpp \
+    ../../src/fleetInstaller.cpp
 
 HEADERS += \
     enemyFieldTest.h \
@@ -39,6 +40,9 @@ HEADERS += \
     ../../src/gameMaster.h \
     aiPlayerTest.h \
     gameMasterTest.h \
-    playerTest.h
+    playerTest.h \
+    fleetInstallerTest.h \
+    ../../src/fleetInstaller.h \
+    PlayerFieldTest.h
 
 

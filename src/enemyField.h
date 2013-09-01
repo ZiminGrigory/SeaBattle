@@ -40,11 +40,7 @@ private:
     /**
       * Method used when ship destroyed by player and it need to marked neighboor cells.
       */
-    void markKilled(int x, int y, QStack<Coord>* markedCell);
-    /**
-      * Check are x & y correct coordinates of cell.
-      */
-    bool checkCoord(int x, int y);
+    void markKilled(int i, int j, QStack<Coord>* markedCell);
 
     EnemyCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
     int lastAttackedCellId;
