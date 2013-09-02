@@ -26,6 +26,7 @@ inline bool checkCoord(int x, int y)
     return !((x < 0) || (x >= FIELD_ROW_NUM) || (y < 0) || (y >= FIELD_COL_NUM));
 }
 
+const int sizeOfCube = 200;
 
 #endif // TYPES_H
 
