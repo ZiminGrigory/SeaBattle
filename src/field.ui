@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <property name="locale">
-   <locale language="Russian" country="Russia"/>
+   <locale language="English" country="UnitedStates"/>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">

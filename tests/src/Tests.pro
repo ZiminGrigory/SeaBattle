@@ -43,6 +43,6 @@ HEADERS += \
     playerTest.h \
     fleetInstallerTest.h \
     ../../src/fleetInstaller.h \
-    PlayerFieldTest.h
+    playerFieldTest.h
 
 
