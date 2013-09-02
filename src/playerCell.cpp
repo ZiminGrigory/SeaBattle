@@ -29,6 +29,16 @@ AttackStatus PlayerCell::attack()
     }
 }
 
+QSharedPointer<Ship> PlayerCell::getShip()
+{
+    return ship;
+}
+
+void PlayerCell::setShip(const QSharedPointer<Ship> &_ship)
+{
+    ship = _ship;
+}
+
 void PlayerCell::mark(AttackStatus res)
 {
 }

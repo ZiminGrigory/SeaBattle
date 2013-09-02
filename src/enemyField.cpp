@@ -48,9 +48,9 @@ void EnemyField::attackResult(AttackStatus res)
 
 bool EnemyField::attack(int id)
 {
-    int x = id / FIELD_ROW_NUM;
-    int y = id - x * FIELD_ROW_NUM;
-    if (!checkCoord(x, y) || !field[x][y].attack())
+    int i = id / FIELD_ROW_NUM;
+    int j = id % FIELD_COL_NUM;
+    if (!checkCoord(i, j) || !field[i][j].attack())
     {
         return false;
     }
@@ -61,27 +61,22 @@ bool EnemyField::attack(int id)
     }
 }
 
-void EnemyField::markKilled(int x, int y, QStack<Coord> *markedCells)
+void EnemyField::markKilled(int i, int j, QStack<Coord> *markedCells)
 {
-    if (checkCoord(x, y))
+    if (checkCoord(i, j))
     {
-        if (field[x][y].getAttackStatus() == KILLED)
+        if (field[i][j].getAttackStatus() == KILLED)
         {
             return;
         }
-        else if (field[x][y].getAttackStatus() == WOUNDED)
+        else if (field[i][j].getAttackStatus() == WOUNDED)
         {
-            field[x][y].mark(KILLED);
-            markedCells->push(Coord(x, y));
+            field[i][j].mark(KILLED);
+            markedCells->push(Coord(i, j));
         }
         else
         {
-            field[x][y].mark(MISS);
+            field[i][j].mark(MISS);
         }
     }
-}
-
-bool EnemyField::checkCoord(int x, int y)
-{
-    return !((x < 0) || (x >= FIELD_ROW_NUM) || (y < 0) || (y >= FIELD_COL_NUM));
 }

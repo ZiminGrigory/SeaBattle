@@ -33,8 +33,8 @@ private slots:
         master.offerTurn();
 
         // check that player1 made turn and player2 report about result of attack on him.
-        QCOMPARE(turnMadeSpy.first().count(), 1);
-        QCOMPARE(attackResultSpy.first().count(), 1);
+        QCOMPARE(turnMadeSpy.count(), 1);
+        QCOMPARE(attackResultSpy.count(), 1);
     }
 };
 

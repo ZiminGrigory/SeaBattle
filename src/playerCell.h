@@ -22,6 +22,14 @@ public:
       */
     AttackStatus attack();
     /**
+      * Return ship placed on this cell.
+      */
+    QSharedPointer<Ship> getShip();
+    /**
+      * Set ship to this cell.
+      */
+    void setShip(const QSharedPointer<Ship>& _ship);
+    /**
       * Mark this cell depending on result of attack.
       */
     void mark(AttackStatus res);
