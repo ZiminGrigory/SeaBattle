@@ -16,7 +16,7 @@ enum AttackStatus
 const int FIELD_ROW_NUM = 10;
 const int FIELD_COL_NUM = 10;
 
-const int sizeOfCube = 200;
+const int sizeOfCube = 300;
 
 inline QPair<int, int> coordinates(int id)
 {

@@ -1,6 +1,7 @@
 #include "cell.h"
 #include <QDebug>
 #include <QCursor>
+#include <QGraphicsSceneMouseEvent>
 
 Cell::Cell(int x, int y): y(y), x(x), color(Qt::white)
 {
@@ -19,7 +20,6 @@ void Cell::changeStatusOfCell(const int &status)
 		break;
 	}
 	this->update();
-	this->setEnabled(false);
 }
 
 QRectF Cell::boundingRect() const
@@ -43,22 +43,24 @@ void Cell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
 void Cell::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-	emit attacked(this);
+	if (event->button() == Qt::LeftButton){
+		emit attacked(this);
+	}
 }
 
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-	difference = mapToParent(QCursor::pos());
+	if (event->button() == Qt::RightButton){
+		qDebug() << "delete Me";
+	} else if (event->button() == Qt::LeftButton){
+		first = event->scenePos();
+	}
 }
-
 
 void Cell::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-	QPointF first = mapToParent(this->pos());
-	QPointF cursor = mapToParent(QCursor::pos());
-	QPointF secondTmp = first + cursor - difference;
-	QPointF second = mapFromScene(secondTmp.toPoint());
-	second.setX(qAbs(second.x()));
-	second.setY(qAbs(second.y()));
-	emit getCoordinate(mapFromScene(first), second);
+	if (event->button() == Qt::LeftButton){
+		QPointF second = event->scenePos();
+		emit getCoordinate(first, second);
+	}
 }

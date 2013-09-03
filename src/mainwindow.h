@@ -1,6 +1,7 @@
 #include <QMainWindow>
 #include "cell.h"
 #include "field.h"
+#include "tabOfInformation.h"
 namespace Ui {
 class MainWindow;
 }
@@ -20,4 +21,5 @@ private:
     Ui::MainWindow *ui;
 	Field *fieldFirst;
 	Field *fieldSecond;
+	TabOfInformation *infoTab;
 };

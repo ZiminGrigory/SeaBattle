@@ -27,7 +27,6 @@ Field::Field(QWidget *parent) :
 			mScene->addItem(item);
 		}
 	}
-	field[3]->changeStatusOfCell(KILLED);
 	ui->graphicsView->setScene(mScene);
 }
 

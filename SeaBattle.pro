@@ -21,8 +21,9 @@ SOURCES += src/main.cpp\
     src/aiPlayer.cpp \
     src/gameMaster.cpp \
     src/field.cpp \
-    src/cell.cpp
-	src/fleetInstaller.cpp
+	src/cell.cpp \
+	src/fleetInstaller.cpp \
+    src/tabOfInformation.cpp
 
 HEADERS  += src/mainwindow.h \
     src/enemyCell.h \
@@ -38,8 +39,10 @@ HEADERS  += src/mainwindow.h \
     src/fleetFactory.h \
 	src/cellShip.h \
     src/field.h \
-	src/cell.h
-	src/fleetInstaller.h
+	src/cell.h \
+	src/fleetInstaller.h \
+    src/tabOfInformation.h
 
 FORMS    += gui/mainwindow.ui \
-    src/field.ui
+    src/field.ui \
+    src/tabOfInformation.ui

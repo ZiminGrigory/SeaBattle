@@ -21,6 +21,6 @@ signals:
 private:
 	int x;
 	int y;
-	QPointF difference;
+	QPointF first;
 	QColor color;
 };
