@@ -16,6 +16,7 @@ class AIPlayer : public Player
 public:
     explicit AIPlayer(QObject* parent = 0);
 
+    void installFleet();
 public slots:
     /**
       * Nothing to thing about it, choose the random cell!

@@ -57,27 +57,27 @@ FleetInstaller::ptrShip FleetInstaller::pickShip(FleetInstaller::CellPair cells,
     return QSharedPointer<Ship>();
 }
 
-void FleetInstaller::shipPlaced(FleetInstaller::CellPair cells)
+FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(FleetInstaller::CellPair cells)
 {
     QPair<int, int> point1 = coordinates(cells.first);
     QPair<int, int> point2 = coordinates(cells.second);
     if (!checkCoord(point1.first, point1.second) || !(checkCoord(point2.first, point2.second)))
     {
         emit placementResult(UNCORRECT_COORDINATES);
-        return;
+        return UNCORRECT_COORDINATES;
     }
 
     Orientation pos = orientation(cells);
     if (pos == CURVE)
     {
         emit placementResult(NOT_LINE);
-        return;
+        return NOT_LINE;
     }
     ptrShip ship = pickShip(cells, pos);
     if (!ship)
     {
         emit placementResult(HAVE_NOT_SHIP);
-        return;
+        return HAVE_NOT_SHIP;
     }
 
     // check surrounding cells is there ships
@@ -96,7 +96,7 @@ void FleetInstaller::shipPlaced(FleetInstaller::CellPair cells)
                 if (field->getShip(j * FIELD_ROW_NUM + i))
                 {
                     emit placementResult(CELL_OCCUPIED);
-                    return;
+                    return CELL_OCCUPIED;
                 }
             }
         }
@@ -113,7 +113,7 @@ void FleetInstaller::shipPlaced(FleetInstaller::CellPair cells)
                 if (field->getShip(i * FIELD_ROW_NUM + j))
                 {
                     emit placementResult(CELL_OCCUPIED);
-                    return;
+                    return CELL_OCCUPIED;
                 }
             }
         }
@@ -121,6 +121,7 @@ void FleetInstaller::shipPlaced(FleetInstaller::CellPair cells)
 
     field->setShip(point1.first * FIELD_ROW_NUM + point1.second, pos, ship);
     emit placementResult(OK);
+    return OK;
 }
 
 

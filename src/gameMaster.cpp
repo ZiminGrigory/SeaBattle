@@ -1,21 +1,30 @@
 #include "gameMaster.h"
 
-GameMaster::GameMaster(Player *plr1, Player *plr2, const FleetFactory& fleetCreator, QObject* parent):
+GameMaster::GameMaster(Player *plr1, Player *plr2, QObject* parent):
     QObject(parent),
     player1(plr1),
-    player2(plr2)
+    player2(plr2),
+    fleetFactory()
 {
-    player1->createFleet(fleetCreator);
-    player2->createFleet(fleetCreator);
-
-    turnedPlayer = player1;
-    waitingPlayer = player2;
-
     connect(player1.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
     connect(player2.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
 
     connect(player1.data(), SIGNAL(attackResult(AttackStatus)), this, SLOT(informPlayer(AttackStatus)));
     connect(player2.data(), SIGNAL(attackResult(AttackStatus)), this, SLOT(informPlayer(AttackStatus)));
+}
+
+void GameMaster::startGame()
+{
+    player1->createFleet(fleetFactory);
+    player1->installFleet();
+
+    player2->createFleet(fleetFactory);
+    player2->installFleet();
+
+    turnedPlayer = player1;
+    waitingPlayer = player2;
+
+    offerTurn();
 }
 
 void GameMaster::offerTurn()

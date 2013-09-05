@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "player.h"
+#include "fleetInstaller.h"
 
 // for test purpose
 class HumanPlayerTest;
@@ -16,12 +17,16 @@ public:
     
     // for test purpose
     friend class HumanPlayerTest;
+
+    /**
+      *
+      */
+    void installFleet();
 public slots:
     /**
       * This slot do nothing because it need to wait until player made a choise.
       */
     void turn();
-private slots:
 };
 
 #endif // HUMANPLAYER_H
