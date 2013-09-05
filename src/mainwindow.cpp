@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::paintStartDialog()
 {
+	ui->label->setAlignment(Qt::AlignHCenter);
 	fieldFirst = new Field;
 	infoTab = new TabOfInformation;
 	ui->horizontalLayout_2->addWidget(fieldFirst);
@@ -68,6 +69,7 @@ void MainWindow::buildShip(int firstId, int secondId)
 void MainWindow::paintEnemyField()
 {
 	fieldSecond = new Field;
+	connect(fieldSecond, SIGNAL(playerAttackCell(int)), this, SLOT(attackOnCell(int)));
 	fieldFirst->setEnabled(false);
 	infoTab->~TabOfInformation();
 	ui->horizontalLayout_2->addWidget(fieldSecond);

@@ -1,5 +1,5 @@
 #include "view.h"
-
+#include <QDebug>
 View::View()
 {
 }
@@ -40,23 +40,27 @@ void View::paintCell(int player, int id, int texture)
 
 void View::createShipOnCells(int firstId, int secondId)
 {
+	qDebug() << firstId << ' ' << secondId;
 	emit createShip(firstId, secondId);
 }
 
 
 void View::fieldHasReady()
 {
+	qDebug() << "ready";
 	emit readyToFight();
 }
 
 
 void View::cellWasAttacked(int id)
 {
+	qDebug() << id;
 	emit attackOnCell(id);
 }
 
 
 void View::deleteShipOnCell(int id)
 {
+	qDebug() << id;
 	emit deleteShip(id);
 }
