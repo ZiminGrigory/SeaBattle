@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/pictures">
+        <file>small ship.jpg</file>
+        <file>bottom burning.jpg</file>
+        <file>bottom.jpg</file>
+        <file>head burning.jpg</file>
+        <file>head.jpg</file>
+        <file>middle part burning.jpg</file>
+        <file>middle part.jpg</file>
+        <file>sea.jpg</file>
+        <file>smoke.jpg</file>
+        <file>splash.jpg</file>
+        <file>wreck.jpg</file>
+    </qresource>
+</RCC>
