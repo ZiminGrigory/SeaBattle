@@ -10,11 +10,15 @@ class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-    explicit GameMaster(Player* plr1, Player* plr2, const FleetFactory &fleetCreator, QObject* parent = 0);
+    explicit GameMaster(Player* plr1, Player* plr2, QObject* parent = 0);
 
+    /**
+      * Method start the game.
+      */
+    void startGame();
 public slots:
     /**
-      * Offer to made turn to turned player.
+      * Offer to make turn to turned player.
       */
     void offerTurn();
     /**
@@ -33,6 +37,8 @@ private:
     typedef QSharedPointer<Player> ptrPlayer;
     ptrPlayer player1;
     ptrPlayer player2;
+
+    FleetFactory fleetFactory;
 
     ptrPlayer turnedPlayer;
     ptrPlayer waitingPlayer;

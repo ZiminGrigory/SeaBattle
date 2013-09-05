@@ -8,6 +8,7 @@
 #include "playerField.h"
 #include "enemyField.h"
 #include "fleetFactory.h"
+#include "fleetInstaller.h"
 
 /**
   * Player is a inherited class for all implementation of players (human, AI etc).
@@ -16,10 +17,7 @@ class Player : public QObject
 {
     Q_OBJECT
 public:
-    explicit Player(QObject* parent = 0) :
-        QObject(parent),
-        fleetHealth(0)
-    {}
+    explicit inline Player(QObject* parent = 0);
     virtual ~Player() {}
 
     /**
@@ -30,6 +28,10 @@ public:
       * Create fleet using FleetFactory object.
       */
     inline void createFleet(const FleetFactory& factory);
+    /**
+      * Slot intall player fleet on field.
+      */
+    virtual void installFleet() = 0;
 signals:
     /**
       * This signal must be emitted when player chose a cell to attack (id is an identifeir of a cell).
@@ -61,6 +63,8 @@ protected:
     PlayerField myField;
     EnemyField enemyField;
 
+    QScopedPointer<FleetInstaller> fleetInstaller;
+
     typedef QSharedPointer<Ship> ptrShip;
     QVector<ptrShip> fleet;
     /**
@@ -69,6 +73,14 @@ protected:
     int fleetHealth;
 
 };
+
+inline Player::Player(QObject *parent) :
+    QObject(parent),
+    fleetHealth(0),
+    fleetInstaller(NULL)
+{
+    fleetInstaller.reset(new FleetInstaller(fleet, &myField));
+}
 
 inline bool Player::lose()
 {

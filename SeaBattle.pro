@@ -45,3 +45,5 @@ HEADERS  += src/mainwindow.h \
 
 FORMS    += gui/mainwindow.ui \
     src/field.ui
+
+RESOURCES +=
