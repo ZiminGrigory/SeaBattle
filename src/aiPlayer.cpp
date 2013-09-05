@@ -1,6 +1,6 @@
 #include "aiPlayer.h"
 
-AIPlayer::AIPlayer(QObject *parent)
+AIPlayer::AIPlayer(View *view, QObject *parent): view(view)
 {
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
@@ -18,7 +18,8 @@ void AIPlayer::installFleet()
         }
         int row = 0;
         int col = 0;
-        QPair<int, int> ids(0, 0);
+		int first = 0;
+		int second = 0;
         do
         {
             do
@@ -42,9 +43,9 @@ void AIPlayer::installFleet()
             {
                 point2.first + shipSize;
             }
-            ids.first = getIdByCoordinates(point1);
-            ids.second = getIdByCoordinates(point2);
-        } while(fleetInstaller->shipPlaced(ids) != FleetInstaller::OK);
+			first = getIdByCoordinates(point1);
+			second = getIdByCoordinates(point2);
+		} while(fleetInstaller->shipPlaced(first, second) != FleetInstaller::OK);
     }
 }
 

@@ -57,23 +57,24 @@ FleetInstaller::ptrShip FleetInstaller::pickShip(FleetInstaller::CellPair cells,
     return QSharedPointer<Ship>();
 }
 
-FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(FleetInstaller::CellPair cells)
+FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int secondId)
 {
-    QPair<int, int> point1 = coordinates(cells.first);
-    QPair<int, int> point2 = coordinates(cells.second);
+	QPair<int, int> point1 = coordinates(firstId);
+	QPair<int, int> point2 = coordinates(secondId);
     if (!checkCoord(point1.first, point1.second) || !(checkCoord(point2.first, point2.second)))
     {
         emit placementResult(UNCORRECT_COORDINATES);
         return UNCORRECT_COORDINATES;
     }
 
-    Orientation pos = orientation(cells);
+	QPair<int, int> cells(firstId, secondId);
+	Orientation pos = orientation(cells);
     if (pos == CURVE)
     {
         emit placementResult(NOT_LINE);
         return NOT_LINE;
     }
-    ptrShip ship = pickShip(cells, pos);
+	ptrShip ship = pickShip(cells, pos);
     if (!ship)
     {
         emit placementResult(HAVE_NOT_SHIP);

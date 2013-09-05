@@ -3,14 +3,14 @@
 
 #include <QObject>
 #include <QSharedPointer>
-
+#include "view.h"
 #include "player.h"
 
 class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-    explicit GameMaster(Player* plr1, Player* plr2, QObject* parent = 0);
+	explicit GameMaster(Player* plr1, Player* plr2, View *view, QObject* parent = 0);
 
     /**
       * Method start the game.
@@ -42,6 +42,8 @@ private:
 
     ptrPlayer turnedPlayer;
     ptrPlayer waitingPlayer;
+
+	View *view;
 };
 
 #endif // GAMEMASTER_H

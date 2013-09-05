@@ -8,6 +8,7 @@
 
 #include "types.h"
 #include "enemyCell.h"
+#include "view.h"
 
 // for test purpose
 class EnemyFieldTest;

@@ -9,6 +9,7 @@
 #include "enemyField.h"
 #include "fleetFactory.h"
 #include "fleetInstaller.h"
+#include "view.h"
 
 /**
   * Player is a inherited class for all implementation of players (human, AI etc).
@@ -79,7 +80,6 @@ inline Player::Player(QObject *parent) :
     fleetHealth(0),
     fleetInstaller(NULL)
 {
-    fleetInstaller.reset(new FleetInstaller(fleet, &myField));
 }
 
 inline bool Player::lose()
@@ -90,6 +90,7 @@ inline bool Player::lose()
 void Player::createFleet(const FleetFactory& factory)
 {
     fleet = factory.createFleet();
+	fleetInstaller.reset(new FleetInstaller(fleet, &myField));
     fleetHealth = 0;
     for (int i = 0; i < fleet.size(); i++)
     {

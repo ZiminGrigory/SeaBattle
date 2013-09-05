@@ -14,7 +14,7 @@ class AIPlayer : public Player
 {
     Q_OBJECT
 public:
-    explicit AIPlayer(QObject* parent = 0);
+	explicit AIPlayer(View *view, QObject* parent = 0);
 
     void installFleet();
 public slots:
@@ -22,6 +22,8 @@ public slots:
       * Nothing to thing about it, choose the random cell!
       */
     void turn();
+private:
+	View *view;
 };
 
 #endif // AIPLAYER_H

@@ -48,7 +48,7 @@ public slots:
       * It might connect to view object for human player or to other method for generate fleet for ai.
       * Slot emits signal placementResult() with status of this try to place ship.
       */
-    PlacementStatus shipPlaced(CellPair cells);
+	PlacementStatus shipPlaced(int firstId, int secondId);
     
 private:
     enum Orientation
