@@ -14,8 +14,12 @@ public:
 	explicit MainWindow(QWidget *parent = 0);
 	void paintStartDialog();
 	void changeCounter(int ship, int count);
-	void paintCell(int player, int id, int texture);
+    void paintCell(int player, int id, Textures texture);
 	void changeTurn(int player);
+
+
+    //Cell* getCellView(Players plr, int id);
+
 	~MainWindow();
 
 public slots:

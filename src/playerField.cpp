@@ -1,15 +1,38 @@
 #include "playerField.h"
 
-PlayerField::PlayerField(QObject *parent) :
-    QObject(parent)
+PlayerField::PlayerField(View* _view, QObject *parent) :
+    QObject(parent),
+    view(_view)
 {
+    /*
+    for (int i = 0; i < FIELD_ROW_NUM; i++)
+    {
+        for (int j = 0; j < FIELD_COL_NUM; j++)
+        {
+            field[i][j].setView(view->getCellView(YOU, getIdByCoordinates(i, j)));
+        }
+    }
+    */
 }
 
 AttackStatus PlayerField::attack(int id)
 {
     int x = id / FIELD_ROW_NUM;
     int y = id % FIELD_COL_NUM;
-    return field[x][y].attack();
+    AttackStatus status =  field[x][y].attack();
+
+    if (status == MISS)
+    {
+        view->paintCell(YOU, id, MISS_CELL);
+    }
+    else if (status == WOUNDED)
+    {
+        view->paintCell(YOU, id, SHIP_DAMAGED);
+    }
+    else if (status == KILLED)
+    {
+        view->paintCell(YOU, id, SHIP_KILLED);
+    }
 }
 
 QSharedPointer<Ship> PlayerField::getShip(int id)
@@ -36,6 +59,7 @@ void PlayerField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
             if (checkCoord(row, col + i))
             {
                 field[row][col + i].setShip(ship);
+                view->paintCell(plr, getIdByCoordinates(row, col + i), SHIP_SINGLE);
             }
         }
     }
@@ -47,7 +71,13 @@ void PlayerField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
             if (checkCoord(row + i, col))
             {
                 field[row + i][col].setShip(ship);
+                view->paintCell(plr, getIdByCoordinates(row + i, col), SHIP_SINGLE);
             }
         }
     }
+}
+
+void PlayerField::setPlr(Players _plr)
+{
+    plr = _plr;
 }

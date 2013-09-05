@@ -1,15 +1,18 @@
 #include "humanPlayer.h"
 
-HumanPlayer::HumanPlayer(View *view, QObject *parent): view(view)
+HumanPlayer::HumanPlayer(View* _view, QObject *parent):
+    Player(_view)
 {
-	connect(view, SIGNAL(createShip(int,int)), fleetInstaller.data(), SLOT(shipPlaced(int,int)));
+    myField.setPlr(YOU);
+    enemyField.setPlr(ENEMY);
+
 	connect(view, SIGNAL(attackOnCell(int)), this, SLOT(cellWasAttacked(int)));
 	connect(view, SIGNAL(deleteShip(int)), this, SLOT(deleteShip(int)));
 }
 
 void HumanPlayer::installFleet()
 {
-
+    connect(view, SIGNAL(createShip(int,int)), fleetInstaller.data(), SLOT(shipPlaced(int,int)));
 }
 
 void HumanPlayer::turn()

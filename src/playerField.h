@@ -6,6 +6,7 @@
 
 #include "types.h"
 #include "playerCell.h"
+#include "view.h"
 
 /**
   * Class of game field of player.
@@ -15,7 +16,7 @@ class PlayerField : public QObject
 {
     Q_OBJECT
 public:
-    explicit PlayerField(QObject* parent = 0);
+    explicit PlayerField(View* _view, QObject* parent = 0);
 
     /**
       * Attack cell with id given by argument. Return the result of attack.
@@ -36,8 +37,16 @@ public:
       * @param ship ship for placement.
       */
     void setShip(int id, bool orientation, QSharedPointer<Ship> ship);
+
+    /**
+      *
+      */
+    void setPlr(Players _plr);
+
 private:
     PlayerCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
+    View* view;
+    Players plr;
 };
 
 #endif // PLAYERFIELD_H

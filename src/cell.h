@@ -14,7 +14,7 @@ public:
 	void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 	void mousePressEvent(QGraphicsSceneMouseEvent *event);
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-	void changeStatusOfCell(int const &status = NOT_ATTACKED);
+    void changeStatusOfCell(Textures texture = EMPTY);
 signals:
 	void attacked(int id);
 	void getCoordinate(QPointF first, QPointF second);

@@ -20,7 +20,23 @@ enum NameOfShips{
 	BOAT_SCOUT
 };
 
+enum Textures
+{
+    EMPTY,
+    MISS_CELL,
+    SHIP_POOP_VERTICAL,
+    SHIP_BOW_VERTICAL,
+    SHIP_DECK_VERTICAL,
+    SHIP_POOP_HORIZONTAL,
+    SHIP_BOW_HORIZONTAL,
+    SHIP_DECK_HORIZONTAL,
+    SHIP_SINGLE,
+    SHIP_DAMAGED,
+    SHIP_KILLED
+};
+
 enum Players{
+    NONE,
 	YOU,
 	ENEMY
 };
@@ -37,6 +53,11 @@ inline QPair<int, int> coordinates(int id)
 inline int getIdByCoordinates(const QPair<int, int>& point)
 {
     return point.first * FIELD_ROW_NUM + point.second;
+}
+
+inline int getIdByCoordinates(int row, int col)
+{
+    return row * FIELD_ROW_NUM + col;
 }
 
 inline bool checkCoord(int x, int y)

@@ -21,7 +21,7 @@ class EnemyField : public QObject
 {
     Q_OBJECT
 public:
-    explicit EnemyField(QObject *parent = 0);
+    explicit EnemyField(View* _view, QObject *parent = 0);
     
     /**
       * This method called to inform field about result of last attack.
@@ -34,6 +34,11 @@ public:
       */
     bool attack(int id);
 
+    /**
+      *
+      */
+    void setPlr(Players _plr);
+
     // for test purpose
     friend class EnemyFieldTest;
 private:
@@ -45,6 +50,8 @@ private:
 
     EnemyCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
     int lastAttackedCellId;
+    Players plr;
+    View* view;
 };
 
 #endif // ENEMYFIELD_H

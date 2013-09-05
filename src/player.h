@@ -18,7 +18,7 @@ class Player : public QObject
 {
     Q_OBJECT
 public:
-    explicit inline Player(QObject* parent = 0);
+    explicit inline Player(View* view, QObject* parent = 0);
     virtual ~Player() {}
 
     /**
@@ -61,6 +61,8 @@ public slots:
       */
     inline void enemyTurn(int id);
 protected:
+    View *view;
+
     PlayerField myField;
     EnemyField enemyField;
 
@@ -75,10 +77,13 @@ protected:
 
 };
 
-inline Player::Player(QObject *parent) :
+inline Player::Player(View* _view, QObject *parent):
     QObject(parent),
     fleetHealth(0),
-    fleetInstaller(NULL)
+    fleetInstaller(),
+    myField(_view),
+    enemyField(_view),
+    view(_view)
 {
 }
 

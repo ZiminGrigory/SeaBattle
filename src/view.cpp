@@ -32,11 +32,19 @@ void View::changeTurn(int player)
 }
 
 
-void View::paintCell(int player, int id, int texture)
+void View::paintCell(Players player, int id, Textures texture)
 {
-	mMainWindow->paintCell(player, id, texture);
+    if (player == NONE)
+        return;
+    mMainWindow->paintCell(player, id, texture);
 }
 
+/*
+Cell *View::getCellView(Players plr, int id)
+{
+    return mMainWindow->getCellView(plr, id);
+}
+*/
 
 void View::createShipOnCells(int firstId, int secondId)
 {

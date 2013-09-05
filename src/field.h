@@ -13,7 +13,10 @@ class Field : public QWidget
 	
 public:
 	explicit Field(QWidget *parent = 0);
-	void paintCell(int id, int status);
+    void paintCell(int id, Textures texture);
+
+    Cell* getCellView(int id);
+
 	~Field();
 private slots:
 	void cellWasAttacked(int id);

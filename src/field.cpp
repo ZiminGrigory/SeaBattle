@@ -31,9 +31,14 @@ Field::Field(QWidget *parent) :
 	ui->graphicsView->setScene(mScene);
 }
 
-void Field::paintCell(int id, int status)
+void Field::paintCell(int id, Textures texture)
 {
-	field.at(id)->changeStatusOfCell(status);
+    field.at(id)->changeStatusOfCell(texture);
+}
+
+Cell* Field::getCellView(int id)
+{
+    return field[id];
 }
 
 Field::~Field()

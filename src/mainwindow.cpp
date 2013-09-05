@@ -7,20 +7,20 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
-	ui->label->setText("SHIP BUILDING");
+    ui->label->setText("SHIP BUILDING");
 }
 
 void MainWindow::paintStartDialog()
 {
-	ui->label->setAlignment(Qt::AlignHCenter);
-	fieldFirst = new Field;
-	infoTab = new TabOfInformation;
-	ui->horizontalLayout_2->addWidget(fieldFirst);
-	ui->horizontalLayout_2->addWidget(infoTab);
-	connect(infoTab, SIGNAL(fieldIsReady()), this, SLOT(paintEnemyField()));
+    ui->label->setAlignment(Qt::AlignHCenter);
+    fieldFirst = new Field;
+    infoTab = new TabOfInformation;
+    ui->horizontalLayout_2->addWidget(fieldFirst);
+    ui->horizontalLayout_2->addWidget(infoTab);
+    connect(infoTab, SIGNAL(fieldIsReady()), this, SLOT(paintEnemyField()));
 	connect(fieldFirst, SIGNAL(playerAttackCell(int)), this, SLOT(attackOnCell(int)));
 	connect(fieldFirst, SIGNAL(shipOnCells(int,int)), this, SLOT(buildShip(int, int)));
-	connect(fieldFirst, SIGNAL(deleteShip(int)), this, SLOT(deleteShipOnCell(int)));
+    connect(fieldFirst, SIGNAL(deleteShip(int)), this, SLOT(deleteShipOnCell(int)));
 }
 
 void MainWindow::changeCounter(int ship, int count)
@@ -28,9 +28,9 @@ void MainWindow::changeCounter(int ship, int count)
 	infoTab->changeCountOfShip(ship, count);
 }
 
-void MainWindow::paintCell(int player, int id, int texture)
+void MainWindow::paintCell(int player, int id, Textures texture)
 {
-	if (player == 0){
+    if (player == YOU){
 		fieldFirst->paintCell(id, texture);
 	}
 	else{
@@ -47,8 +47,22 @@ void MainWindow::changeTurn(int player)
 	else{
 		ui->label->setText("ENEMY TURNS");
 		fieldSecond->setEnabled(false);
-	}
+    }
 }
+
+/*
+Cell *MainWindow::getCellView(Players plr, int id)
+{
+    if (plr == YOU)
+    {
+        return fieldFirst->getCellView(id);
+    }
+    else
+    {
+        return fieldSecond->getCellView(id);
+    }
+}
+*/
 
 MainWindow::~MainWindow()
 {

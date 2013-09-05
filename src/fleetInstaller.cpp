@@ -120,7 +120,12 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
         }
     }
 
-    field->setShip(point1.first * FIELD_ROW_NUM + point1.second, pos, ship);
+    bool orn = true;
+    if (pos == VERTICAL)
+    {
+        orn = false;
+    }
+    field->setShip(point1.first * FIELD_ROW_NUM + point1.second, orn, ship);
     emit placementResult(OK);
     return OK;
 }

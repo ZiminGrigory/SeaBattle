@@ -42,3 +42,8 @@ void PlayerCell::setShip(const QSharedPointer<Ship> &_ship)
 void PlayerCell::mark(AttackStatus res)
 {
 }
+
+void PlayerCell::setView(Cell *_cellView)
+{
+    cellView = _cellView;
+}

@@ -4,6 +4,7 @@
 
 #include "types.h"
 #include "ship.h"
+#include "cell.h"
 
 /**
   * PlayerCell is a class of cells belong to player.
@@ -31,9 +32,17 @@ public:
       * Mark this cell depending on result of attack.
       */
     void mark(AttackStatus res);
+    /**
+      *
+      */
+    void setView(Cell* _cellView);
 private:
     /**
       * Pointer to the ship placed on this cell.
       */
     QSharedPointer<Ship> ship;
+    /**
+      *
+      */
+    Cell* cellView;
 };

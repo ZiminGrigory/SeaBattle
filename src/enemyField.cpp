@@ -1,18 +1,18 @@
 #include "enemyField.h"
 
-EnemyField::EnemyField(QObject *parent) :
-    QObject(parent)
+EnemyField::EnemyField(View* _view, QObject *parent) :
+    QObject(parent),
+    lastAttackedCellId(0),
+    view(_view)
 {
     /*
     for (int i = 0; i < FIELD_ROW_NUM; i++)
     {
         for (int j = 0; j < FIELD_COL_NUM; j++)
         {
-            connect(&field[i][j], SIGNAL(attacked()), &mapper, SLOT(map()));
-            mapper.setMapping(&field[i][j], i * FIELD_ROW_NUM + j);
+            field[i][j].setView(view->getCellView(ENEMY, getIdByCoordinates(i, j)));
         }
     }
-    connect(&mapper, SIGNAL(mapped(int)), this, SLOT(attack(int)));
     */
 }
 
@@ -20,12 +20,20 @@ void EnemyField::attackResult(AttackStatus res)
 {
     int x = lastAttackedCellId / FIELD_ROW_NUM;
     int y = lastAttackedCellId - x * FIELD_ROW_NUM;
-    if ((res == MISS) || (res == WOUNDED))
+
+    if (res == MISS)
     {
+        view->paintCell(ENEMY, getIdByCoordinates(x, y), MISS_CELL);
+        field[x][y].mark(res);
+    }
+    else if (res == WOUNDED)
+    {
+        view->paintCell(ENEMY, getIdByCoordinates(x, y), SHIP_DAMAGED);
         field[x][y].mark(res);
     }
     else if (res == KILLED)
     {
+        view->paintCell(ENEMY, getIdByCoordinates(x, y), SHIP_KILLED);
         field[x][y].mark(res);
         QStack<Coord> markedCells;
         markedCells.push(Coord(x, y));
@@ -61,22 +69,30 @@ bool EnemyField::attack(int id)
     }
 }
 
+void EnemyField::setPlr(Players _plr)
+{
+    plr = _plr;
+}
+
 void EnemyField::markKilled(int i, int j, QStack<Coord> *markedCells)
 {
     if (checkCoord(i, j))
     {
         if (field[i][j].getAttackStatus() == KILLED)
         {
+            view->paintCell(plr, getIdByCoordinates(i, j), SHIP_KILLED);
             return;
         }
         else if (field[i][j].getAttackStatus() == WOUNDED)
         {
             field[i][j].mark(KILLED);
+            view->paintCell(plr, getIdByCoordinates(i, j), SHIP_DAMAGED);
             markedCells->push(Coord(i, j));
         }
         else
         {
             field[i][j].mark(MISS);
+            view->paintCell(plr, getIdByCoordinates(i, j), MISS_CELL);
         }
     }
 }

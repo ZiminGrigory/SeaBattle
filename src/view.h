@@ -1,16 +1,20 @@
 #pragma once
+
 #include "mainwindow.h"
+#include "cell.h"
 
 class View : public QObject
 {
 	Q_OBJECT
 public:
-	View();
+    View();
 	~View();
 	void paintMainWindowWithStartDialog();
 	void changeCounter(int ship, int count);
-	void paintCell(int player, int id, int texture);
+    void paintCell(Players player, int id, Textures texture);
 
+    // to do: do something with this terrible thing
+    //Cell* getCellView(Players plr, int id);
 public slots:
 	void changeTurn(int player);
 

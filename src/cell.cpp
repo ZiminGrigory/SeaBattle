@@ -8,16 +8,19 @@ Cell::Cell(int x, int y): y(y), x(x), color(Qt::white)
 }
 
 
-void Cell::changeStatusOfCell(const int &status)
+void Cell::changeStatusOfCell(Textures texture)
 {
 	//для теста, потом здесь будут картинки, а мб и не будет картинок
-	switch (status) {
-		case MISS: color = Qt::blue;
+    switch (texture) {
+    case EMPTY: color = Qt::blue;
 		break;
-		case WOUNDED: color = Qt::red;
+    case SHIP_DAMAGED: color = Qt::red;
 		break;
-		case KILLED: color = Qt::black;
+    case SHIP_KILLED: color = Qt::darkRed;
+        break;
+    case MISS_CELL: color = Qt::gray;
 		break;
+    default: color = Qt::yellow;
 	}
 	this->update();
 }

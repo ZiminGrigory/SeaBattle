@@ -1,7 +1,10 @@
 #include "aiPlayer.h"
 
-AIPlayer::AIPlayer(View *view, QObject *parent): view(view)
+AIPlayer::AIPlayer(View *view, QObject *parent):
+    Player(view)
 {
+    myField.setPlr(NONE);
+    enemyField.setPlr(YOU);
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
 }
@@ -20,6 +23,7 @@ void AIPlayer::installFleet()
         int col = 0;
 		int first = 0;
 		int second = 0;
+        FleetInstaller::PlacementStatus status = FleetInstaller::OK;
         do
         {
             do
@@ -45,7 +49,14 @@ void AIPlayer::installFleet()
             }
 			first = getIdByCoordinates(point1);
 			second = getIdByCoordinates(point2);
-		} while(fleetInstaller->shipPlaced(first, second) != FleetInstaller::OK);
+
+            status = fleetInstaller->shipPlaced(first, second);
+            bool b = (status != FleetInstaller::OK) ||
+                    (status != FleetInstaller::HAVE_NOT_SHIP);
+            bool d = true;
+
+        } while((status != FleetInstaller::OK) &&
+                (status != FleetInstaller::HAVE_NOT_SHIP));
     }
 }
 

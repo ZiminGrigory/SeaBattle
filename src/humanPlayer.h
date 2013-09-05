@@ -14,7 +14,7 @@ class HumanPlayer : public Player
 {
     Q_OBJECT
 public:
-	explicit HumanPlayer(View *view, QObject *parent = 0);
+    explicit HumanPlayer(View* _view, QObject *parent = 0);
     
     // for test purpose
     friend class HumanPlayerTest;
@@ -32,8 +32,6 @@ public slots:
 private slots:
 	void cellWasAttacked(int id);
 	void deleteShip(int id);
-private:
-	View *view;
 };
 
 #endif // HUMANPLAYER_H

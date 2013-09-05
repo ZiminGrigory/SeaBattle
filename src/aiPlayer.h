@@ -22,8 +22,6 @@ public slots:
       * Nothing to thing about it, choose the random cell!
       */
     void turn();
-private:
-	View *view;
 };
 
 #endif // AIPLAYER_H

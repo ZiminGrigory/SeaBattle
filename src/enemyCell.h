@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+#include "cell.h"
 #include "types.h"
 
 /**
@@ -26,6 +27,10 @@ public:
       * @return true if this cell could be attacked, false otherwise.
       */
     bool attack();
+    /**
+      *
+      */
+    void setView(Cell* _cellView);
 private:
     /**
       * HIDE cell is a cell that has not attacked yet,
@@ -41,6 +46,8 @@ private:
       */
     State state;
     AttackStatus attackStatus;
+
+    Cell* cellView;
 };
 
 #endif // ENEMYCELL_H
