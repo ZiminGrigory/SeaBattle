@@ -22,17 +22,18 @@ Field::Field(QWidget *parent) :
 			field[(i - 1) * 10 + j - 1] = item;
 			item->setData(x, (i - 1) * 10 + j - 1);
 			item->setPos((j - 1) * x, (i - 1) * y);
-			connect(item, SIGNAL(attacked(Cell*)), this, SLOT(cellWasAttacked(Cell*)));\
+			connect(item, SIGNAL(attacked(int)), this, SLOT(cellWasAttacked(int)));\
 			connect(item, SIGNAL(getCoordinate(QPointF,QPointF)), this, SLOT(getCoordinate(QPointF,QPointF)));
+			connect(item, SIGNAL(deleteShip(int)), this, SLOT(deleteShipOnCell(int)));
 			mScene->addItem(item);
 		}
 	}
 	ui->graphicsView->setScene(mScene);
 }
 
-QVector<Cell *> Field::getField()
+void Field::paintCell(int id, int status)
 {
-	return field;
+	field.at(id)->changeStatusOfCell(status);
 }
 
 Field::~Field()
@@ -42,9 +43,9 @@ Field::~Field()
 	delete mScene;
 }
 
-void Field::cellWasAttacked(Cell *item)
+void Field::cellWasAttacked(int id)
 {
-	emit playerAttackCell(item);
+	emit playerAttackCell(id);
 }
 
 void Field::getCoordinate(QPointF first, QPointF second)
@@ -54,4 +55,9 @@ void Field::getCoordinate(QPointF first, QPointF second)
 	Cell *firstCell = dynamic_cast<Cell *>(list.at(0));
 	Cell *secondCell = dynamic_cast<Cell *>(list2.at(0));
 	emit shipOnCells(firstCell->data(sizeOfCube / 10).toInt(), secondCell->data(sizeOfCube / 10).toInt());
+}
+
+void Field::deleteShipOnCell(int id)
+{
+	emit deleteShip(id);
 }

@@ -8,17 +8,32 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
-    
+	Q_OBJECT
+
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+	explicit MainWindow(QWidget *parent = 0);
+	void paintStartDialog();
+	void changeCounter(int ship, int count);
+	void paintCell(int player, int id, int texture);
+	void changeTurn(int player);
+	~MainWindow();
+
 public slots:
-	void test(QVector<Cell*> vector);
-	void testAttack(Cell *item);
-	void testBuildShip(int x, int y);
+	void attackOnCell(int id);
+	void buildShip(int firstId, int secondId);
+
+signals:
+	void deleteShip(int id);
+	void createShip(int firstId, int secondId);
+	void attackCell(int id);
+	void readyToFight();
+
+private slots:
+	void paintEnemyField();
+	void deleteShipOnCell(int id);
+
 private:
-    Ui::MainWindow *ui;
+	Ui::MainWindow *ui;
 	Field *fieldFirst;
 	Field *fieldSecond;
 	TabOfInformation *infoTab;

@@ -1,6 +1,4 @@
-#ifndef PLAYERCELL_H
-#define PLAYERCELL_H
-
+#pragma once
 #include <QObject>
 #include <QSharedPointer>
 
@@ -39,5 +37,3 @@ private:
       */
     QSharedPointer<Ship> ship;
 };
-
-#endif // PLAYERCELL_H

@@ -1,6 +1,5 @@
-#ifndef TABOFINFORMATION_H
-#define TABOFINFORMATION_H
 
+#pragma once
 #include <QWidget>
 #include "types.h"
 namespace Ui {
@@ -14,9 +13,15 @@ class TabOfInformation : public QWidget
 public:
 	explicit TabOfInformation(QWidget *parent = 0);
 	~TabOfInformation();
-	
+	void changeCountOfShip(int ship, int count);
+
+private slots:
+	void pushButtonReadyToFight();
+
+signals:
+	void fieldIsReady();
+
 private:
 	Ui::TabOfInformation *ui;
+	bool isReady();
 };
-
-#endif // TABOFINFORMATION_H

@@ -1,11 +1,10 @@
 #include <QtWidgets/QApplication>
-#include "mainwindow.h"
+#include "view.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-	MainWindow *w = new MainWindow;
-	w->show();
-    
-    return a.exec();
+	QApplication a(argc, argv);
+	View *view = new View;
+	view->paintMainWindowWithStartDialog();
+	return a.exec();
 }

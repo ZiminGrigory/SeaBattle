@@ -16,8 +16,9 @@ public:
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 	void changeStatusOfCell(int const &status = NOT_ATTACKED);
 signals:
-	void attacked(Cell *item);
+	void attacked(int id);
 	void getCoordinate(QPointF first, QPointF second);
+	void deleteShip(int id);
 private:
 	int x;
 	int y;

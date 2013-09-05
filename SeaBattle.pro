@@ -23,7 +23,8 @@ SOURCES += src/main.cpp\
     src/field.cpp \
 	src/cell.cpp \
 	src/fleetInstaller.cpp \
-    src/tabOfInformation.cpp
+    src/tabOfInformation.cpp \
+    src/view.cpp
 
 HEADERS  += src/mainwindow.h \
     src/enemyCell.h \
@@ -41,7 +42,8 @@ HEADERS  += src/mainwindow.h \
     src/field.h \
 	src/cell.h \
 	src/fleetInstaller.h \
-    src/tabOfInformation.h
+    src/tabOfInformation.h \
+    src/view.h
 
 FORMS    += gui/mainwindow.ui \
     src/field.ui \

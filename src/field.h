@@ -13,14 +13,16 @@ class Field : public QWidget
 	
 public:
 	explicit Field(QWidget *parent = 0);
-	QVector<Cell *> getField();
+	void paintCell(int id, int status);
 	~Field();
 private slots:
-	void cellWasAttacked(Cell *item);
+	void cellWasAttacked(int id);
 	void getCoordinate(QPointF first, QPointF second);
+	void deleteShipOnCell(int id);
 signals:
-	void playerAttackCell(Cell *item);
-	void shipOnCells(int x, int y);
+	void playerAttackCell(int id);
+	void shipOnCells(int firstId, int secondId);
+	void deleteShip(int id);
 private:
 	Ui::Field *ui;
 	QVector<Cell *> field;

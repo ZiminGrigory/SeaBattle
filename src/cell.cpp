@@ -44,14 +44,14 @@ void Cell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 void Cell::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton){
-		emit attacked(this);
+		emit attacked(this->data(x).toInt());
 	}
 }
 
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 	if (event->button() == Qt::RightButton){
-		qDebug() << "delete Me";
+		emit deleteShip(this->data(x).toInt());
 	} else if (event->button() == Qt::LeftButton){
 		first = event->scenePos();
 	}
