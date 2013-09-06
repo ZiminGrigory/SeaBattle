@@ -33,12 +33,12 @@ Field::Field(QWidget *parent) :
 
 void Field::paintCell(int id, Textures texture)
 {
-    field.at(id)->changeStatusOfCell(texture);
+	field.at(id)->changeStatusOfCell(texture);
 }
 
 Cell* Field::getCellView(int id)
 {
-    return field[id];
+	return field[id];
 }
 
 Field::~Field()

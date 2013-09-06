@@ -13,7 +13,7 @@ class TabOfInformation : public QWidget
 public:
 	explicit TabOfInformation(QWidget *parent = 0);
 	~TabOfInformation();
-	void changeCountOfShip(int ship, int count);
+	void changeCountOfShip(NameOfShips ship, int count);
 
 private slots:
 	void pushButtonReadyToFight();

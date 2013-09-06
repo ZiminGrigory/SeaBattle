@@ -20,9 +20,9 @@ void View::paintMainWindowWithStartDialog()
 	mMainWindow->paintStartDialog();
 }
 
-void View::changeCounter(int ship, int count)
+void View::changeCounter(NameOfShips ship, int difference)
 {
-	mMainWindow->changeCounter(ship, count);
+	mMainWindow->changeCounter(ship, difference);
 }
 
 
@@ -38,13 +38,6 @@ void View::paintCell(Players player, int id, Textures texture)
         return;
     mMainWindow->paintCell(player, id, texture);
 }
-
-/*
-Cell *View::getCellView(Players plr, int id)
-{
-    return mMainWindow->getCellView(plr, id);
-}
-*/
 
 void View::createShipOnCells(int firstId, int secondId)
 {

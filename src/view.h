@@ -7,16 +7,14 @@ class View : public QObject
 {
 	Q_OBJECT
 public:
-    View();
+	View();
 	~View();
 	void paintMainWindowWithStartDialog();
-	void changeCounter(int ship, int count);
-    void paintCell(Players player, int id, Textures texture);
+	void paintCell(Players player, int id, Textures texture);
 
-    // to do: do something with this terrible thing
-    //Cell* getCellView(Players plr, int id);
 public slots:
 	void changeTurn(int player);
+	void changeCounter(NameOfShips ship, int difference);
 
 signals:
 	void deleteShip(int id);

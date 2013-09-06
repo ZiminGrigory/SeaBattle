@@ -16,23 +16,23 @@ TabOfInformation::~TabOfInformation()
 	delete ui;
 }
 
-void TabOfInformation::changeCountOfShip(int ship, int count)
+void TabOfInformation::changeCountOfShip(NameOfShips ship, int count)
 {
 	switch (ship){
 	case AEROCARRIER:{
-		ui->lcdNumber_4->display(count);
+		ui->lcdNumber_4->display(ui->lcdNumber_4->value() + count);
 		break;
 	}
 	case CRUISER:{
-		ui->lcdNumber_3->display(count);
+		ui->lcdNumber_3->display(ui->lcdNumber_3->value() + count);
 		break;
 	}
 	case DESTROYER:{
-		ui->lcdNumber_2->display(count);
+		ui->lcdNumber_2->display(ui->lcdNumber_2->value() + count);
 		break;
 	}
 	case BOAT_SCOUT:{
-		ui->lcdNumber->display(count);
+		ui->lcdNumber->display(ui->lcdNumber->value() + count);
 		break;
 	}
 	}
@@ -42,7 +42,7 @@ void TabOfInformation::changeCountOfShip(int ship, int count)
 void TabOfInformation::pushButtonReadyToFight()
 {
 	if (isReady()){
-		emit pushButtonReadyToFight();
+		emit fieldIsReady();
 	}
 }
 

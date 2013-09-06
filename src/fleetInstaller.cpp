@@ -96,6 +96,7 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
             {
                 if (field->getShip(j * FIELD_ROW_NUM + i))
                 {
+					fleet.append(ship);
                     emit placementResult(CELL_OCCUPIED);
                     return CELL_OCCUPIED;
                 }
@@ -113,6 +114,7 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
             {
                 if (field->getShip(i * FIELD_ROW_NUM + j))
                 {
+					fleet.append(ship);
                     emit placementResult(CELL_OCCUPIED);
                     return CELL_OCCUPIED;
                 }
@@ -125,6 +127,23 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
     {
         orn = false;
     }
+	NameOfShips shipSize;
+
+	switch (ship->size()) {
+	case 1:
+		shipSize = BOAT_SCOUT;
+		break;
+	case 2:
+		shipSize = DESTROYER;
+		break;
+	case 3:
+		shipSize = CRUISER;
+		break;
+	case 4:
+		shipSize = AEROCARRIER;
+		break;
+	}
+	emit shipPlacedSuccesfully(shipSize, -1);
     field->setShip(point1.first * FIELD_ROW_NUM + point1.second, orn, ship);
     emit placementResult(OK);
     return OK;

@@ -41,7 +41,8 @@ signals:
       * Signal emitted after shipPlaced() slot ended work.
       * Signal contains result of last try to place ship on cells.
       */
-    void placementResult(PlacementStatus res);
+	void placementResult(PlacementStatus res);
+	void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
 public slots:
     /**
       * This slot informs object about a try to place ship on cells kept in QVector.

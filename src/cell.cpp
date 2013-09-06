@@ -11,16 +11,16 @@ Cell::Cell(int x, int y): y(y), x(x), color(Qt::white)
 void Cell::changeStatusOfCell(Textures texture)
 {
 	//для теста, потом здесь будут картинки, а мб и не будет картинок
-    switch (texture) {
-    case EMPTY: color = Qt::blue;
+	switch (texture) {
+	case EMPTY: color = Qt::blue;
 		break;
-    case SHIP_DAMAGED: color = Qt::red;
+	case SHIP_DAMAGED: color = Qt::red;
 		break;
-    case SHIP_KILLED: color = Qt::darkRed;
-        break;
-    case MISS_CELL: color = Qt::gray;
+	case SHIP_KILLED: color = Qt::darkRed;
 		break;
-    default: color = Qt::yellow;
+	case MISS_CELL: color = Qt::gray;
+		break;
+	default: color = Qt::yellow;
 	}
 	this->update();
 }

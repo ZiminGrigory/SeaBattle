@@ -36,7 +36,7 @@ enum Textures
 };
 
 enum Players{
-    NONE,
+	NONE,
 	YOU,
 	ENEMY
 };

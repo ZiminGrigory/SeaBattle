@@ -13,6 +13,8 @@ HumanPlayer::HumanPlayer(View* _view, QObject *parent):
 void HumanPlayer::installFleet()
 {
     connect(view, SIGNAL(createShip(int,int)), fleetInstaller.data(), SLOT(shipPlaced(int,int)));
+	connect(fleetInstaller.data(), SIGNAL(shipPlacedSuccesfully(NameOfShips, int))
+			, view, SLOT(changeCounter(NameOfShips,int)));
 }
 
 void HumanPlayer::turn()

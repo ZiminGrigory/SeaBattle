@@ -13,12 +13,9 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow(QWidget *parent = 0);
 	void paintStartDialog();
-	void changeCounter(int ship, int count);
+	void changeCounter(NameOfShips ship, int count);
     void paintCell(int player, int id, Textures texture);
 	void changeTurn(int player);
-
-
-    //Cell* getCellView(Players plr, int id);
 
 	~MainWindow();
 
