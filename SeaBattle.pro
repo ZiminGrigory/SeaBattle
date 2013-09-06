@@ -49,4 +49,7 @@ HEADERS  += src/mainwindow.h \
 
 FORMS    += gui/mainwindow.ui \
     src/field.ui \
-    src/tabOfInformation.ui
+	src/tabOfInformation.ui
+
+RESOURCES += \
+	src/pictures.qrc

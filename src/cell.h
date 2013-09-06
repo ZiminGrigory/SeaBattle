@@ -23,5 +23,5 @@ private:
 	int x;
 	int y;
 	QPointF first;
-	QColor color;
+	QString mTexture;
 };

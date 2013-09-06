@@ -2,25 +2,26 @@
 #include <QDebug>
 #include <QCursor>
 #include <QGraphicsSceneMouseEvent>
+#include <QPixmap>
 
-Cell::Cell(int x, int y): y(y), x(x), color(Qt::white)
+Cell::Cell(int x, int y): y(y), x(x), mTexture(":/pictures/sea.jpg")
 {
 }
 
 
 void Cell::changeStatusOfCell(Textures texture)
 {
-	//для теста, потом здесь будут картинки, а мб и не будет картинок
+	//расширить
 	switch (texture) {
-	case EMPTY: color = Qt::blue;
+	case EMPTY: mTexture = ":/pictures/small ship.jpg";
 		break;
-	case SHIP_DAMAGED: color = Qt::red;
+	case SHIP_DAMAGED: mTexture = ":/pictures/small ship.jpg";
 		break;
-	case SHIP_KILLED: color = Qt::darkRed;
+	case SHIP_KILLED: mTexture = ":/pictures/small ship.jpg";
 		break;
-	case MISS_CELL: color = Qt::gray;
+	case MISS_CELL: mTexture = "Qt::gray";
 		break;
-	default: color = Qt::yellow;
+	default: mTexture = ":/pictures/small ship.jpg";
 	}
 	this->update();
 }
@@ -39,8 +40,7 @@ QPainterPath Cell::shape() const
 
 void Cell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
-	painter->setBrush(QBrush(color));
+	painter->setBrush(QBrush(QPixmap(mTexture)));
 	painter->drawRect(boundingRect());
 }
 

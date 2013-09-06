@@ -263,7 +263,7 @@ p, li { white-space: pre-wrap; }
       </size>
      </property>
      <property name="text">
-      <string>Fleet is ready!</string>
+      <string>В БОЙ!!!</string>
      </property>
      <property name="shortcut">
       <string/>

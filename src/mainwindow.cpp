@@ -7,11 +7,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
-	ui->label->setText("SHIP BUILDING");
+	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
 }
 
 void MainWindow::paintStartDialog()
 {
+	ui->label->setText(QString::fromLocal8Bit("УСТАНОВКА КОРАБЛЕЙ"));
 	ui->label->setAlignment(Qt::AlignHCenter);
 	fieldFirst = new Field;
 	infoTab = new TabOfInformation;
@@ -41,11 +42,11 @@ void MainWindow::paintCell(int player, int id, Textures texture)
 void MainWindow::changeTurn(int player)
 {
 	if (player == 0){
-		ui->label->setText("YOU TURN");
+		ui->label->setText(QString::fromLocal8Bit("ВАШ ХОД"));
 		fieldSecond->setEnabled(true);
 	}
 	else{
-		ui->label->setText("ENEMY TURNS");
+		ui->label->setText(QString::fromLocal8Bit("ХОД ПРОТИВНИКА"));
 		fieldSecond->setEnabled(false);
 	}
 }
