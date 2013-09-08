@@ -39,9 +39,9 @@ void MainWindow::paintCell(int player, int id, Textures texture)
 	}
 }
 
-void MainWindow::changeTurn(int player)
+void MainWindow::changeTurn(Players player)
 {
-	if (player == 0){
+    if (player == YOU){
 		ui->label->setText(QString::fromLocal8Bit("ВАШ ХОД"));
 		fieldSecond->setEnabled(true);
 	}
@@ -76,6 +76,7 @@ void MainWindow::paintEnemyField()
 	infoTab->~TabOfInformation();
 	ui->horizontalLayout_2->addWidget(fieldSecond);
 	fieldSecond->setEnabled(false);
+    emit readyToFight();
 }
 
 void MainWindow::deleteShipOnCell(int id)

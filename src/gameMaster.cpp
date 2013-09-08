@@ -63,7 +63,7 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         // swap the turned and waiting players
         ptrPlayer tmp = turnedPlayer;
         turnedPlayer = waitingPlayer;
-        waitingPlayer = turnedPlayer;
+        waitingPlayer = tmp;
     }
     else
     {

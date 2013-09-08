@@ -13,7 +13,7 @@ public:
 	void paintCell(Players player, int id, Textures texture);
 
 public slots:
-	void changeTurn(int player);
+    void changeTurn(Players player);
 	void changeCounter(NameOfShips ship, int difference);
 
 signals:

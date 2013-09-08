@@ -86,7 +86,7 @@ void EnemyField::markKilled(int i, int j, QStack<Coord> *markedCells)
         else if (field[i][j].getAttackStatus() == WOUNDED)
         {
             field[i][j].mark(KILLED);
-            view->paintCell(plr, getIdByCoordinates(i, j), SHIP_DAMAGED);
+            view->paintCell(plr, getIdByCoordinates(i, j), SHIP_KILLED);
             markedCells->push(Coord(i, j));
         }
         else

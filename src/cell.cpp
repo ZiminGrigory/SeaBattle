@@ -19,7 +19,7 @@ void Cell::changeStatusOfCell(Textures texture)
 		break;
 	case SHIP_KILLED: mTexture = ":/pictures/small ship.jpg";
 		break;
-	case MISS_CELL: mTexture = "Qt::gray";
+    case MISS_CELL: mTexture = ":/pictures/splash.jpg";
 		break;
 	default: mTexture = ":/pictures/small ship.jpg";
 	}

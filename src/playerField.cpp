@@ -23,16 +23,17 @@ AttackStatus PlayerField::attack(int id)
 
     if (status == MISS)
     {
-        view->paintCell(YOU, id, MISS_CELL);
+        view->paintCell(plr, id, MISS_CELL);
     }
     else if (status == WOUNDED)
     {
-        view->paintCell(YOU, id, SHIP_DAMAGED);
+        view->paintCell(plr, id, SHIP_DAMAGED);
     }
     else if (status == KILLED)
     {
-        view->paintCell(YOU, id, SHIP_KILLED);
+        view->paintCell(plr, id, SHIP_KILLED);
     }
+    return status;
 }
 
 QSharedPointer<Ship> PlayerField::getShip(int id)

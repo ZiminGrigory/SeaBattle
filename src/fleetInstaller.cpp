@@ -59,6 +59,15 @@ FleetInstaller::ptrShip FleetInstaller::pickShip(FleetInstaller::CellPair cells,
 
 FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int secondId)
 {
+    // we suppose, that firstId left and up than secondId,
+    // but it may be otherwise, so we swap ids.
+    if (firstId > secondId)
+    {
+        int tmp = firstId;
+        firstId = secondId;
+        secondId = tmp;
+    }
+
 	QPair<int, int> point1 = coordinates(firstId);
 	QPair<int, int> point2 = coordinates(secondId);
     if (!checkCoord(point1.first, point1.second) || !(checkCoord(point2.first, point2.second)))

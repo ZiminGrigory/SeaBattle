@@ -26,7 +26,7 @@ void View::changeCounter(NameOfShips ship, int difference)
 }
 
 
-void View::changeTurn(int player)
+void View::changeTurn(Players player)
 {
 	mMainWindow->changeTurn(player);
 }
