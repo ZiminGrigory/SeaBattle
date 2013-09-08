@@ -47,6 +47,8 @@ private:
     PlayerCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
     View* view;
     Players plr;
+
+	Textures textureOfCell(int i, int shipSize, bool orientation);
 };
 
 #endif // PLAYERFIELD_H

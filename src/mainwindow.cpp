@@ -69,7 +69,7 @@ void MainWindow::buildShip(int firstId, int secondId)
 
 void MainWindow::paintEnemyField()
 {
-	ui->label->setText("LOADING...");
+	ui->label->setText(QString::fromLocal8Bit("ЗАГРУЗКА..."));
 	fieldSecond = new Field;
 	connect(fieldSecond, SIGNAL(playerAttackCell(int)), this, SLOT(attackOnCell(int)));
 	fieldFirst->setEnabled(false);
