@@ -80,7 +80,7 @@ void PlayerField::deleteShip(int id)
 	if (size != 1){
 		do{
 			row++;
-			if (row < 9){
+			if (row <= 9){
 				QSharedPointer<Ship> shipTmp = field[row][column].getShip();
 				if (shipTmp != NULL){
 					view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
@@ -94,7 +94,7 @@ void PlayerField::deleteShip(int id)
 		isAll = true;
 		do{
 			row--;
-			if (row > 0){
+			if (row >= 0){
 				QSharedPointer<Ship> shipTmp = field[row][column].getShip();
 				if (shipTmp != NULL){
 					view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
@@ -108,7 +108,7 @@ void PlayerField::deleteShip(int id)
 		isAll = true;
 		do{
 			column++;
-			if (column < 9){
+			if (column <= 9){
 				QSharedPointer<Ship> shipTmp = field[row][column].getShip();
 				if (shipTmp != NULL){
 					view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
@@ -122,7 +122,7 @@ void PlayerField::deleteShip(int id)
 		isAll = true;
 		do{
 			column--;
-			if (column < 9){
+			if (column <= 9){
 				QSharedPointer<Ship> shipTmp = field[row][column].getShip();
 				if (shipTmp != NULL){
 					view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
