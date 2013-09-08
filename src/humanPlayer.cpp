@@ -15,6 +15,7 @@ void HumanPlayer::installFleet()
     connect(view, SIGNAL(createShip(int,int)), fleetInstaller.data(), SLOT(shipPlaced(int,int)));
 	connect(fleetInstaller.data(), SIGNAL(shipPlacedSuccesfully(NameOfShips, int))
 			, view, SLOT(changeCounter(NameOfShips,int)));
+	connect(view, SIGNAL(deleteShip(int)), fleetInstaller.data(), SLOT(deleteShip(int)));
 }
 
 void HumanPlayer::turn()

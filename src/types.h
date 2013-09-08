@@ -14,10 +14,10 @@ enum AttackStatus
 };
 
 enum NameOfShips{
-	AEROCARRIER,
-	CRUISER,
+	BOAT_SCOUT,
 	DESTROYER,
-	BOAT_SCOUT
+	CRUISER,
+	AEROCARRIER
 };
 
 enum Textures

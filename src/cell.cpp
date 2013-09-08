@@ -13,13 +13,13 @@ void Cell::changeStatusOfCell(Textures texture)
 {
 	//расширить
 	switch (texture) {
-	case EMPTY: mTexture = ":/pictures/small ship.jpg";
+	case EMPTY: mTexture = ":/pictures/sea.jpg";
 		break;
 	case SHIP_DAMAGED: mTexture = ":/pictures/small ship.jpg";
 		break;
 	case SHIP_KILLED: mTexture = ":/pictures/small ship.jpg";
 		break;
-	case MISS_CELL: mTexture = "Qt::gray";
+    case MISS_CELL: mTexture = ":/pictures/splash.jpg";
 		break;
 	case SHIP_POOP_VERTICAL: mTexture = ":/pictures/bottom.jpg";
 		break;

@@ -19,7 +19,6 @@ void MainWindow::paintStartDialog()
 	ui->horizontalLayout_2->addWidget(fieldFirst);
 	ui->horizontalLayout_2->addWidget(infoTab);
 	connect(infoTab, SIGNAL(fieldIsReady()), this, SLOT(paintEnemyField()));
-	connect(fieldFirst, SIGNAL(playerAttackCell(int)), this, SLOT(attackOnCell(int)));
 	connect(fieldFirst, SIGNAL(shipOnCells(int,int)), this, SLOT(buildShip(int, int)));
 	connect(fieldFirst, SIGNAL(deleteShip(int)), this, SLOT(deleteShipOnCell(int)));
 }
@@ -39,9 +38,9 @@ void MainWindow::paintCell(int player, int id, Textures texture)
 	}
 }
 
-void MainWindow::changeTurn(int player)
+void MainWindow::changeTurn(Players player)
 {
-	if (player == 0){
+	if (player == YOU){
 		ui->label->setText(QString::fromLocal8Bit("ВАШ ХОД"));
 		fieldSecond->setEnabled(true);
 	}
@@ -76,6 +75,7 @@ void MainWindow::paintEnemyField()
 	infoTab->~TabOfInformation();
 	ui->horizontalLayout_2->addWidget(fieldSecond);
 	fieldSecond->setEnabled(false);
+	emit readyToFight();
 }
 
 void MainWindow::deleteShipOnCell(int id)

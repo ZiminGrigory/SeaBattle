@@ -15,7 +15,7 @@ public:
 	void paintStartDialog();
 	void changeCounter(NameOfShips ship, int count);
     void paintCell(int player, int id, Textures texture);
-	void changeTurn(int player);
+    void changeTurn(Players player);
 
 	~MainWindow();
 

@@ -43,6 +43,7 @@ signals:
       */
 	void placementResult(PlacementStatus res);
 	void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
+
 public slots:
     /**
       * This slot informs object about a try to place ship on cells kept in QVector.
@@ -50,6 +51,7 @@ public slots:
       * Slot emits signal placementResult() with status of this try to place ship.
       */
 	PlacementStatus shipPlaced(int firstId, int secondId);
+	void deleteShip(int id);
     
 private:
     enum Orientation

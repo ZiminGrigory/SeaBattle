@@ -12,18 +12,19 @@ AttackStatus PlayerField::attack(int id)
 	int y = id % FIELD_COL_NUM;
 	AttackStatus status =  field[x][y].attack();
 
-	if (status == MISS)
-	{
-		view->paintCell(YOU, id, MISS_CELL);
-	}
-	else if (status == WOUNDED)
-	{
-		view->paintCell(YOU, id, SHIP_DAMAGED);
-	}
-	else if (status == KILLED)
-	{
-		view->paintCell(YOU, id, SHIP_KILLED);
-	}
+    if (status == MISS)
+    {
+        view->paintCell(plr, id, MISS_CELL);
+    }
+    else if (status == WOUNDED)
+    {
+        view->paintCell(plr, id, SHIP_DAMAGED);
+    }
+    else if (status == KILLED)
+    {
+        view->paintCell(plr, id, SHIP_KILLED);
+    }
+	return status;
 }
 
 QSharedPointer<Ship> PlayerField::getShip(int id)
@@ -61,6 +62,78 @@ void PlayerField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
 			view->paintCell(plr, getIdByCoordinates(row + i, col), textureOfCell(i + 1, shipSize, orientation));
 		}
 	}
+}
+
+void PlayerField::deleteShip(int id)
+{
+	QPair<int, int> coordinateOfShip = coordinates(id);
+	int row = coordinateOfShip.first;
+	int column = coordinateOfShip.second;
+	QSharedPointer<Ship> ship = field[row][column].getShip();
+	if (ship == NULL){
+		return;
+	}
+	int size = ship.data()->size();
+	view->changeCounter(NameOfShips(size - 1), 1);
+	view->paintCell(plr, id, EMPTY);
+	bool isAll = true;
+	if (size != 1){
+		do{
+			row++;
+			if (row < 9){
+				QSharedPointer<Ship> shipTmp = field[row][column].getShip();
+				if (shipTmp != NULL){
+					view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
+					field[row][column].deleteShip();
+				} else {
+					isAll = false;
+				}
+			}
+		} while (row <= 9 && isAll);
+		row = coordinateOfShip.first;
+		isAll = true;
+		do{
+			row--;
+			if (row > 0){
+				QSharedPointer<Ship> shipTmp = field[row][column].getShip();
+				if (shipTmp != NULL){
+					view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
+					field[row][column].deleteShip();
+				} else {
+					isAll = false;
+				}
+			}
+		} while (row >= 0 && isAll);
+		row = coordinateOfShip.first;
+		isAll = true;
+		do{
+			column++;
+			if (column < 9){
+				QSharedPointer<Ship> shipTmp = field[row][column].getShip();
+				if (shipTmp != NULL){
+					view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
+					field[row][column].deleteShip();
+				} else {
+					isAll = false;
+				}
+			}
+		}while (column <= 9 && isAll);
+		column = coordinateOfShip.second;
+		isAll = true;
+		do{
+			column--;
+			if (column < 9){
+				QSharedPointer<Ship> shipTmp = field[row][column].getShip();
+				if (shipTmp != NULL){
+					view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
+					field[row][column].deleteShip();
+				} else {
+					isAll = false;
+				}
+			}
+		} while (column >= 0 && isAll);
+	}
+	field[coordinateOfShip.first][coordinateOfShip.second].deleteShip();
 }
 
 void PlayerField::setPlr(Players _plr)
