@@ -7,7 +7,7 @@ AIPlayerSimple::AIPlayerSimple(View *view, QObject *parent):
     enemyField.setPlr(YOU);
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
-    successShot = false;
+    //successShot = false;
     isWounded = false;
     lastAttackedCell = -1;
     lastAttackResult = NOT_ATTACKED;
