@@ -57,7 +57,7 @@ void AIPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller
                 (status != FleetInstaller::HAVE_NOT_SHIP));
     }
 
-    emit fleetInstalled();
+    emit fleetInstalled(this);
 }
 
 void AIPlayer::turn()

@@ -45,7 +45,7 @@ signals:
     /**
       * This signal must be emitted when player finished the installing of his fleet and ready to battle.
       */
-    void fleetInstalled();
+    void fleetInstalled(Player* sender);
     /**
       * After player recieves information about enemy turn, he emits this signal with result of attack.
       */

@@ -23,7 +23,7 @@ private slots:
     /**
       *
       */
-    void playerReadyToBattle();
+    void playerReadyToBattle(Player* sender);
     /**
       * Offer to make turn to turned player.
       */

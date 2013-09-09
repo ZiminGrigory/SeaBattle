@@ -37,6 +37,10 @@ private slots:
       * This slot connected with cellWasAttacked() signal of Field view.
       */
 	void cellWasAttacked(int id);
+    /**
+      * Reemit fleetInstalled signal with this parametr.
+      */
+    void reEmitFleetInstalled();
     //void deleteShip(int id);
 private:
     QSharedPointer<FieldView> fieldView;

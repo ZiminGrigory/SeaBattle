@@ -16,7 +16,7 @@ void HumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstal
     fleetInst = fleetInstaller;
     connect(fieldView.data(), SIGNAL(placeShip(int,int)), fleetInst.data(), SLOT(shipPlaced(int,int)));
     connect(fieldView.data(), SIGNAL(deleteShip(int)), fleetInst.data(), SLOT(deleteShip(int)));
-    connect(fleetInst.data(), SIGNAL(fleetInstalled()), this, SIGNAL(fleetInstalled()));
+    connect(fleetInst.data(), SIGNAL(fleetInstalled()), this, SLOT(reEmitFleetInstalled()));
     /*
     connect(fleetInstaller, SIGNAL(shipPlacedSuccesfully(NameOfShips, int))
             , view, SLOT(changeCounter(NameOfShips,int)));
@@ -34,3 +34,7 @@ void HumanPlayer::cellWasAttacked(int id)
     attack(id);
 }
 
+void HumanPlayer::reEmitFleetInstalled()
+{
+    emit fleetInstalled(this);
+}

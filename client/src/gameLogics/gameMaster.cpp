@@ -20,8 +20,8 @@ void GameMaster::startGame()
 {
     connect(player.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
     connect(enemy.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
-    connect(player.data(), SIGNAL(fleetInstalled()), this, SLOT(playerReadyToBattle()));
-    connect(enemy.data(), SIGNAL(fleetInstalled()), this, SLOT(playerReadyToBattle()));
+    connect(player.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
+    connect(enemy.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
 
     view->showPlayerField();
     view->getPlayerFieldView()->setEnabled(true);
@@ -40,17 +40,25 @@ void GameMaster::startGame()
     waitingPlayer = enemy;
 }
 
-void GameMaster::playerReadyToBattle()
+void GameMaster::playerReadyToBattle(Player* sender)
 {
-    static int playersReady = 2;
-    --playersReady;
-    if (playersReady == 0)
+    static bool isFirst = true;
+    if (player == sender)
+    {
+        disconnect(player.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
+    }
+    else if (enemy == sender)
+    {
+        disconnect(enemy.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
+    }
+    if (!isFirst)
     {
         view->showEnemyField();
         view->getEnemyFieldView()->setEnabled(true);
         view->getPlayerFieldView()->setEnabled(false);
         offerTurn();
     }
+    isFirst = false;
 }
 
 void GameMaster::offerTurn()
