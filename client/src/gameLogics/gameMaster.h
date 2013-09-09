@@ -23,15 +23,16 @@ private slots:
     /**
       *
       */
-    void playerReadyToBattle();
+    void playerReadyToBattle(Player* sender);
     /**
       * Offer to make turn to turned player.
       */
     void offerTurn();
     /**
       * Inform waited player that player attacked the cell with passed id.
+      * Before return, call nextTurn() slot.
       */
-    void informOpponent(int id);
+    void informOpponent(int id, AttackStatus turnResult);
     /**
       * Inform turned player about the result of attack.
       */

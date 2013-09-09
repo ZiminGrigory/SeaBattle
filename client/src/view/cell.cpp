@@ -15,9 +15,9 @@ void Cell::changeStatusOfCell(Textures texture)
 	switch (texture) {
 	case EMPTY: mTexture = ":/pictures/sea.jpg";
 		break;
-	case SHIP_DAMAGED: mTexture = ":/pictures/small ship.jpg";
+    case SHIP_DAMAGED: mTexture = ":/pictures/smoke.jpg";
 		break;
-	case SHIP_KILLED: mTexture = ":/pictures/small ship.jpg";
+    case SHIP_KILLED: mTexture = ":/pictures/wreck.jpg";
 		break;
     case MISS_CELL: mTexture = ":/pictures/splash.jpg";
 		break;

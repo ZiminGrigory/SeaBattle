@@ -35,7 +35,7 @@ public:
       */
     QSharedPointer<Ship> getShip(int id);
     /**
-      *
+      * Remove ship placed on cell with recieved id.
       */
     void removeShip(int id);
     /**

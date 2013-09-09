@@ -9,9 +9,11 @@ AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
     qsrand(QTime::currentTime().msec());
 }
 
-void AIPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
+void AIPlayer::installFleet(const QSharedPointer<FleetInstaller>& fleetInstaller)
 {
     QVector<FleetInstaller::ptrShip> fleet = fleetInstaller->getFleet();
+    setFleetHealth(fleet);
+
     for (int i = 0; i < fleet.size(); i++)
     {
         int shipSize = fleet[i]->size();
@@ -56,8 +58,7 @@ void AIPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller
         } while((status != FleetInstaller::OK) &&
                 (status != FleetInstaller::HAVE_NOT_SHIP));
     }
-
-    emit fleetInstalled();
+    emit fleetInstalled(this);
 }
 
 void AIPlayer::turn()
@@ -70,7 +71,7 @@ void AIPlayer::turn()
         res = enemyField->attack(id);
     }
     while (!res);
-    emit turnMade(id);
+    attack(id);
 }
 
 
