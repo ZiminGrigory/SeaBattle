@@ -6,79 +6,27 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
-	ui->setupUi(this);
+	ui.data()->setupUi(this);
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
 }
 
-void MainWindow::paintStartDialog()
+void MainWindow::setMessage(QString text)
 {
-	ui->label->setText(QString::fromLocal8Bit("УСТАНОВКА КОРАБЛЕЙ"));
-	ui->label->setAlignment(Qt::AlignHCenter);
-	fieldFirst = new Field;
-	infoTab = new TabOfInformation;
-	ui->horizontalLayout_2->addWidget(fieldFirst);
-	ui->horizontalLayout_2->addWidget(infoTab);
-	connect(infoTab, SIGNAL(fieldIsReady()), this, SLOT(paintEnemyField()));
-	connect(fieldFirst, SIGNAL(shipOnCells(int,int)), this, SLOT(buildShip(int, int)));
-	connect(fieldFirst, SIGNAL(deleteShip(int)), this, SLOT(deleteShipOnCell(int)));
+	ui->label->setText(QString::fromLocal8Bit(text.toLocal8Bit()));
 }
 
-void MainWindow::changeCounter(NameOfShips ship, int count)
+void MainWindow::showPlayerField(QSharedPointer<Field> field)
 {
-	infoTab->changeCountOfShip(ship, count);
+	ui.data()->horizontalLayout_2->addWidget(field.data());
 }
 
-void MainWindow::paintCell(int player, int id, Textures texture)
+void MainWindow::showInfoTab(QSharedPointer<TabOfInformation> infoTab)
 {
-	 if (player == YOU){
-		fieldFirst->paintCell(id, texture);
-	}
-	else{
-		fieldSecond->paintCell(id, texture);
-	}
+	ui.data()->horizontalLayout_2->addWidget(infoTab.data());
 }
 
-void MainWindow::changeTurn(Players player)
+void MainWindow::showEnemyField(QSharedPointer<Field> field)
 {
-	if (player == YOU){
-		ui->label->setText(QString::fromLocal8Bit("ВАШ ХОД"));
-		fieldSecond->setEnabled(true);
-	}
-	else{
-		ui->label->setText(QString::fromLocal8Bit("ХОД ПРОТИВНИКА"));
-		fieldSecond->setEnabled(false);
-	}
-}
-
-MainWindow::~MainWindow()
-{
-	delete ui;
-}
-
-void MainWindow::attackOnCell(int id)
-{
-	emit attackCell(id);
-}
-
-void MainWindow::buildShip(int firstId, int secondId)
-{
-	emit createShip(firstId, secondId);
-}
-
-
-void MainWindow::paintEnemyField()
-{
-	ui->label->setText(QString::fromLocal8Bit("ЗАГРУЗКА..."));
-	fieldSecond = new Field;
-	connect(fieldSecond, SIGNAL(playerAttackCell(int)), this, SLOT(attackOnCell(int)));
-	fieldFirst->setEnabled(false);
-	infoTab->~TabOfInformation();
-	ui->horizontalLayout_2->addWidget(fieldSecond);
-	fieldSecond->setEnabled(false);
-	emit readyToFight();
-}
-
-void MainWindow::deleteShipOnCell(int id)
-{
-	emit deleteShip(id);
+	ui.data()->horizontalLayout_2->removeWidget(mInfoTab.data());
+	ui.data()->horizontalLayout_2->addWidget(field.data());
 }

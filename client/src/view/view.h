@@ -1,5 +1,5 @@
 #pragma once
-
+#include <QSharedPointer>
 #include "mainwindow.h"
 #include "cell.h"
 
@@ -9,24 +9,17 @@ class View : public QObject
 public:
 	View();
 	~View();
-	void paintMainWindowWithStartDialog();
-	void paintCell(Players player, int id, Textures texture);
-
+	void showPlayerField(QSharedPointer<FieldView> field);
+	void showEnemyField(QSharedPointer<FieldView> field);
+	void showInfoTab(QSharedPointer<InfoTabView> infoTab);
+	QSharedPointer<Field> getPlayerFieldView();
+	QSharedPointer<Field> getEnemyFieldView();
+	QSharedPointer<TabOfInformation> getInfoTabView();
 public slots:
-    void changeTurn(Players player);
-	void changeCounter(NameOfShips ship, int difference);
-
-signals:
-	void deleteShip(int id);
-	void createShip(int firstId, int secondId);
-	void attackOnCell(int id);
-	void readyToFight();
-
-private slots:
-	void deleteShipOnCell(int id);
-	void cellWasAttacked(int id);
-	void fieldHasReady();
-	void createShipOnCells(int firstId, int secondId);
+	void setMessage(QString text);
 private:
-	MainWindow *mMainWindow;
+	QSharedPointer<MainWindow> mMainWindow;
+	QSharedPointer<FieldView> mPlayerField;
+	QSharedPointer<FieldView> mEnemyField;
+	QSharedPointer<InfoTabView> mInfoTab;
 };

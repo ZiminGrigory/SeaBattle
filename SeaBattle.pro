@@ -7,7 +7,7 @@
 QT       += core gui
 QT       += widgets
 
-DEFINES += QT4
+DEFINES += QT5
 
 TARGET = SeaBattle
 TEMPLATE = app
@@ -26,7 +26,9 @@ SOURCES += client/src/main.cpp\
     client/src/view/cell.cpp \
     client/src/gameLogics/fleetInstaller.cpp \
     client/src/view/tabOfInformation.cpp \
-    client/src/view/view.cpp
+    client/src/view/view.cpp \
+    client/src/view/fieldView.cpp \
+    client/src/view/infoTabView.cpp
 
 HEADERS  += client/src/view/mainwindow.h \
     client/src/gameLogics/enemyCell.h \
@@ -45,7 +47,9 @@ HEADERS  += client/src/view/mainwindow.h \
     client/src/view/cell.h \
     client/src/gameLogics/fleetInstaller.h \
     client/src/view/tabOfInformation.h \
-    client/src/view/view.h
+    client/src/view/view.h \
+    client/src/view/fieldView.h \
+    client/src/view/infoTabView.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/mainwindow.ui \

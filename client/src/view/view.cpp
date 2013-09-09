@@ -2,66 +2,49 @@
 #include <QDebug>
 View::View()
 {
+	mMainWindow = QSharedPointer<MainWindow>(new MainWindow);
+	mPlayerField = QSharedPointer<FieldView>(new FieldView);
+	mEnemyField = QSharedPointer<FieldView>(new FieldView) ;
+	mInfoTab = QSharedPointer<InfoTabView>(new InfoTabView) ;
+	mMainWindow.data()->show();
 }
 
 View::~View()
 {
-	delete mMainWindow;
 }
 
-void View::paintMainWindowWithStartDialog()
+void View::showPlayerField(QSharedPointer<FieldView> field)
 {
-	mMainWindow = new MainWindow;
-	mMainWindow->show();
-	connect(mMainWindow, SIGNAL(deleteShip(int)), this, SLOT(deleteShipOnCell(int)));
-	connect(mMainWindow, SIGNAL(attackCell(int)), this, SLOT(cellWasAttacked(int)));
-	connect(mMainWindow, SIGNAL(createShip(int,int)), this, SLOT(createShipOnCells(int,int)));
-	connect(mMainWindow, SIGNAL(readyToFight()), this, SLOT(fieldHasReady()));
-	mMainWindow->paintStartDialog();
+	mMainWindow->showPlayerField(field);
 }
 
-void View::changeCounter(NameOfShips ship, int difference)
+void View::showEnemyField(QSharedPointer<FieldView> field)
 {
-	mMainWindow->changeCounter(ship, difference);
+	mMainWindow->showEnemyField(field);
 }
 
-
-void View::changeTurn(Players player)
+void View::showInfoTab(QSharedPointer<InfoTabView> infoTab)
 {
-	mMainWindow->changeTurn(player);
+	mMainWindow->showInfoTab(infoTab);
 }
 
-
-void View::paintCell(Players player, int id, Textures texture)
+QSharedPointer<Field> View::getPlayerFieldView()
 {
-    if (player == NONE)
-        return;
-    mMainWindow->paintCell(player, id, texture);
+	return mPlayerField;
 }
 
-void View::createShipOnCells(int firstId, int secondId)
+QSharedPointer<Field> View::getEnemyFieldView()
 {
-	qDebug() << firstId << ' ' << secondId;
-	emit createShip(firstId, secondId);
+	return mEnemyField;
 }
 
-
-void View::fieldHasReady()
+QSharedPointer<TabOfInformation> View::getInfoTabView()
 {
-	qDebug() << "ready";
-	emit readyToFight();
+	return mInfoTab;
 }
 
-
-void View::cellWasAttacked(int id)
+void View::setMessage(QString text)
 {
-	qDebug() << id;
-	emit attackOnCell(id);
+	mMainWindow->setMessage(text);
 }
 
-
-void View::deleteShipOnCell(int id)
-{
-	qDebug() << id;
-	emit deleteShip(id);
-}
