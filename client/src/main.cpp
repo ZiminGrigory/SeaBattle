@@ -11,10 +11,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	View *view = new View;
-	HumanPlayer humanPlayer(view);
-	AIPlayer aiPlayer(view);
-	GameMaster gameMaster(&humanPlayer, &aiPlayer, view);
+    GameMaster gameMaster(QSharedPointer<View>(new View));
 	gameMaster.startGame();
 	return a.exec();
 }

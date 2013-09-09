@@ -38,12 +38,9 @@ private:
       */
     enum State
     {
-        HIDE,
-        VISIBLE
+        WAS_NOT_ATTACKED,
+        WAS_ATTACKED
     };
-    /**
-      * state defines the visibility of the cell.
-      */
     State state;
     AttackStatus attackStatus;
 

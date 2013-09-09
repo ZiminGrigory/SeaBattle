@@ -1,10 +1,23 @@
 #include "fleetInstaller.h"
 
-FleetInstaller::FleetInstaller(QVector<ptrShip> playerFleet, PlayerField* playerField):
+FleetInstaller::FleetInstaller(QVector<ptrShip> playerFleet,
+                               const QSharedPointer<GameField> &playerField,
+                               const QSharedPointer<InfoTabView> &_fleetInfoTab):
     fleet(playerFleet),
-    field(playerField)
+    field(playerField),
+    fleetInfoTab(_fleetInfoTab)
 {
     qRegisterMetaType<PlacementStatus>("PlacementStatus");
+
+    if (fleetInfoTab != NULL)
+    {
+        connect(fleetInfoTab.data(), SIGNAL(readyToFight()), this, SLOT(checkIsFleetReady()));
+    }
+}
+
+QVector<FleetInstaller::ptrShip> FleetInstaller::getFleet() const
+{
+    return fleet;
 }
 
 FleetInstaller::Orientation FleetInstaller::orientation(CellPair cells)
@@ -136,23 +149,26 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
     {
         orn = false;
     }
-	NameOfShips shipSize;
+    NameOfShips shipType;
 
 	switch (ship->size()) {
 	case 1:
-		shipSize = BOAT_SCOUT;
+        shipType = BOAT_SCOUT;
 		break;
 	case 2:
-		shipSize = DESTROYER;
+        shipType = DESTROYER;
 		break;
 	case 3:
-		shipSize = CRUISER;
+        shipType = CRUISER;
 		break;
 	case 4:
-		shipSize = AEROCARRIER;
+        shipType = AEROCARRIER;
 		break;
 	}
-	emit shipPlacedSuccesfully(shipSize, -1);
+    if (fleetInfoTab != NULL)
+    {
+        fleetInfoTab->changeCounter(shipType, -1);
+    }
     field->setShip(point1.first * FIELD_ROW_NUM + point1.second, orn, ship);
     emit placementResult(OK);
 	return OK;
@@ -160,8 +176,23 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
 
 void FleetInstaller::deleteShip(int id)
 {
-	fleet.append(field->getShip(id));
-	field->deleteShip(id);
+    if (field->getShip(id) != NULL)
+    {
+        NameOfShips shipType = NameOfShips(field->getShip(id)->size() - 1);
+        fleetInfoTab->changeCounter(shipType, 1);
+        fleet.append(field->getShip(id));
+        field->removeShip(id);
+    }
+}
+
+bool FleetInstaller::checkIsFleetReady()
+{
+    if (fleet.size() == 0)
+    {
+        emit fleetInstalled();
+        return true;
+    }
+    return false;
 }
 
 

@@ -9,8 +9,8 @@
 
 #include "types.h"
 #include "ship.h"
-#include "playerField.h"
-
+#include "gameField.h"
+#include "infoTabView.h"
 
 /**
   * This class places player's fleets before battle.
@@ -35,24 +35,39 @@ public:
 
     typedef QPair<int, int> CellPair;
 
-    FleetInstaller(QVector<ptrShip> playerFleet, PlayerField* playerField);
+    FleetInstaller(QVector<ptrShip> playerFleet,
+                   const QSharedPointer<GameField>& playerField,
+                   const QSharedPointer<InfoTabView>& _fleetInfoTab);
+
+    QVector<ptrShip> getFleet() const;
 signals:
     /**
       * Signal emitted after shipPlaced() slot ended work.
       * Signal contains result of last try to place ship on cells.
       */
 	void placementResult(PlacementStatus res);
-	void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
-
+    /**
+      * This signal emits when all fleet was correctly installed.
+      */
+    void fleetInstalled();
+    //void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
 public slots:
     /**
       * This slot informs object about a try to place ship on cells kept in QVector.
       * It might connect to view object for human player or to other method for generate fleet for ai.
       * Slot emits signal placementResult() with status of this try to place ship.
       */
-	PlacementStatus shipPlaced(int firstId, int secondId);
-	void deleteShip(int id);
-    
+    PlacementStatus shipPlaced(int firstId, int secondId);
+    /**
+      * This slot remove the ship from field if cell with recieved id contained some ship.
+      */
+    void deleteShip(int id);
+private slots:
+    /**
+      * Check, was all ships in fleet installed on field.
+      * Return true if it's ok and emit fleetInstalled() signal.
+      */
+    bool checkIsFleetReady();
 private:
     enum Orientation
     {
@@ -72,7 +87,8 @@ private:
     ptrShip pickShip(CellPair cells, Orientation orn);
 
     QVector<ptrShip> fleet;
-    PlayerField* field;
+    QSharedPointer<GameField> field;
+    QSharedPointer<InfoTabView> fleetInfoTab;
 };
 
 Q_DECLARE_METATYPE(FleetInstaller::PlacementStatus);

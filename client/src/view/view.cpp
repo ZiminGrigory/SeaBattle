@@ -13,32 +13,32 @@ View::~View()
 {
 }
 
-void View::showPlayerField(QSharedPointer<FieldView> field)
+void View::showPlayerField()
 {
-	mMainWindow->showPlayerField(field);
+    mMainWindow->showPlayerField(mPlayerField->getField());
 }
 
-void View::showEnemyField(QSharedPointer<FieldView> field)
+void View::showEnemyField()
 {
-	mMainWindow->showEnemyField(field);
+    mMainWindow->showEnemyField(mEnemyField->getField());
 }
 
-void View::showInfoTab(QSharedPointer<InfoTabView> infoTab)
+void View::showInfoTab()
 {
-	mMainWindow->showInfoTab(infoTab);
+    mMainWindow->showInfoTab(mInfoTab->getInfoTab());
 }
 
-QSharedPointer<Field> View::getPlayerFieldView()
+QSharedPointer<FieldView> View::getPlayerFieldView()
 {
 	return mPlayerField;
 }
 
-QSharedPointer<Field> View::getEnemyFieldView()
+QSharedPointer<FieldView> View::getEnemyFieldView()
 {
 	return mEnemyField;
 }
 
-QSharedPointer<TabOfInformation> View::getInfoTabView()
+QSharedPointer<InfoTabView> View::getInfoTabView()
 {
 	return mInfoTab;
 }

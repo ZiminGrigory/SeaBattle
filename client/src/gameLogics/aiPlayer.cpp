@@ -1,23 +1,24 @@
 #include "aiPlayer.h"
 
-AIPlayer::AIPlayer(View *view, QObject *parent):
-    Player(view)
+AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
+                   const QSharedPointer<GameField> &enmField,
+                   QObject *parent):
+    Player(plrField, enmField, parent)
 {
-    myField.setPlr(NONE);
-    enemyField.setPlr(YOU);
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
 }
 
-void AIPlayer::installFleet()
+void AIPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
 {
+    QVector<FleetInstaller::ptrShip> fleet = fleetInstaller->getFleet();
     for (int i = 0; i < fleet.size(); i++)
     {
         int shipSize = fleet[i]->size();
         bool isHorizontal = true;
         if (qrand() % 2 == 0)
         {
-            isHorizontal == false;
+            isHorizontal = false;
         }
         int row = 0;
         int col = 0;
@@ -41,23 +42,22 @@ void AIPlayer::installFleet()
             QPair<int, int> point2(row, col);
             if (isHorizontal)
             {
-                point2.second + shipSize;
+                point2.second += shipSize;
             }
             else
             {
-                point2.first + shipSize;
+                point2.first += shipSize;
             }
 			first = getIdByCoordinates(point1);
 			second = getIdByCoordinates(point2);
 
             status = fleetInstaller->shipPlaced(first, second);
-            bool b = (status != FleetInstaller::OK) ||
-                    (status != FleetInstaller::HAVE_NOT_SHIP);
-            bool d = true;
 
         } while((status != FleetInstaller::OK) &&
                 (status != FleetInstaller::HAVE_NOT_SHIP));
     }
+
+    emit fleetInstalled();
 }
 
 void AIPlayer::turn()
@@ -67,7 +67,7 @@ void AIPlayer::turn()
     do
     {
         id = qrand() % (FIELD_ROW_NUM * FIELD_COL_NUM - 1);
-        res = enemyField.attack(id);
+        res = enemyField->attack(id);
     }
     while (!res);
     emit turnMade(id);

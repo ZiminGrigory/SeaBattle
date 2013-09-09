@@ -27,6 +27,8 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/fleetInstaller.cpp \
     client/src/view/tabOfInformation.cpp \
     client/src/view/view.cpp \
+    client/src/gameLogics/gameCell.cpp \
+    client/src/gameLogics/gameField.cpp \
     client/src/view/fieldView.cpp \
     client/src/view/infoTabView.cpp
 
@@ -48,6 +50,8 @@ HEADERS  += client/src/view/mainwindow.h \
     client/src/gameLogics/fleetInstaller.h \
     client/src/view/tabOfInformation.h \
     client/src/view/view.h \
+    client/src/gameLogics/gameCell.h \
+    client/src/gameLogics/gameField.h \
     client/src/view/fieldView.h \
     client/src/view/infoTabView.h
 

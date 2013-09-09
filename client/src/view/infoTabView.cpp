@@ -3,8 +3,15 @@
 InfoTabView::InfoTabView()
 {
 	mInfoTab = QSharedPointer<TabOfInformation>(new TabOfInformation);
+
 	connect(mInfoTab.data(), SIGNAL(fieldIsReady()), this, SIGNAL(readyToFight()));
-	connect(mInfoTab.data(), SIGNAL(needAutoSetting()), this, SIGNAL(needAutoSetting()));
+
+    connect(mInfoTab.data(), SIGNAL(fieldIsReady()), this, SLOT(reEmitSignal()));
+}
+
+QSharedPointer<TabOfInformation> InfoTabView::getInfoTab()
+{
+	return mInfoTab;
 }
 
 void InfoTabView::changeCounter(NameOfShips ship, int difference)
