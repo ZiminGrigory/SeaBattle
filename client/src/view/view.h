@@ -9,12 +9,12 @@ class View : public QObject
 public:
 	View();
 	~View();
-	void showPlayerField(QSharedPointer<FieldView> field);
-	void showEnemyField(QSharedPointer<FieldView> field);
-	void showInfoTab(QSharedPointer<InfoTabView> infoTab);
-	QSharedPointer<Field> getPlayerFieldView();
-	QSharedPointer<Field> getEnemyFieldView();
-	QSharedPointer<TabOfInformation> getInfoTabView();
+    void showPlayerField();
+    void showEnemyField();
+    void showInfoTab();
+    QSharedPointer<FieldView> getPlayerFieldView();
+    QSharedPointer<FieldView> getEnemyFieldView();
+    QSharedPointer<InfoTabView> getInfoTabView();
 public slots:
 	void setMessage(QString text);
 private:

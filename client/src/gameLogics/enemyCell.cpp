@@ -2,7 +2,7 @@
 
 EnemyCell::EnemyCell(QObject *parent) :
     QObject(parent),
-    state(HIDE),
+    state(WAS_NOT_ATTACKED),
     attackStatus(NOT_ATTACKED),
     cellView(NULL)
 {
@@ -10,13 +10,13 @@ EnemyCell::EnemyCell(QObject *parent) :
 
 void EnemyCell::mark(AttackStatus res)
 {
-    state = VISIBLE;
+    state = WAS_NOT_ATTACKED;
     attackStatus = res;
 }
 
 bool EnemyCell::attack()
 {
-    return (state == HIDE);
+    return (state == WAS_NOT_ATTACKED);
 }
 
 void EnemyCell::setView(Cell* _cellView)

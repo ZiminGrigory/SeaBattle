@@ -16,7 +16,7 @@ class HumanPlayer : public Player
 public:
     explicit HumanPlayer(const QSharedPointer<GameField>& plrField,
                          const QSharedPointer<GameField>& enmField,
-                         const QSharedPointer<Field>& _fieldView,
+                         const QSharedPointer<FieldView>& _fieldView,
                          QObject* parent = 0);
     
     // for test purpose
@@ -25,7 +25,7 @@ public:
     /**
       *
       */
-    void installFleet(const FleetInstaller& fleetInstaller);
+    void installFleet(const QSharedPointer<FleetInstaller>& fleetInstaller);
 public slots:
     /**
       * This slot do nothing because it need to wait until player made a choise.
@@ -39,7 +39,8 @@ private slots:
 	void cellWasAttacked(int id);
     //void deleteShip(int id);
 private:
-    QSharedPointer<Field> fieldView;
+    QSharedPointer<FieldView> fieldView;
+    QSharedPointer<FleetInstaller> fleetInst;
 };
 
 #endif // HUMANPLAYER_H

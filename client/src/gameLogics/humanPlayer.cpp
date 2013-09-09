@@ -2,21 +2,21 @@
 
 HumanPlayer::HumanPlayer(const QSharedPointer<GameField>& plrField,
                          const QSharedPointer<GameField>& enmField,
-                         const QSharedPointer<Field>& _fieldView,
+                         const QSharedPointer<FieldView>& _fieldView,
                          QObject* parent):
     Player(plrField, enmField, parent),
-    fieldView(_fieldView)
+    fieldView(_fieldView),
+    fleetInst(NULL)
 {
-    connect(fieldView, SIGNAL(attackOnCell(int)), this, SLOT(cellWasAttacked(int)));
+    connect(fieldView.data(), SIGNAL(attack(int)), this, SLOT(cellWasAttacked(int)));
 }
 
-void HumanPlayer::installFleet(const FleetInstaller& fleetInstaller)
+void HumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
 {
-
-
-    connect(fieldView, SIGNAL(createShip(int,int)), &fleetInstaller, SLOT(shipPlaced(int,int)));
-    connect(fieldView, SIGNAL(deleteShip(int)), &fleetInstaller, SLOT(deleteShip(int)));
-    connect(&fleetInstaller, SIGNAL(fleeInstalled()), this, SIGNAL(fleetInstalled()));
+    fleetInst = fleetInstaller;
+    connect(fieldView.data(), SIGNAL(placeShip(int,int)), fleetInst.data(), SLOT(shipPlaced(int,int)));
+    connect(fieldView.data(), SIGNAL(deleteShip(int)), fleetInst.data(), SLOT(deleteShip(int)));
+    connect(fleetInst.data(), SIGNAL(fleetInstalled()), this, SIGNAL(fleetInstalled()));
     /*
     connect(fleetInstaller, SIGNAL(shipPlacedSuccesfully(NameOfShips, int))
             , view, SLOT(changeCounter(NameOfShips,int)));

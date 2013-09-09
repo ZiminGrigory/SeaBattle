@@ -18,6 +18,10 @@ public:
       */
     bool attackable();
     /**
+      *
+      */
+    AttackStatus getAttackStatus();
+    /**
       * Return ship placed on this cell.
       */
     QSharedPointer<Ship> getShip();
@@ -25,6 +29,10 @@ public:
       * Set ship to this cell.
       */
     void setShip(const QSharedPointer<Ship>& _ship);
+    /**
+      *
+      */
+    void removeShip();
 private:
     /**
       * Pointer to the ship placed on this cell.

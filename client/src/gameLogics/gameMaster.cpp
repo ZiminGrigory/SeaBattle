@@ -1,41 +1,64 @@
 #include "gameMaster.h"
 
-GameMaster::GameMaster(Player *plr1, Player *plr2, View *view, QObject* parent):
+GameMaster::GameMaster(const QSharedPointer<View>& _view,
+                       QObject* parent):
     QObject(parent),
-    player1(plr1),
-    player2(plr2),
-    fleetFactory()
-  , view(view)
+    playerField(NULL),
+    enemyField(NULL),
+    player(NULL),
+    enemy(NULL),
+    view(_view)
 {
-    connect(player1.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
-    connect(player2.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
+    playerField = QSharedPointer<GameField>(new GameField(view->getPlayerFieldView()));
+    enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
-    connect(player1.data(), SIGNAL(attackResult(AttackStatus)), this, SLOT(informPlayer(AttackStatus)));
-    connect(player2.data(), SIGNAL(attackResult(AttackStatus)), this, SLOT(informPlayer(AttackStatus)));
-
-	connect(view, SIGNAL(readyToFight()), this, SLOT(offerTurn()));
+    player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField, view->getPlayerFieldView()));
+    enemy = QSharedPointer<Player>(new AIPlayer(enemyField, playerField));
 }
 
 void GameMaster::startGame()
 {
-	view->paintMainWindowWithStartDialog();
+    connect(player.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
+    connect(enemy.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
+    connect(player.data(), SIGNAL(fleetInstalled()), this, SLOT(playerReadyToBattle()));
+    connect(enemy.data(), SIGNAL(fleetInstalled()), this, SLOT(playerReadyToBattle()));
 
-    player1->createFleet(fleetFactory);
-    player1->installFleet();
+    view->showPlayerField();
+    view->getPlayerFieldView()->setEnabled(true);
+    view->showInfoTab();
 
-    player2->createFleet(fleetFactory);
-    player2->installFleet();
+    view->setMessage("Установка флота");
+    QSharedPointer<FleetInstaller> playerInst(new FleetInstaller(FleetFactory::createFleet(),
+                                                                 playerField, view->getInfoTabView()));
+    player->installFleet(playerInst);
 
-    turnedPlayer = player1;
-    waitingPlayer = player2;
+    QSharedPointer<FleetInstaller> enemyInst(new FleetInstaller(FleetFactory::createFleet(),
+                                             enemyField, QSharedPointer<InfoTabView>(NULL)));
+    enemy->installFleet(enemyInst);
+
+    turnedPlayer = player;
+    waitingPlayer = enemy;
+}
+
+void GameMaster::playerReadyToBattle()
+{
+    static int playersReady = 2;
+    --playersReady;
+    if (playersReady == 0)
+    {
+        view->showEnemyField();
+        view->getEnemyFieldView()->setEnabled(true);
+        view->getPlayerFieldView()->setEnabled(false);
+        offerTurn();
+    }
 }
 
 void GameMaster::offerTurn()
 {
-	if (turnedPlayer == player1){
-		view->changeTurn(YOU);
+    if (turnedPlayer == player){
+        view->setMessage("ВАШ ХОД");
 	} else{
-		view->changeTurn(ENEMY);
+        view->setMessage("ХОД ПРОТИВНИКА");
 	}
     turnedPlayer->turn();
 }
@@ -45,11 +68,13 @@ void GameMaster::informOpponent(int id)
     waitingPlayer->enemyTurn(id);
 }
 
+/*
 void GameMaster::informPlayer(AttackStatus attackResult)
 {
     turnedPlayer->turnResult(attackResult);
     nextTurn(attackResult);
 }
+*/
 
 void GameMaster::nextTurn(AttackStatus turnResult)
 {
@@ -71,7 +96,7 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         // next turn make the same player
     }
 
-    if (waitingPlayer->lose())
+    if (player->lose() || enemy->lose())
     {
         // to do: end game and send message about win.
     }

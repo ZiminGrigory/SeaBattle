@@ -33,7 +33,7 @@ public:
     /**
       * Slot intall player fleet on field.
       */
-    virtual void installFleet(const FleetInstaller& fleetInstaller) = 0;
+    virtual void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller) = 0;
 signals:
     /**
       * This signal must be emitted when player chose a cell to attack (id is an identifeir of a cell).
@@ -68,11 +68,11 @@ protected:
     /**
       * Accessory method. It attack enemy cell with received id and emit signal turnMade().
       */
-    void attack(int id);
+    inline void attack(int id);
 
 
-    QSharedPointer<PlayerField> myField;
-    QSharedPointer<EnemyField> enemyField;
+    QSharedPointer<GameField> myField;
+    QSharedPointer<GameField> enemyField;
 
     //typedef QSharedPointer<Ship> ptrShip;
     //QVector<ptrShip> fleet;
@@ -119,14 +119,14 @@ inline void Player::turnResult(AttackStatus attackResult)
 
 inline void Player::enemyTurn(int id)
 {
-    AttackStatus status = myField.attack(id);
+    AttackStatus status = myField->attack(id);
     if ((status == WOUNDED) || (status == KILLED))
     {
         --fleetHealth;
     }
 }
 
-void Player::attack(int id)
+inline void Player::attack(int id)
 {
     enemyField->attack(id);
     emit turnMade(id);

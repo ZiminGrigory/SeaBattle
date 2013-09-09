@@ -10,7 +10,7 @@
 #include "types.h"
 #include "ship.h"
 #include "gameField.h"
-
+#include "infoTabView.h"
 
 /**
   * This class places player's fleets before battle.
@@ -36,32 +36,28 @@ public:
     typedef QPair<int, int> CellPair;
 
     FleetInstaller(QVector<ptrShip> playerFleet,
-                   GameField* playerField,
-                   QSharedPointer<TabOfInformation> _fleetInfoTab);
+                   const QSharedPointer<GameField>& playerField,
+                   const QSharedPointer<InfoTabView>& _fleetInfoTab);
+
+    QVector<ptrShip> getFleet() const;
 signals:
     /**
       * Signal emitted after shipPlaced() slot ended work.
       * Signal contains result of last try to place ship on cells.
       */
 	void placementResult(PlacementStatus res);
-<<<<<<< HEAD:client/src/gameLogics/fleetInstaller.h
     /**
       * This signal emits when all fleet was correctly installed.
       */
     void fleetInstalled();
     //void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
-=======
-	void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
-
->>>>>>> 2c64a389178deec969a85a3157cedf0359422e32:src/fleetInstaller.h
 public slots:
     /**
       * This slot informs object about a try to place ship on cells kept in QVector.
       * It might connect to view object for human player or to other method for generate fleet for ai.
       * Slot emits signal placementResult() with status of this try to place ship.
       */
-	PlacementStatus shipPlaced(int firstId, int secondId);
-<<<<<<< HEAD:client/src/gameLogics/fleetInstaller.h
+    PlacementStatus shipPlaced(int firstId, int secondId);
     /**
       * This slot remove the ship from field if cell with recieved id contained some ship.
       */
@@ -72,10 +68,6 @@ private slots:
       * Return true if it's ok and emit fleetInstalled() signal.
       */
     bool checkIsFleetReady();
-=======
-	void deleteShip(int id);
-    
->>>>>>> 2c64a389178deec969a85a3157cedf0359422e32:src/fleetInstaller.h
 private:
     enum Orientation
     {
@@ -96,7 +88,7 @@ private:
 
     QVector<ptrShip> fleet;
     QSharedPointer<GameField> field;
-    QSharedPointer<TabOfInformation> fleetInfoTab;
+    QSharedPointer<InfoTabView> fleetInfoTab;
 };
 
 Q_DECLARE_METATYPE(FleetInstaller::PlacementStatus);

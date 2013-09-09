@@ -1,8 +1,8 @@
 #include "fleetInstaller.h"
 
 FleetInstaller::FleetInstaller(QVector<ptrShip> playerFleet,
-                               GameField *playerField,
-                               QSharedPointer<TabOfInformation> _fleetInfoTab):
+                               const QSharedPointer<GameField> &playerField,
+                               const QSharedPointer<InfoTabView> &_fleetInfoTab):
     fleet(playerFleet),
     field(playerField),
     fleetInfoTab(_fleetInfoTab)
@@ -13,6 +13,11 @@ FleetInstaller::FleetInstaller(QVector<ptrShip> playerFleet,
     {
         connect(fleetInfoTab.data(), SIGNAL(readyToFight()), this, SLOT(checkIsFleetReady()));
     }
+}
+
+QVector<FleetInstaller::ptrShip> FleetInstaller::getFleet() const
+{
+    return fleet;
 }
 
 FleetInstaller::Orientation FleetInstaller::orientation(CellPair cells)
@@ -160,7 +165,10 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
         shipType = AEROCARRIER;
 		break;
 	}
-    fleetInfoTab->changeCountOfShip(shipType, -1);
+    if (fleetInfoTab != NULL)
+    {
+        fleetInfoTab->changeCounter(shipType, -1);
+    }
     field->setShip(point1.first * FIELD_ROW_NUM + point1.second, orn, ship);
     emit placementResult(OK);
 	return OK;
@@ -170,14 +178,11 @@ void FleetInstaller::deleteShip(int id)
 {
     if (field->getShip(id) != NULL)
     {
+        NameOfShips shipType = NameOfShips(field->getShip(id)->size() - 1);
+        fleetInfoTab->changeCounter(shipType, 1);
         fleet.append(field->getShip(id));
-        field->deleteShip(id);
+        field->removeShip(id);
     }
-}
-
-void FleetInstaller::deleteShip(int id)
-{
-
 }
 
 bool FleetInstaller::checkIsFleetReady()

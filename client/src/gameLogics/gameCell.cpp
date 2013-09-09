@@ -11,18 +11,15 @@ AttackStatus GameCell::attack()
         int health = ship->damage();
         if (health == 0)
         {
-            mark(KILLED);
             return KILLED;
         }
         else
         {
-            mark(WOUNDED);
             return WOUNDED;
         }
     }
     else
     {
-        mark(MISS);
         return MISS;
     }
 }
@@ -30,6 +27,11 @@ AttackStatus GameCell::attack()
 bool GameCell::attackable()
 {
     return (state == WAS_NOT_ATTACKED);
+}
+
+AttackStatus GameCell::getAttackStatus()
+{
+    return attackStatus;
 }
 
 QSharedPointer<Ship> GameCell::getShip()
@@ -40,4 +42,9 @@ QSharedPointer<Ship> GameCell::getShip()
 void GameCell::setShip(const QSharedPointer<Ship> &_ship)
 {
     ship = _ship;
+}
+
+void GameCell::removeShip()
+{
+    ship = QSharedPointer<Ship>(NULL);
 }

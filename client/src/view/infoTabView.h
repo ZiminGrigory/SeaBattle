@@ -11,6 +11,7 @@ class InfoTabView:public QObject
 Q_OBJECT
 public:
 	InfoTabView();
+    QSharedPointer<TabOfInformation> getInfoTab();
 public slots:
 	void changeCounter(NameOfShips ship, int difference);
 private slots:

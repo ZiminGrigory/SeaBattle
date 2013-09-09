@@ -1,5 +1,10 @@
 #include "gameField.h"
 
+GameField::GameField(const QSharedPointer<FieldView> &fieldView):
+    view(fieldView)
+{
+}
+
 void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
 {
     QPair<int, int> coord = coordinates(id);
@@ -12,7 +17,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         for (int i = 0; i < shipSize; i++)
         {
             field[row][col + i].setShip(ship);
-            view->paintCell(plr, getIdByCoordinates(row, col + i), textureOfCell(i + 1, shipSize, orientation));
+            view->repaint(getIdByCoordinates(row, col + i), textureOfCell(i + 1, shipSize, orientation));
         }
     }
     // otherwise - vertical orientation
@@ -21,7 +26,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         for (int i = 0; i < shipSize; i++)
         {
             field[row + i][col].setShip(ship);
-            view->paintCell(plr, getIdByCoordinates(row + i, col), textureOfCell(i + 1, shipSize, orientation));
+            view->repaint(getIdByCoordinates(row + i, col), textureOfCell(i + 1, shipSize, orientation));
         }
     }
 }
@@ -44,8 +49,7 @@ void GameField::removeShip(int id)
     int column = coordinateOfShip.second;
     QSharedPointer<Ship> ship = field[row][column].getShip();
     int size = ship.data()->size();
-    view->changeCounter(NameOfShips(size - 1), 1);
-    view->paintCell(plr, id, EMPTY);
+    view->repaint(id, EMPTY);
     bool isAll = true;
     if (size != 1){
         do{
@@ -53,8 +57,8 @@ void GameField::removeShip(int id)
             if (row <= 9){
                 QSharedPointer<Ship> shipTmp = field[row][column].getShip();
                 if (shipTmp != NULL){
-                    view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
-                    field[row][column].deleteShip();
+                    view->repaint(getIdByCoordinates(row, column), EMPTY);
+                    field[row][column].removeShip();
                 } else {
                     isAll = false;
                 }
@@ -67,8 +71,8 @@ void GameField::removeShip(int id)
             if (row >= 0){
                 QSharedPointer<Ship> shipTmp = field[row][column].getShip();
                 if (shipTmp != NULL){
-                    view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
-                    field[row][column].deleteShip();
+                    view->repaint(getIdByCoordinates(row, column), EMPTY);
+                    field[row][column].removeShip();
                 } else {
                     isAll = false;
                 }
@@ -81,8 +85,8 @@ void GameField::removeShip(int id)
             if (column <= 9){
                 QSharedPointer<Ship> shipTmp = field[row][column].getShip();
                 if (shipTmp != NULL){
-                    view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
-                    field[row][column].deleteShip();
+                    view->repaint(getIdByCoordinates(row, column), EMPTY);
+                    field[row][column].removeShip();
                 } else {
                     isAll = false;
                 }
@@ -95,15 +99,15 @@ void GameField::removeShip(int id)
             if (column <= 9){
                 QSharedPointer<Ship> shipTmp = field[row][column].getShip();
                 if (shipTmp != NULL){
-                    view->paintCell(plr, getIdByCoordinates(row, column), EMPTY);
-                    field[row][column].deleteShip();
+                    view->repaint(getIdByCoordinates(row, column), EMPTY);
+                    field[row][column].removeShip();
                 } else {
                     isAll = false;
                 }
             }
         } while (column >= 0 && isAll);
     }
-    field[coordinateOfShip.first][coordinateOfShip.second].deleteShip();
+    field[coordinateOfShip.first][coordinateOfShip.second].removeShip();
 }
 
 AttackStatus GameField::attack(int id)
@@ -111,20 +115,19 @@ AttackStatus GameField::attack(int id)
     int x = id / FIELD_ROW_NUM;
     int y = id - x * FIELD_ROW_NUM;
 
+    AttackStatus res = field[x][y].attack();
+
     if (res == MISS)
     {
-        view->paintCell(ENEMY, getIdByCoordinates(x, y), MISS_CELL);
-        field[x][y].mark(res);
+        view->repaint(getIdByCoordinates(x, y), MISS_CELL);
     }
     else if (res == WOUNDED)
     {
-        view->paintCell(ENEMY, getIdByCoordinates(x, y), SHIP_DAMAGED);
-        field[x][y].mark(res);
+        view->repaint(getIdByCoordinates(x, y), SHIP_DAMAGED);
     }
     else if (res == KILLED)
     {
-        view->paintCell(ENEMY, getIdByCoordinates(x, y), SHIP_KILLED);
-        field[x][y].mark(res);
+        view->repaint(getIdByCoordinates(x, y), SHIP_KILLED);
         QStack<Coord> markedCells;
         markedCells.push(Coord(x, y));
         while (!markedCells.isEmpty())
@@ -142,6 +145,8 @@ AttackStatus GameField::attack(int id)
             markKilled(_x + 1, _y - 1, &markedCells);
         }
     }
+
+    return res;
 }
 
 
@@ -151,24 +156,22 @@ void GameField::markKilled(int i, int j, QStack<Coord>* markedCells)
     {
         if (field[i][j].getAttackStatus() == KILLED)
         {
-            view->paintCell(plr, getIdByCoordinates(i, j), SHIP_KILLED);
+            view->repaint(getIdByCoordinates(i, j), SHIP_KILLED);
             return;
         }
         else if (field[i][j].getAttackStatus() == WOUNDED)
         {
-            field[i][j].mark(KILLED);
-            view->paintCell(plr, getIdByCoordinates(i, j), SHIP_KILLED);
+            view->repaint(getIdByCoordinates(i, j), SHIP_KILLED);
             markedCells->push(Coord(i, j));
         }
         else
         {
-            field[i][j].mark(MISS);
-            view->paintCell(plr, getIdByCoordinates(i, j), MISS_CELL);
+            view->repaint(getIdByCoordinates(i, j), MISS_CELL);
         }
     }
 }
 
-bool GameField::attackable()
+bool GameField::attackable(int id)
 {
     int i = id / FIELD_ROW_NUM;
     int j = id % FIELD_COL_NUM;
@@ -182,7 +185,7 @@ bool GameField::attackable()
     }
 }
 
-Textures PlayerField::textureOfCell(int i, int shipSize, bool orientation)
+Textures GameField::textureOfCell(int i, int shipSize, bool orientation)
 {
     switch (shipSize) {
     case 1:
@@ -268,3 +271,4 @@ Textures PlayerField::textureOfCell(int i, int shipSize, bool orientation)
     break;
     }
 }
+
