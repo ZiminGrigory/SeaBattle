@@ -7,7 +7,7 @@
 QT       += core gui
 QT       += widgets
 
-DEFINES += QT5
+DEFINES += QT4
 
 TARGET = SeaBattle
 TEMPLATE = app
@@ -26,7 +26,8 @@ SOURCES += src/main.cpp\
 	src/cell.cpp \
 	src/fleetInstaller.cpp \
     src/tabOfInformation.cpp \
-    src/view.cpp
+    src/view.cpp \
+    src/aiPlayerSimple.cpp
 
 HEADERS  += src/mainwindow.h \
     src/enemyCell.h \
@@ -45,7 +46,8 @@ HEADERS  += src/mainwindow.h \
 	src/cell.h \
 	src/fleetInstaller.h \
     src/tabOfInformation.h \
-    src/view.h
+    src/view.h \
+    src/aiPlayerSimple.h
 
 FORMS    += gui/mainwindow.ui \
     src/field.ui \
