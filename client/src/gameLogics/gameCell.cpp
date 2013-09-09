@@ -1,6 +1,9 @@
 #include "gameCell.h"
 
-GameCell::GameCell()
+GameCell::GameCell():
+    state(WAS_NOT_ATTACKED),
+    attackStatus(NOT_ATTACKED),
+    ship(NULL)
 {
 }
 

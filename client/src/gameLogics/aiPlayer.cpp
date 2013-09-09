@@ -68,7 +68,7 @@ void AIPlayer::turn()
     do
     {
         id = qrand() % (FIELD_ROW_NUM * FIELD_COL_NUM - 1);
-        res = enemyField->attack(id);
+        res = enemyField->attackable(id);
     }
     while (!res);
     attack(id);
