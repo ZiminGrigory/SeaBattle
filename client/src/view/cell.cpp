@@ -17,7 +17,7 @@ void Cell::changeStatusOfCell(Textures texture)
 		break;
     case SHIP_DAMAGED: mTexture = ":/pictures/smoke.jpg";
 		break;
-    case SHIP_KILLED: mTexture = ":/pictures/wreck.jpg";
+	case SHIP_KILLED: mTexture = ":/pictures/smoke.jpg";
 		break;
     case MISS_CELL: mTexture = ":/pictures/splash.jpg";
 		break;
@@ -34,6 +34,8 @@ void Cell::changeStatusOfCell(Textures texture)
 	case SHIP_DECK_HORIZONTAL: mTexture = ":/pictures/middle part_hor.jpg";
 		break;
 	case SHIP_SINGLE: mTexture = ":/pictures/small ship.jpg";
+		break;
+	case WRECK: mTexture = ":/pictures/wreck.jpg";
 		break;
 	}
 	this->update();
