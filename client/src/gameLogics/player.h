@@ -41,7 +41,7 @@ signals:
       * and after this wait until turn() will called again.
       * (otherwise game will crash and we all gonna die!!!).
       */
-    void turnMade(int id);
+    void turnMade(int id, AttackStatus turnResult);
     /**
       * This signal must be emitted when player finished the installing of his fleet and ready to battle.
       */
@@ -67,9 +67,13 @@ public slots:
 protected:
     /**
       * Accessory method. It attack enemy cell with received id and emit signal turnMade().
+      * Implementation of turn() slot can call this method instead of emit turnMade().
       */
     inline void attack(int id);
-
+    /**
+      * Set the summary fleet health of player by fleet.
+      */
+    inline void setFleetHealth(const QVector<FleetInstaller::ptrShip>& fleet);
 
     QSharedPointer<GameField> myField;
     QSharedPointer<GameField> enemyField;
@@ -98,19 +102,6 @@ inline bool Player::lose()
 }
 
 /*
-void Player::createFleet(const FleetFactory& factory)
-{
-    fleet = factory.createFleet();
-	fleetInstaller.reset(new FleetInstaller(fleet, &myField));
-    fleetHealth = 0;
-    for (int i = 0; i < fleet.size(); i++)
-    {
-        fleetHealth += fleet[i]->health();
-    }
-}
-*/
-
-/*
 inline void Player::turnResult(AttackStatus attackResult)
 {
     enemyField.attackResult(attackResult);
@@ -119,8 +110,7 @@ inline void Player::turnResult(AttackStatus attackResult)
 
 inline void Player::enemyTurn(int id)
 {
-    AttackStatus status = myField->attack(id);
-    if ((status == WOUNDED) || (status == KILLED))
+    if (myField->getShip(id) != NULL)
     {
         --fleetHealth;
     }
@@ -128,8 +118,16 @@ inline void Player::enemyTurn(int id)
 
 inline void Player::attack(int id)
 {
-    enemyField->attack(id);
-    emit turnMade(id);
+    emit turnMade(id, enemyField->attack(id));
+}
+
+void Player::setFleetHealth(const QVector<FleetInstaller::ptrShip> &fleet)
+{
+    fleetHealth = 0;
+    for (int i = 0; i < fleet.size(); i++)
+    {
+        fleetHealth += fleet[i]->health();
+    }
 }
 
 

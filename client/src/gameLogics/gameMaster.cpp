@@ -12,14 +12,15 @@ GameMaster::GameMaster(const QSharedPointer<View>& _view,
     playerField = QSharedPointer<GameField>(new GameField(view->getPlayerFieldView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
-    player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField, view->getPlayerFieldView()));
+    player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField,
+                                                    view->getPlayerFieldView(), view->getEnemyFieldView()));
     enemy = QSharedPointer<Player>(new AIPlayer(enemyField, playerField));
 }
 
 void GameMaster::startGame()
 {
-    connect(player.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
-    connect(enemy.data(), SIGNAL(turnMade(int)), this, SLOT(informOpponent(int)));
+    connect(player.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
+    connect(enemy.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
     connect(player.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
     connect(enemy.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
 
@@ -71,9 +72,10 @@ void GameMaster::offerTurn()
     turnedPlayer->turn();
 }
 
-void GameMaster::informOpponent(int id)
+void GameMaster::informOpponent(int id, AttackStatus turnResult)
 {
     waitingPlayer->enemyTurn(id);
+    nextTurn(turnResult);
 }
 
 /*

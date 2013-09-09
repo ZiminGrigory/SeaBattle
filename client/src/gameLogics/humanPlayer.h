@@ -16,8 +16,9 @@ class HumanPlayer : public Player
 public:
     explicit HumanPlayer(const QSharedPointer<GameField>& plrField,
                          const QSharedPointer<GameField>& enmField,
-                         const QSharedPointer<FieldView>& _fieldView,
-                         QObject* parent = 0);
+                         const QSharedPointer<FieldView>& _plrFieldView,
+                         const QSharedPointer<FieldView>& _enmFieldView,
+                         QObject *parent = 0);
     
     // for test purpose
     friend class HumanPlayerTest;
@@ -43,7 +44,8 @@ private slots:
     void reEmitFleetInstalled();
     //void deleteShip(int id);
 private:
-    QSharedPointer<FieldView> fieldView;
+    QSharedPointer<FieldView> plrFieldView;
+    QSharedPointer<FieldView> enmFieldView;
     QSharedPointer<FleetInstaller> fleetInst;
 };
 
