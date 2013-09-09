@@ -7,12 +7,13 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
-	this->setWindowTitle(QString::fromLocal8Bit("ĞœĞĞ Ğ¡ĞšĞĞ™ Ğ‘ĞĞ™"));
+    this->setWindowTitle(QString::fromLocal8Bit("ÌÎĞÑÊÎÉ ÁÎÉ"));
 }
 
 void MainWindow::paintStartDialog()
 {
-	ui->label->setText(QString::fromLocal8Bit("Ğ£Ğ¡Ğ¢ĞĞĞĞ’ĞšĞ ĞšĞĞ ĞĞ‘Ğ›Ğ•Ğ™"));
+
+    ui->label->setText(QString::fromLocal8Bit("ÓÑÒÀÍÎÂÊÀ ÊÎĞÀÁËÅÉ"));
 	ui->label->setAlignment(Qt::AlignHCenter);
 	fieldFirst = new Field;
 	infoTab = new TabOfInformation;
@@ -41,11 +42,11 @@ void MainWindow::paintCell(int player, int id, Textures texture)
 void MainWindow::changeTurn(Players player)
 {
 	if (player == YOU){
-		ui->label->setText(QString::fromLocal8Bit("Ğ’ĞĞ¨ Ğ¥ĞĞ”"));
+        ui->label->setText(QString::fromLocal8Bit("ÂÀØ ÕÎÄ"));
 		fieldSecond->setEnabled(true);
 	}
 	else{
-		ui->label->setText(QString::fromLocal8Bit("Ğ¥ĞĞ” ĞŸĞ ĞĞ¢Ğ˜Ğ’ĞĞ˜ĞšĞ"));
+        ui->label->setText(QString::fromLocal8Bit("ÕÎÄ ÏĞÎÒÈÂÍÈÊÀ"));
 		fieldSecond->setEnabled(false);
 	}
 }
@@ -68,7 +69,7 @@ void MainWindow::buildShip(int firstId, int secondId)
 
 void MainWindow::paintEnemyField()
 {
-	ui->label->setText(QString::fromLocal8Bit("Ğ—ĞĞ“Ğ Ğ£Ğ—ĞšĞ..."));
+    ui->label->setText(QString::fromLocal8Bit("ÇÀÃĞÓÇÊÀ..."));
 	fieldSecond = new Field;
 	connect(fieldSecond, SIGNAL(playerAttackCell(int)), this, SLOT(attackOnCell(int)));
 	fieldFirst->setEnabled(false);
