@@ -44,11 +44,16 @@ signals:
       * Signal contains result of last try to place ship on cells.
       */
 	void placementResult(PlacementStatus res);
+<<<<<<< HEAD:client/src/gameLogics/fleetInstaller.h
     /**
       * This signal emits when all fleet was correctly installed.
       */
     void fleetInstalled();
     //void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
+=======
+	void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
+
+>>>>>>> 2c64a389178deec969a85a3157cedf0359422e32:src/fleetInstaller.h
 public slots:
     /**
       * This slot informs object about a try to place ship on cells kept in QVector.
@@ -56,6 +61,7 @@ public slots:
       * Slot emits signal placementResult() with status of this try to place ship.
       */
 	PlacementStatus shipPlaced(int firstId, int secondId);
+<<<<<<< HEAD:client/src/gameLogics/fleetInstaller.h
     /**
       * This slot remove the ship from field if cell with recieved id contained some ship.
       */
@@ -66,6 +72,10 @@ private slots:
       * Return true if it's ok and emit fleetInstalled() signal.
       */
     bool checkIsFleetReady();
+=======
+	void deleteShip(int id);
+    
+>>>>>>> 2c64a389178deec969a85a3157cedf0359422e32:src/fleetInstaller.h
 private:
     enum Orientation
     {

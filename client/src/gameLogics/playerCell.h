@@ -36,6 +36,9 @@ public:
       *
       */
     void setView(Cell* _cellView);
+
+	void deleteShip();
+
 private:
     /**
       * Pointer to the ship placed on this cell.

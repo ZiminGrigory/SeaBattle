@@ -13,7 +13,7 @@ void Cell::changeStatusOfCell(Textures texture)
 {
 	//расширить
 	switch (texture) {
-	case EMPTY: mTexture = ":/pictures/small ship.jpg";
+	case EMPTY: mTexture = ":/pictures/sea.jpg";
 		break;
 	case SHIP_DAMAGED: mTexture = ":/pictures/small ship.jpg";
 		break;
@@ -21,7 +21,20 @@ void Cell::changeStatusOfCell(Textures texture)
 		break;
     case MISS_CELL: mTexture = ":/pictures/splash.jpg";
 		break;
-	default: mTexture = ":/pictures/small ship.jpg";
+	case SHIP_POOP_VERTICAL: mTexture = ":/pictures/bottom.jpg";
+		break;
+	case SHIP_BOW_VERTICAL: mTexture = ":/pictures/head.jpg";
+		break;
+	case SHIP_DECK_VERTICAL: mTexture = ":/pictures/middle part.jpg";
+		break;
+	case SHIP_POOP_HORIZONTAL: mTexture = ":/pictures/bottom_hor.jpg";
+		break;
+	case SHIP_BOW_HORIZONTAL: mTexture = ":/pictures/head_hor.jpg";
+		break;
+	case SHIP_DECK_HORIZONTAL: mTexture = ":/pictures/middle part_hor.jpg";
+		break;
+	case SHIP_SINGLE: mTexture = ":/pictures/small ship.jpg";
+		break;
 	}
 	this->update();
 }

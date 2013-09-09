@@ -45,5 +45,10 @@ void PlayerCell::mark(AttackStatus res)
 
 void PlayerCell::setView(Cell *_cellView)
 {
-    cellView = _cellView;
+	cellView = _cellView;
+}
+
+void PlayerCell::deleteShip()
+{
+	ship.clear();
 }

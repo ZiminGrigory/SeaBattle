@@ -7,6 +7,7 @@
 #include "types.h"
 #include "playerCell.h"
 #include "view.h"
+#include "ship.h"
 
 /**
   * Class of game field of player.
@@ -37,6 +38,7 @@ public:
       * @param ship ship for placement.
       */
     void setShip(int id, bool orientation, QSharedPointer<Ship> ship);
+	void deleteShip(int id);
 
     /**
       *
@@ -47,6 +49,8 @@ private:
     PlayerCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
     View* view;
     Players plr;
+
+	Textures textureOfCell(int i, int shipSize, bool orientation);
 };
 
 #endif // PLAYERFIELD_H

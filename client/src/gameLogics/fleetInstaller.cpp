@@ -163,7 +163,16 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
     fleetInfoTab->changeCountOfShip(shipType, -1);
     field->setShip(point1.first * FIELD_ROW_NUM + point1.second, orn, ship);
     emit placementResult(OK);
-    return OK;
+	return OK;
+}
+
+void FleetInstaller::deleteShip(int id)
+{
+    if (field->getShip(id) != NULL)
+    {
+        fleet.append(field->getShip(id));
+        field->deleteShip(id);
+    }
 }
 
 void FleetInstaller::deleteShip(int id)
