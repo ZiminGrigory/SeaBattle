@@ -77,8 +77,3 @@ void PlayerField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         }
     }
 }
-
-void PlayerField::setPlr(Players _plr)
-{
-    plr = _plr;
-}

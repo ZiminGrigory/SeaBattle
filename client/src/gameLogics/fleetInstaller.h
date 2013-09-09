@@ -9,7 +9,7 @@
 
 #include "types.h"
 #include "ship.h"
-#include "playerField.h"
+#include "gameField.h"
 
 
 /**
@@ -35,14 +35,20 @@ public:
 
     typedef QPair<int, int> CellPair;
 
-    FleetInstaller(QVector<ptrShip> playerFleet, PlayerField* playerField);
+    FleetInstaller(QVector<ptrShip> playerFleet,
+                   GameField* playerField,
+                   QSharedPointer<TabOfInformation> _fleetInfoTab);
 signals:
     /**
       * Signal emitted after shipPlaced() slot ended work.
       * Signal contains result of last try to place ship on cells.
       */
 	void placementResult(PlacementStatus res);
-	void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
+    /**
+      * This signal emits when all fleet was correctly installed.
+      */
+    void fleetInstalled();
+    //void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
 public slots:
     /**
       * This slot informs object about a try to place ship on cells kept in QVector.
@@ -50,7 +56,16 @@ public slots:
       * Slot emits signal placementResult() with status of this try to place ship.
       */
 	PlacementStatus shipPlaced(int firstId, int secondId);
-    
+    /**
+      * This slot remove the ship from field if cell with recieved id contained some ship.
+      */
+    void deleteShip(int id);
+private slots:
+    /**
+      * Check, was all ships in fleet installed on field.
+      * Return true if it's ok and emit fleetInstalled() signal.
+      */
+    bool checkIsFleetReady();
 private:
     enum Orientation
     {
@@ -70,7 +85,8 @@ private:
     ptrShip pickShip(CellPair cells, Orientation orn);
 
     QVector<ptrShip> fleet;
-    PlayerField* field;
+    QSharedPointer<GameField> field;
+    QSharedPointer<TabOfInformation> fleetInfoTab;
 };
 
 Q_DECLARE_METATYPE(FleetInstaller::PlacementStatus);

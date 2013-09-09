@@ -1,6 +1,8 @@
 #include "aiPlayer.h"
 
-AIPlayer::AIPlayer(View *view, QObject *parent):
+AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
+                   const QSharedPointer<GameField> &enmField,
+                   QObject *parent):
     Player(view)
 {
     myField.setPlr(NONE);

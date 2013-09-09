@@ -5,8 +5,7 @@
 #include <QSharedPointer>
 
 #include "ship.h"
-#include "playerField.h"
-#include "enemyField.h"
+#include "gameField.h"
 #include "fleetFactory.h"
 #include "fleetInstaller.h"
 #include "view.h"
@@ -18,7 +17,9 @@ class Player : public QObject
 {
     Q_OBJECT
 public:
-    explicit inline Player(View* view, QObject* parent = 0);
+    explicit inline Player(const QSharedPointer<GameField>& plrField,
+                           const QSharedPointer<GameField>& enmField,
+                           QObject* parent = 0);
     virtual ~Player() {}
 
     /**
@@ -28,11 +29,11 @@ public:
     /**
       * Create fleet using FleetFactory object.
       */
-    inline void createFleet(const FleetFactory& factory);
+    //inline void createFleet(const FleetFactory& factory);
     /**
       * Slot intall player fleet on field.
       */
-    virtual void installFleet() = 0;
+    virtual void installFleet(const FleetInstaller& fleetInstaller) = 0;
 signals:
     /**
       * This signal must be emitted when player chose a cell to attack (id is an identifeir of a cell).
@@ -42,9 +43,13 @@ signals:
       */
     void turnMade(int id);
     /**
+      * This signal must be emitted when player finished the installing of his fleet and ready to battle.
+      */
+    void fleetInstalled();
+    /**
       * After player recieves information about enemy turn, he emits this signal with result of attack.
       */
-    void attackResult(AttackStatus res);
+    //void attackResult(AttackStatus res);
 public slots:
     /**
       * This slot called by GameMaster to offer player make his choise (choose a cell for attack).
@@ -53,37 +58,37 @@ public slots:
     /**
       * This slot called by GameMaster to inform player about results of his turn.
       */
-    inline void turnResult(AttackStatus attackResult);
+    //inline void turnResult(AttackStatus attackResult);
     /**
       * This slot called by GameMaster to inform player about enemy turn
       * (actually, about what cell being attacked).
-      * GameMaster expects to get result of attack from attackResult() signal.
       */
     inline void enemyTurn(int id);
 protected:
-    View *view;
+    /**
+      * Accessory method. It attack enemy cell with received id and emit signal turnMade().
+      */
+    void attack(int id);
 
-    PlayerField myField;
-    EnemyField enemyField;
 
-    QScopedPointer<FleetInstaller> fleetInstaller;
+    QSharedPointer<PlayerField> myField;
+    QSharedPointer<EnemyField> enemyField;
 
-    typedef QSharedPointer<Ship> ptrShip;
-    QVector<ptrShip> fleet;
+    //typedef QSharedPointer<Ship> ptrShip;
+    //QVector<ptrShip> fleet;
     /**
       * Summary health of fleet, defines the number of hits after which player will lose.
       */
     int fleetHealth;
-
 };
 
-inline Player::Player(View* _view, QObject *parent):
+inline Player::Player(const QSharedPointer<GameField>& plrField,
+                      const QSharedPointer<GameField>& enmField,
+                      QObject *parent):
     QObject(parent),
     fleetHealth(0),
-    fleetInstaller(),
-    myField(_view),
-    enemyField(_view),
-    view(_view)
+    myField(plrField),
+    enemyField(enmField)
 {
 }
 
@@ -92,6 +97,7 @@ inline bool Player::lose()
     return (fleetHealth == 0);
 }
 
+/*
 void Player::createFleet(const FleetFactory& factory)
 {
     fleet = factory.createFleet();
@@ -102,11 +108,14 @@ void Player::createFleet(const FleetFactory& factory)
         fleetHealth += fleet[i]->health();
     }
 }
+*/
 
+/*
 inline void Player::turnResult(AttackStatus attackResult)
 {
     enemyField.attackResult(attackResult);
 }
+*/
 
 inline void Player::enemyTurn(int id)
 {
@@ -115,8 +124,14 @@ inline void Player::enemyTurn(int id)
     {
         --fleetHealth;
     }
-    emit attackResult(status);
 }
+
+void Player::attack(int id)
+{
+    enemyField->attack(id);
+    emit turnMade(id);
+}
+
 
 
 #endif // PLAYER_H

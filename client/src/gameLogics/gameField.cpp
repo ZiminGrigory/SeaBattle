@@ -1,25 +1,56 @@
-#include "enemyField.h"
+#include "gameField.h"
 
-EnemyField::EnemyField(View* _view, QObject *parent) :
-    QObject(parent),
-    lastAttackedCellId(0),
-    view(_view)
+void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
 {
-    /*
-    for (int i = 0; i < FIELD_ROW_NUM; i++)
+    QPair<int, int> coord = coordinates(id);
+    int row = coord.first;
+    int col = coord.second;
+    // if orientation == true, then ship has horizontal orientation
+    if (orientation)
     {
-        for (int j = 0; j < FIELD_COL_NUM; j++)
+        for (int i = 0; i < ship->health(); i++)
         {
-            field[i][j].setView(view->getCellView(ENEMY, getIdByCoordinates(i, j)));
+            if (checkCoord(row, col + i))
+            {
+                field[row][col + i].setShip(ship);
+                view->paintCell(plr, getIdByCoordinates(row, col + i), SHIP_SINGLE);
+            }
         }
     }
-    */
+    // otherwise - vertical orientation
+    else
+    {
+        for (int i = 0; i < ship->health(); i++)
+        {
+            if (checkCoord(row + i, col))
+            {
+                field[row + i][col].setShip(ship);
+                view->paintCell(plr, getIdByCoordinates(row + i, col), SHIP_SINGLE);
+            }
+        }
+    }
 }
 
-void EnemyField::attackResult(AttackStatus res)
+QSharedPointer<Ship> GameField::getShip(int id)
 {
-    int x = lastAttackedCellId / FIELD_ROW_NUM;
-    int y = lastAttackedCellId - x * FIELD_ROW_NUM;
+    int x = id / FIELD_ROW_NUM;
+    int y = id - x * FIELD_ROW_NUM;
+    if (!checkCoord(x, y))
+    {
+        return QSharedPointer<Ship>();
+    }
+    return field[x][y].getShip();
+}
+
+void GameField::removeShip(int id)
+{
+
+}
+
+AttackStatus GameField::attack(int id)
+{
+    int x = id / FIELD_ROW_NUM;
+    int y = id - x * FIELD_ROW_NUM;
 
     if (res == MISS)
     {
@@ -54,22 +85,21 @@ void EnemyField::attackResult(AttackStatus res)
     }
 }
 
-bool EnemyField::attack(int id)
+bool GameField::attackable()
 {
     int i = id / FIELD_ROW_NUM;
     int j = id % FIELD_COL_NUM;
-    if (!checkCoord(i, j) || !field[i][j].attack())
+    if (!checkCoord(i, j) || !field[i][j].attackable())
     {
         return false;
     }
     else
     {
-        lastAttackedCellId = id;
         return true;
     }
 }
 
-void EnemyField::markKilled(int i, int j, QStack<Coord> *markedCells)
+void GameField::markKilled(int i, int j, QStack<Coord>* markedCells)
 {
     if (checkCoord(i, j))
     {

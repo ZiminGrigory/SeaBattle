@@ -34,11 +34,6 @@ public:
       */
     bool attack(int id);
 
-    /**
-      *
-      */
-    void setPlr(Players _plr);
-
     // for test purpose
     friend class EnemyFieldTest;
 private:
