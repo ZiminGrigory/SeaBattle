@@ -34,8 +34,3 @@ void HumanPlayer::cellWasAttacked(int id)
     attack(id);
 }
 
-void HumanPlayer::fleetInstalledSlot()
-{
-    emit fleetInstalled();
-}
-
