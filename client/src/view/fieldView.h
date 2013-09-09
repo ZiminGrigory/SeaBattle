@@ -15,10 +15,6 @@ public:
 public slots:
 	void setEnabled(bool enabled);
     void repaint(int id, Textures texture);
-private slots:
-    void reEmitAttack(int id);
-    void reEmitPlaceShip(int firstId, int secondId);
-    void reEmitDeleteShip(int id);
 private:
 	QSharedPointer<Field> mField;
 signals:
