@@ -14,6 +14,7 @@ TabOfInformation::TabOfInformation(QWidget *parent) :
 	this->setMaximumSize(sizeOfCube + 40, sizeOfCube + 40);
 	this->setMinimumSize(sizeOfCube + 40, sizeOfCube + 40);
 	connect(ui->toolButton, SIGNAL(clicked()), this, SLOT(pushButtonReadyToFight()));
+	connect(ui->toolButton_2, SIGNAL(clicked()), this, SIGNAL(needAutoSetting()));
 	ui->label->setPixmap(QPixmap(":/pictures/aerocarrier.jpg"));
 	ui->label_2->setPixmap(QPixmap(":/pictures/cruiser.jpg"));
 	ui->label_3->setPixmap(QPixmap(":/pictures/destroyer.jpg"));

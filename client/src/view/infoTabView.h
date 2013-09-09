@@ -1,5 +1,3 @@
-#ifndef INFOTABVIEW_H
-#define INFOTABVIEW_H
 #pragma once
 #include <QObject>
 #include <QSharedPointer>
@@ -13,12 +11,9 @@ public:
 	InfoTabView();
 public slots:
 	void changeCounter(NameOfShips ship, int difference);
-private slots:
-	void reEmitSignal();
 private:
 	QSharedPointer<TabOfInformation> mInfoTab;
 signals:
 	void readyToFight();
+	void needAutoSetting();
 };
-
-#endif // INFOTABVIEW_H
