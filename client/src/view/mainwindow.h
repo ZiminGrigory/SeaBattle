@@ -1,7 +1,10 @@
 #include <QMainWindow>
+#include <QSharedPointer>
 #include "cell.h"
 #include "field.h"
 #include "tabOfInformation.h"
+#include "infoTabView.h"
+#include "fieldView.h"
 namespace Ui {
 class MainWindow;
 }
@@ -12,30 +15,13 @@ class MainWindow : public QMainWindow
 
 public:
 	explicit MainWindow(QWidget *parent = 0);
-	void paintStartDialog();
-	void changeCounter(NameOfShips ship, int count);
-    void paintCell(int player, int id, Textures texture);
-    void changeTurn(Players player);
+	void setMessage(QString text);
+	void showPlayerField(QSharedPointer<Field> field);
+	void showEnemyField(QSharedPointer<Field> field);
+	void showInfoTab(QSharedPointer<TabOfInformation> infoTab);
 
-	~MainWindow();
-
-public slots:
-	void attackOnCell(int id);
-	void buildShip(int firstId, int secondId);
-
-signals:
-	void deleteShip(int id);
-	void createShip(int firstId, int secondId);
-	void attackCell(int id);
-	void readyToFight();
-
-private slots:
-	void paintEnemyField();
-	void deleteShipOnCell(int id);
 
 private:
-	Ui::MainWindow *ui;
-	Field *fieldFirst;
-	Field *fieldSecond;
-	TabOfInformation *infoTab;
+	QSharedPointer<Ui::MainWindow> ui;
+	QSharedPointer<TabOfInformation> mInfoTab;
 };

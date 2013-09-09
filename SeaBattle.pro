@@ -27,8 +27,13 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/fleetInstaller.cpp \
     client/src/view/tabOfInformation.cpp \
     client/src/view/view.cpp \
+<<<<<<< HEAD
     client/src/gameLogics/gameCell.cpp \
     client/src/gameLogics/gameField.cpp
+=======
+    client/src/view/fieldView.cpp \
+    client/src/view/infoTabView.cpp
+>>>>>>> 497075aafa84408dd1bdbbd606700ab6b13359b4
 
 HEADERS  += client/src/view/mainwindow.h \
     client/src/gameLogics/enemyCell.h \
@@ -48,8 +53,13 @@ HEADERS  += client/src/view/mainwindow.h \
     client/src/gameLogics/fleetInstaller.h \
     client/src/view/tabOfInformation.h \
     client/src/view/view.h \
+<<<<<<< HEAD
     client/src/gameLogics/gameCell.h \
     client/src/gameLogics/gameField.h
+=======
+    client/src/view/fieldView.h \
+    client/src/view/infoTabView.h
+>>>>>>> 497075aafa84408dd1bdbbd606700ab6b13359b4
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/mainwindow.ui \
