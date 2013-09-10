@@ -30,7 +30,8 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/gameCell.cpp \
     client/src/gameLogics/gameField.cpp \
     client/src/view/fieldView.cpp \
-    client/src/view/infoTabView.cpp
+    client/src/view/infoTabView.cpp \
+    client/src/gameLogics/aiPlayerSimple.cpp
 
 HEADERS  += client/src/view/mainwindow.h \
     client/src/gameLogics/enemyCell.h \
@@ -53,7 +54,8 @@ HEADERS  += client/src/view/mainwindow.h \
     client/src/gameLogics/gameCell.h \
     client/src/gameLogics/gameField.h \
     client/src/view/fieldView.h \
-    client/src/view/infoTabView.h
+    client/src/view/infoTabView.h \
+    client/src/gameLogics/aiPlayerSimple.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/mainwindow.ui \

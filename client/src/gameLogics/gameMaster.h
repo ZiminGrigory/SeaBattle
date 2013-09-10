@@ -6,15 +6,16 @@
 #include "view.h"
 #include "player.h"
 #include "humanPlayer.h"
-#include "aiPlayer.h"
+#include "aiPlayerSimple.h".h"
 
 class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-    GameMaster(const QSharedPointer<View>& view,
+    GameMaster(const QSharedPointer<View>& _view,
                         QObject* parent = 0);
-
+    ~GameMaster()
+    {}
     /**
       * Method start the game.
       */

@@ -14,7 +14,7 @@ GameMaster::GameMaster(const QSharedPointer<View>& _view,
 
     player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField,
                                                     view->getPlayerFieldView(), view->getEnemyFieldView()));
-    enemy = QSharedPointer<Player>(new AIPlayer(enemyField, playerField));
+    enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
 }
 
 void GameMaster::startGame()
@@ -67,7 +67,7 @@ void GameMaster::offerTurn()
     if (turnedPlayer == player){
         view->setMessage("ВАШ ХОД");
 	} else{
-        view->setMessage("ХОД ПРОТИВНИКА");
+        view->setMessage("ХОД П� ОТИВНИКА");
 	}
     turnedPlayer->turn();
 }
