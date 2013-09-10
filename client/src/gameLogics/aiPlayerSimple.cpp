@@ -18,18 +18,10 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
     for (int i = 0; i < fleet.size(); i++)
     {
         int shipSize = fleet[i]->size();
-        //int shipSize;
-//        if(i < 4)
-//            shipSize = 1;
-//        else if (i < 7)
-//            shipSize = 2;
-//        else if(i < 9)
-//            shipSize = 3;
-//        else
-//            shipSize = 4;
         bool isHorizontal = true;
-        qsrand(QTime::currentTime().msec());
-        if (qrand() % 2 == 0)
+      //  qsrand(QTime::currentTime().msec());
+        int smth = qrand()% 20 - qrand() % 20;
+        if (smth > 0)
         {
             isHorizontal = false;
         }
