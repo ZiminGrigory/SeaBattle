@@ -28,7 +28,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         {
             field[row + i][col].setShip(ship);
 			ship.data()->appedIdOfPart(getIdByCoordinates(row + i, col));
-			view->repaint(getIdByCoordinates(row + i, col), textureAnalyzer->shipTexture(i + 1, shipSize, orientation));
+//			view->repaint(getIdByCoordinates(row + i, col), textureAnalyzer->shipTexture(i + 1, shipSize, orientation));
         }
     }
 }
@@ -110,9 +110,9 @@ void GameField::markKilled(int i, int j)
 			if ((coordinates.last() - coordinates.first()) < FIELD_COL_NUM){
 				orientation = true;
 			}
-			view->repaint(getIdByCoordinates(i, j)
-						  , textureAnalyzer->shipDamagedTexture(position(coordinates, getIdByCoordinates(i, j))
-																, size, orientation));
+//			view->repaint(getIdByCoordinates(i, j)
+//						  , textureAnalyzer->shipDamagedTexture(position(coordinates, getIdByCoordinates(i, j))
+//																, size, orientation));
 		}
 		else if(field[i][j].getAttackStatus() == MISS || field[i][j].getAttackStatus() == NOT_ATTACKED){
 			view->repaint(getIdByCoordinates(i, j), WRECK);
@@ -131,6 +131,7 @@ int GameField::position(QVector<int> vector, int id)
 			return i + 1;
 		}
 	}
+	return FIELD_COL_NUM;
 }
 
 bool GameField::attackable(int id)

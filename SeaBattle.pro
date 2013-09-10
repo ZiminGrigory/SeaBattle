@@ -31,8 +31,7 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/gameField.cpp \
     client/src/view/fieldView.cpp \
     client/src/view/infoTabView.cpp \
-    client/src/gameLogics/ship.cpp \
-	client/src/gameLogics/textureAnalyzer.cpp \
+	client/src/gameLogics/ship.cpp \
 
 HEADERS  += client/src/view/mainwindow.h \
     client/src/gameLogics/enemyCell.h \
@@ -55,8 +54,7 @@ HEADERS  += client/src/view/mainwindow.h \
     client/src/gameLogics/gameCell.h \
     client/src/gameLogics/gameField.h \
     client/src/view/fieldView.h \
-    client/src/view/infoTabView.h \
-	client/src/gameLogics/textureAnalyzer.h \
+	client/src/view/infoTabView.h \
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/mainwindow.ui \
