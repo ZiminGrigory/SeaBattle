@@ -19,7 +19,7 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
         bool isHorizontal = true;
         if (qrand() % 2 == 0)
         {
-            isHorizontal == false;
+            isHorizontal = false;
         }
         int row = 0;
         int col = 0;
@@ -43,19 +43,16 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
             QPair<int, int> point2(row, col);
             if (isHorizontal)
             {
-                point2.second + shipSize;
+                point2.second += shipSize;
             }
             else
             {
-                point2.first + shipSize;
+                point2.first += shipSize;
             }
             first = getIdByCoordinates(point1);
             second = getIdByCoordinates(point2);
 
             status = fleetInstaller->shipPlaced(first, second);
-            bool b = (status != FleetInstaller::OK) ||
-                    (status != FleetInstaller::HAVE_NOT_SHIP);
-            bool d = true;
 
         } while((status != FleetInstaller::OK) &&
                 (status != FleetInstaller::HAVE_NOT_SHIP));
@@ -123,6 +120,7 @@ void AIPlayerSimple::turn()
 
         lastAttackedCell = id;
     }
-   attack(id);
+    lastAttackResult = enemyField->attack(id);
+    emit turnMade(id, lastAttackResult);
 }
 

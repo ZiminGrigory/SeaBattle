@@ -1,7 +1,7 @@
 #include "gameField.h"
 
 GameField::GameField(const QSharedPointer<FieldView> &fieldView):
-    view(fieldView)
+	view(fieldView), textureAnalyzer(new TextureAnalyzer)
 {
 }
 
@@ -18,7 +18,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         {
             field[row][col + i].setShip(ship);
 			ship.data()->appedIdOfPart(getIdByCoordinates(row, col + i));
-            view->repaint(getIdByCoordinates(row, col + i), textureOfCell(i + 1, shipSize, orientation));
+			view->repaint(getIdByCoordinates(row, col + i), textureAnalyzer->shipTexture(i + 1, shipSize, orientation));
         }
     }
     // otherwise - vertical orientation
@@ -28,7 +28,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         {
             field[row + i][col].setShip(ship);
 			ship.data()->appedIdOfPart(getIdByCoordinates(row + i, col));
-            view->repaint(getIdByCoordinates(row + i, col), textureOfCell(i + 1, shipSize, orientation));
+//			view->repaint(getIdByCoordinates(row + i, col), textureAnalyzer->shipTexture(i + 1, shipSize, orientation));
         }
     }
 }
@@ -79,9 +79,8 @@ AttackStatus GameField::attack(int id)
 	{
 		QSharedPointer<Ship> ship = field[coordinates(id).first][coordinates(id).second].getShip();
 		QVector<int> coordinates = ship->getCoordinate();
-		int size = coordinates.size();
-		int idFirst = coordinates.at(0);
-		int idSecond = coordinates.at(size - 1);
+		int idFirst = coordinates.first();
+		int idSecond = coordinates.last();
 		if ((idSecond - idFirst) >= 10){
 			for (int i = idFirst % FIELD_COL_NUM - 1; i <= idFirst % FIELD_COL_NUM + 1; i++){
 				for (int j = idFirst / FIELD_ROW_NUM - 1; j <= idSecond / FIELD_ROW_NUM + 1; j++){
@@ -95,9 +94,8 @@ AttackStatus GameField::attack(int id)
 				}
 			}
 		}
-    }
-
-    return res;
+	}
+	return res;
 }
 
 
@@ -105,10 +103,19 @@ void GameField::markKilled(int i, int j)
 {
 	if (checkCoord(i, j)){
 		if (field[i][j].getAttackStatus() == KILLED || field[i][j].getAttackStatus() == WOUNDED){
-			view->repaint(getIdByCoordinates(i, j), SHIP_KILLED);
+			QSharedPointer<Ship> ship = field[i][j].getShip();
+			QVector<int> coordinates = ship->getCoordinate();
+			int size = coordinates.size();
+			bool orientation = false;
+			if ((coordinates.last() - coordinates.first()) < FIELD_COL_NUM){
+				orientation = true;
+			}
+//			view->repaint(getIdByCoordinates(i, j)
+//						  , textureAnalyzer->shipDamagedTexture(position(coordinates, getIdByCoordinates(i, j))
+//																, size, orientation));
 		}
 		else if(field[i][j].getAttackStatus() == MISS || field[i][j].getAttackStatus() == NOT_ATTACKED){
-			view->repaint(getIdByCoordinates(i, j), MISS_CELL);
+			view->repaint(getIdByCoordinates(i, j), WRECK);
 			if (field[i][j].getAttackStatus() == NOT_ATTACKED){
 				field[i][j].attack();
 			}
@@ -116,104 +123,25 @@ void GameField::markKilled(int i, int j)
 	}
 }
 
+int GameField::position(QVector<int> vector, int id)
+{
+	int size = vector.size();
+	for (int i = 0; i < size; i++){
+		if (vector.at(i) == id){
+			return i + 1;
+		}
+	}
+	return FIELD_COL_NUM;
+}
+
 bool GameField::attackable(int id)
 {
     int i = id / FIELD_ROW_NUM;
     int j = id % FIELD_COL_NUM;
-    if (!checkCoord(i, j) || !field[i][j].attackable())
-    {
+    if (!checkCoord(i, j) || !field[i][j].attackable()){
         return false;
     }
-    else
-    {
+    else{
         return true;
     }
 }
-
-Textures GameField::textureOfCell(int i, int shipSize, bool orientation)
-{
-    switch (shipSize) {
-    case 1:
-        return SHIP_SINGLE;
-        break;
-    case 2:{
-        if (orientation) { //horizontally
-            if (i == 1) {
-                return SHIP_BOW_HORIZONTAL;
-            }else {
-                return SHIP_POOP_HORIZONTAL;
-            }
-        } else {
-            if (i == 1) {
-                return SHIP_BOW_VERTICAL;
-            }else {
-                return SHIP_POOP_VERTICAL;
-            }
-        }
-    }
-    break;
-    case 3:{
-        if (orientation) { //horizontally
-            switch (i) {
-            case 1:
-                return SHIP_BOW_HORIZONTAL;
-                break;
-            case 2:
-                return SHIP_DECK_HORIZONTAL;
-                break;
-            case 3:
-                return SHIP_POOP_HORIZONTAL;
-                break;
-            }
-        } else {
-            switch (i) {
-            case 1:
-                return SHIP_BOW_VERTICAL;
-                break;
-            case 2:
-                return SHIP_DECK_VERTICAL;
-                break;
-            case 3:
-                return SHIP_POOP_VERTICAL;
-                break;
-            }
-        }
-    }
-    break;
-    case 4:{
-        if (orientation) { //horizontally
-            switch (i) {
-            case 1:
-                return SHIP_BOW_HORIZONTAL;
-                break;
-            case 2:
-                return SHIP_DECK_HORIZONTAL;
-                break;
-            case 3:
-                return SHIP_DECK_HORIZONTAL;
-                break;
-            case 4:
-                return SHIP_POOP_HORIZONTAL;
-                break;
-            }
-        } else {
-            switch (i) {
-            case 1:
-                return SHIP_BOW_VERTICAL;
-                break;
-            case 2:
-                return SHIP_DECK_VERTICAL;
-                break;
-            case 3:
-                return SHIP_DECK_VERTICAL;
-                break;
-            case 4:
-                return SHIP_POOP_VERTICAL;
-                break;
-            }
-        }
-    }
-    break;
-    }
-}
-
