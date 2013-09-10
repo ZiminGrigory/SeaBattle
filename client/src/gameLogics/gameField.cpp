@@ -108,7 +108,10 @@ void GameField::markKilled(int i, int j)
 			view->repaint(getIdByCoordinates(i, j), SHIP_KILLED);
 		}
 		else if(field[i][j].getAttackStatus() == MISS || field[i][j].getAttackStatus() == NOT_ATTACKED){
-			view->repaint(getIdByCoordinates(i, j), WRECK);
+			view->repaint(getIdByCoordinates(i, j), MISS_CELL);
+			if (field[i][j].getAttackStatus() == NOT_ATTACKED){
+				field[i][j].attack();
+			}
 		}
 	}
 }
