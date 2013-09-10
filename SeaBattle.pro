@@ -13,7 +13,7 @@ TARGET = SeaBattle
 TEMPLATE = app
 
 
-<<<<<<< HEAD
+
 SOURCES += client/src/main.cpp\
     client/src/view/mainwindow.cpp \
     client/src/gameLogics/enemyCell.cpp \
@@ -65,47 +65,5 @@ FORMS    += client/gui/tabOfInformation.ui \
 RESOURCES += client/gui/pictures/pictures.qrc
 
 INCLUDEPATH += client/src/view client/src/gameLogics client/src
-=======
-SOURCES += src/main.cpp\
-        src/mainwindow.cpp \
-    src/enemyCell.cpp \
-    src/playerCell.cpp \
-    src/playerField.cpp \
-    src/enemyField.cpp \
-    src/humanPlayer.cpp \
-    src/aiPlayer.cpp \
-    src/gameMaster.cpp \
-    src/field.cpp \
-	src/cell.cpp \
-	src/fleetInstaller.cpp \
-    src/tabOfInformation.cpp \
-    src/view.cpp \
-    src/aiPlayerSimple.cpp
 
-HEADERS  += src/mainwindow.h \
-    src/enemyCell.h \
-    src/types.h \
-    src/playerCell.h \
-    src/ship.h \
-    src/playerField.h \
-    src/enemyField.h \
-    src/player.h \
-    src/humanPlayer.h \
-    src/aiPlayer.h \
-    src/gameMaster.h \
-    src/fleetFactory.h \
-	src/cellShip.h \
-    src/field.h \
-	src/cell.h \
-	src/fleetInstaller.h \
-    src/tabOfInformation.h \
-    src/view.h \
-    src/aiPlayerSimple.h
 
-FORMS    += gui/mainwindow.ui \
-    src/field.ui \
-	src/tabOfInformation.ui
-
-RESOURCES += \
-	src/pictures.qrc
->>>>>>> 51113694a8344743112a0373549dd2ce0ff60285

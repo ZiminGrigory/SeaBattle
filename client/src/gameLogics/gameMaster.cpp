@@ -28,7 +28,7 @@ void GameMaster::startGame()
     view->getPlayerFieldView()->setEnabled(true);
     view->showInfoTab();
 
-    view->setMessage("Установка флота");
+    view->setMessage("Install fleet");
     QSharedPointer<FleetInstaller> playerInst(new FleetInstaller(FleetFactory::createFleet(),
                                                                  playerField, view->getInfoTabView()));
     player->installFleet(playerInst);
@@ -65,9 +65,9 @@ void GameMaster::playerReadyToBattle(Player* sender)
 void GameMaster::offerTurn()
 {
     if (turnedPlayer == player){
-        view->setMessage("ВАШ ХОД");
+        view->setMessage("Your turn");
 	} else{
-        view->setMessage("ХОД П� ОТИВНИКА");
+        view->setMessage("Enemy's turn");
 	}
     turnedPlayer->turn();
 }

@@ -6,7 +6,7 @@
 #include "view.h"
 #include "player.h"
 #include "humanPlayer.h"
-#include "aiPlayerSimple.h".h"
+#include "aiPlayerSimple.h"
 
 class GameMaster : public QObject
 {
