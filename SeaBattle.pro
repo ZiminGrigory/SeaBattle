@@ -7,7 +7,7 @@
 QT       += core gui
 QT       += widgets
 
-DEFINES += QT4
+DEFINES += QT5
 
 TARGET = SeaBattle
 TEMPLATE = app
