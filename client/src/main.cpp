@@ -1,7 +1,9 @@
+#include <QObject>
+
 #include "view.h"
 #include "gameMaster.h"
 #include "humanPlayer.h"
-#include "aiPlayer.h"
+#include "aiPlayerSimple.h"
 #ifdef QT4
     #include <QtGui>
 #elif QT5

@@ -7,8 +7,16 @@
 #include "types.h"
 #include "player.h"
 
+
+enum Direction {     //paste it to types.h
+    LEFT,
+    DOWN,
+    RIGHT,
+    HIGH
+};
+
 /**
-  * Pretty stupid implementation of AI for sea battle game. It just choose random cell on each step.
+  * Abstract class for two types of AIplayer - smart and simple.
   */
 class AIPlayer : public Player
 {
@@ -18,12 +26,22 @@ public:
                       const QSharedPointer<GameField>& enmField,
                       QObject *parent = 0);
 
-    void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
+    virtual void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller) = 0;
+    virtual ~AIPlayer()
+    {}
+protected:
+    int tryToKill(int id);
+    int attackedCells[3];
+    Direction direction;
+    AttackStatus lastAttackResult;
+    // I still have no idea how and where from to get it
+    //bool successShot;
+    bool isWounded;
+    int lastAttackedCell;
+
 public slots:
-    /**
-      * Nothing to thing about it, choose the random cell!
-      */
-    void turn();
+
+    virtual void turn() = 0;
 };
 
 #endif // AIPLAYER_H

@@ -67,7 +67,7 @@ AttackStatus GameField::attack(int id)
 
     AttackStatus res = field[x][y].attack();
 
-	if (res == MISS)
+    if (res == MISS)
     {
         view->repaint(getIdByCoordinates(x, y), MISS_CELL);
     }
