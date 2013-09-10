@@ -9,20 +9,24 @@ GameCell::GameCell():
 
 AttackStatus GameCell::attack()
 {
+    state = WAS_ATTACKED;
     if (ship)
     {
         int health = ship->damage();
         if (health == 0)
         {
-            return KILLED;
+			attackStatus = KILLED;
+			return KILLED;
         }
         else
         {
+			attackStatus = WOUNDED;
             return WOUNDED;
         }
     }
     else
     {
+		attackStatus = MISS;
         return MISS;
     }
 }
