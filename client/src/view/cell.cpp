@@ -35,6 +35,20 @@ void Cell::changeStatusOfCell(Textures texture)
 		break;
 	case SHIP_SINGLE: mTexture = ":/pictures/small ship.jpg";
 		break;
+	case SHIP_POOP_VERTICAL_BURN: mTexture = ":/pictures/bottom burning.jpg";
+		break;
+	case SHIP_BOW_VERTICAL_BURN: mTexture = ":/pictures/head burning.jpg";
+		break;
+	case SHIP_DECK_VERTICAL_BURN: mTexture = ":/pictures/middle part burning.jpg";
+		break;
+	case SHIP_POOP_HORIZONTAL_BURN: mTexture = ":/pictures/bottom burning hor.jpg";
+		break;
+	case SHIP_BOW_HORIZONTAL_BURN: mTexture = ":/pictures/head burning hor.jpg";
+		break;
+	case SHIP_DECK_HORIZONTAL_BURN: mTexture = ":/pictures/middle part burning hor.jpg";
+		break;
+	case SHIP_SINGLE_BURN: mTexture = ":/pictures/small ship burning.jpg";
+		break;
 	case WRECK: mTexture = ":/pictures/wreck.jpg";
 		break;
 	}

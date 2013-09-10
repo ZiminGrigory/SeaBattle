@@ -9,6 +9,7 @@
 #include "types.h"
 #include "gameCell.h"
 #include "fieldView.h"
+#include "textureAnalyzer.h"
 
 /**
   * Abstract class for enemy & player field.
@@ -49,10 +50,12 @@ public:
 private:
     typedef QPair<int, int> Coord;
 	void markKilled(int i, int j);
-    Textures textureOfCell(int i, int shipSize, bool orientation);
 
     GameCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
     QSharedPointer<FieldView> view;
+	QSharedPointer<TextureAnalyzer> textureAnalyzer;
+
+	int position(QVector<int> vector, int id);
 };
 
 
