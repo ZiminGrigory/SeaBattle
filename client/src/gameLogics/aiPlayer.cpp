@@ -21,7 +21,7 @@ int AIPlayer::tryToKill(int id)
     int x = id / FIELD_ROW_NUM;
     int y = id % FIELD_COL_NUM;
     bool res = 0;
-    int orintation;
+    int orintation = 0;
     int nextAttacked = 0;
     do
     {

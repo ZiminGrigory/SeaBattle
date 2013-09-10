@@ -15,7 +15,7 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
 {
     QVector<FleetInstaller::ptrShip> fleet = fleetInstaller->getFleet();
     setFleetHealth(fleet);
-    for (int i = 0;i < fleet.size(); i++)
+    for (int i = 0; i < fleet.size(); i++)
     {
         int shipSize = fleet[i]->size();
         //int shipSize;
@@ -28,13 +28,16 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
 //        else
 //            shipSize = 4;
         bool isHorizontal = true;
+        qsrand(QTime::currentTime().msec());
         if (qrand() % 2 == 0)
         {
-            isHorizontal == false;
+            isHorizontal = false;
         }
+
         int row = 0;
         int col = 0;
         int first = 0;
+
         int second = 0;
         FleetInstaller::PlacementStatus status = FleetInstaller::OK;
         do
@@ -43,23 +46,23 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
             {
                 row = qrand() % FIELD_ROW_NUM;
             }
-            while (!isHorizontal && row > FIELD_ROW_NUM - shipSize);
+            while (!isHorizontal && (row > FIELD_ROW_NUM - shipSize));
             do
             {
                 col = qrand() % FIELD_COL_NUM;
             }
-            while(isHorizontal && col > FIELD_COL_NUM - shipSize);
+            while(isHorizontal && col > (FIELD_COL_NUM - shipSize));
 
             QPair<int, int> point1(row, col);
             QPair<int, int> point2(row, col);
 
             if (isHorizontal)
             {
-                point2.second + shipSize;
+                point2.second += shipSize - 1;
             }
             else
             {
-                point2.first + shipSize;
+                point2.first += shipSize - 1;
             }
             first = getIdByCoordinates(point1);
             second = getIdByCoordinates(point2);
