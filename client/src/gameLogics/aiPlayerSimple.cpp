@@ -15,7 +15,7 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
 {
     QVector<FleetInstaller::ptrShip> fleet = fleetInstaller->getFleet();
     setFleetHealth(fleet);
-    for (int i = 0; fleet.size(); i++)
+    for (int i = 0;i < fleet.size(); i++)
     {
         int shipSize = fleet[i]->size();
         //int shipSize;
@@ -52,6 +52,7 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
 
             QPair<int, int> point1(row, col);
             QPair<int, int> point2(row, col);
+
             if (isHorizontal)
             {
                 point2.second + shipSize;
@@ -64,9 +65,9 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
             second = getIdByCoordinates(point2);
 
             status = fleetInstaller->shipPlaced(first, second);
-//            bool b = (status != FleetInstaller::OK) ||
-//                    (status != FleetInstaller::HAVE_NOT_SHIP);
-//            bool d = true;
+            bool b = (status != FleetInstaller::OK) ||
+                    (status != FleetInstaller::HAVE_NOT_SHIP);
+            bool d = true;
 
         } while((status != FleetInstaller::OK) &&
                 (status != FleetInstaller::HAVE_NOT_SHIP));
