@@ -1,4 +1,3 @@
-
 #pragma once
 #include <QWidget>
 #include "types.h"
@@ -20,6 +19,7 @@ private slots:
 
 signals:
 	void fieldIsReady();
+	void needAutoSetting();
 
 private:
 	Ui::TabOfInformation *ui;

@@ -5,6 +5,8 @@ AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
                    QObject *parent):
     Player(plrField, enmField, parent)
 {
+    for(int i = 0; i < 3; i++)
+        attackedCells[i] = 0;
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
 }
@@ -23,6 +25,8 @@ int AIPlayer::tryToKill(int id)
     int nextAttacked = 0;
     do
     {
+        id = qrand() % (FIELD_ROW_NUM * FIELD_COL_NUM - 1);
+        res = enemyField->attackable(id);
         for (int i = 0; i < 3; i++)
         {
             if (attackedCells[i] == 0 ) //

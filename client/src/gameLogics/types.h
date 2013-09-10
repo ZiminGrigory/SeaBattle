@@ -32,7 +32,8 @@ enum Textures
     SHIP_DECK_HORIZONTAL,
     SHIP_SINGLE,
     SHIP_DAMAGED,
-    SHIP_KILLED
+	SHIP_KILLED,
+	WRECK
 };
 
 enum Players{

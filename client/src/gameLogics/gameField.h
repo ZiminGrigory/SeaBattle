@@ -48,7 +48,7 @@ public:
     bool attackable(int id);
 private:
     typedef QPair<int, int> Coord;
-    void markKilled(int i, int j, QStack<Coord>* markedCells);
+	void markKilled(int i, int j);
     Textures textureOfCell(int i, int shipSize, bool orientation);
 
     GameCell field[FIELD_ROW_NUM][FIELD_COL_NUM];

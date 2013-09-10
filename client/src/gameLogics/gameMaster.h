@@ -12,10 +12,7 @@ class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-    GameMaster(const QSharedPointer<View>& _view,
-                        QObject* parent = 0);
-    ~GameMaster()
-    {}
+    GameMaster(const QSharedPointer<View>& _view, QObject* parent = 0);
     /**
       * Method start the game.
       */

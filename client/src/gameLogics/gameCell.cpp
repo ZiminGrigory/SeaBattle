@@ -1,25 +1,32 @@
 #include "gameCell.h"
 
-GameCell::GameCell()
+GameCell::GameCell():
+    state(WAS_NOT_ATTACKED),
+    attackStatus(NOT_ATTACKED),
+    ship(NULL)
 {
 }
 
 AttackStatus GameCell::attack()
 {
+    state = WAS_ATTACKED;
     if (ship)
     {
         int health = ship->damage();
         if (health == 0)
         {
-            return KILLED;
+			attackStatus = KILLED;
+			return KILLED;
         }
         else
         {
+			attackStatus = WOUNDED;
             return WOUNDED;
         }
     }
     else
     {
+		attackStatus = MISS;
         return MISS;
     }
 }

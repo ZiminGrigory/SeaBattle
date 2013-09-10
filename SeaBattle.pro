@@ -32,6 +32,7 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/gameField.cpp \
     client/src/view/fieldView.cpp \
     client/src/view/infoTabView.cpp \
+    client/src/gameLogics/ship.cpp \
     client/src/gameLogics/aiPlayerSimple.cpp
 
 HEADERS  += client/src/view/mainwindow.h \
@@ -65,5 +66,3 @@ FORMS    += client/gui/tabOfInformation.ui \
 RESOURCES += client/gui/pictures/pictures.qrc
 
 INCLUDEPATH += client/src/view client/src/gameLogics client/src
-
-

@@ -27,6 +27,6 @@ void MainWindow::showInfoTab(QSharedPointer<TabOfInformation> infoTab)
 
 void MainWindow::showEnemyField(QSharedPointer<Field> field)
 {
-	ui.data()->horizontalLayout_2->removeWidget(mInfoTab.data());
+	ui.data()->horizontalLayout_2->itemAt(1)->widget()->hide();
 	ui.data()->horizontalLayout_2->addWidget(field.data());
 }

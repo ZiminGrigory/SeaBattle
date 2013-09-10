@@ -5,6 +5,8 @@ AIPlayerSimple::AIPlayerSimple(const QSharedPointer<GameField> &plrField,
                                  QObject *parent):
     AIPlayer(plrField, enmField, parent)
 {
+    isWounded = false;
+    lastAttackResult = NOT_ATTACKED;
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
 }
@@ -13,9 +15,18 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
 {
     QVector<FleetInstaller::ptrShip> fleet = fleetInstaller->getFleet();
     setFleetHealth(fleet);
-    for (int i = 0; i < fleet.size(); i++)
+    for (int i = 0; fleet.size(); i++)
     {
         int shipSize = fleet[i]->size();
+        //int shipSize;
+//        if(i < 4)
+//            shipSize = 1;
+//        else if (i < 7)
+//            shipSize = 2;
+//        else if(i < 9)
+//            shipSize = 3;
+//        else
+//            shipSize = 4;
         bool isHorizontal = true;
         if (qrand() % 2 == 0)
         {
@@ -53,13 +64,14 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
             second = getIdByCoordinates(point2);
 
             status = fleetInstaller->shipPlaced(first, second);
-            bool b = (status != FleetInstaller::OK) ||
-                    (status != FleetInstaller::HAVE_NOT_SHIP);
-            bool d = true;
+//            bool b = (status != FleetInstaller::OK) ||
+//                    (status != FleetInstaller::HAVE_NOT_SHIP);
+//            bool d = true;
 
         } while((status != FleetInstaller::OK) &&
                 (status != FleetInstaller::HAVE_NOT_SHIP));
     }
+    emit fleetInstalled(this);
 }
 
 int AIPlayerSimple::chooseRandomCell()
@@ -98,7 +110,7 @@ void AIPlayerSimple::turn()
     }
     else if ((isWounded) && (lastAttackResult == MISS))
     {
-        id = this->tryToKill(lastAttackedCell);
+        id = tryToKill(lastAttackedCell);
     }
     else
     {
@@ -112,7 +124,7 @@ void AIPlayerSimple::turn()
             isWounded = false;
             break;
         case(WOUNDED):
-            id = this->tryToKill(lastAttackedCell);
+            id = tryToKill(lastAttackedCell);
             isWounded = true;
             break;
         case (KILLED):
@@ -120,9 +132,12 @@ void AIPlayerSimple::turn()
             isWounded = false;
             break;
         }
-
+//        for(int i = 0; i < 3; i++)
+//            attackedCells[i] = 0;
         lastAttackedCell = id;
     }
-   attack(id);
+    lastAttackResult = enemyField->attack(id);
+    emit turnMade(id, lastAttackResult);
+
 }
 
