@@ -52,7 +52,7 @@ private:
 	void markKilled(int i, int j);
 
     GameCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
-    QSharedPointer<FieldView> view;
+	QSharedPointer<FieldView> view;
 	QSharedPointer<TextureAnalyzer> textureAnalyzer;
 
 	int position(QVector<int> vector, int id);
