@@ -4,11 +4,14 @@
 
 MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
-	ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    timer()
 {
 	ui.data()->setupUi(this);
 	ui.data()->lcdNumber->hide();
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
+
+    timer.setSingleShot(false);
 }
 
 void MainWindow::setMessage(QString text)
@@ -28,6 +31,7 @@ void MainWindow::showInfoTab(QSharedPointer<TabOfInformation> infoTab)
 
 void MainWindow::setTime(int time)
 {
+    disconnect(&timer, SIGNAL(timeout()), 0, 0);
 	ui->lcdNumber->display(time);
 	timer.start(1000);
 	connect(&timer, SIGNAL(timeout()), this, SLOT(decTime()));
@@ -35,7 +39,7 @@ void MainWindow::setTime(int time)
 
 void MainWindow::decTime()
 {
-	ui->lcdNumber->display(ui->lcdNumber->value() - 1);
+    ui->lcdNumber->display(ui->lcdNumber->intValue() - 1);
 }
 
 void MainWindow::showEnemyField(QSharedPointer<Field> field)

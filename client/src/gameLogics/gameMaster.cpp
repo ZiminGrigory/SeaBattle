@@ -1,5 +1,7 @@
 #include "gameMaster.h"
 
+const int GameMaster::turnTimeout = 30 * 1000;
+
 GameMaster::GameMaster(const QSharedPointer<View>& _view,
                        QObject* parent):
     QObject(parent),
@@ -8,13 +10,15 @@ GameMaster::GameMaster(const QSharedPointer<View>& _view,
     player(NULL),
     enemy(NULL),
     view(_view)
-{
+{   
 	playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
     player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField,
 										view->getPlayerFieldView(), view->getEnemyFieldView()));
     enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
+
+    turnTimer.setSingleShot(true);
 }
 
 void GameMaster::startGame()
@@ -69,6 +73,9 @@ void GameMaster::offerTurn()
 
 	}
     connect(turnedPlayer.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
+    connect(&turnTimer, SIGNAL(timeout()), turnedPlayer.data(), SLOT(randomTurn()));
+    turnTimer.start(turnTimeout);
+    view->setTime(turnTimeout / 1000);
 
     turnedPlayer->turn();
 }
@@ -76,6 +83,9 @@ void GameMaster::offerTurn()
 void GameMaster::informOpponent(int id, AttackStatus turnResult)
 {
     disconnect(turnedPlayer.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
+    turnTimer.stop();
+    //disconnect(&turnTimer, SIGNAL(timeout()), turnedPlayer.data(), SLOT(randomTurn()));
+
     waitingPlayer->enemyTurn(id);
     nextTurn(turnResult);
 }
@@ -108,9 +118,13 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         // next turn make the same player
     }
 
-    if (player->lose() || enemy->lose())
+    if (player->lose())
     {
-        // to do: end game and send message about win.
+        view->setMessage("Enemy Win");
+    }
+    else if (enemy->lose())
+    {
+        view->setMessage("You Win");
     }
     else
     {

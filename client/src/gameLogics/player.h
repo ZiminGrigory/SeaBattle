@@ -144,6 +144,7 @@ void Player::setFleetHealth(const QVector<FleetInstaller::ptrShip> &fleet)
     {
         fleetHealth += fleet[i]->health();
     }
+    --fleetHealth;
 }
 
 inline void Player::autoInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
