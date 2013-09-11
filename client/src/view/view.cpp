@@ -4,8 +4,8 @@ View::View()
 {
 	mMainWindow = QSharedPointer<MainWindow>(new MainWindow);
 	mPlayerField = QSharedPointer<FieldView>(new FieldView);
-	mEnemyField = QSharedPointer<FieldView>(new FieldView) ;
-	mInfoTab = QSharedPointer<InfoTabView>(new InfoTabView) ;
+	mEnemyField = QSharedPointer<FieldView>(new FieldView);
+	mInfoTab = QSharedPointer<InfoTabView>(new InfoTabView);
 	mMainWindow.data()->show();
 }
 
@@ -25,7 +25,12 @@ void View::showEnemyField()
 
 void View::showInfoTab()
 {
-    mMainWindow->showInfoTab(mInfoTab->getInfoTab());
+	mMainWindow->showInfoTab(mInfoTab->getInfoTab());
+}
+
+void View::setTime(int time)
+{
+	mMainWindow->setTime(time);
 }
 
 QSharedPointer<FieldView> View::getPlayerFieldView()

@@ -58,6 +58,21 @@ void Field::showAttackStatus(AttackStatus status)
 	connect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
 }
 
+void Field::showResult(Players player)
+{
+	QPixmap message;
+	switch (player) {
+	case YOU:
+		message = QPixmap(":/pictures/LOSER.jpeg");
+		break;
+	case ENEMY:
+		message = QPixmap(":/pictures/WINNER.jpeg");
+		break;
+	}
+	item = QSharedPointer<QGraphicsItem>(mScene->addPixmap(message));
+	ui->graphicsView->update();
+}
+
 Cell* Field::getCellView(int id)
 {
 	return field[id];

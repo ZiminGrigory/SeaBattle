@@ -13,6 +13,7 @@ public:
 	FieldView();
     QSharedPointer<Field> getField();
 	void showAttackStatus(AttackStatus status);
+	void showResult(Players player);
 public slots:
 	void setEnabled(bool enabled);
     void repaint(int id, Textures texture);

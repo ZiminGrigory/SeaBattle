@@ -18,6 +18,11 @@ void FieldView::showAttackStatus(AttackStatus status)
 	mField->showAttackStatus(status);
 }
 
+void FieldView::showResult(Players player)
+{
+	mField->showResult(player);
+}
+
 void FieldView::setEnabled(bool enabled)
 {
 	mField->setEnabled(enabled);

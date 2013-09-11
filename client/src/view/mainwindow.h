@@ -1,5 +1,6 @@
 #include <QMainWindow>
 #include <QSharedPointer>
+#include <QTimer>
 #include "cell.h"
 #include "field.h"
 #include "tabOfInformation.h"
@@ -19,9 +20,13 @@ public:
 	void showPlayerField(QSharedPointer<Field> field);
 	void showEnemyField(QSharedPointer<Field> field);
 	void showInfoTab(QSharedPointer<TabOfInformation> infoTab);
-
+	void setTime(int time);
 
 private:
 	QSharedPointer<Ui::MainWindow> ui;
 	QSharedPointer<TabOfInformation> mInfoTab;
+	QTimer timer;
+
+private slots:
+	void decTime();
 };

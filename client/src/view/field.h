@@ -18,6 +18,7 @@ public:
 	explicit Field(QWidget *parent = 0);
     void paintCell(int id, Textures texture);
 	void showAttackStatus(AttackStatus status);
+	void showResult(Players player);
     Cell* getCellView(int id);
 
 	~Field();

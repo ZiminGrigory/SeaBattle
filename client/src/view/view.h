@@ -9,9 +9,10 @@ class View : public QObject
 public:
 	View();
 	~View();
-    void showPlayerField();
-    void showEnemyField();
-    void showInfoTab();
+	void showPlayerField();
+	void showEnemyField();
+	void showInfoTab();
+	void setTime(int time);
     QSharedPointer<FieldView> getPlayerFieldView();
     QSharedPointer<FieldView> getEnemyFieldView();
     QSharedPointer<InfoTabView> getInfoTabView();
