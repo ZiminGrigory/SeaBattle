@@ -1,10 +1,12 @@
 #include "aiPlayerSimple.h"
 
 AIPlayerSimple::AIPlayerSimple(const QSharedPointer<GameField> &plrField,
-                                const QSharedPointer<GameField> &enmField,
-                                 QObject *parent):
+								const QSharedPointer<GameField> &enmField,
+								 QObject *parent):
     AIPlayer(plrField, enmField, parent)
 {
+    isWounded = false;
+    lastAttackResult = NOT_ATTACKED;
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
 }
@@ -17,13 +19,17 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
     {
         int shipSize = fleet[i]->size();
         bool isHorizontal = true;
-        if (qrand() % 2 == 0)
+      //  qsrand(QTime::currentTime().msec());
+        int smth = qrand()% 20 - qrand() % 20;
+        if (smth > 0)
         {
             isHorizontal = false;
         }
+
         int row = 0;
         int col = 0;
         int first = 0;
+
         int second = 0;
         FleetInstaller::PlacementStatus status = FleetInstaller::OK;
         do
@@ -32,22 +38,23 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
             {
                 row = qrand() % FIELD_ROW_NUM;
             }
-            while (!isHorizontal && row > FIELD_ROW_NUM - shipSize);
+            while (!isHorizontal && (row > FIELD_ROW_NUM - shipSize));
             do
             {
                 col = qrand() % FIELD_COL_NUM;
             }
-            while(isHorizontal && col > FIELD_COL_NUM - shipSize);
+            while(isHorizontal && col > (FIELD_COL_NUM - shipSize));
 
             QPair<int, int> point1(row, col);
             QPair<int, int> point2(row, col);
+
             if (isHorizontal)
-            {
-                point2.second += shipSize;
+			{
+                point2.second += shipSize - 1;
             }
             else
             {
-                point2.first += shipSize;
+                point2.first += shipSize - 1;
             }
             first = getIdByCoordinates(point1);
             second = getIdByCoordinates(point2);
@@ -56,7 +63,7 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
 
         } while((status != FleetInstaller::OK) &&
                 (status != FleetInstaller::HAVE_NOT_SHIP));
-    }
+	}
 	emit fleetInstalled(this);
 }
 
@@ -96,7 +103,7 @@ void AIPlayerSimple::turn()
     }
     else if ((isWounded) && (lastAttackResult == MISS))
     {
-        id = this->tryToKill(lastAttackedCell);
+        id = tryToKill(lastAttackedCell);
     }
     else
     {
@@ -110,7 +117,7 @@ void AIPlayerSimple::turn()
             isWounded = false;
             break;
         case(WOUNDED):
-            id = this->tryToKill(lastAttackedCell);
+            id = tryToKill(lastAttackedCell);
             isWounded = true;
             break;
         case (KILLED):
@@ -118,7 +125,8 @@ void AIPlayerSimple::turn()
             isWounded = false;
             break;
         }
-
+//        for(int i = 0; i < 3; i++)
+//            attackedCells[i] = 0;
         lastAttackedCell = id;
     }
     lastAttackResult = enemyField->attack(id);

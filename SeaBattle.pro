@@ -13,6 +13,7 @@ TARGET = SeaBattle
 TEMPLATE = app
 
 
+
 SOURCES += client/src/main.cpp\
     client/src/view/mainwindow.cpp \
     client/src/gameLogics/enemyCell.cpp \

@@ -10,7 +10,12 @@ FieldView::FieldView()
 
 QSharedPointer<Field> FieldView::getField()
 {
-    return mField;
+	return mField;
+}
+
+void FieldView::showAttackStatus(AttackStatus status)
+{
+	mField->showAttackStatus(status);
 }
 
 void FieldView::setEnabled(bool enabled)

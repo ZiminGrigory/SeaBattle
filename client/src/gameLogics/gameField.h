@@ -19,7 +19,7 @@ class GameField : public QObject
 {
     Q_OBJECT
 public:
-    GameField(const QSharedPointer<FieldView>& fieldView);
+	GameField(const QSharedPointer<FieldView>& fieldView);
     /**
       * Set ship.
       *
@@ -42,20 +42,19 @@ public:
     /**
       * Attack cell with id given by argument. Return the result of attack.
       */
-    AttackStatus attack(int id);
+	virtual AttackStatus attack(int id);
     /**
       * Check could this cell being attack.
       */
     bool attackable(int id);
-private:
-    typedef QPair<int, int> Coord;
+protected:
+	int position(QVector<int> vector, int id);
 	void markKilled(int i, int j);
-
-    GameCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
+	typedef QPair<int, int> Coord;
 	QSharedPointer<FieldView> view;
+	GameCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
 	QSharedPointer<TextureAnalyzer> textureAnalyzer;
 
-	int position(QVector<int> vector, int id);
 };
 
 

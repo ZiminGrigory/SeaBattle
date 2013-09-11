@@ -14,11 +14,11 @@ class HumanPlayer : public Player
 {
     Q_OBJECT
 public:
-    explicit HumanPlayer(const QSharedPointer<GameField>& plrField,
-                         const QSharedPointer<GameField>& enmField,
-                         const QSharedPointer<FieldView>& _plrFieldView,
-                         const QSharedPointer<FieldView>& _enmFieldView,
-                         QObject *parent = 0);
+	explicit HumanPlayer(const QSharedPointer<GameField> &plrField,
+						 const QSharedPointer<GameField>& enmField,
+						 const QSharedPointer<FieldView>& _plrFieldView,
+						 const QSharedPointer<FieldView>& _enmFieldView,
+						 QObject *parent = 0);
     
     // for test purpose
     friend class HumanPlayerTest;

@@ -9,7 +9,7 @@ GameMaster::GameMaster(const QSharedPointer<View>& _view,
     enemy(NULL),
     view(_view)
 {
-    playerField = QSharedPointer<GameField>(new GameField(view->getPlayerFieldView()));
+	playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
     player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField,
@@ -65,9 +65,11 @@ void GameMaster::playerReadyToBattle(Player* sender)
 void GameMaster::offerTurn()
 {
     if (turnedPlayer == player){
-        view->setMessage("You Turn");
+
+        view->setMessage("Your Turn");
 	} else{
         view->setMessage("Enemy Turn");
+
 	}
     turnedPlayer->turn();
 }

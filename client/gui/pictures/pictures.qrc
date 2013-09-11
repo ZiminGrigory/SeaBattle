@@ -22,5 +22,8 @@
         <file>middle part burning hor.jpg</file>
         <file>head burning hor.jpg</file>
         <file>bottom burning hor.jpg</file>
+        <file>MISS.png</file>
+        <file>WOUNDED.png</file>
+        <file>KILLED.png</file>
     </qresource>
 </RCC>

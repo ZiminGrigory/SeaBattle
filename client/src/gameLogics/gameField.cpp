@@ -70,10 +70,12 @@ AttackStatus GameField::attack(int id)
     if (res == MISS)
     {
         view->repaint(getIdByCoordinates(x, y), MISS_CELL);
+		view->showAttackStatus(MISS);
     }
     else if (res == WOUNDED)
     {
         view->repaint(getIdByCoordinates(x, y), SHIP_DAMAGED);
+		view->showAttackStatus(WOUNDED);
     }
     else if (res == KILLED)
 	{
@@ -94,6 +96,7 @@ AttackStatus GameField::attack(int id)
 				}
 			}
 		}
+		view->showAttackStatus(KILLED);
 	}
 	return res;
 }

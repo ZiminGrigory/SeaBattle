@@ -1,3 +1,4 @@
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -6,6 +7,7 @@
 
 #include "ship.h"
 #include "gameField.h"
+#include "playerField.h"
 #include "fleetFactory.h"
 #include "fleetInstaller.h"
 #include "view.h"
@@ -17,9 +19,9 @@ class Player : public QObject
 {
     Q_OBJECT
 public:
-    explicit inline Player(const QSharedPointer<GameField>& plrField,
-                           const QSharedPointer<GameField>& enmField,
-                           QObject* parent = 0);
+	explicit inline Player(const QSharedPointer<GameField> &plrField,
+						   const QSharedPointer<GameField>& enmField,
+						   QObject* parent = 0);
     virtual ~Player() {}
 
     /**
@@ -75,7 +77,7 @@ protected:
       */
     inline void setFleetHealth(const QVector<FleetInstaller::ptrShip>& fleet);
 
-    QSharedPointer<GameField> myField;
+	QSharedPointer<GameField> myField;
     QSharedPointer<GameField> enemyField;
 
     //typedef QSharedPointer<Ship> ptrShip;

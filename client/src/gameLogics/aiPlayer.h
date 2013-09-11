@@ -22,9 +22,9 @@ class AIPlayer : public Player
 {
     Q_OBJECT
 public:
-    explicit AIPlayer(const QSharedPointer<GameField>& plrField,
-                      const QSharedPointer<GameField>& enmField,
-                      QObject *parent = 0);
+	explicit AIPlayer(const QSharedPointer<GameField> &plrField,
+					  const QSharedPointer<GameField>& enmField,
+					  QObject *parent = 0);
 
     virtual void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller) = 0;
     virtual ~AIPlayer()
