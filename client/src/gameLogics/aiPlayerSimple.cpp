@@ -7,6 +7,8 @@ AIPlayerSimple::AIPlayerSimple(const QSharedPointer<GameField> &plrField,
 {
     isWounded = false;
     lastAttackResult = NOT_ATTACKED;
+    for(int i = 0; i < 3; i++)
+        attackedCells[i] = 0;
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
 }
@@ -114,23 +116,27 @@ void AIPlayerSimple::turn()
         {
         case (NOT_ATTACKED):
             id = chooseRandomCell();
+            lastAttackedCell = id;
             break;
         case(MISS):
             id = chooseRandomCell();
             isWounded = false;
+            clear();
+            lastAttackedCell = id;
             break;
         case(WOUNDED):
-            id = tryToKill(lastAttackedCell);
             isWounded = true;
+            id = tryToKill(lastAttackedCell);
             break;
         case (KILLED):
             id = chooseRandomCell();
             isWounded = false;
+            clear();
+            lastAttackedCell = id;
             break;
         }
-//        for(int i = 0; i < 3; i++)
-//            attackedCells[i] = 0;
-        lastAttackedCell = id;
+
+
     }
     lastAttackResult = enemyField->attack(id);
     emit turnMade(id, lastAttackResult);

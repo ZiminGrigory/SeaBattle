@@ -32,6 +32,7 @@ public:
 protected:
     int tryToKill(int id);
     int attackedCells[3];
+    void clear();
     Direction direction;
     AttackStatus lastAttackResult;
     // I still have no idea how and where from to get it

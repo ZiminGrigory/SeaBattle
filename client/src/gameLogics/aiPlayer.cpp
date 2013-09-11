@@ -11,44 +11,64 @@ AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
     qsrand(QTime::currentTime().msec());
 }
 
-
+void AIPlayer::clear()
+{
+    for(int i = 0; i < 3; i++)
+        attackedCells[i] = 0;
+}
 
 int AIPlayer::tryToKill(int id)
  {
 
     // chose one of  neighboor cells
 
-    int x = id / FIELD_ROW_NUM;
-    int y = id % FIELD_COL_NUM;
+    int x = id % FIELD_ROW_NUM;
+    int y = id / FIELD_COL_NUM;
     bool res = 0;
     int orintation = 0;
     int nextAttacked = 0;
     do
     {
-        id = qrand() % (FIELD_ROW_NUM * FIELD_COL_NUM - 1);
-        res = enemyField->attackable(id);
+//        id = qrand() % (FIELD_ROW_NUM * FIELD_COL_NUM - 1);
+//        res = enemyField->attackable(id);
         for (int i = 0; i < 3; i++)
         {
             if (attackedCells[i] == 0 ) //
             {
                 nextAttacked = i;
                 orintation = i;
+                break;
             }
         }
+//        int x = id % FIELD_COL_NUM;
+//        int y = id / FIELD_COL_NUM;
+
         switch (nextAttacked)
         {
         case LEFT:
-            nextAttacked = id - 1;
-            break;
+            if((x - 1 > 0) && (enemyField->attackable(id - 1)))
+            {
+                nextAttacked = id - 1;
+                break;
+            }
         case DOWN:
-            nextAttacked = id + 10;
-            break;
+            if ((y + 1 < 10) && (enemyField->attackable(id + 10))
+)            {
+                nextAttacked = id + 10;
+                break;
+            }
         case RIGHT:
-            nextAttacked = id  + 1;
-            break;
+            if ((x + 1 < 10) && (res = enemyField->attackable(id + 1)))
+            {
+                nextAttacked = id  + 1;
+                break;
+            }
         case HIGH:
-            nextAttacked = id - 10;
-             break;
+            if ((y - 1 > 0) && (res = enemyField->attackable(id - 10)))
+            {
+                nextAttacked = id - 10;
+                break;
+            }
         }
 
         res = enemyField->attackable(nextAttacked); // check for cell were'nt visited earlyer
