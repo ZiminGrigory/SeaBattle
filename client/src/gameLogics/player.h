@@ -1,4 +1,4 @@
-
+#pragma once
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -53,6 +53,7 @@ signals:
       */
     //void attackResult(AttackStatus res);
 public slots:
+    void autoInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
     /**
       * This slot called by GameMaster to offer player make his choise (choose a cell for attack).
       */
@@ -66,6 +67,11 @@ public slots:
       * (actually, about what cell being attacked).
       */
     inline void enemyTurn(int id);
+    /**
+      * Choose random cell and attack it.
+      * This slot called by GameMaster after timeout.
+      */
+    void randomTurn();
 protected:
     /**
       * Accessory method. It attack enemy cell with received id and emit signal turnMade().
@@ -76,8 +82,16 @@ protected:
       * Set the summary fleet health of player by fleet.
       */
     inline void setFleetHealth(const QVector<FleetInstaller::ptrShip>& fleet);
+    /**
+      *
+      */
+    void randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
+    /**
+      *
+      */
+    int chooseRandomCell();
 
-	QSharedPointer<GameField> myField;
+    QSharedPointer<GameField> myField;
     QSharedPointer<GameField> enemyField;
 
     //typedef QSharedPointer<Ship> ptrShip;
@@ -130,6 +144,11 @@ void Player::setFleetHealth(const QVector<FleetInstaller::ptrShip> &fleet)
     {
         fleetHealth += fleet[i]->health();
     }
+}
+
+inline void Player::autoInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
+{
+    randomInstallFleet(fleetInstaller);
 }
 
 
