@@ -17,7 +17,8 @@ public:
                       const QSharedPointer<GameField>& enmField,
                       QObject *parent = 0);
      void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
-
+private:
+	 void changeDirection();
 public slots:
     /**
       * Nothing to thing about it, choose the random cell!

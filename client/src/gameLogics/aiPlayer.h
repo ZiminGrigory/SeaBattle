@@ -40,8 +40,9 @@ protected:
     //bool successShot;
     bool isWounded;
     int lastAttackedCell;
-
     static const int delay;
+    int cnt;
+
 public slots:
 
     virtual void turn() = 0;

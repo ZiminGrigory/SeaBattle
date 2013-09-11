@@ -121,15 +121,17 @@ void GameMaster::nextTurn(AttackStatus turnResult)
 
     if (player->lose())
     {
+		view->hideTimer();
         view->setMessage("Enemy Win");
-		view->getEnemyFieldView()->showResult(ENEMY);
+		view->getEnemyFieldView()->showResult(YOU);
 		view->getPlayerFieldView()->showResult(YOU);
     }
     else if (enemy->lose())
     {
+		view->hideTimer();
         view->setMessage("You Win");
 		view->getPlayerFieldView()->showResult(ENEMY);
-		view->getEnemyFieldView()->showResult(YOU);
+		view->getEnemyFieldView()->showResult(ENEMY);
     }
     else
     {

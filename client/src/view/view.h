@@ -13,6 +13,7 @@ public:
 	void showEnemyField();
 	void showInfoTab();
 	void setTime(int time);
+	void hideTimer();
     QSharedPointer<FieldView> getPlayerFieldView();
     QSharedPointer<FieldView> getEnemyFieldView();
     QSharedPointer<InfoTabView> getInfoTabView();

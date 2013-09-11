@@ -33,6 +33,11 @@ void View::setTime(int time)
 	mMainWindow->setTime(time);
 }
 
+void View::hideTimer()
+{
+	mMainWindow->hideTimer();
+}
+
 QSharedPointer<FieldView> View::getPlayerFieldView()
 {
 	return mPlayerField;

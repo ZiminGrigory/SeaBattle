@@ -37,6 +37,11 @@ void MainWindow::setTime(int time)
 	connect(&timer, SIGNAL(timeout()), this, SLOT(decTime()));
 }
 
+void MainWindow::hideTimer()
+{
+	ui->lcdNumber->hide();
+}
+
 void MainWindow::decTime()
 {
     ui->lcdNumber->display(ui->lcdNumber->intValue() - 1);

@@ -1,7 +1,4 @@
 #pragma once
-#ifndef PLAYER_H
-#define PLAYER_H
-
 #include <QObject>
 #include <QSharedPointer>
 
@@ -146,14 +143,9 @@ void Player::setFleetHealth(const QVector<FleetInstaller::ptrShip> &fleet)
     {
         fleetHealth += fleet[i]->health();
     }
-    --fleetHealth;
 }
 
 inline void Player::autoInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
 {
     randomInstallFleet(fleetInstaller);
 }
-
-
-
-#endif // PLAYER_H

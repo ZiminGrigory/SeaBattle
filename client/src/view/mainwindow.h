@@ -21,6 +21,7 @@ public:
 	void showEnemyField(QSharedPointer<Field> field);
 	void showInfoTab(QSharedPointer<TabOfInformation> infoTab);
 	void setTime(int time);
+	void hideTimer();
 
 private:
 	QSharedPointer<Ui::MainWindow> ui;
