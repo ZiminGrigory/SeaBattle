@@ -57,6 +57,7 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
         } while((status != FleetInstaller::OK) &&
                 (status != FleetInstaller::HAVE_NOT_SHIP));
     }
+    emit fleetInstalled(this);
 }
 
 int AIPlayerSimple::chooseRandomCell()
