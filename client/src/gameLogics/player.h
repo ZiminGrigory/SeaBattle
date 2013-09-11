@@ -135,12 +135,12 @@ void Player::setFleetHealth(const QVector<FleetInstaller::ptrShip> &fleet)
     }
 }
 
-inline void Player::randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
-{
-    QVector<FleetInstaller::ptrShip> fleet = fleetInstaller->getFleet();
-    setFleetHealth(fleet);
-    for (int i = 0; i < fleet.size(); i++)
+    inline void Player::randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
     {
+        QVector<FleetInstaller::ptrShip> fleet = fleetInstaller->getFleet();
+        setFleetHealth(fleet);
+        for (int i = 0; i < fleet.size(); i++)
+        {
         int shipSize = fleet[i]->size();
         bool isHorizontal = true;
         int smth = qrand()% 20 - qrand() % 20;
