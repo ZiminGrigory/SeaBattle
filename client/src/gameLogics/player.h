@@ -1,4 +1,4 @@
-
+#pragma once
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -52,6 +52,7 @@ signals:
       */
     //void attackResult(AttackStatus res);
 public slots:
+    void autoInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
     /**
       * This slot called by GameMaster to offer player make his choise (choose a cell for attack).
       */
@@ -65,6 +66,7 @@ public slots:
       * (actually, about what cell being attacked).
       */
     inline void enemyTurn(int id);
+    void randomTurn();
 protected:
     /**
       * Accessory method. It attack enemy cell with received id and emit signal turnMade().
@@ -76,6 +78,8 @@ protected:
       */
     inline void setFleetHealth(const QVector<FleetInstaller::ptrShip>& fleet);
 
+    void randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
+    inline int chooseRandomCell();
     QSharedPointer<GameField> myField;
     QSharedPointer<GameField> enemyField;
 
@@ -131,6 +135,82 @@ void Player::setFleetHealth(const QVector<FleetInstaller::ptrShip> &fleet)
     }
 }
 
+inline void Player::randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
+{
+    QVector<FleetInstaller::ptrShip> fleet = fleetInstaller->getFleet();
+    setFleetHealth(fleet);
+    for (int i = 0; i < fleet.size(); i++)
+    {
+        int shipSize = fleet[i]->size();
+        bool isHorizontal = true;
+        int smth = qrand()% 20 - qrand() % 20;
+        if (smth > 0)
+        {
+            isHorizontal = false;
+        }
 
+        int row = 0;
+        int col = 0;
+        int first = 0;
 
+        int second = 0;
+        FleetInstaller::PlacementStatus status = FleetInstaller::OK;
+        do
+        {
+            do
+            {
+                row = qrand() % FIELD_ROW_NUM;
+            }
+            while (!isHorizontal && (row > FIELD_ROW_NUM - shipSize));
+            do
+            {
+                col = qrand() % FIELD_COL_NUM;
+            }
+            while(isHorizontal && col > (FIELD_COL_NUM - shipSize));
+
+            QPair<int, int> point1(row, col);
+            QPair<int, int> point2(row, col);
+
+            if (isHorizontal)
+            {
+                point2.second += shipSize - 1;
+            }
+            else
+            {
+                point2.first += shipSize - 1;
+            }
+            first = getIdByCoordinates(point1);
+            second = getIdByCoordinates(point2);
+
+            status = fleetInstaller->shipPlaced(first, second);
+            bool b = (status != FleetInstaller::OK) ||
+                    (status != FleetInstaller::HAVE_NOT_SHIP);
+            bool d = true;
+
+        } while((status != FleetInstaller::OK) &&
+                (status != FleetInstaller::HAVE_NOT_SHIP));
+    }
+}
+inline void Player::autoInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
+{
+    randomInstallFleet(fleetInstaller);
+}
+inline void Player::randomTurn()
+{
+    int id = chooseRandomCell();
+    AttackStatus attackResult = enemyField->attack(id);
+    emit turnMade(id, attackResult);
+}
+inline int Player::chooseRandomCell()
+{
+    int id = 0;
+    bool res = false;
+    do
+    {
+        id = qrand() % (FIELD_ROW_NUM * FIELD_COL_NUM - 1);
+        res = enemyField->attackable(id);
+    }
+    while (!res);
+    return id;
+}
 #endif // PLAYER_H

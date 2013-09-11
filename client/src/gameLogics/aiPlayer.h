@@ -1,3 +1,4 @@
+#pragma once
 #ifndef AIPLAYER_H
 #define AIPLAYER_H
 
