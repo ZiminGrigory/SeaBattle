@@ -7,6 +7,7 @@
 #include "player.h"
 #include "humanPlayer.h"
 #include "aiPlayerSimple.h"
+#include "playerField.h"
 
 class GameMaster : public QObject
 {
@@ -47,7 +48,7 @@ private:
     ptrPlayer turnedPlayer;
     ptrPlayer waitingPlayer;
 
-    QSharedPointer<GameField> playerField;
+	QSharedPointer<GameField> playerField;
     QSharedPointer<GameField> enemyField;
 
     QSharedPointer<View> view;

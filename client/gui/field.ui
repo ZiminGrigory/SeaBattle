@@ -237,6 +237,9 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>graphicsView</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

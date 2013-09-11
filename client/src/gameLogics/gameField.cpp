@@ -28,7 +28,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         {
             field[row + i][col].setShip(ship);
 			ship.data()->appedIdOfPart(getIdByCoordinates(row + i, col));
-//			view->repaint(getIdByCoordinates(row + i, col), textureAnalyzer->shipTexture(i + 1, shipSize, orientation));
+			view->repaint(getIdByCoordinates(row + i, col), textureAnalyzer->shipTexture(i + 1, shipSize, orientation));
         }
     }
 }
@@ -70,10 +70,12 @@ AttackStatus GameField::attack(int id)
     if (res == MISS)
     {
         view->repaint(getIdByCoordinates(x, y), MISS_CELL);
+		view->showAttackStatus(MISS);
     }
     else if (res == WOUNDED)
     {
         view->repaint(getIdByCoordinates(x, y), SHIP_DAMAGED);
+		view->showAttackStatus(WOUNDED);
     }
     else if (res == KILLED)
 	{
@@ -94,6 +96,7 @@ AttackStatus GameField::attack(int id)
 				}
 			}
 		}
+		view->showAttackStatus(KILLED);
 	}
 	return res;
 }
@@ -110,9 +113,9 @@ void GameField::markKilled(int i, int j)
 			if ((coordinates.last() - coordinates.first()) < FIELD_COL_NUM){
 				orientation = true;
 			}
-//			view->repaint(getIdByCoordinates(i, j)
-//						  , textureAnalyzer->shipDamagedTexture(position(coordinates, getIdByCoordinates(i, j))
-//																, size, orientation));
+			view->repaint(getIdByCoordinates(i, j)
+						  , textureAnalyzer->shipDamagedTexture(position(coordinates, getIdByCoordinates(i, j))
+																, size, orientation));
 		}
 		else if(field[i][j].getAttackStatus() == MISS || field[i][j].getAttackStatus() == NOT_ATTACKED){
 			view->repaint(getIdByCoordinates(i, j), WRECK);

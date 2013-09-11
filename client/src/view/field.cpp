@@ -1,6 +1,8 @@
 #include "field.h"
 #include "ui_field.h"
 #include <QDebug>
+#include <QPixmap>
+
 
 Field::Field(QWidget *parent) :
 	QWidget(parent),
@@ -36,6 +38,41 @@ void Field::paintCell(int id, Textures texture)
 	field.at(id)->changeStatusOfCell(texture);
 }
 
+void Field::showAttackStatus(AttackStatus status)
+{
+	QPixmap message;
+	switch (status) {
+	case MISS:
+		message = QPixmap(":/pictures/MISS.png");
+		break;
+	case WOUNDED:
+		message = QPixmap(":/pictures/WOUNDED.png");
+		break;
+	case KILLED:
+		message = QPixmap(":/pictures/KILLED.png");
+		break;
+	}
+	item = QSharedPointer<QGraphicsItem>(mScene->addPixmap(message));
+	ui->graphicsView->update();
+	timer.start(2400);
+	connect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
+}
+
+void Field::showResult(Players player)
+{
+	QPixmap message;
+	switch (player) {
+	case YOU:
+		message = QPixmap(":/pictures/LOSER.jpeg");
+		break;
+	case ENEMY:
+		message = QPixmap(":/pictures/WINNER.jpeg");
+		break;
+	}
+	item = QSharedPointer<QGraphicsItem>(mScene->addPixmap(message));
+	ui->graphicsView->update();
+}
+
 Cell* Field::getCellView(int id)
 {
 	return field[id];
@@ -65,4 +102,12 @@ void Field::getCoordinate(QPointF first, QPointF second)
 void Field::deleteShipOnCell(int id)
 {
 	emit deleteShip(id);
+}
+
+void Field::deleteMessage()
+{
+	disconnect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
+	timer.stop();
+	mScene->removeItem(item.data());
+	ui->graphicsView->update();
 }

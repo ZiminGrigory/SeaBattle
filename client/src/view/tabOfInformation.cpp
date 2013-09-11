@@ -6,7 +6,7 @@ TabOfInformation::TabOfInformation(QWidget *parent) :
 	ui(new Ui::TabOfInformation)
 {
 	ui->setupUi(this);
-    QString text = QString::fromLocal8Bit("ЗДРАВСТВУЙ, УВАЖАЕМЫЙ ИГРОК!\nУстанови флот и в бой!\n");
+    QString text = QString::fromLocal8Bit ("ЗДРАВСТВУЙ, УВАЖАЕМЫЙ ИГРОК!\nУстанови флот и в бой!\n");
     text += QString::fromLocal8Bit("Подсказка: для установки корабля ЛКМ нажмите на нужной клетке ");
     text += QString::fromLocal8Bit("и отпустите на той же или на другой клетке, где должен закончится корабль");
     text += QString::fromLocal8Bit("\nДля удаления корабля нажмите ПКМ на любой клетке, из тех, что он занимает.");
