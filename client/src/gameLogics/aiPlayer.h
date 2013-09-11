@@ -40,7 +40,7 @@ protected:
     //bool successShot;
     bool isWounded;
     int lastAttackedCell;
-
+    int cnt;
 public slots:
 
     virtual void turn() = 0;

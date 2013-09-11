@@ -7,6 +7,7 @@ AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
 {
     for(int i = 0; i < 3; i++)
         attackedCells[i] = 0;
+    cnt = 2;
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
 }
@@ -15,6 +16,7 @@ void AIPlayer::clear()
 {
     for(int i = 0; i < 3; i++)
         attackedCells[i] = 0;
+    cnt = 2;
 }
 
 int AIPlayer::tryToKill(int id)
@@ -29,8 +31,6 @@ int AIPlayer::tryToKill(int id)
     int nextAttacked = 0;
     do
     {
-//        id = qrand() % (FIELD_ROW_NUM * FIELD_COL_NUM - 1);
-//        res = enemyField->attackable(id);
         for (int i = 0; i < 3; i++)
         {
             if (attackedCells[i] == 0 ) //
@@ -40,33 +40,35 @@ int AIPlayer::tryToKill(int id)
                 break;
             }
         }
-//        int x = id % FIELD_COL_NUM;
-//        int y = id / FIELD_COL_NUM;
 
         switch (nextAttacked)
         {
         case LEFT:
-            if((x - 1 > 0) && (enemyField->attackable(id - 1)))
+            if((x - 1 >= 0) && (enemyField->attackable(id - 1)))
             {
                 nextAttacked = id - 1;
+                direction = LEFT;
                 break;
             }
         case DOWN:
-            if ((y + 1 < 10) && (enemyField->attackable(id + 10))
+            if ((y + 1 <= 10) && (enemyField->attackable(id + 10))
 )            {
                 nextAttacked = id + 10;
+                direction = DOWN;
                 break;
             }
         case RIGHT:
-            if ((x + 1 < 10) && (res = enemyField->attackable(id + 1)))
+            if ((x + 1 <= 10) && (res = enemyField->attackable(id + 1)))
             {
                 nextAttacked = id  + 1;
+                direction = RIGHT;
                 break;
             }
         case HIGH:
-            if ((y - 1 > 0) && (res = enemyField->attackable(id - 10)))
+            if ((y - 1 >= 0) && (res = enemyField->attackable(id - 10)))
             {
                 nextAttacked = id - 10;
+                direction = HIGH;
                 break;
             }
         }
@@ -75,7 +77,7 @@ int AIPlayer::tryToKill(int id)
     }
     while (!res);
     attackedCells[orintation] = nextAttacked; // remember attacked cell
-    direction = static_cast<Direction>(orintation); // remember attacking direction
+  //  direction = static_cast<Direction>(orintation); // remember attacking direction
     return nextAttacked;
  }
 

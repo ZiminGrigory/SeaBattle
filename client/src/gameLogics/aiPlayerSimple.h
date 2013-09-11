@@ -19,6 +19,7 @@ public:
      void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
 private:
     //int chooseRandomCell();
+     void changeDirection();
 public slots:
     /**
       * Nothing to thing about it, choose the random cell!
