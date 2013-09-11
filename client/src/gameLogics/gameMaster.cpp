@@ -19,8 +19,6 @@ GameMaster::GameMaster(const QSharedPointer<View>& _view,
 
 void GameMaster::startGame()
 {
-    connect(player.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
-    connect(enemy.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
     connect(player.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
     connect(enemy.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
 
@@ -65,17 +63,19 @@ void GameMaster::playerReadyToBattle(Player* sender)
 void GameMaster::offerTurn()
 {
     if (turnedPlayer == player){
-
         view->setMessage("Your Turn");
 	} else{
         view->setMessage("Enemy Turn");
 
 	}
+    connect(turnedPlayer.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
+
     turnedPlayer->turn();
 }
 
 void GameMaster::informOpponent(int id, AttackStatus turnResult)
 {
+    disconnect(turnedPlayer.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
     waitingPlayer->enemyTurn(id);
     nextTurn(turnResult);
 }

@@ -47,6 +47,7 @@ private:
     QSharedPointer<FieldView> plrFieldView;
     QSharedPointer<FieldView> enmFieldView;
     QSharedPointer<FleetInstaller> fleetInst;
+    bool myTurn;
 };
 
 #endif // HUMANPLAYER_H
