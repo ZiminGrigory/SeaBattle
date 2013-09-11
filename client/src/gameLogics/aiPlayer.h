@@ -41,6 +41,7 @@ protected:
     bool isWounded;
     int lastAttackedCell;
 
+    static const int delay;
 public slots:
 
     virtual void turn() = 0;

@@ -23,6 +23,11 @@ void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetIns
 
 void AIPlayerSimple::turn()
 {
+    QTimer::singleShot(AIPlayer::delay, this, SLOT(delayTurn()));
+}
+
+void AIPlayerSimple::delayTurn()
+{
     int id = 0;
     if((isWounded) && (lastAttackResult == WOUNDED)) // here we've found right direction for attack (3 or 4 ships)
     {
