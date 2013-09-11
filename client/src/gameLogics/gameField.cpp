@@ -49,14 +49,12 @@ void GameField::removeShip(int id)
 	QPair<int, int> coordinateOfShip = coordinates(id);
 	QSharedPointer<Ship> ship = field[coordinateOfShip.first][coordinateOfShip.second].getShip();
 	int size = ship->size();
-	view->repaint(id, EMPTY);
-	if (size != 1){
-		QVector<int> vectorOfId = ship->getCoordinate();
-		for(int i = 1; i <= size; i++){
-			QPair<int, int> coordinateOfShip = coordinates(vectorOfId.at(i - 1));
-			field[coordinateOfShip.first][coordinateOfShip.second].removeShip();
-			view->repaint(vectorOfId.at(i - 1), EMPTY);
-		}
+	QVector<int> vectorOfId = ship->getCoordinate();
+	ship->clearCoordinate();
+	for(int i = 1; i <= size; i++){
+		QPair<int, int> coordinateOfShip = coordinates(vectorOfId.at(i - 1));
+		field[coordinateOfShip.first][coordinateOfShip.second].removeShip();
+		view->repaint(vectorOfId.at(i - 1), EMPTY);
 	}
 }
 

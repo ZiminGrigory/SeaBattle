@@ -12,8 +12,9 @@ GameMaster::GameMaster(const QSharedPointer<View>& _view,
 	playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
-    player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField,
-										view->getPlayerFieldView(), view->getEnemyFieldView()));
+	player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
+													, view->getPlayerFieldView()
+													, view->getEnemyFieldView(), view->getInfoTabView()));
     enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
 }
 

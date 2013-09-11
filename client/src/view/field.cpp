@@ -54,7 +54,7 @@ void Field::showAttackStatus(AttackStatus status)
 	}
 	item = QSharedPointer<QGraphicsItem>(mScene->addPixmap(message));
 	ui->graphicsView->update();
-	timer.start(2400);
+	timer.start(1000);
 	connect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
 }
 
