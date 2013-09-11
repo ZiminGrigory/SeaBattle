@@ -36,6 +36,7 @@ private:
 	QVector<Cell *> field;
 	QGraphicsScene *mScene;
 	QSharedPointer<QGraphicsItem> item;
+	QSharedPointer<QGraphicsItem> item2;
 	QTimer timer;
 };
 

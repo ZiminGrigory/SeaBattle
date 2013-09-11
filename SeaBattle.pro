@@ -33,7 +33,8 @@ SOURCES += client/src/main.cpp\
     client/src/view/infoTabView.cpp \
     client/src/gameLogics/ship.cpp \
     client/src/gameLogics/aiPlayerSimple.cpp \
-    client/src/gameLogics/textureAnalyzer.cpp
+    client/src/gameLogics/textureAnalyzer.cpp \
+    client/src/gameLogics/player.cpp
 
 HEADERS  += client/src/view/mainwindow.h \
     client/src/gameLogics/enemyCell.h \

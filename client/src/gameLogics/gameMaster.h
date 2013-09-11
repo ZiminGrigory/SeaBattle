@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QSharedPointer>
+#include <QTimer>
+
 #include "view.h"
 #include "player.h"
 #include "humanPlayer.h"
@@ -52,6 +54,10 @@ private:
     QSharedPointer<GameField> enemyField;
 
     QSharedPointer<View> view;
+
+    QTimer turnTimer;
+
+    static const int turnTimeout;
 };
 
 #endif // GAMEMASTER_H

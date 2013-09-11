@@ -69,7 +69,7 @@ void Field::showResult(Players player)
 		message = QPixmap(":/pictures/WINNER.jpeg");
 		break;
 	}
-	item = QSharedPointer<QGraphicsItem>(mScene->addPixmap(message));
+	item2 = QSharedPointer<QGraphicsItem>(mScene->addPixmap(message));
 	ui->graphicsView->update();
 }
 

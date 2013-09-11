@@ -10,7 +10,8 @@ HumanPlayer::HumanPlayer(const QSharedPointer<GameField>& plrField,
     plrFieldView(_plrFieldView),
     enmFieldView(_enmFieldView),
 	fleetInst(NULL),
-	infoTab(infoTab)
+	infoTab(infoTab),
+	myTurn(false)
 {
     connect(enmFieldView.data(), SIGNAL(attack(int)), this, SLOT(cellWasAttacked(int)));
 	connect(infoTab.data(), SIGNAL(needAutoSetting()), this, SLOT(needAutoInstallFleet()));
@@ -32,12 +33,16 @@ void HumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstal
 
 void HumanPlayer::turn()
 {
-
+    myTurn = true;
 }
 
 void HumanPlayer::cellWasAttacked(int id)
 {
-    attack(id);
+    if (myTurn && enemyField->attackable(id))
+    {
+        myTurn = false;
+        attack(id);
+    }
 }
 
 void HumanPlayer::reEmitFleetInstalled()
