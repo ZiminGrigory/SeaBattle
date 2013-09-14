@@ -52,3 +52,8 @@ AttackStatus PlayerField::attack(int id)
 	}
 	return res;
 }
+
+void PlayerField::repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation)
+{
+	view->repaint(getIdByCoordinates(row, column), textureAnalyzer->shipTexture(partOfShip, shipSize, orientation));
+}

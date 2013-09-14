@@ -18,7 +18,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         {
             field[row][col + i].setShip(ship);
 			ship.data()->appedIdOfPart(getIdByCoordinates(row, col + i));
-			view->repaint(getIdByCoordinates(row, col + i), textureAnalyzer->shipTexture(i + 1, shipSize, orientation));
+			repaintCell(row, col + i, i + 1, shipSize, orientation);
         }
     }
     // otherwise - vertical orientation
@@ -28,7 +28,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         {
             field[row + i][col].setShip(ship);
 			ship.data()->appedIdOfPart(getIdByCoordinates(row + i, col));
-			view->repaint(getIdByCoordinates(row + i, col), textureAnalyzer->shipTexture(i + 1, shipSize, orientation));
+			repaintCell(row + i, col, i + 1, shipSize, orientation);
         }
     }
 }
@@ -122,6 +122,15 @@ void GameField::markKilled(int i, int j)
 			}
 		}
 	}
+}
+
+void GameField::repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation)
+{
+	Q_UNUSED(row);
+	Q_UNUSED(column);
+	Q_UNUSED(partOfShip);
+	Q_UNUSED(shipSize);
+	Q_UNUSED(orientation);
 }
 
 int GameField::position(QVector<int> vector, int id)
