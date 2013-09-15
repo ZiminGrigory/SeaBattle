@@ -11,6 +11,7 @@ AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
     for(int i = 0; i < 3; i++)
         attackedCells[i] = 0;
     cnt = 2;
+    directionChanged = false;
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
 }
@@ -20,6 +21,7 @@ void AIPlayer::clear()
     for(int i = 0; i < 3; i++)
         attackedCells[i] = 0;
     cnt = 2;
+    directionChanged = false;
 }
 
 int AIPlayer::tryToKill(int id)
