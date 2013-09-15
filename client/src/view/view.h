@@ -1,6 +1,6 @@
 #pragma once
 #include <QSharedPointer>
-#include "mainwindow.h"
+#include "BattleWidget.h"
 #include "cell.h"
 
 class View : public QObject
@@ -20,7 +20,7 @@ public:
 public slots:
 	void setMessage(QString text);
 private:
-	QSharedPointer<MainWindow> mMainWindow;
+	QSharedPointer<BattleWidget> mBattleWidget;
 	QSharedPointer<FieldView> mPlayerField;
 	QSharedPointer<FieldView> mEnemyField;
 	QSharedPointer<InfoTabView> mInfoTab;
