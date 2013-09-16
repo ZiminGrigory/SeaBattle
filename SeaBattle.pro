@@ -4,10 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 QT       += widgets
 
-DEFINES += QT5
+DEFINES += QT4
 
 TARGET = SeaBattle
 TEMPLATE = app
@@ -34,7 +34,8 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/aiPlayerSimple.cpp \
     client/src/gameLogics/textureAnalyzer.cpp \
     client/src/gameLogics/player.cpp \
-    client/src/view/BattleWidget.cpp
+    client/src/view/BattleWidget.cpp \
+    client/src/tcpClient/remotePlayer.cpp
 
 HEADERS  += \
     client/src/gameLogics/enemyCell.h \
@@ -59,7 +60,8 @@ HEADERS  += \
     client/src/view/infoTabView.h \
     client/src/gameLogics/aiPlayerSimple.h \
     client/src/gameLogics/textureAnalyzer.h \
-    client/src/view/BattleWidget.h
+    client/src/view/BattleWidget.h \
+    client/src/tcpClient/remotePlayer.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \

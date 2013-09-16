@@ -64,6 +64,14 @@ public slots:
       */
     PlacementStatus shipPlaced(int firstId, int secondId);
     /**
+      * The same as previous, but with different interface.
+      *
+      * @var id top left id of cell which on ship will placed
+      * @var size size of ship
+      * @var orientation true - horizontal, false - vertical
+      */
+    PlacementStatus shipPlaced(int id, int size, bool orientation);
+    /**
       * This slot remove the ship from field if cell with recieved id contained some ship.
       */
     void deleteShip(int id);
