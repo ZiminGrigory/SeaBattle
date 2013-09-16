@@ -78,16 +78,17 @@ void Cell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 void Cell::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton){
-		emit attacked(this->data(x).toInt());
+		emit attacked(this->data(DATA_KEY).toInt());
 	}
 }
 
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 	if (event->button() == Qt::RightButton){
-		emit deleteShip(this->data(x).toInt());
+		emit deleteShip(this->data(DATA_KEY).toInt());
 	} else if (event->button() == Qt::LeftButton){
 		first = event->scenePos();
+		emit setArrows(this->data(DATA_KEY).toInt());
 	}
 }
 
@@ -97,4 +98,9 @@ void Cell::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 		QPointF second = event->scenePos();
 		emit getCoordinate(first, second);
 	}
+}
+
+void Cell::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+	emit coordinatesOfMouseNow(event->scenePos().toPoint().x());
 }

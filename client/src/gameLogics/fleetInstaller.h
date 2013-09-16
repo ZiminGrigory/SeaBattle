@@ -96,7 +96,7 @@ private:
     QSharedPointer<GameField> field;
     QSharedPointer<InfoTabView> fleetInfoTab;
 	QVector<QSharedPointer<Ship> > existingFleet;
-	QVector<QSharedPointer<Ship> > originFleet;
+
 };
 
 Q_DECLARE_METATYPE(FleetInstaller::PlacementStatus);

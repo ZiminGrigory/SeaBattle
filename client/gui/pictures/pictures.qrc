@@ -27,5 +27,7 @@
         <file>KILLED.png</file>
         <file>WINNER.jpeg</file>
         <file>LOSER.jpeg</file>
+        <file>arrow.png</file>
+        <file>cirle arrow.png</file>
     </qresource>
 </RCC>

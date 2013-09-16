@@ -4,8 +4,7 @@ FleetInstaller::FleetInstaller(QVector<ptrShip> playerFleet,
                                const QSharedPointer<GameField> &playerField,
                                const QSharedPointer<InfoTabView> &_fleetInfoTab):
     fleet(playerFleet),
-    field(playerField),
-	originFleet(playerFleet),
+	field(playerField),
     fleetInfoTab(_fleetInfoTab)
 {
     qRegisterMetaType<PlacementStatus>("PlacementStatus");
@@ -219,6 +218,3 @@ bool FleetInstaller::checkIsFleetReady()
     }
     return false;
 }
-
-
-

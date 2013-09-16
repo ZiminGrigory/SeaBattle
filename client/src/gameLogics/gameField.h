@@ -56,6 +56,8 @@ protected:
 	QSharedPointer<TextureAnalyzer> textureAnalyzer;
 	virtual void repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation);
 
+	QVector<int> fleet;// at 0 - count of BOAT_SCOUT at 3 - count of AEROCARRIER
+
 };
 
 

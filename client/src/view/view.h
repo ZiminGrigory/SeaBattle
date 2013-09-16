@@ -17,8 +17,10 @@ public:
     QSharedPointer<FieldView> getPlayerFieldView();
     QSharedPointer<FieldView> getEnemyFieldView();
     QSharedPointer<InfoTabView> getInfoTabView();
+
 public slots:
 	void setMessage(QString text);
+
 private:
 	QSharedPointer<BattleWidget> mBattleWidget;
 	QSharedPointer<FieldView> mPlayerField;
