@@ -102,5 +102,7 @@ void Cell::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void Cell::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-	emit coordinatesOfMouseNow(event->scenePos().toPoint().x());
+	int x = event->scenePos().toPoint().x() / sizeOfCubeDivTen;
+	int y = event->scenePos().toPoint().y() / sizeOfCubeDivTen;
+	emit coordinatesOfMouseNow(getIdByCoordinates(y, x));
 }

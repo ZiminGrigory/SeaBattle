@@ -77,6 +77,8 @@ const int FIELD_COL_NUM = 10;
 const int DATA_KEY = 15;
 
 const int sizeOfCube = 300;
+const int sizeOfCubeDivTen = 30;
+
 inline QPair<int, int> coordinates(int id)
 {
     return QPair<int, int>(id / FIELD_ROW_NUM, id % FIELD_COL_NUM);
