@@ -76,7 +76,6 @@ bool PlayerField::isEmptyAround(QPair<int, int> ID)
 	return true;
 }
 
-// to do reduce copy-past
 void PlayerField::setFirstArrows(int id)
 {
 	firstId = id;
@@ -145,6 +144,7 @@ while(cellsWithArrow.size() != 0){
 	}
 }
 
+
 void PlayerField::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int id)
 {
 	if (previousIm == ARROW_IN_ITSELF){
@@ -191,11 +191,12 @@ void PlayerField::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int i
 						&& (point.second > 1 && point.second < 8)){
 					point.second = point.second + 2 * coefficient;
 				} else if (!isLeftOrRight && orientation.at(int(orient))
-						   && (point.first > 1 && point.first < 9)){
+						   && (point.first > 1 && point.first < 8)){
 					point.first = point.first + 2 * coefficient;
 				}
 			}
-			if (isEmptyAround(point) && point != coordinates(id)){
+			if (isEmptyAround(point) && point != coordinates(id)
+					&& checkCoord(point.first, point.second)){
 				point = coordinates(id);
 				if (isLeftOrRight && orientation.at(int(orient))
 						&& (point.second != 0 && point.second != 9)){
@@ -238,6 +239,7 @@ void PlayerField::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int i
 	}
 }
 
+
 void PlayerField::setArrow(int id, ImageID iD, int difference, Orientation::Orient orient)
 {
 	QPair<int, int> point = coordinates(id);
@@ -248,7 +250,7 @@ void PlayerField::setArrow(int id, ImageID iD, int difference, Orientation::Orie
 	}
 	if (orientation[int(orient)]){
 		orientation[int(orient)] = isEmptyAround(point);
-		if (fleet.at(3) != 0 && checkCoord(point.first, point.second) && orientation[int(orient)]){
+		if (fleet.at(qAbs(difference)) != 0 && checkCoord(point.first, point.second) && orientation[int(orient)]){
 			int coefficient = 1;
 			point = coordinates(id);
 			if (iD == ARROW_UP || iD == ARROW_L){
