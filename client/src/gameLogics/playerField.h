@@ -13,10 +13,11 @@ private:
 	int firstId;
 	ImageID previousIm;
 	bool isEmptyAround(QPair<int, int> ID);
-	QVector<bool> orientation; // can it go to UP RIGHT LEFT DOWN TO_ITSELF
+	QVector<bool> orientation; // can it go to UP RIGHT DOWN LEFT TO_ITSELF
 	QVector<int> cellsWithArrow;
 
-	void analyzeNextArrow(Orientation::Orient orientation, ImageID iD, int id); //for QVector<bool> orientation
+	void analyzeNextArrow(Orientation::Orient orient, ImageID iD, int id); //for QVector<bool> orientation
+	void setArrow(int id, ImageID iD, int difference, Orientation::Orient orient); //for help to setFirstArrows
 
 private slots:
 	void setFirstArrows(int id);
