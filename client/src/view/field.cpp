@@ -85,6 +85,7 @@ void Field::addImage(int id, ImageID iD)
 {
 	QSharedPointer<QGraphicsItem> pictureForCell;
 	QPixmap arrow = QPixmap(":/pictures/arrow.png");
+	QPixmap firstPoint = QPixmap(":/pictures/first point.png");
 	QPixmap arrowCircle = QPixmap(":/pictures/cirle arrow.png");
 	switch (iD) {
 	case ARROW_DOWN:
@@ -110,17 +111,22 @@ void Field::addImage(int id, ImageID iD)
 		pictureForCell = QSharedPointer<QGraphicsItem>(mScene->addPixmap(arrow));
 		pictureForCell->setPos(getQPointFByID(id));
 		break;
+	case FIRT_POINT:
+		pictureForCell = QSharedPointer<QGraphicsItem>(mScene->addPixmap(firstPoint));
+		pictureForCell->setPos(getQPointFByID(id));
+		break;
 	}
-	pictureForCell->setData(DATA_KEY, id);
-	picturesUnderCell.append(pictureForCell);
+//	pictureForCell->setData(DATA_KEY, id);
+//	picturesUnderCell.append(pictureForCell);
+	picturesUnderCell[id] = pictureForCell;
 	ui->graphicsView->update();
 }
 
 void Field::removeImageFromCell(int id)
 {
-	int i = positionOFItem(id);
-	mScene->removeItem(picturesUnderCell.at(positionOFItem(i)).data());
-	picturesUnderCell.remove(positionOFItem(i));
+	//int i = positionOFItem(id);
+	mScene->removeItem(picturesUnderCell[id].data());
+//	picturesUnderCell.remove(positionOFItem(i));
 	ui->graphicsView->update();
 }
 
@@ -140,8 +146,24 @@ void Field::getCoordinate(QPointF first, QPointF second)
 {
 	QList<QGraphicsItem*> list = mScene->items(first);
 	QList<QGraphicsItem*> list2 = mScene->items(second);
-	Cell *firstCell = dynamic_cast<Cell *>(list.first());
-	Cell *secondCell = dynamic_cast<Cell *>(list2.first());
+	QGraphicsItem *firstCell;
+	QGraphicsItem *secondCell;
+	int i = 0;
+	bool condition = false;
+	do{
+		qDebug() << list.at(i)->data(DATA_KEY).toInt();
+		condition = list.at(i)->data(DATA_KEY).toInt();
+		i++;
+	}while (!condition);
+	condition = false;
+	firstCell = list.at(i - 1);
+	i = 0;
+	do{
+		qDebug() << list2.at(i)->data(DATA_KEY).toInt();
+		condition = list2.at(i)->data(DATA_KEY).toInt();
+		i++;
+	}while (!condition);
+	secondCell = list2.at(i - 1);
 	emit shipOnCells(firstCell->data(DATA_KEY).toInt(), secondCell->data(DATA_KEY).toInt());
 }
 
@@ -160,10 +182,10 @@ void Field::deleteMessage()
 
 int Field::positionOFItem(int id)
 {
-	for (int i = 0; i < picturesUnderCell.size(); i++){
-		if (picturesUnderCell.at(i)->data(DATA_KEY).toInt() == id){
-			return i;
-		}
-	}
+//	for (int i = 0; i < picturesUnderCell.size(); i++){
+//		if (picturesUnderCell.at(i)->data(DATA_KEY).toInt() == id){
+//			return i;
+//		}
+//	}
 	return 0;
 }

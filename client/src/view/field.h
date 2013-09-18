@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include <QSharedPointer>
 #include <QTimer>
+#include <QList>
 
 #include "cell.h"
 namespace Ui {
@@ -46,6 +47,6 @@ private:
 	QTimer timer;
 
 	int positionOFItem(int id);
-	QVector<QSharedPointer<QGraphicsItem> > picturesUnderCell;
+	QSharedPointer<QGraphicsItem> picturesUnderCell[100];
 };
 

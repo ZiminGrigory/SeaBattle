@@ -172,6 +172,8 @@ void PlayerField::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int i
 	deleteAllArrows(id, id);
 	switch (switcher) {
 	case 1:
+		view->addImage(firstId, FIRT_POINT);
+		cellsWithArrow.append(firstId);
 		if (fleet.at(1) != 0 && isEmptyAround(point) && orientation.at(int(orient))){
 			view->addImage(id, ARROW_IN_ITSELF);
 			cellsWithArrow.append(id);
@@ -211,6 +213,8 @@ void PlayerField::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int i
 		}
 		break;
 	case 2:
+		view->addImage(firstId, FIRT_POINT);
+		cellsWithArrow.append(firstId);
 		if (fleet.at(2) != 0 && isEmptyAround(point) && orientation.at(int(orient))){
 			view->addImage(id, ARROW_IN_ITSELF);
 			cellsWithArrow.append(id);
@@ -231,6 +235,8 @@ void PlayerField::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int i
 		}
 		break;
 	case 3:
+		view->addImage(firstId, FIRT_POINT);
+		cellsWithArrow.append(firstId);
 		if (isEmptyAround(point) && fleet.at(3) != 0 && orientation.at(int(orient))){
 			view->addImage(id, ARROW_IN_ITSELF);
 			cellsWithArrow.append(id);
