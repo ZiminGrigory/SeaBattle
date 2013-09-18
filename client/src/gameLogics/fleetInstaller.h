@@ -54,7 +54,7 @@ signals:
     /**
       * This signal emits when all fleet was correctly installed.
       */
-    void fleetInstalled();
+    void fleetInstalled(QVector<ptrShip> _fleet);
     //void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
 public slots:
     /**

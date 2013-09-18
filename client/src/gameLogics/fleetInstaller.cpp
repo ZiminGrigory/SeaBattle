@@ -218,7 +218,7 @@ bool FleetInstaller::checkIsFleetReady()
 {
     if (fleet.size() == 0)
     {
-        emit fleetInstalled();
+        emit fleetInstalled(existingFleet);
         return true;
     }
     return false;

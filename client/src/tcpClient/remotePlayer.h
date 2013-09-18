@@ -33,7 +33,9 @@ public:
         // expected that next byte are the id of attacked cell
         TURN_MADE = 21
     };
-
+    /**
+      * @var _socket Constructor expects recieve QTcpSocket connected with the remote computer.
+      */
     RemotePlayer(const QSharedPointer<GameField>& plrField,
                  const QSharedPointer<GameField>& enmField,
                  QSharedPointer<QTcpSocket>& _socket);
@@ -73,6 +75,10 @@ private slots:
       *
       */
     void readyReadSlot();
+    /**
+      * This slot sent placement of human player's ship to the another game client.
+      */
+    void sendPlayerFleet(QVector<FleetInstaller::ptrShip> fleet);
 private:
     /**
       * Special struct for sending and receiving fleet by remote players.
@@ -81,13 +87,20 @@ private:
     {
         quint8 size;
         quint8 id;
+        // true - horizontal, false - vertical
         quint8 orientation;
     };
     /**
       *
       */
     void parseRecievedRequest(QDataStream &message, quint16 size) throw(IncorrectRequest, IncorrectFleet);
+    /**
+      *
+      */
     void fleetInstalledHandler(QVector<ShipInfo> fleet) throw (IncorrectFleet);
+    /**
+      *
+      */
     void turnMadeHandler(int id);
 
     QSharedPointer<QTcpSocket> socket;
@@ -97,6 +110,7 @@ private:
     bool expectFleet;
 
     QSharedPointer<FleetInstaller> fleetInst;
+    QVector<ShipInfo> enemyFleetCopy;
 
     static const qint16 port;
 };

@@ -31,6 +31,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
 			repaintCell(row + i, col, i + 1, shipSize, orientation);
         }
     }
+    //emit shipPlaced(shipSize, id, orientation);
 }
 
 QSharedPointer<Ship> GameField::getShip(int id)
