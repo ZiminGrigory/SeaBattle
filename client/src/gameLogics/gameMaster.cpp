@@ -16,7 +16,8 @@ GameMaster::GameMaster(const QSharedPointer<View>& _view,
 
 	player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
 													, view->getPlayerFieldView()
-													, view->getEnemyFieldView(), view->getInfoTabView()));
+                                                    , view->getEnemyFieldView()
+                                                    , view->getInfoTabView()));
     enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
 
     turnTimer.setSingleShot(true);

@@ -32,19 +32,19 @@ public slots:
       * This slot do nothing because it need to wait until player made a choise.
       */
     void turn();
-
-private slots:
+protected slots:
     /**
       * This slot connected with cellWasAttacked() signal of Field view.
       */
-	void cellWasAttacked(int id);
+    virtual void cellWasAttacked(int id);
+private slots:
     /**
       * Reemit fleetInstalled signal with this parametr.
       */
     void reEmitFleetInstalled();
 	void needAutoInstallFleet();
     //void deleteShip(int id);
-private:
+protected:
     QSharedPointer<FieldView> plrFieldView;
     QSharedPointer<FieldView> enmFieldView;
     QSharedPointer<FleetInstaller> fleetInst;

@@ -54,7 +54,7 @@ signals:
     /**
       * This signal emits when all fleet was correctly installed.
       */
-    void fleetInstalled();
+    void fleetInstalled(QVector<ptrShip> _fleet);
     //void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
 public slots:
     /**
@@ -63,6 +63,14 @@ public slots:
       * Slot emits signal placementResult() with status of this try to place ship.
       */
     PlacementStatus shipPlaced(int firstId, int secondId);
+    /**
+      * The same as previous, but with different interface.
+      *
+      * @var id top left id of cell which on ship will placed
+      * @var size size of ship
+      * @var orientation true - horizontal, false - vertical
+      */
+    PlacementStatus shipPlaced(int id, int size, bool orientation);
     /**
       * This slot remove the ship from field if cell with recieved id contained some ship.
       */
@@ -88,15 +96,17 @@ private:
     /**
       * Pick ship from fleet with length defined by pair of ids of cells and positioning.
       * If there isn't suited ship in fleet, it returns null pointer.
+      *
+      *
+      *
       */
-    ptrShip pickShip(CellPair cells, Orientation orn);
+    ptrShip pickShip(int size);
 	int positionOfShip(QVector<QSharedPointer<Ship> > vector, const QSharedPointer<Ship> ship);
 
     QVector<ptrShip> fleet;
     QSharedPointer<GameField> field;
     QSharedPointer<InfoTabView> fleetInfoTab;
 	QVector<QSharedPointer<Ship> > existingFleet;
-
 };
 
 Q_DECLARE_METATYPE(FleetInstaller::PlacementStatus);

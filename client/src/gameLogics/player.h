@@ -63,7 +63,7 @@ public slots:
       * This slot called by GameMaster to inform player about enemy turn
       * (actually, about what cell being attacked).
       */
-    inline void enemyTurn(int id);
+    virtual inline void enemyTurn(int id);
     /**
       * Choose random cell and attack it.
       * This slot called by GameMaster after timeout.
