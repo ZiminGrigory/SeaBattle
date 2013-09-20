@@ -23,7 +23,8 @@ void HumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstal
     setFleetHealth(fleetInst->getFleet());
     connect(plrFieldView.data(), SIGNAL(placeShip(int,int)), fleetInst.data(), SLOT(shipPlaced(int,int)));
     connect(plrFieldView.data(), SIGNAL(deleteShip(int)), fleetInst.data(), SLOT(deleteShip(int)));
-    connect(fleetInst.data(), SIGNAL(fleetInstalled()), this, SLOT(reEmitFleetInstalled()));
+    connect(fleetInst.data(), SIGNAL(fleetInstalled(QVector<ptrShip>)),
+            this, SLOT(reEmitFleetInstalled()));
     /*
     connect(fleetInstaller, SIGNAL(shipPlacedSuccesfully(NameOfShips, int))
             , view, SLOT(changeCounter(NameOfShips,int)));

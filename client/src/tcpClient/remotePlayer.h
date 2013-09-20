@@ -5,6 +5,7 @@
 #include <QDebug>
 
 #include "player.h"
+#include "protocol.h"
 
 /**
   * Class implements the client-listener methods for the receiving messages from the remote player.
@@ -14,25 +15,14 @@ class RemotePlayer : public Player
     Q_OBJECT
 public:
     /**
-      *
+      * Throws when object recieves incorrect request from remote player.
       */
     class IncorrectRequest {};
     /**
-      *
+      * Throws when object recieves incorrect fleet from remote player.
       */
     class IncorrectFleet {};
 
-    /**
-      *
-      */
-    enum RequestType
-    {
-        // this request is sent after the remote player installed his fleet
-        FLEET_INSTALLED = 20,
-        // message about remote player's turn
-        // expected that next byte are the id of attacked cell
-        TURN_MADE = 21
-    };
     /**
       * @var _socket Constructor expects recieve QTcpSocket connected with the remote computer.
       */
@@ -44,52 +34,17 @@ public:
       *
       */
     void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
-    /**
-      * Connection with remote player.
-      */
-    //void connectToPlayer(const QString& hostname);
 public slots:
     /**
       *
       */
     void turn();
-    /**
-      *
-      */
-    void enemyTurn(int id);
-signals:
-    /**
-      * Emits when client recieves message about the remote player's turn.
-      */
-    //void turnMade(int id);
 private slots:
     /**
       *
       */
-    //void connectedToPlayerSlot();
-    /**
-      *
-      */
-    //void errorHandler(QAbstractSocket::SocketError socketError);
-    /**
-      *
-      */
     void readyReadSlot();
-    /**
-      * This slot sent placement of human player's ship to the another game client.
-      */
-    void sendPlayerFleet(QVector<FleetInstaller::ptrShip> fleet);
 private:
-    /**
-      * Special struct for sending and receiving fleet by remote players.
-      */
-    struct ShipInfo
-    {
-        quint8 size;
-        quint8 id;
-        // true - horizontal, false - vertical
-        quint8 orientation;
-    };
     /**
       *
       */
@@ -97,7 +52,7 @@ private:
     /**
       *
       */
-    void fleetInstalledHandler(QVector<ShipInfo> fleet) throw (IncorrectFleet);
+    void fleetInstalledHandler(QVector<Protocol::ShipInfo> fleet) throw (IncorrectFleet);
     /**
       *
       */
@@ -110,7 +65,7 @@ private:
     bool expectFleet;
 
     QSharedPointer<FleetInstaller> fleetInst;
-    QVector<ShipInfo> enemyFleetCopy;
+    QVector<Protocol::ShipInfo> enemyFleetCopy;
 
     static const qint16 port;
 };
