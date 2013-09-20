@@ -35,7 +35,8 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/textureAnalyzer.cpp \
     client/src/gameLogics/player.cpp \
     client/src/view/BattleWidget.cpp \
-    client/src/tcpClient/remotePlayer.cpp
+    client/src/tcpClient/remotePlayer.cpp \
+    client/src/tcpClient/networkHumanPlayer.cpp
 
 HEADERS  += \
     client/src/gameLogics/enemyCell.h \
@@ -61,7 +62,9 @@ HEADERS  += \
     client/src/gameLogics/aiPlayerSimple.h \
     client/src/gameLogics/textureAnalyzer.h \
     client/src/view/BattleWidget.h \
-    client/src/tcpClient/remotePlayer.h
+    client/src/tcpClient/remotePlayer.h \
+    client/src/tcpClient/networkHumanPlayer.h \
+    client/src/tcpClient/protocol.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
