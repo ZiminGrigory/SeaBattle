@@ -96,15 +96,18 @@ private:
     /**
       * Pick ship from fleet with length defined by pair of ids of cells and positioning.
       * If there isn't suited ship in fleet, it returns null pointer.
+      *
+      *
+      *
       */
-    ptrShip pickShip(CellPair cells, Orientation orn);
+    ptrShip pickShip(int size);
 	int positionOfShip(QVector<QSharedPointer<Ship> > vector, const QSharedPointer<Ship> ship);
 
     QVector<ptrShip> fleet;
     QSharedPointer<GameField> field;
     QSharedPointer<InfoTabView> fleetInfoTab;
 	QVector<QSharedPointer<Ship> > existingFleet;
-	QVector<QSharedPointer<Ship> > originFleet;
+    //QVector<QSharedPointer<Ship> > originFleet;
 };
 
 Q_DECLARE_METATYPE(FleetInstaller::PlacementStatus);
