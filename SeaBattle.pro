@@ -34,7 +34,12 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/aiPlayerSimple.cpp \
     client/src/gameLogics/textureAnalyzer.cpp \
     client/src/gameLogics/player.cpp \
-    client/src/view/BattleWidget.cpp
+    client/src/view/BattleWidget.cpp \
+    client/src/gameLogics/ArrowAnalyzer.cpp \
+    client/src/view/ChatAndStatus.cpp \
+    client/src/view/StartMenu.cpp \
+    client/src/view/AiLvlList.cpp \
+    client/src/view/ConnectWidget.cpp
 
 HEADERS  += \
     client/src/gameLogics/enemyCell.h \
@@ -59,11 +64,21 @@ HEADERS  += \
     client/src/view/infoTabView.h \
     client/src/gameLogics/aiPlayerSimple.h \
     client/src/gameLogics/textureAnalyzer.h \
-    client/src/view/BattleWidget.h
+    client/src/view/BattleWidget.h \
+    client/src/gameLogics/ArrowAnalyzer.h \
+    client/src/view/ChatAndStatus.h \
+    client/src/view/StartMenu.h \
+    client/src/view/AiLvlList.h \
+    client/src/view/ConnectWidget.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
-    client/src/view/BattleWidget.ui
+    client/src/view/BattleWidget.ui \
+    client/src/view/mainwindow.ui \
+    client/src/view/ChatAndStatus.ui \
+    client/src/view/StartMenu.ui \
+    client/src/view/AiLvlList.ui \
+    client/src/view/ConnectWidget.ui
 
 RESOURCES += client/gui/pictures/pictures.qrc
 
