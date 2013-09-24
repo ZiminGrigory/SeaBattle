@@ -18,7 +18,7 @@ GameMaster::GameMaster(const QSharedPointer<View>& _view,
 													, view->getPlayerFieldView()
 													, view->getEnemyFieldView(), view->getInfoTabView()));
     enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
-
+    audioPlayer = new AudioPlayer();
     turnTimer.setSingleShot(true);
 }
 
@@ -30,7 +30,6 @@ void GameMaster::startGame()
     view->showPlayerField();
     view->getPlayerFieldView()->setEnabled(true);
     view->showInfoTab();
-
     view->setMessage("Install fleet");
     QSharedPointer<FleetInstaller> playerInst(new FleetInstaller(FleetFactory::createFleet(),
                                                                  playerField, view->getInfoTabView()));
@@ -42,6 +41,7 @@ void GameMaster::startGame()
 
     turnedPlayer = player;
     waitingPlayer = enemy;
+  // audioPlayer->playSound(BEGIN_SOUND);
 }
 
 void GameMaster::playerReadyToBattle(Player* sender)
@@ -112,6 +112,9 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         ptrPlayer tmp = turnedPlayer;
         turnedPlayer = waitingPlayer;
         waitingPlayer = tmp;
+
+        audioPlayer->playSound(MISS_SOUND);
+
     }
     else
     {

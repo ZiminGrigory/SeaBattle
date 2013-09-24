@@ -3,9 +3,12 @@
 # Project created by QtCreator 2013-08-05T21:31:46
 #
 #-------------------------------------------------
+CONFIG += mobility
+MOBILITY += multimedia
 
 QT       += core gui
 QT       += widgets
+QT	 += phonon
 
 DEFINES += QT4
 
@@ -34,7 +37,8 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/aiPlayerSimple.cpp \
     client/src/gameLogics/textureAnalyzer.cpp \
     client/src/gameLogics/player.cpp \
-    client/src/view/BattleWidget.cpp
+    client/src/view/BattleWidget.cpp \
+    client/src/audioPlayer/audioPlayer.cpp
 
 HEADERS  += \
     client/src/gameLogics/enemyCell.h \
@@ -59,12 +63,14 @@ HEADERS  += \
     client/src/view/infoTabView.h \
     client/src/gameLogics/aiPlayerSimple.h \
     client/src/gameLogics/textureAnalyzer.h \
-    client/src/view/BattleWidget.h
+    client/src/view/BattleWidget.h \
+    client/src/audioPlayer/audioPlayer.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
     client/src/view/BattleWidget.ui
 
-RESOURCES += client/gui/pictures/pictures.qrc
+RESOURCES += client/gui/pictures/pictures.qrc \
+    client/gui/sounds/sounds.qrc
 
 INCLUDEPATH += client/src/view client/src/gameLogics client/src
