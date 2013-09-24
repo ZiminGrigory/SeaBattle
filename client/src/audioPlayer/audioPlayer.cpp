@@ -26,29 +26,29 @@ void AudioPlayer::playSound(Sounds track)
     switch (track)
     {
     case (BEGIN_SOUND):
-        sound->setCurrentSource(Phonon::MediaSource("C:\programmig\semester 2\SeaBattle\client\gui\sounds\begin.wav"));
+        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/begin.wav"));
         break;
     case(FIRST_BLOOD):
+        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/first blood.wav"));
         break;
     case(MISS_SOUND):
-        sound->setCurrentSource(Phonon::MediaSource("C:\programmig\semester 2\SeaBattle\client\gui\sounds\miss.wav"));
+        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/miss.wav"));
         break;
     case(WOUNDED_SOUND):
-
+        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/wounded.wav"));
         break;
     case(KILLED_SOUND):
-
+        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/killed.wav"));
         break;
     case(FINISH_HIM):
-
+        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/finish him.wav"));
         break;
     case(VICTORY_SOUND):
-
+        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/victory.wav"));
         break;
     case(DEFEAT_SOUND):
-
+        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/defeat.wav"));
         break;
-
     }
     sound->play();
 

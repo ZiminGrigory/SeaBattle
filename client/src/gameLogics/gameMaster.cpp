@@ -112,20 +112,24 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         ptrPlayer tmp = turnedPlayer;
         turnedPlayer = waitingPlayer;
         waitingPlayer = tmp;
-
         audioPlayer->playSound(MISS_SOUND);
 
     }
-    else
+    else if (turnResult == WOUNDED)
     {
         // if ship was wounded or killed then
         // next turn make the same player
+        audioPlayer->playSound(WOUNDED_SOUND);
     }
-
+    else if (turnResult == KILLED)
+    {
+        audioPlayer->playSound(KILLED_SOUND);
+    }
     if (player->lose())
     {
 		view->hideTimer();
         view->setMessage("Enemy Win");
+        audioPlayer->playSound(DEFEAT_SOUND);
 		view->getEnemyFieldView()->showResult(YOU);
 		view->getPlayerFieldView()->showResult(YOU);
     }
@@ -133,6 +137,7 @@ void GameMaster::nextTurn(AttackStatus turnResult)
     {
 		view->hideTimer();
         view->setMessage("You Win");
+        audioPlayer->playSound(VICTORY_SOUND);
 		view->getPlayerFieldView()->showResult(ENEMY);
 		view->getEnemyFieldView()->showResult(ENEMY);
     }

@@ -27,17 +27,9 @@ public:
     AudioPlayer();
     void playSound(Sounds track);
 private:
-//    QSound * begin;
-//    QSound * first;
-//    QSound * miss;
-//    QSound * wounded;
-//    QSound * killed;
-//    QSound * finish;
-//    QSound * victory;
-//    QSound * defeat;
     MediaObject * sound;
     AudioOutput* audioOutput;
-  //  AudioOutput * ao;
+
 
 
 };
