@@ -36,7 +36,10 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/player.cpp \
     client/src/view/BattleWidget.cpp \
     client/src/tcpClient/remotePlayer.cpp \
-    client/src/tcpClient/networkHumanPlayer.cpp
+    client/src/tcpClient/networkHumanPlayer.cpp \
+    client/src/tcpClient/client.cpp \
+    client/src/tcpClient/clientstate.cpp \
+    client/src/tcpClient/waitingForServerConnection.cpp
 
 HEADERS  += \
     client/src/gameLogics/enemyCell.h \
@@ -64,7 +67,10 @@ HEADERS  += \
     client/src/view/BattleWidget.h \
     client/src/tcpClient/remotePlayer.h \
     client/src/tcpClient/networkHumanPlayer.h \
-    client/src/tcpClient/protocol.h
+    client/src/tcpClient/protocol.h \
+    client/src/tcpClient/client.h \
+    client/src/tcpClient/clientstate.h \
+    client/src/tcpClient/waitingForServerConnection.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
