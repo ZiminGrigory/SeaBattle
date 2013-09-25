@@ -39,7 +39,9 @@ SOURCES += client/src/main.cpp\
     client/src/tcpClient/networkHumanPlayer.cpp \
     client/src/tcpClient/client.cpp \
     client/src/tcpClient/clientstate.cpp \
-    client/src/tcpClient/waitingForServerConnection.cpp
+    client/src/tcpClient/waitingForServerConnection.cpp \
+    client/src/tcpClient/searchGameState.cpp \
+    client/src/tcpClient/noConnectionState.cpp
 
 HEADERS  += \
     client/src/gameLogics/enemyCell.h \
@@ -70,7 +72,9 @@ HEADERS  += \
     client/src/tcpClient/protocol.h \
     client/src/tcpClient/client.h \
     client/src/tcpClient/clientstate.h \
-    client/src/tcpClient/waitingForServerConnection.h
+    client/src/tcpClient/waitingForServerConnection.h \
+    client/src/tcpClient/searchGameState.h \
+    client/src/tcpClient/noConnectionState.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \

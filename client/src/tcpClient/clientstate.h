@@ -3,10 +3,7 @@
 
 #include <QObject>
 #include <QWeakPointer>
-
 #include "client.h"
-
-class Client;
 
 /**
   * This class inherits by all implementation of clien state.
@@ -15,11 +12,9 @@ class ClientState : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClientState(const QSharedPointer<Client> _client,
-                         const QSharedPointer<QTcpSocket> _socket,
-                         QObject *parent = 0);
+    explicit ClientState(const QSharedPointer<Client>& _client, QObject *parent);
 
-    virtual ~ClientState();
+    virtual ~ClientState() {}
     
 signals:
     /**
@@ -36,7 +31,7 @@ public slots:
       *
       * @return true if connection is allowed, false otherwise.
       */
-    virtual bool connect(const QString & hostName, quint16 port);
+    virtual bool connect(const QString & hostName, quint16 port) = 0;
     /**
       * Abort all current connections.
       */
@@ -48,8 +43,12 @@ public slots:
       * @return true if bytes was sending, false if it is impossible now.
       */
     virtual bool send(const QByteArray& bytes) = 0;
+protected:
+    /**
+      *
+      */
+    void moveIntoState(const QSharedPointer<ClientState>& newState);
 
-private:
     QWeakPointer<Client> client;
     QSharedPointer<QTcpSocket> socket;
 };

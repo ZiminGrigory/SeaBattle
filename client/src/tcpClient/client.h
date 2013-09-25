@@ -6,9 +6,10 @@
 #include <QTcpSocket>
 #include <QSharedPointer>
 
-#include "clientstate.h"
-
+class Client;
 class ClientState;
+
+#include "clientstate.h"
 
 /**
   * Class of Client object which is used to connect to server or another client.
@@ -18,8 +19,17 @@ class Client : public QObject
     Q_OBJECT
 public:
     explicit Client(QObject *parent = 0);
-    
+
     friend class ClientState;
+
+    /**
+      * Some classes of the exceptins.
+      */
+
+    /**
+      * Thrown when object can't send messages.
+      */
+    class SendingForbidden {};
 signals:
     /**
       * Emits after client was succesfully connected with server.
@@ -51,10 +61,19 @@ public slots:
     bool send(const QByteArray& bytes);
     
 private:
+    /**
+      *
+      */
+    inline void setState(const QSharedPointer<ClientState>& newState);
+
     QSharedPointer<ClientState> state;
     QSharedPointer<QTcpSocket> socket;
 
-
 };
+
+inline void Client::setState(const QSharedPointer<ClientState> &newState)
+{
+    state = newState;
+}
 
 #endif // CLIENT_H

@@ -4,26 +4,23 @@
 #include <QTimer>
 
 #include "clientstate.h"
+#include "searchGameState.h"
+#include "noConnectionState.h"
+
 
 /**
   * This state is active when a client tries to connect to the server.
   */
-class WaitingForServerConnection : public ClientState
+class WaitingForServerConnectionState : public ClientState
 {
     Q_OBJECT
 public:
-    explicit WaitingForServerConnection(const QSharedPointer<Client> _client,
-                                        const QSharedPointer<QTcpSocket> _socket,
-                                        QObject *parent = 0):
-        ClientState(_client, _socket, parent)
-    {
-    }
+    explicit WaitingForServerConnectionState(const QSharedPointer<Client> _client, QObject *parent = 0);
 
     
 public slots:
     /**
-      * Try to set connection with server.
-      * If connection fails or waiting times out object will emit error signal.
+      * Reconnection.
       */
     bool connection(const QString& serverName, quint16 port);
     /**
@@ -36,20 +33,25 @@ public slots:
       * @return always false.
       */
     inline bool send(const QByteArray& bytes);
-    
+
+signals:
+    void connectedWithServer();
 private slots:
+    void connectedHandler();
     void connectionTimeoutHandler();
     void errorHandler(QAbstractSocket::SocketError err);
 private:
+    QTimer timer;
+
     static const int connectionTimeout;
 };
 
-inline void WaitingForServerConnection::abort()
+inline void WaitingForServerConnectionState::abort()
 {
 
 }
 
-inline bool WaitingForServerConnection::send(const QByteArray& bytes)
+inline bool WaitingForServerConnectionState::send(const QByteArray& bytes)
 {
     Q_UNUSED(bytes);
 }
