@@ -2,18 +2,24 @@
 #define AILVLLIST_H
 
 #include <QWidget>
+#include "InterfaceAiLvlList.h"
 
 namespace Ui {
 class AiLvlList;
 }
 
-class AiLvlList : public QWidget
+class AiLvlList :public InterfaceAiLvlList
 {
 	Q_OBJECT
 
 public:
-	explicit AiLvlList(QWidget *parent = 0);
+	explicit AiLvlList();
 	~AiLvlList();
+
+signals:
+	void buttonExitPushed();
+	void buttonVsSimplePushed();
+	void buttonVsProPushed();
 
 private:
 	Ui::AiLvlList *ui;

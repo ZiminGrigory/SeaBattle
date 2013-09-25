@@ -5,7 +5,6 @@
 #include <QSharedPointer>
 #include <QTimer>
 
-#include "view.h"
 #include "player.h"
 #include "humanPlayer.h"
 #include "aiPlayerSimple.h"

@@ -25,11 +25,8 @@ SOURCES += client/src/main.cpp\
     client/src/view/cell.cpp \
     client/src/gameLogics/fleetInstaller.cpp \
     client/src/view/tabOfInformation.cpp \
-    client/src/view/view.cpp \
     client/src/gameLogics/gameCell.cpp \
     client/src/gameLogics/gameField.cpp \
-    client/src/view/fieldView.cpp \
-    client/src/view/infoTabView.cpp \
     client/src/gameLogics/ship.cpp \
     client/src/gameLogics/aiPlayerSimple.cpp \
     client/src/gameLogics/textureAnalyzer.cpp \
@@ -58,11 +55,8 @@ HEADERS  += \
     client/src/view/cell.h \
     client/src/gameLogics/fleetInstaller.h \
     client/src/view/tabOfInformation.h \
-    client/src/view/view.h \
     client/src/gameLogics/gameCell.h \
     client/src/gameLogics/gameField.h \
-    client/src/view/fieldView.h \
-    client/src/view/infoTabView.h \
     client/src/gameLogics/aiPlayerSimple.h \
     client/src/gameLogics/textureAnalyzer.h \
     client/src/view/BattleWidget.h \
@@ -71,7 +65,16 @@ HEADERS  += \
     client/src/view/StartMenu.h \
     client/src/view/AiLvlList.h \
     client/src/view/ConnectWidget.h \
-    client/src/view/MainWindow.h
+    client/src/view/MainWindow.h \
+    client/src/view/InterfaceAiLvlList.h \
+    client/src/view/InterfaceStartMenu.h \
+    client/src/view/InterfaceChatAndStatus.h \
+    client/src/view/InterfaceConnectWidget.h \
+    client/src/view/InterfaceMainWindow.h \
+    client/src/view/InterfaceBattleWidget.h \
+    client/src/view/InterfaceField.h \
+    client/src/view/IntarfaceInfoTab.h \
+    client/src/view/InterfaceInfoTab.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \

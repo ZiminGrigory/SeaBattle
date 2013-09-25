@@ -8,7 +8,6 @@
 #include "ship.h"
 #include "types.h"
 #include "gameCell.h"
-#include "fieldView.h"
 #include "textureAnalyzer.h"
 
 /**

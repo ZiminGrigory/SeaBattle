@@ -1,31 +1,22 @@
 #include "BattleWidget.h"
 #include "ui_BattleWidget.h"
 
-BattleWidget::BattleWidget(QWidget *parent) :
-	QWidget(parent),
+BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 	ui(new Ui::BattleWidget),
 	timer()
 {
 	ui->setupUi(this);
 	ui->lcdNumber->hide();
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
-
+	mPlayerField = QSharedPointer<Field>(new Field);
+	mEnemyField = QSharedPointer<Field>(new Field);;
+	mInfoTab = QSharedPointer<TabOfInformation>(new TabOfInformation);
 	timer.setSingleShot(false);
 }
 
 void BattleWidget::setMessage(QString text)
 {
 	ui->label->setText(QString::fromLocal8Bit(text.toLocal8Bit()));
-}
-
-void BattleWidget::showPlayerField(QSharedPointer<Field> field)
-{
-	ui->horizontalLayout_2->addWidget(field.data());
-}
-
-void BattleWidget::showInfoTab(QSharedPointer<TabOfInformation> infoTab)
-{
-	ui->horizontalLayout_2->addWidget(infoTab.data());
 }
 
 void BattleWidget::setTime(int time)
@@ -41,16 +32,41 @@ void BattleWidget::hideTimer()
 	ui->lcdNumber->hide();
 }
 
-void BattleWidget::decTime()
+void BattleWidget::showPlayerField()
 {
-	ui->lcdNumber->display(ui->lcdNumber->intValue() - 1);
+	ui->horizontalLayout_2->addWidget(mPlayerField.data());
 }
 
-void BattleWidget::showEnemyField(QSharedPointer<Field> field)
+void BattleWidget::showEnemyField()
 {
 	ui->lcdNumber->show();
 	ui->horizontalLayout_2->itemAt(1)->widget()->hide();
-	ui->horizontalLayout_2->addWidget(field.data());
+	ui->horizontalLayout_2->addWidget(mEnemyField.data());
+}
+
+void BattleWidget::showInfoTab()
+{
+	ui->horizontalLayout_2->addWidget(mInfoTab.data());
+}
+
+QSharedPointer<InterfaceField> BattleWidget::getPlayerFieldView()
+{
+	return mPlayerField;
+}
+
+QSharedPointer<InterfaceField> BattleWidget::getEnemyFieldView()
+{
+	return mEnemyField;
+}
+
+QSharedPointer<InterfaceInfoTab> BattleWidget::getInfoTabView()
+{
+	return mInfoTab;
+}
+
+void BattleWidget::decTime()
+{
+	ui->lcdNumber->display(ui->lcdNumber->intValue() - 1);
 }
 
 

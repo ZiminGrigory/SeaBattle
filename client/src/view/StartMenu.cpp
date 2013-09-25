@@ -1,11 +1,17 @@
 #include "StartMenu.h"
 #include "ui_StartMenu.h"
 
-StartMenu::StartMenu(QWidget *parent) :
-	QWidget(parent),
+StartMenu::StartMenu() :
+	 InterfaceStartMenu(),
 	ui(new Ui::StartMenu)
 {
 	ui->setupUi(this);
+	ui->buttonVsPC->setText(QString::fromLocal8Bit("Игрок против Компьютера"));
+	ui->buttonExit->setText(QString::fromLocal8Bit("Выход"));
+	ui->buttonVsPlayer->setText(QString::fromLocal8Bit("Игрок против игрока"));
+	connect(ui->buttonExit, SIGNAL(clicked()), SIGNAL(buttonExitPushed()));
+	connect(ui->buttonVsPC, SIGNAL(clicked()), SIGNAL(buttonVsPcPushed()));
+	connect(ui->buttonVsPlayer, SIGNAL(clicked()), SIGNAL(buttonVsPlayerPushed()));
 }
 
 StartMenu::~StartMenu()

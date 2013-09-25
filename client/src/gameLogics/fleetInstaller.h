@@ -10,7 +10,6 @@
 #include "types.h"
 #include "ship.h"
 #include "gameField.h"
-#include "infoTabView.h"
 
 /**
   * This class places player's fleets before battle.

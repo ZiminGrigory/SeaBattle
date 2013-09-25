@@ -4,8 +4,8 @@
 #include <QPixmap>
 
 
-Field::Field(QWidget *parent) :
-	QWidget(parent),
+Field::Field() :
+	InterfaceField(),
 	ui(new Ui::Field)
 {
 	ui->setupUi(this);
@@ -24,7 +24,7 @@ Field::Field(QWidget *parent) :
 			field[(i - 1) * 10 + j - 1] = item;
 			item->setData(DATA_KEY, (i - 1) * 10 + j - 1);
 			item->setPos((j - 1) * x, (i - 1) * y);
-			connect(item, SIGNAL(attacked(int)), this, SLOT(cellWasAttacked(int)));\
+			connect(item, SIGNAL(attacked(int)), SIGNAL(attack(int)));\
 			connect(item, SIGNAL(getCoordinate(QPointF,QPointF)), this, SLOT(getCoordinate(QPointF,QPointF)));
 			connect(item, SIGNAL(deleteShip(int)), this, SLOT(deleteShipOnCell(int)));
 			connect(item, SIGNAL(setArrows(int)), this, SIGNAL(setFirstArrows(int)));
@@ -137,9 +137,14 @@ Field::~Field()
 	delete mScene;
 }
 
-void Field::cellWasAttacked(int id)
+void Field::setEnabledItself(bool switcher)
 {
-	emit playerAttackCell(id);
+	this->setEnabled(switcher);
+}
+
+void Field::repaint(int id, Textures texture)
+{
+	paintCell(id, texture);
 }
 
 void Field::getCoordinate(QPointF first, QPointF second)
@@ -164,7 +169,7 @@ void Field::getCoordinate(QPointF first, QPointF second)
 		i++;
 	}while (!condition);
 	secondCell = list2.at(i - 1);
-	emit shipOnCells(firstCell->data(DATA_KEY).toInt(), secondCell->data(DATA_KEY).toInt());
+	emit placeShip(firstCell->data(DATA_KEY).toInt(), secondCell->data(DATA_KEY).toInt());
 }
 
 void Field::deleteShipOnCell(int id)

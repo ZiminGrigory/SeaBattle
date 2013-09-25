@@ -12,6 +12,13 @@ enum Orient{
 };
 }
 
+enum Widgets{
+	BATTLE,
+	CHAT,
+	START_MENU,
+	CONNECT,
+	AI_MENU
+};
 
 enum Direction {
 	LEFT,
@@ -57,6 +64,15 @@ enum Textures
 	SHIP_KILLED,
 	WRECK
 };
+
+namespace PictureStatus{
+enum Picture{
+	ATTACKED,
+	DAMAGE_SHIP,
+	KILL_SHIP,
+	MISSED
+};
+}
 
 enum Players{
 	NONE,
