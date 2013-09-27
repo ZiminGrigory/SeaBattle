@@ -1,30 +1,42 @@
 #ifndef NOCONNECTIONSTATE_H
 #define NOCONNECTIONSTATE_H
 
+#include <QTimer>
+
 #include "clientstate.h"
 
 class NoConnectionState : public ClientState
 {
     Q_OBJECT
 public:
-    explicit NoConnectionState(const QSharedPointer<Client>& _client, QObject* parent = 0):
-        ClientState(_client, parent)
-    {}
+    explicit NoConnectionState(const QWeakPointer<Client>& _client, QObject* parent = 0);
         
 public slots:
     /**
       * Try to set connection with server and move to the Waiting for server connection state.
       * If connection fails or waiting times out object will emit error signal.
       */
-    bool connect(const QString & hostName, quint16 port);
+    void connect(const QString & hostName, quint16 port) throw(Protocol::AlreadyConnected);
     /**
       * Do nothing.
       */
-    void abort();
+    inline void abort();
     /**
       * Throw
       */
-    bool send(const QByteArray& bytes);
+    void send(Protocol::RequestType type, const QByteArray& bytes)
+        throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
+private slots:
+    void connectedHandler();
+    void connectionTimeoutHandler();
+private:
+    QTimer timer;
+    static const int connectionTimeout;
 };
+
+inline void NoConnectionState::abort()
+{
+
+}
 
 #endif // NOCONNECTIONSTATE_H

@@ -6,10 +6,10 @@
 #include <QTcpSocket>
 #include <QSharedPointer>
 
-class Client;
-class ClientState;
+#include "protocol.h"
 
-#include "clientstate.h"
+class ClientState;
+class StateCollection;
 
 /**
   * Class of Client object which is used to connect to server or another client.
@@ -22,19 +22,16 @@ public:
 
     friend class ClientState;
 
-    /**
-      * Some classes of the exceptins.
-      */
 
-    /**
-      * Thrown when object can't send messages.
-      */
-    class SendingForbidden {};
 signals:
     /**
       * Emits after client was succesfully connected with server.
       */
     void connectedWithServer();
+    /**
+      * Emits after client was succesfully connected with enemy player.
+      */
+    void connectedWithPlayer();
     /**
       * Some error occurs during the process.
       */
@@ -42,7 +39,7 @@ signals:
     /**
       * Emits when the client recieves bytes from server/client.
       */
-    void received(const QByteArray& bytes);
+    void received(Protocol::RequestType type, const QByteArray& bytes);
 public slots:
     /**
       * Sets connection with server.
@@ -53,27 +50,25 @@ public slots:
       */
     void abort();
     /**
-      * Sends bytes to the remote server/client if it possible at current moment.
+      * Sends request to the remote server/client if it possible at current moment.
       * Sending side should be confident in compliance bytes to the application protocol.
       *
+      * @var type Type of the request
+      / @var bytes bytes of the request (without service information like a size & type)
       * @return true if bytes was sending, false if it is impossible now.
       */
-    bool send(const QByteArray& bytes);
+    void send(Protocol::RequestType type, const QByteArray& bytes)
+        throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
     
 private:
     /**
       *
       */
-    inline void setState(const QSharedPointer<ClientState>& newState);
+    void setState(const QSharedPointer<ClientState>& newState);
 
     QSharedPointer<ClientState> state;
     QSharedPointer<QTcpSocket> socket;
-
+    QSharedPointer<StateCollection> stateCollection;
 };
-
-inline void Client::setState(const QSharedPointer<ClientState> &newState)
-{
-    state = newState;
-}
 
 #endif // CLIENT_H

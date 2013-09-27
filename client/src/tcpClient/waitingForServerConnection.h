@@ -2,7 +2,9 @@
 #define WAITINGFORSERVERCONNECTION_H
 
 #include <QTimer>
+#include <QTcpSocket>
 
+#include "protocol.h"
 #include "clientstate.h"
 #include "searchGameState.h"
 #include "noConnectionState.h"
@@ -15,45 +17,40 @@ class WaitingForServerConnectionState : public ClientState
 {
     Q_OBJECT
 public:
-    explicit WaitingForServerConnectionState(const QSharedPointer<Client> _client, QObject *parent = 0);
-
+    explicit WaitingForServerConnectionState(const QWeakPointer<Client> _client, QObject *parent = 0);
     
 public slots:
     /**
       * Reconnection.
       */
-    bool connection(const QString& serverName, quint16 port);
+    void connect(const QString& serverName, quint16 port) throw(Protocol::AlreadyConnected);
     /**
       * Do nothing.
       */
-    inline void abort();
+    void abort();
     /**
       * We can't send message untill we not connected with server.
       *
       * @return always false.
       */
-    inline bool send(const QByteArray& bytes);
+    inline void send(Protocol::RequestType type, const QByteArray& bytes)
+        throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
 
 signals:
     void connectedWithServer();
+protected:
+    void init();
 private slots:
     void connectedHandler();
-    void connectionTimeoutHandler();
     void errorHandler(QAbstractSocket::SocketError err);
-private:
-    QTimer timer;
-
-    static const int connectionTimeout;
 };
 
-inline void WaitingForServerConnectionState::abort()
+inline void WaitingForServerConnectionState::send(Protocol::RequestType type, const QByteArray& bytes)
+    throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
 {
-
-}
-
-inline bool WaitingForServerConnectionState::send(const QByteArray& bytes)
-{
+    Q_UNUSED(type);
     Q_UNUSED(bytes);
+    throw Protocol::SendingForbidden();
 }
 
 #endif // WAITINGFORSERVERCONNECTION_H

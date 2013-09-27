@@ -3,7 +3,13 @@
 
 #include <QObject>
 #include <QWeakPointer>
-#include "client.h"
+#include <QTcpSocket>
+
+//#include "client.h"
+#include "protocol.h"
+
+class Client;
+class StateCollection;
 
 /**
   * This class inherits by all implementation of clien state.
@@ -12,7 +18,7 @@ class ClientState : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClientState(const QSharedPointer<Client>& _client, QObject *parent);
+    explicit ClientState(const QWeakPointer<Client>& _client, QObject *parent);
 
     virtual ~ClientState() {}
     
@@ -31,7 +37,7 @@ public slots:
       *
       * @return true if connection is allowed, false otherwise.
       */
-    virtual bool connect(const QString & hostName, quint16 port) = 0;
+    virtual void connect(const QString & hostName, quint16 port) throw(Protocol::AlreadyConnected) = 0;
     /**
       * Abort all current connections.
       */
@@ -40,10 +46,30 @@ public slots:
       * Sends bytes to the remote server/client if it possible at current moment.
       * Sending side should be confident in compliance bytes to the application protocol.
       *
-      * @return true if bytes was sending, false if it is impossible now.
+      * Base implementation just sends request to server.
+      * Heirs of the class should verify possibility of sending and request type.
       */
-    virtual bool send(const QByteArray& bytes) = 0;
+    virtual void send(Protocol::RequestType type, const QByteArray& bytes)
+        throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
+protected slots:
+    /**
+      * This slot could connected to readeRead signal of socket.
+      * It recieves request from socket and calls handleRecievedRequest() method of concrete subclass to handle request.
+      */
+    void readyReadHandler();
 protected:
+    /**
+      *
+      */
+    virtual void handleRecievedRequest(Protocol::RequestType type, const QByteArray& bytes);
+    /**
+      * This method calls after client moves into state and before all other actions of this state will be execute.
+      */
+    virtual void init();
+    /**
+      *
+      */
+    QSharedPointer<StateCollection> getStateCollection() const;
     /**
       *
       */
@@ -51,6 +77,7 @@ protected:
 
     QWeakPointer<Client> client;
     QSharedPointer<QTcpSocket> socket;
+    quint16 blockSize;
 };
 
 #endif // CLIENTSTATE_H

@@ -1,23 +1,22 @@
 #ifndef SEARCHGAMESTATE_H
 #define SEARCHGAMESTATE_H
 
+#include <QTimer>
+
 #include "clientstate.h"
+#include "protocol.h"
 
 class SearchGameState : public ClientState
 {
     Q_OBJECT
 public:
-    explicit SearchGameState(const QSharedPointer<Client> _client,
-                                        QObject *parent = 0):
-        ClientState(_client, parent)
-    {
-    }
+    explicit SearchGameState(const QWeakPointer<Client> _client, QObject* parent = 0);
     
 public slots:
     /**
-      * Reconnection with server.
+      *
       */
-    bool connect(const QString & hostName, quint16 port);
+    void connect(const QString & hostName, quint16 port) throw(Protocol::AlreadyConnected);
     /**
       * Abort connection with server.
       */
@@ -27,14 +26,27 @@ public slots:
       *
       * @return always false.
       */
-    inline bool send(const QByteArray& bytes);
+    void send(Protocol::RequestType type, const QByteArray &bytes)
+        throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
+protected:
+    /**
+      * Handle two types of requests - check state & game found.
+      * For CHECK_STATE request object sends response SEEKING_GAME to the server.
+      * For GAME_FOUND request object moved to waiting for player state.
+      */
+    void handleRecievedRequest(Protocol::RequestType type, const QByteArray &bytes);
+    /**
+      * Send to server request of game searching.
+      */
+    void init();
+private slots:
+    void connectedHandler();
+    void connectionTimeoutHandler();
+private:
+    QTimer timer;
+    bool connectionLock;
+
+    static const int connectionTimeout;
 };
-
-
-
-inline bool SearchGameState::send(const QByteArray &bytes)
-{
-    return false;
-}
 
 #endif // SEARCHGAMESTATE_H
