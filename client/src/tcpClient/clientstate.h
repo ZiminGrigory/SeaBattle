@@ -18,7 +18,7 @@ class ClientState : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClientState(const QWeakPointer<Client>& _client, QObject *parent);
+    explicit ClientState(const QWeakPointer<Client>& _client, QObject *parent = 0);
 
     virtual ~ClientState() {}
     
@@ -34,8 +34,6 @@ signals:
 public slots:
     /**
       * Connection with host (if it possible in current state).
-      *
-      * @return true if connection is allowed, false otherwise.
       */
     virtual void connect(const QString & hostName, quint16 port) throw(Protocol::AlreadyConnected) = 0;
     /**

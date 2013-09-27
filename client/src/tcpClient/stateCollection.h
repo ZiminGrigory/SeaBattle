@@ -7,6 +7,8 @@
 #include "noConnectionState.h"
 #include "waitingForServerConnection.h"
 #include "searchGameState.h"
+#include "waitingForPlayerConnectionState.h"
+#include "gameState.h"
 
 class StateCollection
 {
@@ -15,13 +17,15 @@ public:
         client(_client),
         noConnectionState(new NoConnectionState(_client)),
         waitingForServerConnectionState(new WaitingForServerConnectionState(_client)),
-        searchGameState(QSharedPointer<ClientState>(new SearchGameState(_client)))
+        searchGameState(QSharedPointer<ClientState>(new SearchGameState(_client))),
+        waitingForPlayerConnectionState(QSharedPointer<ClientState>(new WaitingForPlayerConnectionState(_client)))
     {}
 
     inline QSharedPointer<ClientState> getNoConnectionState() const;
     inline QSharedPointer<ClientState> getWaitingForServerConnectionState() const;
     inline QSharedPointer<ClientState> getSearchGameState() const;
     inline QSharedPointer<ClientState> getWaitingForPlayerConnectionState() const;
+    inline QSharedPointer<ClientState> getGameState() const;
 private:
     QWeakPointer<Client> client;
 
@@ -29,6 +33,7 @@ private:
     QSharedPointer<ClientState> waitingForServerConnectionState;
     QSharedPointer<ClientState> searchGameState;
     QSharedPointer<ClientState> waitingForPlayerConnectionState;
+    QSharedPointer<ClientState> gameState;
 };
 
 inline QSharedPointer<ClientState> StateCollection::getNoConnectionState() const
@@ -46,9 +51,14 @@ inline QSharedPointer<ClientState> StateCollection::getSearchGameState() const
     return searchGameState;
 }
 
-QSharedPointer<ClientState> StateCollection::getWaitingForPlayerConnectionState() const
+inline QSharedPointer<ClientState> StateCollection::getWaitingForPlayerConnectionState() const
 {
     return waitingForPlayerConnectionState;
+}
+
+inline QSharedPointer<ClientState> StateCollection::getGameState() const
+{
+    return gameState;
 }
 
 

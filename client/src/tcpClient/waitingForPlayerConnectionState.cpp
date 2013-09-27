@@ -29,6 +29,7 @@ void WaitingForPlayerConnectionState::init()
 
 void WaitingForPlayerConnectionState::connectedHandler()
 {
+    moveIntoState(getStateCollection()->getGameState());
     emit connectedWithPlayer();
 }
 
