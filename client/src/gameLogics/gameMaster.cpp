@@ -2,14 +2,16 @@
 
 const int GameMaster::turnTimeout = 30 * 1000;
 
-GameMaster::GameMaster(const QSharedPointer<View>& _view,
-                       QObject* parent):
+GameMaster::GameMaster(GameType type,
+                       const QSharedPointer<View> &_view,
+                       QObject *parent):
     QObject(parent),
     playerField(NULL),
     enemyField(NULL),
     player(NULL),
     enemy(NULL),
-    view(_view)
+    view(_view),
+    audioPlayer(QSharedPointer<AudioPlayer>(new AudioPlayer()))
 {   
 	playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
@@ -18,8 +20,16 @@ GameMaster::GameMaster(const QSharedPointer<View>& _view,
 													, view->getPlayerFieldView()
                                                     , view->getEnemyFieldView()
                                                     , view->getInfoTabView()));
-    enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
-    audioPlayer = new AudioPlayer();
+    if (type == AI_SIMPLE_GAME)
+    {
+        enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
+    }
+    else if (type == AI_HARD_GAME)
+    {
+        // ai hard not implemented yet
+        enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
+    }
+
     turnTimer.setSingleShot(true);
 }
 

@@ -1,10 +1,7 @@
 #include <QObject>
 
-#include "view.h"
-#include "gameMaster.h"
-#include "humanPlayer.h"
-#include "aiPlayerSimple.h"
-#include "audioPlayer/audioPlayer.h"
+
+#include "game.h"
 
 #ifdef QT4
     #include <QtGui>
@@ -15,10 +12,7 @@
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
+    Game game(argc, argv);
 
-    GameMaster gameMaster(QSharedPointer<View>(new View));
-	gameMaster.startGame();
-	return a.exec();
-
+    return game.exec();
 }

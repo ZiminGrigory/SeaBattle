@@ -16,7 +16,7 @@ class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-    GameMaster(const QSharedPointer<View>& _view, QObject* parent = 0);
+    GameMaster(GameType type, const QSharedPointer<View>& _view, QObject* parent = 0);
     /**
       * Method start the game.
       */
@@ -57,7 +57,7 @@ private:
     QSharedPointer<View> view;
 
     QTimer turnTimer;
-    AudioPlayer * audioPlayer;
+    QSharedPointer<AudioPlayer> audioPlayer;
     static const int turnTimeout;
 };
 

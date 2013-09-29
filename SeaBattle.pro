@@ -46,7 +46,8 @@ SOURCES += client/src/main.cpp\
     client/src/tcpClient/stateCollection.cpp \
     client/src/tcpClient/waitingForPlayerConnectionState.cpp \
     client/src/tcpClient/gameState.cpp \
-    client/src/audioPlayer/audioPlayer.cpp
+    client/src/audioPlayer/audioPlayer.cpp \
+    client/src/appLogics/game.cpp
 
 HEADERS  += \
     client/src/gameLogics/enemyCell.h \
@@ -83,7 +84,8 @@ HEADERS  += \
     client/src/tcpClient/stateCollection.h \
     client/src/tcpClient/waitingForPlayerConnectionState.h \
     client/src/tcpClient/gameState.h \
-    client/src/audioPlayer/audioPlayer.h
+    client/src/audioPlayer/audioPlayer.h \
+    client/src/appLogics/game.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
@@ -92,4 +94,4 @@ FORMS    += client/gui/tabOfInformation.ui \
 RESOURCES += client/gui/pictures/pictures.qrc \
     client/gui/sounds/sounds.qrc
 
-INCLUDEPATH += client/src/view client/src/gameLogics client/src
+INCLUDEPATH += client/src/view client/src/gameLogics client/src client/src/appLogics
