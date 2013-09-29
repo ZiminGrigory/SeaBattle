@@ -59,16 +59,28 @@ void AIPlayerSimple::delayTurn()
         switch(direction)
         {
         case LEFT:
-           id = lastAttackedCell - cnt;
+           if(enemyField->attackable(lastAttackedCell - cnt))
+                id = lastAttackedCell - cnt;
+           else
+               changeDirection();
            break;
         case DOWN:
-            id = lastAttackedCell + 10 * cnt;
+            if(enemyField->attackable(lastAttackedCell + 10 * cnt))
+                id = lastAttackedCell + 10 * cnt;
+            else
+                changeDirection();
             break;
         case RIGHT:
-            id = lastAttackedCell  + cnt;
+            if(enemyField->attackable(lastAttackedCell  + cnt))
+                id = lastAttackedCell  + cnt;
+            else
+                changeDirection();
             break;
         case HIGH:
-            id = lastAttackedCell - 10 * cnt;
+            if (enemyField->attackable(lastAttackedCell - 10 * cnt))
+                id = lastAttackedCell - 10 * cnt;
+            else
+                changeDirection();
             break;
         }
         cnt++;

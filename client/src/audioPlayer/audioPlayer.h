@@ -26,7 +26,10 @@ class AudioPlayer
 public:
     AudioPlayer();
     void playSound(Sounds track);
+    void mute();
+    void playBackground();
 private:
+    bool isMute;
     MediaObject * sound;
     AudioOutput* audioOutput;
 

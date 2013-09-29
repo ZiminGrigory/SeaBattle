@@ -2,27 +2,23 @@
 
 AudioPlayer::AudioPlayer()
 {
-//    begin = new QSound (":/sounds/begin.wav");
-//    begin->setLoops(3);
-//    first = new QSound(":/sounds/first blood.wav");
-//    miss = new QSound("C:/programmig/semester 2/SeaBattle/client/gui/sounds/miss.wav");
-//    miss->setLoops(1);
-//    wounded = new QSound(":/sounds/wounded.wav");
-//    killed = new QSound(":/sounds/killed.wav");
-//    finish = new QSound(":/sounds/finished.wav");
-//    victory = new QSound(":/sounds/victory.wav");
-//    defeat = new QSound(":/sounds/defeat.wav");
     sound = new MediaObject();
     audioOutput = new AudioOutput(Phonon::MusicCategory);
     createPath(sound, audioOutput);
-//    ao = new AudioOutput(MusicCategory, 0);
 
-
+    isMute = false;
 }
 
+void AudioPlayer::mute()
+{
+    isMute = true;
+}
 
 void AudioPlayer::playSound(Sounds track)
 {
+    if (isMute)
+        return;
+
     switch (track)
     {
     case (BEGIN_SOUND):
@@ -52,5 +48,13 @@ void AudioPlayer::playSound(Sounds track)
     }
     sound->play();
 
+}
+
+void AudioPlayer::playBackground()
+{
+    if(isMute)
+        return;
+    sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/sea.wav"));
+    sound->play();
 }
 
