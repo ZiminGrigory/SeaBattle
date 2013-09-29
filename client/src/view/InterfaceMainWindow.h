@@ -17,7 +17,6 @@ public:
 	virtual void hideWidget(Widgets widget) = 0;
 	virtual QSharedPointer<InterfaceAiLvlList> getInterfaceAiLvlList() = 0;
 	virtual QSharedPointer<InterfaceBattleWidget> getInterfaceBattleWidget() = 0;
-	virtual QSharedPointer<InterfaceChatAndStatus> getInterfaceChatAndStatus() = 0;
 	virtual QSharedPointer<InterfaceConnectWidget> getInterfaceConnectWidget() = 0;
 	virtual QSharedPointer<InterfaceStartMenu> getInterfaceStartMenu() = 0;
 

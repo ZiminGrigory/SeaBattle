@@ -20,9 +20,6 @@
       <item>
        <layout class="QHBoxLayout" name="LayoutForWidget"/>
       </item>
-      <item>
-       <layout class="QHBoxLayout" name="LayourForChat"/>
-      </item>
      </layout>
     </item>
    </layout>

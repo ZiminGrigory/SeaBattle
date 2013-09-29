@@ -45,7 +45,9 @@ void ChatAndStatus::showPicture(Players plr, PictureStatus::Picture status)
 
 void ChatAndStatus::getText()
 {
-	emit getNewMessage(ui->lineEdit->text());
+	QString text = ui->lineEdit->text();
+	ui->lineEdit->clear();
+	emit getNewMessage(text);
 }
 
 ChatAndStatus::~ChatAndStatus()

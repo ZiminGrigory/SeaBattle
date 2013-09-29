@@ -1,8 +1,8 @@
 #include "fleetInstaller.h"
 
 FleetInstaller::FleetInstaller(QVector<ptrShip> playerFleet,
-                               const QSharedPointer<GameField> &playerField,
-                               const QSharedPointer<InfoTabView> &_fleetInfoTab):
+							   const QSharedPointer<GameField> &playerField,
+							   const QSharedPointer<InterfaceInfoTab> &_fleetInfoTab):
     fleet(playerFleet),
 	field(playerField),
     fleetInfoTab(_fleetInfoTab)

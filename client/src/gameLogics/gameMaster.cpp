@@ -2,8 +2,8 @@
 
 const int GameMaster::turnTimeout = 30 * 1000;
 
-GameMaster::GameMaster(const QSharedPointer<View>& _view,
-                       QObject* parent):
+GameMaster::GameMaster(const QSharedPointer<InterfaceBattleWidget> &_view,
+					   QObject* parent):
     QObject(parent),
     playerField(NULL),
     enemyField(NULL),
@@ -37,7 +37,7 @@ void GameMaster::startGame()
     player->installFleet(playerInst);
 
     QSharedPointer<FleetInstaller> enemyInst(new FleetInstaller(FleetFactory::createFleet(),
-                                             enemyField, QSharedPointer<InfoTabView>(NULL)));
+											 enemyField, QSharedPointer<InterfaceInfoTab>(NULL)));
     enemy->installFleet(enemyInst);
 
     turnedPlayer = player;

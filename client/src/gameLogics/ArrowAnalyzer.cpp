@@ -1,7 +1,7 @@
 #include "ArrowAnalyzer.h"
 
 ArrowAnalyzer::ArrowAnalyzer(QSharedPointer<PlayerField> field,
-							 QSharedPointer<FieldView> fieldView):
+							 QSharedPointer<InterfaceField> fieldView):
 	mFieldView(fieldView), mField(field), firstId(0)
 {
 	connect(mFieldView.data(), SIGNAL(setFirstArrows(int)), SLOT(setFirstArrows(int)));

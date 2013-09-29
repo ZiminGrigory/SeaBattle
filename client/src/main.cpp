@@ -17,8 +17,11 @@ int main(int argc, char *argv[])
 {
 
 	QApplication a(argc, argv);
-//    GameMaster gameMaster(QSharedPointer<View>(new View));
-//	gameMaster.startGame();
+	QSharedPointer<InterfaceMainWindow> mainWindow = QSharedPointer<MainWindow>(new MainWindow);
+	mainWindow->show();
+	mainWindow->showWidget(BATTLE);
+	GameMaster gameMaster(QSharedPointer<InterfaceBattleWidget>(mainWindow->getInterfaceBattleWidget()));
+	gameMaster.startGame();
 
 	return a.exec();
 

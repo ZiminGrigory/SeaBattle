@@ -11,7 +11,15 @@ BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 	mPlayerField = QSharedPointer<Field>(new Field);
 	mEnemyField = QSharedPointer<Field>(new Field);;
 	mInfoTab = QSharedPointer<TabOfInformation>(new TabOfInformation);
+	mChat = QSharedPointer<ChatAndStatus>(new ChatAndStatus);
 	timer.setSingleShot(false);
+	showChatAndStatus();
+	ui->EnemyCnt->setText(QString::fromLocal8Bit("Осталось кораблей:"));
+	ui->EnemyCnt->hide();
+	ui->YouCnt->setText(QString::fromLocal8Bit("Осталось кораблей:"));
+	ui->YouCnt->hide();
+	ui->EnemyCntDisplay->hide();
+	ui->YouCntDisplay->hide();
 }
 
 void BattleWidget::setMessage(QString text)
@@ -49,6 +57,11 @@ void BattleWidget::showInfoTab()
 	ui->horizontalLayout_2->addWidget(mInfoTab.data());
 }
 
+void BattleWidget::showChatAndStatus()
+{
+	ui->layoutForChat->addWidget(mChat.data());
+}
+
 QSharedPointer<InterfaceField> BattleWidget::getPlayerFieldView()
 {
 	return mPlayerField;
@@ -62,6 +75,28 @@ QSharedPointer<InterfaceField> BattleWidget::getEnemyFieldView()
 QSharedPointer<InterfaceInfoTab> BattleWidget::getInfoTabView()
 {
 	return mInfoTab;
+}
+
+QSharedPointer<InterfaceChatAndStatus> BattleWidget::getChatAndStatus()
+{
+	return mChat;
+}
+
+void BattleWidget::showCountersOfFleet()
+{
+	ui->EnemyCnt->show();
+	ui->YouCnt->show();
+	ui->EnemyCntDisplay->show();
+	ui->YouCntDisplay->show();
+}
+
+void BattleWidget::setCountOfFleet(Players plr, int count)
+{
+	if (plr = YOU){
+		ui->YouCntDisplay->display(count);
+	} else if (plr == ENEMY){
+		ui->EnemyCntDisplay->display(count);
+	}
 }
 
 void BattleWidget::decTime()

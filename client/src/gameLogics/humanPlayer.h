@@ -5,7 +5,7 @@
 
 #include "player.h"
 #include "fleetInstaller.h"
-#include "view.h"
+#include "BattleWidget.h"
 
 // for test purpose
 class HumanPlayerTest;
@@ -16,8 +16,9 @@ class HumanPlayer : public Player
 public:
 	explicit HumanPlayer(const QSharedPointer<GameField> &plrField,
 						 const QSharedPointer<GameField>& enmField,
-						 const QSharedPointer<FieldView>& _plrFieldView,
-						 const QSharedPointer<FieldView>& _enmFieldView, const QSharedPointer<InfoTabView> &infoTab,
+						 const QSharedPointer<InterfaceField>& _plrFieldView,
+						 const QSharedPointer<InterfaceField>& _enmFieldView,
+						 const QSharedPointer<InterfaceInfoTab> &infoTab,
 						 QObject *parent = 0);
     
     // for test purpose
@@ -45,10 +46,10 @@ private slots:
 	void needAutoInstallFleet();
     //void deleteShip(int id);
 private:
-    QSharedPointer<FieldView> plrFieldView;
-    QSharedPointer<FieldView> enmFieldView;
+	QSharedPointer<InterfaceField> plrFieldView;
+	QSharedPointer<InterfaceField> enmFieldView;
     QSharedPointer<FleetInstaller> fleetInst;
-	QSharedPointer<InfoTabView> infoTab;
+	QSharedPointer<InterfaceInfoTab> infoTab;
 	bool myTurn;
 };
 

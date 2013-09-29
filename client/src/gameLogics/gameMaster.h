@@ -14,7 +14,7 @@ class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-    GameMaster(const QSharedPointer<View>& _view, QObject* parent = 0);
+	GameMaster(const QSharedPointer<InterfaceBattleWidget>& _view, QObject* parent = 0);
     /**
       * Method start the game.
       */
@@ -52,7 +52,7 @@ private:
 	QSharedPointer<GameField> playerField;
     QSharedPointer<GameField> enemyField;
 
-    QSharedPointer<View> view;
+	QSharedPointer<InterfaceBattleWidget> view;
 
     QTimer turnTimer;
 

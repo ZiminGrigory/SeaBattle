@@ -14,7 +14,6 @@ enum Orient{
 
 enum Widgets{
 	BATTLE,
-	CHAT,
 	START_MENU,
 	CONNECT,
 	AI_MENU

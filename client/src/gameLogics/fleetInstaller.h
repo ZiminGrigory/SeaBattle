@@ -36,7 +36,7 @@ public:
 
     FleetInstaller(QVector<ptrShip> playerFleet,
                    const QSharedPointer<GameField>& playerField,
-                   const QSharedPointer<InfoTabView>& _fleetInfoTab);
+				   const QSharedPointer<InterfaceInfoTab>& _fleetInfoTab);
 
     QVector<ptrShip> getFleet() const;
 	/**
@@ -93,7 +93,7 @@ private:
 
     QVector<ptrShip> fleet;
     QSharedPointer<GameField> field;
-    QSharedPointer<InfoTabView> fleetInfoTab;
+	QSharedPointer<InterfaceInfoTab> fleetInfoTab;
 	QVector<QSharedPointer<Ship> > existingFleet;
 
 };

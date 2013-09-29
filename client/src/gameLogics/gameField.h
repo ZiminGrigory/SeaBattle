@@ -9,6 +9,7 @@
 #include "types.h"
 #include "gameCell.h"
 #include "textureAnalyzer.h"
+#include "BattleWidget.h"
 
 /**
   * Abstract class for enemy & player field.
@@ -18,7 +19,7 @@ class GameField : public QObject
 {
     Q_OBJECT
 public:
-	GameField(const QSharedPointer<FieldView>& fieldView);
+	GameField(const QSharedPointer<InterfaceField>& fieldView);
     /**
       * Set ship.
       *
@@ -50,7 +51,7 @@ protected:
 	int position(QVector<int> vector, int id);
 	void markKilled(int i, int j);
 	typedef QPair<int, int> Coord;
-	QSharedPointer<FieldView> view;
+	QSharedPointer<InterfaceField> view;
 	GameCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
 	QSharedPointer<TextureAnalyzer> textureAnalyzer;
 	virtual void repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation);

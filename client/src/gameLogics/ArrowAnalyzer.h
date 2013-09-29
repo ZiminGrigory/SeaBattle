@@ -13,7 +13,7 @@ class ArrowAnalyzer : public QObject
 Q_OBJECT
 public:
 	ArrowAnalyzer(QSharedPointer<PlayerField> field,
-				  QSharedPointer<FieldView> fieldView);
+				  QSharedPointer<InterfaceField> fieldView);
 
 public slots:
 	void setFirstArrows(int id);
@@ -23,7 +23,7 @@ public slots:
 private:
 	void analyzeNextArrow(Orientation::Orient orient, ImageID iD, int id); //for QVector<bool> orientation
 	void setArrow(int id, ImageID iD, int difference, Orientation::Orient orient); //for help to setFirstArrows
-	QSharedPointer<FieldView> mFieldView;
+	QSharedPointer<InterfaceField> mFieldView;
 	int firstId;
 	QSharedPointer<PlayerField> mField;
 	ImageID previousIm;

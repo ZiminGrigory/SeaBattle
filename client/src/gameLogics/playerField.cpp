@@ -1,7 +1,7 @@
 #include "playerField.h"
 using namespace Orientation;
 
-PlayerField::PlayerField(const QSharedPointer<FieldView> &fieldView):
+PlayerField::PlayerField(const QSharedPointer<InterfaceField> &fieldView):
 	GameField(fieldView)
 {
 	mArrowAnalyzer = QSharedPointer<ArrowAnalyzer>(new ArrowAnalyzer(QSharedPointer<PlayerField>(this)

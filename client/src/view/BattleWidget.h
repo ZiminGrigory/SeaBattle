@@ -8,6 +8,7 @@
 #include "field.h"
 #include "tabOfInformation.h"
 #include "InterfaceBattleWidget.h"
+#include "ChatAndStatus.h"
 
 namespace Ui {
 class BattleWidget;
@@ -28,6 +29,9 @@ public:
 	QSharedPointer<InterfaceField> getPlayerFieldView();
 	QSharedPointer<InterfaceField> getEnemyFieldView();
 	QSharedPointer<InterfaceInfoTab> getInfoTabView();
+	QSharedPointer<InterfaceChatAndStatus> getChatAndStatus();
+	void showCountersOfFleet();
+	void setCountOfFleet(Players plr, int count);
 
 public slots:
 	void setMessage(QString text);
@@ -38,6 +42,8 @@ private:
 	QSharedPointer<InterfaceField> mPlayerField;
 	QSharedPointer<InterfaceField> mEnemyField;
 	QSharedPointer<InterfaceInfoTab> mInfoTab;
+	QSharedPointer<InterfaceChatAndStatus> mChat;
+	void showChatAndStatus();
 
 private slots:
 	void decTime();

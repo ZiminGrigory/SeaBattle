@@ -8,7 +8,6 @@ MainWindow::MainWindow() :
 	ui->setupUi(this);
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
 	aiLvlList = QSharedPointer<AiLvlList> (new AiLvlList);
-	chatAndStatus = QSharedPointer<ChatAndStatus> (new ChatAndStatus);
 	connectWidget = QSharedPointer<ConnectWidget> (new ConnectWidget);
 	startMenu = QSharedPointer<StartMenu> (new StartMenu);
 	battleWidget = QSharedPointer<BattleWidget> (new BattleWidget);
@@ -24,9 +23,6 @@ void MainWindow::showWidget(Widgets widget)
 	switch (widget) {
 	case BATTLE:
 		ui->LayoutForWidget->addWidget(battleWidget.data());
-	break;
-	case CHAT:
-		ui->LayourForChat->addWidget(chatAndStatus.data());
 	break;
 	case START_MENU:
 		ui->LayoutForWidget->addWidget(startMenu.data());
@@ -45,9 +41,6 @@ void MainWindow::hideWidget(Widgets widget)
 	switch (widget) {
 	case BATTLE:
 		battleWidget->hide();
-	break;
-	case CHAT:
-		chatAndStatus->hide();
 	break;
 	case START_MENU:
 		startMenu->hide();
@@ -69,11 +62,6 @@ QSharedPointer<InterfaceAiLvlList> MainWindow::getInterfaceAiLvlList()
 QSharedPointer<InterfaceBattleWidget> MainWindow::getInterfaceBattleWidget()
 {
 	return battleWidget;
-}
-
-QSharedPointer<InterfaceChatAndStatus> MainWindow::getInterfaceChatAndStatus()
-{
-	return chatAndStatus;
 }
 
 QSharedPointer<InterfaceConnectWidget> MainWindow::getInterfaceConnectWidget()
