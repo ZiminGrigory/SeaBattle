@@ -35,7 +35,7 @@ protected:
     int lastAttackedCell;
     static const int delay;
     int cnt;
-
+    bool directionChanged;
 public slots:
 
     virtual void turn() = 0;

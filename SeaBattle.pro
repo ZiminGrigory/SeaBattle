@@ -3,16 +3,17 @@
 # Project created by QtCreator 2013-08-05T21:31:46
 #
 #-------------------------------------------------
+CONFIG += mobility
+MOBILITY += multimedia
 
 QT       += core gui network
 QT       += widgets
+QT	 += phonon
 
 DEFINES += QT4
 
 TARGET = SeaBattle
 TEMPLATE = app
-
-
 
 SOURCES += client/src/main.cpp\
     client/src/gameLogics/enemyCell.cpp \
@@ -44,7 +45,8 @@ SOURCES += client/src/main.cpp\
     client/src/tcpClient/noConnectionState.cpp \
     client/src/tcpClient/stateCollection.cpp \
     client/src/tcpClient/waitingForPlayerConnectionState.cpp \
-    client/src/tcpClient/gameState.cpp
+    client/src/tcpClient/gameState.cpp \
+    client/src/audioPlayer/audioPlayer.cpp
 
 HEADERS  += \
     client/src/gameLogics/enemyCell.h \
@@ -80,12 +82,14 @@ HEADERS  += \
     client/src/tcpClient/noConnectionState.h \
     client/src/tcpClient/stateCollection.h \
     client/src/tcpClient/waitingForPlayerConnectionState.h \
-    client/src/tcpClient/gameState.h
+    client/src/tcpClient/gameState.h \
+    client/src/audioPlayer/audioPlayer.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
     client/src/view/BattleWidget.ui
 
-RESOURCES += client/gui/pictures/pictures.qrc
+RESOURCES += client/gui/pictures/pictures.qrc \
+    client/gui/sounds/sounds.qrc
 
 INCLUDEPATH += client/src/view client/src/gameLogics client/src
