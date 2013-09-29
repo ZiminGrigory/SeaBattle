@@ -1,25 +1,28 @@
 #include "aiPlayer.h"
 
 // delay for turns of ai players in ms
-const int AIPlayer::delay = 2 * 1000;
+const int AIPlayer::delay = 3 * 1000;
 
 AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
 				   const QSharedPointer<GameField> &enmField,
 				   QObject *parent):
 	Player(plrField, enmField, parent)
 {
-	for(int i = 0; i < 3; i++)
-		attackedCells[i] = 0;
-	cnt = 2;
-	//connect(this, SIGNAL(turnMade(int)), );
+    for(int i = 0; i < 3; i++)
+        attackedCells[i] = 0;
+    cnt = 2;
+    directionChanged = false;
+    //connect(this, SIGNAL(turnMade(int)), );
 	qsrand(QTime::currentTime().msec());
 }
 
 void AIPlayer::clear()
 {
-	for(int i = 0; i < 3; i++)
-		attackedCells[i] = 0;
-	cnt = 2;
+
+    for(int i = 0; i < 3; i++)
+        attackedCells[i] = 0;
+    cnt = 2;
+	directionChanged = false;
 }
 
 int AIPlayer::tryToKill(int id)

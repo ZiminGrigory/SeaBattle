@@ -10,6 +10,7 @@ AIPlayerSimple::AIPlayerSimple(const QSharedPointer<GameField> &plrField,
     for(int i = 0; i < 3; i++)
         attackedCells[i] = 0;
     cnt = 2;
+    directionChanged = false;
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
 }
@@ -37,7 +38,8 @@ void AIPlayerSimple::changeDirection()
         break;
 
     }
-
+    cnt = 1;
+    directionChanged = true;
 }
 
 
@@ -50,21 +52,35 @@ void AIPlayerSimple::delayTurn()
 {
     int id = 0;
 
-    if((isWounded) && (lastAttackResult == WOUNDED)) // here we've found right direction for attack (3 or 4 ships)
+    if((isWounded) &&
+            ((lastAttackResult == WOUNDED) || directionChanged) ) // here we've found right direction for attack (3 or 4 ships)
     {
+        directionChanged = false;
         switch(direction)
         {
         case LEFT:
-           id = lastAttackedCell - cnt;
+           if(enemyField->attackable(lastAttackedCell - cnt))
+                id = lastAttackedCell - cnt;
+           else
+               changeDirection();
            break;
         case DOWN:
-            id = lastAttackedCell + 10 * cnt;
+            if(enemyField->attackable(lastAttackedCell + 10 * cnt))
+                id = lastAttackedCell + 10 * cnt;
+            else
+                changeDirection();
             break;
         case RIGHT:
-            id = lastAttackedCell  + cnt;
+            if(enemyField->attackable(lastAttackedCell  + cnt))
+                id = lastAttackedCell  + cnt;
+            else
+                changeDirection();
             break;
         case HIGH:
-            id = lastAttackedCell - 10 * cnt;
+            if (enemyField->attackable(lastAttackedCell - 10 * cnt))
+                id = lastAttackedCell - 10 * cnt;
+            else
+                changeDirection();
             break;
         }
         cnt++;

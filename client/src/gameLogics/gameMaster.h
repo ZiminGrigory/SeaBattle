@@ -9,12 +9,14 @@
 #include "humanPlayer.h"
 #include "aiPlayerSimple.h"
 #include "playerField.h"
+//#include "audioPlayer/audioPlayer.h"
 
 class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-	GameMaster(const QSharedPointer<InterfaceBattleWidget>& _view, QObject* parent = 0);
+	GameMaster(GameType type, const QSharedPointer<InterfaceBattleWidget>& _view, QObject* parent = 0);
+
     /**
       * Method start the game.
       */
@@ -55,7 +57,7 @@ private:
 	QSharedPointer<InterfaceBattleWidget> view;
 
     QTimer turnTimer;
-
+//    QSharedPointer<AudioPlayer> audioPlayer;
     static const int turnTimeout;
 };
 

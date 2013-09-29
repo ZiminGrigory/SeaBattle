@@ -19,6 +19,12 @@ enum Widgets{
 	AI_MENU
 };
 
+enum GameType {
+    AI_SIMPLE_GAME,
+    AI_HARD_GAME,
+	NETWORK_GAME
+};
+
 enum Direction {
 	LEFT,
 	DOWN,

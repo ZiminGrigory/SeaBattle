@@ -3,16 +3,17 @@
 # Project created by QtCreator 2013-08-05T21:31:46
 #
 #-------------------------------------------------
+CONFIG += mobility
+MOBILITY += multimedia
 
-QT       += core gui
+QT       += core gui network
 QT       += widgets
+#QT	 += phonon
 
-DEFINES += QT5
+DEFINES += QT4
 
 TARGET = SeaBattle
 TEMPLATE = app
-
-
 
 SOURCES += client/src/main.cpp\
     client/src/gameLogics/enemyCell.cpp \
@@ -37,10 +38,21 @@ SOURCES += client/src/main.cpp\
     client/src/view/StartMenu.cpp \
     client/src/view/AiLvlList.cpp \
     client/src/view/ConnectWidget.cpp \
-    client/src/view/MainWindow.cpp
+	client/src/view/MainWindow.cpp \
+    client/src/tcpClient/remotePlayer.cpp \
+    client/src/tcpClient/networkHumanPlayer.cpp \
+    client/src/tcpClient/client.cpp \
+    client/src/tcpClient/clientstate.cpp \
+    client/src/tcpClient/waitingForServerConnection.cpp \
+    client/src/tcpClient/searchGameState.cpp \
+    client/src/tcpClient/noConnectionState.cpp \
+    client/src/tcpClient/stateCollection.cpp \
+    client/src/tcpClient/waitingForPlayerConnectionState.cpp \
+    client/src/tcpClient/gameState.cpp \
+#    client/src/audioPlayer/audioPlayer.cpp \
+	client/src/appLogics/game.cpp
 
-HEADERS  += \
-    client/src/gameLogics/enemyCell.h \
+HEADERS  += client/src/gameLogics/enemyCell.h \
     client/src/gameLogics/types.h \
     client/src/gameLogics/playerCell.h \
     client/src/gameLogics/ship.h \
@@ -73,8 +85,20 @@ HEADERS  += \
     client/src/view/InterfaceMainWindow.h \
     client/src/view/InterfaceBattleWidget.h \
     client/src/view/InterfaceField.h \
-    client/src/view/IntarfaceInfoTab.h \
-    client/src/view/InterfaceInfoTab.h
+	client/src/view/InterfaceInfoTab.h \
+    client/src/tcpClient/remotePlayer.h \
+    client/src/tcpClient/networkHumanPlayer.h \
+    client/src/tcpClient/protocol.h \
+    client/src/tcpClient/client.h \
+    client/src/tcpClient/clientstate.h \
+    client/src/tcpClient/waitingForServerConnection.h \
+    client/src/tcpClient/searchGameState.h \
+    client/src/tcpClient/noConnectionState.h \
+    client/src/tcpClient/stateCollection.h \
+    client/src/tcpClient/waitingForPlayerConnectionState.h \
+    client/src/tcpClient/gameState.h \
+#    client/src/audioPlayer/audioPlayer.h \
+	client/src/appLogics/game.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
@@ -85,6 +109,7 @@ FORMS    += client/gui/tabOfInformation.ui \
     client/src/view/ConnectWidget.ui \
     client/src/view/MainWindow.ui
 
-RESOURCES += client/gui/pictures/pictures.qrc
+RESOURCES += client/gui/pictures/pictures.qrc \
+    client/gui/sounds/sounds.qrc
 
-INCLUDEPATH += client/src/view client/src/gameLogics client/src
+INCLUDEPATH += client/src/view client/src/gameLogics client/src client/src/appLogics

@@ -7,10 +7,11 @@ MainWindow::MainWindow() :
 {
 	ui->setupUi(this);
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
-	aiLvlList = QSharedPointer<AiLvlList> (new AiLvlList);
-	connectWidget = QSharedPointer<ConnectWidget> (new ConnectWidget);
-	startMenu = QSharedPointer<StartMenu> (new StartMenu);
-	battleWidget = QSharedPointer<BattleWidget> (new BattleWidget);
+	aiLvlList = QSharedPointer<InterfaceAiLvlList> (new AiLvlList);
+	connectWidget = QSharedPointer<InterfaceConnectWidget> (new ConnectWidget);
+	startMenu = QSharedPointer<InterfaceStartMenu> (new StartMenu);
+	battleWidget = QSharedPointer<InterfaceBattleWidget> (new BattleWidget);
+	setStyleSheet(":/pictures/sea/jpg");
 }
 
 MainWindow::~MainWindow()
@@ -23,15 +24,19 @@ void MainWindow::showWidget(Widgets widget)
 	switch (widget) {
 	case BATTLE:
 		ui->LayoutForWidget->addWidget(battleWidget.data());
+		battleWidget->show();
 	break;
 	case START_MENU:
 		ui->LayoutForWidget->addWidget(startMenu.data());
+		startMenu->show();
 	break;
 	case CONNECT:
 		ui->LayoutForWidget->addWidget(connectWidget.data());
+		connectWidget->show();
 	break;
 	case AI_MENU:
 		ui->LayoutForWidget->addWidget(aiLvlList.data());
+		aiLvlList->show();
 	break;
 	}
 }

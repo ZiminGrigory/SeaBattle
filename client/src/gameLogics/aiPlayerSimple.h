@@ -19,6 +19,7 @@ public:
      void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
 private:
 	 void changeDirection();
+
 public slots:
     /**
       * Nothing to thing about it, choose the random cell!
@@ -29,5 +30,6 @@ private slots:
       * Subsidiary slot for the delay attack
       */
     void delayTurn();
+
 };
 

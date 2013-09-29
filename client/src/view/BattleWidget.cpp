@@ -8,10 +8,10 @@ BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 	ui->setupUi(this);
 	ui->lcdNumber->hide();
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
-	mPlayerField = QSharedPointer<Field>(new Field);
-	mEnemyField = QSharedPointer<Field>(new Field);;
-	mInfoTab = QSharedPointer<TabOfInformation>(new TabOfInformation);
-	mChat = QSharedPointer<ChatAndStatus>(new ChatAndStatus);
+	mPlayerField = QSharedPointer<InterfaceField>(new Field);
+	mEnemyField = QSharedPointer<InterfaceField>(new Field);;
+	mInfoTab = QSharedPointer<InterfaceInfoTab>(new TabOfInformation);
+	mChat = QSharedPointer<InterfaceChatAndStatus>(new ChatAndStatus);
 	timer.setSingleShot(false);
 	showChatAndStatus();
 	ui->EnemyCnt->setText(QString::fromLocal8Bit("Осталось кораблей:"));
@@ -43,6 +43,7 @@ void BattleWidget::hideTimer()
 void BattleWidget::showPlayerField()
 {
 	ui->horizontalLayout_2->addWidget(mPlayerField.data());
+	mPlayerField->show();
 }
 
 void BattleWidget::showEnemyField()
@@ -50,11 +51,13 @@ void BattleWidget::showEnemyField()
 	ui->lcdNumber->show();
 	ui->horizontalLayout_2->itemAt(1)->widget()->hide();
 	ui->horizontalLayout_2->addWidget(mEnemyField.data());
+	mEnemyField->show();
 }
 
 void BattleWidget::showInfoTab()
 {
 	ui->horizontalLayout_2->addWidget(mInfoTab.data());
+	mInfoTab->show();
 }
 
 void BattleWidget::showChatAndStatus()
