@@ -22,6 +22,7 @@ void WaitingForServerConnectionState::abort()
 
 void WaitingForServerConnectionState::init()
 {
+    QObject::connect(socket.data(), SIGNAL(connected()), this, SLOT(connectedHandler()));
     QObject::connect(this, SIGNAL(connectedWithServer()), client.data(), SIGNAL(connectedWithServer()));
 }
 
