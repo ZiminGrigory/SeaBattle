@@ -14,5 +14,8 @@ void GameState::abort()
 void GameState::send(Protocol::RequestType type, const QByteArray &bytes)
     throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
 {
+    if ((type != Protocol::FLEET_INSTALLED) || (type != Protocol::TURN_MADE))
+    {
 
+    }
 }
