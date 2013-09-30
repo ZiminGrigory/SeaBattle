@@ -5,7 +5,7 @@
 #include <QDebug>
 
 #include "player.h"
-#include "protocol.h"
+#include "client.h"
 
 /**
   * Class implements the client-listener methods for the receiving messages from the remote player.
@@ -28,7 +28,7 @@ public:
       */
     RemotePlayer(const QSharedPointer<GameField>& plrField,
                  const QSharedPointer<GameField>& enmField,
-                 QSharedPointer<QTcpSocket>& _socket);
+                 QSharedPointer<Client>& _client);
 
     /**
       *
@@ -43,12 +43,8 @@ private slots:
     /**
       *
       */
-    void readyReadSlot();
+    void parseRecievedRequest(Protocol::RequestType, const QByteArray& bytes) throw(IncorrectRequest, IncorrectFleet);
 private:
-    /**
-      *
-      */
-    void parseRecievedRequest(QDataStream &message, quint16 size) throw(IncorrectRequest, IncorrectFleet);
     /**
       *
       */
@@ -58,14 +54,11 @@ private:
       */
     void turnMadeHandler(int id);
 
-    QSharedPointer<QTcpSocket> socket;
-    quint16 blockSize;
+    QSharedPointer<Client> client;
 
     bool myTurn;
     bool expectFleet;
 
     QSharedPointer<FleetInstaller> fleetInst;
     QVector<Protocol::ShipInfo> enemyFleetCopy;
-
-    static const qint16 port;
 };

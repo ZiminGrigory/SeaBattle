@@ -5,7 +5,7 @@
 #include <QTcpSocket>
 
 #include "humanPlayer.h"
-#include "protocol.h"
+#include "client.h"
 
 /**
   * Subclass of human player that implements human player gamed with the remote player by network.
@@ -23,7 +23,7 @@ public:
                        const QSharedPointer<FieldView>& _plrFieldView,
                        const QSharedPointer<FieldView>& _enmFieldView,
                        const QSharedPointer<InfoTabView>& _infoTab,
-                       const QSharedPointer<QTcpSocket>& _socket,
+                       const QSharedPointer<Client>& _client,
                        QObject *parent = 0);
 
 public slots:
@@ -36,7 +36,7 @@ private slots:
      */
     void sendPlayerFleet(QVector<FleetInstaller::ptrShip> fleet);
 private:
-    QSharedPointer<QTcpSocket> socket;
+    QSharedPointer<Client> client;
 };
 
 

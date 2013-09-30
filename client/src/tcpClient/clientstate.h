@@ -30,7 +30,7 @@ signals:
     /**
       * Emits when the client recieves bytes from server/client.
       */
-    void received(const QByteArray& bytes);
+    void received(Protocol::RequestType type, const QByteArray& bytes);
 public slots:
     /**
       * Connection with host (if it possible in current state).
@@ -44,18 +44,15 @@ public slots:
       * Sends bytes to the remote server/client if it possible at current moment.
       * Sending side should be confident in compliance bytes to the application protocol.
       *
-      * Base implementation just sends request to server.
       * Heirs of the class should verify possibility of sending and request type.
       */
     virtual void send(Protocol::RequestType type, const QByteArray& bytes)
-        throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
-protected slots:
-    /**
-      * This slot could connected to readeRead signal of socket.
-      * It recieves request from socket and calls handleRecievedRequest() method of concrete subclass to handle request.
-      */
-    void readyReadHandler();
+        throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden) = 0;
 protected:
+    /**
+      * Sends request to the remote server/client.
+      */
+    void writeToSocket(Protocol::RequestType type, const QByteArray& bytes);
     /**
       *
       */
@@ -75,6 +72,13 @@ protected:
 
     QWeakPointer<Client> client;
     QSharedPointer<QTcpSocket> socket;
+private:
+    /**
+      * This slot connected to readeRead signal of socket.
+      * It recieves request from socket and calls handleRecievedRequest() method of concrete subclass to handle request.
+      */
+    void readyReadHandler();
+
     quint16 blockSize;
 };
 

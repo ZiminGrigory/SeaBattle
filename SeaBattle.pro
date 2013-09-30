@@ -36,8 +36,8 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/textureAnalyzer.cpp \
     client/src/gameLogics/player.cpp \
     client/src/view/BattleWidget.cpp \
-    client/src/tcpClient/remotePlayer.cpp \
-    client/src/tcpClient/networkHumanPlayer.cpp \
+    client/src/gameLogics/remotePlayer.cpp \
+    client/src/gameLogics/networkHumanPlayer.cpp \
     client/src/tcpClient/client.cpp \
     client/src/tcpClient/clientstate.cpp \
     client/src/tcpClient/waitingForServerConnection.cpp \
@@ -73,8 +73,8 @@ HEADERS  += \
     client/src/gameLogics/aiPlayerSimple.h \
     client/src/gameLogics/textureAnalyzer.h \
     client/src/view/BattleWidget.h \
-    client/src/tcpClient/remotePlayer.h \
-    client/src/tcpClient/networkHumanPlayer.h \
+    client/src/gameLogics/remotePlayer.h \
+    client/src/gameLogics/networkHumanPlayer.h \
     client/src/tcpClient/protocol.h \
     client/src/tcpClient/client.h \
     client/src/tcpClient/clientstate.h \
@@ -94,4 +94,4 @@ FORMS    += client/gui/tabOfInformation.ui \
 RESOURCES += client/gui/pictures/pictures.qrc \
     client/gui/sounds/sounds.qrc
 
-INCLUDEPATH += client/src/view client/src/gameLogics client/src client/src/appLogics
+INCLUDEPATH += client/src/view client/src/gameLogics client/src client/src/appLogics client/src/tcpClient

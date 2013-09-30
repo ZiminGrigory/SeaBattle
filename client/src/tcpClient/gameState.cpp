@@ -9,13 +9,25 @@ GameState::GameState(const QWeakPointer<Client>& _client, QObject* parent):
 
 void GameState::abort()
 {
+    socket->disconnectFromHost();
 }
 
-void GameState::send(Protocol::RequestType type, const QByteArray &bytes)
+void GameState::send(Protocol::RequestType type, const QByteArray& bytes)
     throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
 {
     if ((type != Protocol::FLEET_INSTALLED) || (type != Protocol::TURN_MADE))
     {
+        throw Protocol::RequestTypeForbidden();
+    }
+    writeToSocket(type, bytes);
+}
 
+void GameState::handleRecievedRequest(Protocol::RequestType type, const QByteArray& bytes)
+{
+    if ((type == Protocol::FLEET_INSTALLED) || (type == Protocol::TURN_MADE))
+    {
+        emit received(type, bytes);
     }
 }
+
+

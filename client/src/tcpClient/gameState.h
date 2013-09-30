@@ -23,7 +23,8 @@ public slots:
       */
     virtual void send(Protocol::RequestType type, const QByteArray& bytes)
         throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
-    
+protected:
+    void handleRecievedRequest(Protocol::RequestType type, const QByteArray &bytes);
 };
 
 inline void GameState::connect(const QString &hostName, quint16 port) throw (Protocol::AlreadyConnected)
