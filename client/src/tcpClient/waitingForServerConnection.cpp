@@ -6,12 +6,13 @@ WaitingForServerConnectionState::WaitingForServerConnectionState(const QWeakPoin
     ClientState(_client, parent)
 {}
 
-
+/*
 void WaitingForServerConnectionState::connect(const QString &serverName, quint16 port) throw(Protocol::AlreadyConnected)
 {
     Q_UNUSED(serverName);
     Q_UNUSED(port);
 }
+*/
 
 void WaitingForServerConnectionState::abort()
 {

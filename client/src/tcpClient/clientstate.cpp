@@ -16,23 +16,10 @@ void ClientState::moveIntoState(const QSharedPointer<ClientState> &newState)
     newState->init();
 }
 
-
 QSharedPointer<StateCollection> ClientState::getStateCollection() const
 {
     return client.toStrongRef()->stateCollection;
 }
-
-void ClientState::init()
-{
-}
-
-/*
-void ClientState::send(Protocol::RequestType type, const QByteArray& bytes)
-    throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
-{
-
-}
-*/
 
 void ClientState::readyReadHandler()
 {
@@ -60,11 +47,6 @@ void ClientState::readyReadHandler()
     blockSize = 0;
 
     handleRecievedRequest(type, bytes);
-}
-
-
-void ClientState::handleRecievedRequest(Protocol::RequestType type, const QByteArray &bytes)
-{
 }
 
 void ClientState::writeToSocket(Protocol::RequestType type, const QByteArray &bytes)

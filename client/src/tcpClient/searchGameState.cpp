@@ -17,8 +17,6 @@ void SearchGameState::connect(const QString& hostName, quint16 port) throw(Proto
 {
     if (connectionLock)
     {
-        Q_UNUSED(hostName);
-        Q_UNUSED(port);
         throw Protocol::AlreadyConnected();
     }
     else
@@ -34,14 +32,6 @@ void SearchGameState::abort()
 {
     socket->abort();
     moveIntoState(getStateCollection()->getNoConnectionState());
-}
-
-void SearchGameState::send(Protocol::RequestType type, const QByteArray& bytes)
-    throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
-{
-    Q_UNUSED(type);
-    Q_UNUSED(bytes);
-    throw Protocol::SendingForbidden();
 }
 
 void SearchGameState::handleRecievedRequest(Protocol::RequestType type, const QByteArray& bytes)

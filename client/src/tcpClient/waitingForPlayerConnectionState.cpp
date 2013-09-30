@@ -8,11 +8,13 @@ WaitingForPlayerConnectionState::WaitingForPlayerConnectionState(const QWeakPoin
     //QObject::connect(this, SIGNAL(connectedWithPlayer()), client.data(), SIGNAL(connectedWithPlayer()));
 }
 
+/*
 void WaitingForPlayerConnectionState::connect(const QString &hostName, quint16 port) throw(Protocol::AlreadyConnected)
 {
     Q_UNUSED(hostName);
     Q_UNUSED(port);
 }
+*/
 
 void WaitingForPlayerConnectionState::abort()
 {

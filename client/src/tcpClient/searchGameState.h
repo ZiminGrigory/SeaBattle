@@ -21,13 +21,6 @@ public slots:
       * Abort connection with server.
       */
     void abort();
-    /**
-      * It will be possible to send some queries to server in the future.
-      *
-      * @return always false.
-      */
-    void send(Protocol::RequestType type, const QByteArray &bytes)
-        throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
 protected:
     /**
       * Handle two types of requests - check state & game found.

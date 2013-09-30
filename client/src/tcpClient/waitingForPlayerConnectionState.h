@@ -15,16 +15,7 @@ public slots:
     /**
       *
       */
-    void connect(const QString& hostName, quint16 port) throw(Protocol::AlreadyConnected);
-    /**
-      *
-      */
     void abort();
-    /**
-      *
-      */
-    inline void send(Protocol::RequestType type, const QByteArray& bytes)
-        throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
 protected:
     /**
       *
@@ -33,14 +24,6 @@ protected:
 private slots:
     void connectedHandler();
 };
-
-inline void WaitingForPlayerConnectionState::send(Protocol::RequestType type, const QByteArray& bytes)
-    throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
-{
-    Q_UNUSED(type);
-    Q_UNUSED(bytes);
-    throw Protocol::SendingForbidden();
-}
 
 
 #endif // WAITINGFORPLAYERCONNECTIONSTATE_H

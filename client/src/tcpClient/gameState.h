@@ -13,7 +13,7 @@ public slots:
     /**
       *
       */
-    void connect(const QString & hostName, quint16 port) throw(Protocol::AlreadyConnected);
+    //void connect(const QString & hostName, quint16 port) throw(Protocol::AlreadyConnected);
     /**
       *
       */
@@ -27,11 +27,5 @@ protected:
     void handleRecievedRequest(Protocol::RequestType type, const QByteArray &bytes);
 };
 
-inline void GameState::connect(const QString &hostName, quint16 port) throw (Protocol::AlreadyConnected)
-{
-    Q_UNUSED(hostName);
-    Q_UNUSED(port);
-    throw Protocol::AlreadyConnected();
-}
 
 #endif // GAMESTATE_H
