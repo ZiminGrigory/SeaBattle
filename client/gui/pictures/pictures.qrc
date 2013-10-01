@@ -30,5 +30,6 @@
         <file>arrow.png</file>
         <file>cirle arrow.png</file>
         <file>first point.png</file>
+        <file>loader.gif</file>
     </qresource>
 </RCC>

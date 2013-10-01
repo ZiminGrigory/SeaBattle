@@ -5,6 +5,7 @@
 #include <QByteArray>
 #include <QTcpSocket>
 #include <QSharedPointer>
+#include <QWeakPointer>
 
 #include "protocol.h"
 

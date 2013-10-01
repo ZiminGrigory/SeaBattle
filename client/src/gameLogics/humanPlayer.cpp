@@ -2,15 +2,15 @@
 
 HumanPlayer::HumanPlayer(const QSharedPointer<GameField>& plrField
 						, const QSharedPointer<GameField>& enmField
-						, const QSharedPointer<FieldView>& _plrFieldView
-						, const QSharedPointer<FieldView>& _enmFieldView
-						, const QSharedPointer<InfoTabView> &infoTab
+						, const QSharedPointer<InterfaceField>& _plrFieldView
+						, const QSharedPointer<InterfaceField>& _enmFieldView
+						, const QSharedPointer<InterfaceInfoTab> &_infoTab
 						, QObject* parent):
     Player(plrField, enmField, parent),
     plrFieldView(_plrFieldView),
     enmFieldView(_enmFieldView),
 	fleetInst(NULL),
-	infoTab(infoTab),
+	infoTab(_infoTab),
 	myTurn(false)
 {
     connect(enmFieldView.data(), SIGNAL(attack(int)), this, SLOT(cellWasAttacked(int)));

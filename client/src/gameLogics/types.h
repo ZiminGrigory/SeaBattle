@@ -12,10 +12,17 @@ enum Orient{
 };
 }
 
+enum Widgets{
+	BATTLE,
+	START_MENU,
+	CONNECT,
+	AI_MENU
+};
+
 enum GameType {
     AI_SIMPLE_GAME,
     AI_HARD_GAME,
-    NETWORK_GAME
+	NETWORK_GAME
 };
 
 enum Direction {
@@ -62,6 +69,15 @@ enum Textures
 	SHIP_KILLED,
 	WRECK
 };
+
+namespace PictureStatus{
+enum Picture{
+	ATTACKED,
+	DAMAGE_SHIP,
+	KILL_SHIP,
+	MISSED
+};
+}
 
 enum Players{
 	NONE,

@@ -6,6 +6,11 @@
 
 #include "types.h"
 #include "gameMaster.h"
+#include "MainWindow.h"
+#include "BattleWidget.h"
+#include "StartMenu.h"
+#include "AiLvlList.h"
+#include "ConnectWidget.h"
 
 class Game : public QApplication
 {
@@ -39,6 +44,6 @@ public slots:
       */
     void startNetworkGame();
 private:
-    QSharedPointer<View> view;
+	QSharedPointer<InterfaceMainWindow> view;
     QSharedPointer<GameMaster> gameMaster;
 };

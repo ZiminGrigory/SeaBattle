@@ -4,7 +4,7 @@
 
 Client::Client(QObject *parent) :
     QObject(parent),
-    stateCollection(new StateCollection(QWeakPointer<Client>(this)))
+	stateCollection(new StateCollection(QSharedPointer<Client>(this)))
 {
 
 }

@@ -7,33 +7,45 @@
 #include "cell.h"
 #include "field.h"
 #include "tabOfInformation.h"
-#include "infoTabView.h"
-#include "fieldView.h"
+#include "InterfaceBattleWidget.h"
+#include "ChatAndStatus.h"
 
 namespace Ui {
 class BattleWidget;
 }
 
-class BattleWidget : public QWidget
+class BattleWidget : public InterfaceBattleWidget
 {
 	Q_OBJECT
 
 public:
-	explicit BattleWidget(QWidget *parent = 0);
+	explicit BattleWidget();
 	~BattleWidget(){}
-
-	void setMessage(QString text);
-	void showPlayerField(QSharedPointer<Field> field);
-	void showEnemyField(QSharedPointer<Field> field);
-	void showInfoTab(QSharedPointer<TabOfInformation> infoTab);
 	void setTime(int time);
 	void hideTimer();
+	void showPlayerField();
+	void showEnemyField();
+	void showInfoTab();
+	QSharedPointer<InterfaceField> getPlayerFieldView();
+	QSharedPointer<InterfaceField> getEnemyFieldView();
+	QSharedPointer<InterfaceInfoTab> getInfoTabView();
+	QSharedPointer<InterfaceChatAndStatus> getChatAndStatus();
+	void showCountersOfFleet();
+	void setCountOfFleet(Players plr, int count);
 
-	private:
+public slots:
+	void setMessage(QString text);
+
+private:
 	QSharedPointer<Ui::BattleWidget> ui;
 	QTimer timer;
+	QSharedPointer<InterfaceField> mPlayerField;
+	QSharedPointer<InterfaceField> mEnemyField;
+	QSharedPointer<InterfaceInfoTab> mInfoTab;
+	QSharedPointer<InterfaceChatAndStatus> mChat;
+	void showChatAndStatus();
 
-	private slots:
+private slots:
 	void decTime();
 };
 

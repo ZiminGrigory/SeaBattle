@@ -4,12 +4,12 @@ using namespace Protocol;
 
 NetworkHumanPlayer::NetworkHumanPlayer(const QSharedPointer<GameField>& plrField,
                                        const QSharedPointer<GameField>& enmField,
-                                       const QSharedPointer<FieldView>& _plrFieldView,
-                                       const QSharedPointer<FieldView>& _enmFieldView,
-                                       const QSharedPointer<InfoTabView>& _infoTab,
+									   const QSharedPointer<InterfaceField> &_plrFieldView,
+									   const QSharedPointer<InterfaceField> &_enmFieldView,
+									   const QSharedPointer<InterfaceInfoTab> &_infoTab,
                                        const QSharedPointer<Client>& _client,
-                                       QObject* parent):
-    HumanPlayer(plrField,enmField,_plrFieldView,_enmFieldView, _infoTab),
+									   QObject* parent):
+    HumanPlayer(plrField,enmField,_plrFieldView,_enmFieldView, _infoTab, parent),
     client(_client)
 {
 }
