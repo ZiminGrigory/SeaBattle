@@ -1,44 +1,44 @@
 #include "client.h"
 #include "stateCollection.h"
-#include "waitingForPlayerConnectionState.h"
+#include "waitingForServerConnectionState.h"
 
-WaitingForPlayerConnectionState::WaitingForPlayerConnectionState(const QWeakPointer<Client> _client, QObject* parent):
+WaitingForServerConnectionState::WaitingForServerConnectionState(const QWeakPointer<Client> _client, QObject *parent):
     ClientState(_client, parent)
 {
-    QObject::connect(this, SIGNAL(connectedWithPlayer()), client.data(), SIGNAL(connectedWithPlayer()));
+    QObject::connect(this, SIGNAL(connectedWithServer()), client.data(), SIGNAL(connectedWithServer()));
 }
 
-void WaitingForPlayerConnectionState::connect(const QString &hostName, quint16 port) throw(Protocol::AlreadyConnected)
+void WaitingForServerConnectionState::connect(const QString &serverName, quint16 port) throw(Protocol::AlreadyConnected)
 {
-    Q_UNUSED(hostName);
+    Q_UNUSED(serverName);
     Q_UNUSED(port);
 }
 
-void WaitingForPlayerConnectionState::abort()
+void WaitingForServerConnectionState::abort()
 {
     disconnect(socket.data(), SIGNAL(connected()), this, SIGNAL(connectedHandler()));
     socket->abort();
     moveIntoState(getStateCollection()->getNoConnectionState());
 }
 
-
-void WaitingForPlayerConnectionState::init()
+void WaitingForServerConnectionState::init()
 {
     QObject::connect(socket.data(), SIGNAL(connected()), this, SLOT(connectedHandler()));
     QObject::connect(socket.data(), SIGNAL((error(QAbstractSocket::SocketError))),
-                     this, SLOT(errorHandler(QAbstractSocket::SocketError)));
+                     SLOT(errorHandler(QAbstractSocket::SocketError)));
 }
 
-void WaitingForPlayerConnectionState::connectedHandler()
+void WaitingForServerConnectionState::connectedHandler()
 {
     disconnect(socket.data(), SIGNAL(connected()), this, SIGNAL(connectedHandler()));
     disconnect(socket.data(), SIGNAL((error(QAbstractSocket::SocketError))),
                      this, SLOT(errorHandler(QAbstractSocket::SocketError)));
-    moveIntoState(getStateCollection()->getGameState());
-    emit connectedWithPlayer();
+
+    moveIntoState(QSharedPointer<ClientState>(getStateCollection()->getSearchGameState()));
+    emit connectedWithServer();
 }
 
-void WaitingForPlayerConnectionState::errorHandler(QAbstractSocket::SocketError err)
+void WaitingForServerConnectionState::errorHandler(QAbstractSocket::SocketError err)
 {
     QString msg;
     switch (err)
@@ -59,3 +59,6 @@ void WaitingForPlayerConnectionState::errorHandler(QAbstractSocket::SocketError 
     qDebug() << msg;
     emit error(msg);
 }
+
+
+

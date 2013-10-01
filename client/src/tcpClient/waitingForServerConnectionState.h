@@ -3,6 +3,7 @@
 
 #include <QTimer>
 #include <QTcpSocket>
+#include <QDebug>
 
 #include "protocol.h"
 #include "clientstate.h"
@@ -21,6 +22,10 @@ public:
     
 public slots:
     /**
+      * Do nothing, because object is already tried to set connection at current moment.
+      */
+    void connect(const QString& hostName, quint16 port) throw (Protocol::AlreadyConnected);
+    /**
       * Abort connection with server
       */
     void abort();
@@ -29,6 +34,10 @@ signals:
 protected:
     void init();
 private slots:
+    /**
+      * Emit connectedWithServer() signal (which is connected with the same signal of clien object)
+      * and move to SearchGameState.
+      */
     void connectedHandler();
     void errorHandler(QAbstractSocket::SocketError err);
 };

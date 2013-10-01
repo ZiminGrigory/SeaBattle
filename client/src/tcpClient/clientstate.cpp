@@ -8,7 +8,11 @@ ClientState::ClientState(const QWeakPointer<Client>& _client,
     client(_client),
     socket(_client.toStrongRef()->socket),
     blockSize(0)
-{}
+{
+    QObject::connect(this, SIGNAL(error(QString)), client.data(), SIGNAL(error(QString)));
+    QObject::connect(this, SIGNAL(received(Protocol::RequestType,QByteArray)),
+            client.data(), SIGNAL(received(Protocol::RequestType,QByteArray)));
+}
 
 void ClientState::moveIntoState(const QSharedPointer<ClientState> &newState)
 {

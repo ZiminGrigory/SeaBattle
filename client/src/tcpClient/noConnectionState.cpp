@@ -14,9 +14,9 @@ NoConnectionState::NoConnectionState(const QWeakPointer<Client> &_client, QObjec
 
 void NoConnectionState::connect(const QString & hostName, quint16 port) throw(Protocol::AlreadyConnected)
 {
-    Q_UNUSED (hostName);
+    Q_UNUSED(hostName);
 
-    socket->connectToHost(Protocol::ServerName, port);
+    socket->connectToHost(hostName, port);
     timer.start(connectionTimeout);
     moveIntoState(getStateCollection()->getWaitingForServerConnectionState());
 }

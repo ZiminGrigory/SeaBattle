@@ -13,10 +13,6 @@ public slots:
     /**
       *
       */
-    //void connect(const QString & hostName, quint16 port) throw(Protocol::AlreadyConnected);
-    /**
-      *
-      */
     void abort();
     /**
       *

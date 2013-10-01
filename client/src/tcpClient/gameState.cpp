@@ -10,6 +10,7 @@ GameState::GameState(const QWeakPointer<Client>& _client, QObject* parent):
 void GameState::abort()
 {
     socket->disconnectFromHost();
+    moveIntoState(getStateCollection()->getNoConnectionState());
 }
 
 void GameState::send(Protocol::RequestType type, const QByteArray& bytes)

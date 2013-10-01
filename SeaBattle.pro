@@ -40,14 +40,14 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/networkHumanPlayer.cpp \
     client/src/tcpClient/client.cpp \
     client/src/tcpClient/clientstate.cpp \
-    client/src/tcpClient/waitingForServerConnection.cpp \
     client/src/tcpClient/searchGameState.cpp \
     client/src/tcpClient/noConnectionState.cpp \
     client/src/tcpClient/stateCollection.cpp \
     client/src/tcpClient/waitingForPlayerConnectionState.cpp \
     client/src/tcpClient/gameState.cpp \
     client/src/audioPlayer/audioPlayer.cpp \
-    client/src/appLogics/game.cpp
+    client/src/appLogics/game.cpp \
+    client/src/tcpClient/waitingForServerConnectionState.cpp
 
 HEADERS  += \
     client/src/gameLogics/enemyCell.h \
@@ -78,14 +78,14 @@ HEADERS  += \
     client/src/tcpClient/protocol.h \
     client/src/tcpClient/client.h \
     client/src/tcpClient/clientstate.h \
-    client/src/tcpClient/waitingForServerConnection.h \
     client/src/tcpClient/searchGameState.h \
     client/src/tcpClient/noConnectionState.h \
     client/src/tcpClient/stateCollection.h \
     client/src/tcpClient/waitingForPlayerConnectionState.h \
     client/src/tcpClient/gameState.h \
     client/src/audioPlayer/audioPlayer.h \
-    client/src/appLogics/game.h
+    client/src/appLogics/game.h \
+    client/src/tcpClient/waitingForServerConnectionState.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
