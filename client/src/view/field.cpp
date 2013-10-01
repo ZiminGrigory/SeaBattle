@@ -32,6 +32,7 @@ Field::Field() :
 			mScene->addItem(item);
 		}
 	}
+//	mScene->setBackgroundBrush(QBrush(QPixmap));
 	ui->graphicsView->setScene(mScene);
 
 }
