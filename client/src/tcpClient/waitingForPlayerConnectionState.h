@@ -13,34 +13,29 @@ signals:
     void connectedWithPlayer();
 public slots:
     /**
-      *
+      * Do nothing, because object is already tried to set connection at current moment.
       */
-    void connect(const QString& hostName, quint16 port) throw(Protocol::AlreadyConnected);
+    void connect(const QString &hostName, quint16 port) throw (Protocol::AlreadyConnected);
     /**
       *
       */
     void abort();
-    /**
-      *
-      */
-    inline void send(Protocol::RequestType type, const QByteArray& bytes)
-        throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
 protected:
     /**
       *
       */
     void init();
 private slots:
+    /**
+      * Emit connectedWithPlayer() signal (which is connected with the same signal of clien object)
+      * and move to GameState.
+      */
     void connectedHandler();
+    /**
+      *
+      */
+    void errorHandler(QAbstractSocket::SocketError err);
 };
-
-inline void WaitingForPlayerConnectionState::send(Protocol::RequestType type, const QByteArray& bytes)
-    throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
-{
-    Q_UNUSED(type);
-    Q_UNUSED(bytes);
-    throw Protocol::SendingForbidden();
-}
 
 
 #endif // WAITINGFORPLAYERCONNECTIONSTATE_H

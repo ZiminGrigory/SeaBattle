@@ -45,14 +45,13 @@ private slots:
     void nextTurn(AttackStatus turnResult);
 private:
     typedef QSharedPointer<Player> ptrPlayer;
+    QSharedPointer<GameField> playerField;
+    QSharedPointer<GameField> enemyField;
     ptrPlayer player;
     ptrPlayer enemy;
 
     ptrPlayer turnedPlayer;
     ptrPlayer waitingPlayer;
-
-	QSharedPointer<GameField> playerField;
-    QSharedPointer<GameField> enemyField;
 
 	QSharedPointer<InterfaceBattleWidget> view;
 

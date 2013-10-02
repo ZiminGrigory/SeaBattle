@@ -13,6 +13,6 @@ public:
 	virtual void repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation);
 	QVector<int> getFleet();
 private:
-	QSharedPointer<ArrowAnalyzer> mArrowAnalyzer;
+    ArrowAnalyzer mArrowAnalyzer;
 };
 

@@ -13,6 +13,10 @@ namespace Protocol
     /**
       *
       */
+    const quint16 ServerPort = 30010;
+    /**
+      *
+      */
     const QDataStream::Version QDataStreamVersion = QDataStream::Qt_4_8;
     /**
       * Types of requsts which clients can send to server or to other client

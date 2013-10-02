@@ -5,7 +5,7 @@
 #include <QSharedPointer>
 
 #include "noConnectionState.h"
-#include "waitingForServerConnection.h"
+#include "waitingForServerConnectionState.h"
 #include "searchGameState.h"
 #include "waitingForPlayerConnectionState.h"
 #include "gameState.h"

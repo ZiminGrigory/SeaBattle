@@ -14,17 +14,11 @@ NoConnectionState::NoConnectionState(const QWeakPointer<Client> &_client, QObjec
 
 void NoConnectionState::connect(const QString & hostName, quint16 port) throw(Protocol::AlreadyConnected)
 {
-    socket->connectToHost(Protocol::ServerName, port);
+    Q_UNUSED(hostName);
+
+    socket->connectToHost(hostName, port);
     timer.start(connectionTimeout);
     moveIntoState(getStateCollection()->getWaitingForServerConnectionState());
-}
-
-void NoConnectionState::send(Protocol::RequestType type, const QByteArray &bytes)
-    throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
-{
-    Q_UNUSED(type);
-    Q_UNUSED(bytes);
-    throw Protocol::SendingForbidden();
 }
 
 void NoConnectionState::connectedHandler()

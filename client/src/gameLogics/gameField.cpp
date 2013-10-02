@@ -1,7 +1,7 @@
 #include "gameField.h"
 
 GameField::GameField(const QSharedPointer<InterfaceField> &fieldView):
-	view(fieldView), textureAnalyzer(new TextureAnalyzer)
+    view(fieldView), textureAnalyzer(new TextureAnalyzer())
 {
 	fleet << 4 << 3 << 2 << 1; //conut of ship
 }

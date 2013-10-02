@@ -1,22 +1,16 @@
 #include "remotePlayer.h"
 
-using namespace Protocol;
-
-const qint16 RemotePlayer::port = 10244;
-
 RemotePlayer::RemotePlayer(const QSharedPointer<GameField>& plrField,
                            const QSharedPointer<GameField>& enmField,
-                           QSharedPointer<QTcpSocket>& _socket):
+                           QSharedPointer<Client>& _client):
     Player(plrField, enmField),
-    socket(_socket),
-    blockSize(0),
+    client(_client),
     myTurn(false),
     expectFleet(false),
     fleetInst(NULL)
 {
-    connect(socket.data(), SIGNAL(connected()), this, SLOT(connectedToPlayerSlot()));
-    connect(socket.data(), SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(errorHandler(QAbstractSocket::SocketError)));
-    connect(socket.data(), SIGNAL(readyRead()), this, SLOT(readyReadSlot()));
+    connect(client.data(), SIGNAL(received(Protocol::RequestType, const QByteArray&)),
+            SLOT(parseRecievedRequest(Protocol::RequestType,QByteArray)));
 }
 
 void RemotePlayer::installFleet(const QSharedPointer<FleetInstaller>& fleetInstaller)
@@ -30,53 +24,29 @@ void RemotePlayer::turn()
     myTurn = true;
 }
 
-void RemotePlayer::readyReadSlot()
+void RemotePlayer::parseRecievedRequest(Protocol::RequestType type, const QByteArray& bytes)
+    throw(IncorrectRequest, IncorrectFleet)
 {
-    QDataStream in(socket.data());
-    in.setVersion(QDataStream::Qt_4_8);
-
-    if (blockSize == 0) {
-        // first two bytes are the size of the rest message
-        // so wait until we recive the size of message
-        if (socket->bytesAvailable() < (int)sizeof(quint16))
-            return;
-        in >> blockSize;
-    }
-
-    if (socket->bytesAvailable() < blockSize)
-        return;
-
-    parseRecievedRequest(in, blockSize);
-}
-
-void RemotePlayer::parseRecievedRequest(QDataStream& request, quint16 size) throw(IncorrectRequest, IncorrectFleet)
-{
-    if (size < 3)
-    {
-        throw IncorrectRequest();
-    }
-    // third byte are the request type
-    quint8 _type = 0;
-    request >> _type;
-    RequestType type = static_cast<RequestType>(_type);
+    QDataStream request(bytes);
+    request.setVersion(Protocol::QDataStreamVersion);
 
     switch (type)
     {
-    case FLEET_INSTALLED:
+    case Protocol::FLEET_INSTALLED:
     {
         // 3 bytes - size & request type,
         // next bytes represents the fleet placement,
         // each ship defined by size, orientation and id of top left cell,
         // each parameter is stored in 1 byte,
         // and, finally, we have 10 ships
-        if (size < 3 + sizeof(ShipInfo) * 10)
+        if (bytes.size() < sizeof(Protocol::ShipInfo) * 10)
         {
             throw IncorrectRequest();
         }
-        QVector<ShipInfo> fleet;
+        QVector<Protocol::ShipInfo> fleet;
         for (int i = 0; i < 10; i++)
         {
-            ShipInfo ship;
+            Protocol::ShipInfo ship;
             request >> ship.size;
             request >> ship.id;
             request >> ship.orientation;
@@ -90,9 +60,9 @@ void RemotePlayer::parseRecievedRequest(QDataStream& request, quint16 size) thro
         fleetInstalledHandler(fleet);
         return;
     }
-    case TURN_MADE:
+    case Protocol::TURN_MADE:
     {
-        if (size < 4)
+        if (bytes.size() < 1)
         {
             throw IncorrectRequest();
         }
@@ -115,7 +85,7 @@ void RemotePlayer::fleetInstalledHandler(QVector<Protocol::ShipInfo> fleet) thro
     {
         for (int i = 0; i < fleet.size(); i++)
         {
-            ShipInfo ship = fleet[i];
+            Protocol::ShipInfo ship = fleet[i];
             FleetInstaller::PlacementStatus status =
                     fleetInst->shipPlaced(ship.id, ship.size, static_cast<bool>(ship.orientation));
             if (status != FleetInstaller::OK)

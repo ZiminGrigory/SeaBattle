@@ -3,14 +3,14 @@
 using namespace Protocol;
 
 NetworkHumanPlayer::NetworkHumanPlayer(const QSharedPointer<GameField>& plrField,
-									   const QSharedPointer<GameField>& enmField,
+                                       const QSharedPointer<GameField>& enmField,
 									   const QSharedPointer<InterfaceField> &_plrFieldView,
 									   const QSharedPointer<InterfaceField> &_enmFieldView,
 									   const QSharedPointer<InterfaceInfoTab> &_infoTab,
-									   const QSharedPointer<QTcpSocket>& _socket,
+                                       const QSharedPointer<Client>& _client,
 									   QObject* parent):
-    HumanPlayer(plrField,enmField,_plrFieldView,_enmFieldView, _infoTab),
-    socket(_socket)
+    HumanPlayer(plrField,enmField,_plrFieldView,_enmFieldView, _infoTab, parent),
+    client(_client)
 {
 }
 
@@ -28,21 +28,17 @@ void NetworkHumanPlayer::cellWasAttacked(int id)
 
     QByteArray byteArray;
     QDataStream out(&byteArray, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_4_8);
+    out.setVersion(Protocol::QDataStreamVersion);
+    out << quint8(id);
 
-    out << quint16(4) << quint8(Protocol::TURN_MADE) << quint8(id);
-    socket->write(byteArray);
+    client->send(Protocol::TURN_MADE, byteArray);
 }
 
 void NetworkHumanPlayer::sendPlayerFleet(QVector<FleetInstaller::ptrShip> fleet)
 {
     QByteArray byteArray;
     QDataStream out(&byteArray, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_4_8);
-
-    // 3 bytes - size & request type,
-    // next bytes represents the fleet placement
-    out << quint16(3 + 10 * sizeof(ShipInfo)) << quint8(FLEET_INSTALLED);
+    out.setVersion(Protocol::QDataStreamVersion);
 
     for (QVector<FleetInstaller::ptrShip>::const_iterator itr = fleet.begin(); itr != fleet.end(); itr++)
     {
@@ -60,5 +56,5 @@ void NetworkHumanPlayer::sendPlayerFleet(QVector<FleetInstaller::ptrShip> fleet)
         }
         out << shipInfo.size << shipInfo.id << shipInfo.orientation;
     }
-    socket->write(byteArray);
+    client->send(Protocol::FLEET_INSTALLED, byteArray);
 }

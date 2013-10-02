@@ -2,10 +2,10 @@
 using namespace Orientation;
 
 PlayerField::PlayerField(const QSharedPointer<InterfaceField> &fieldView):
-	GameField(fieldView)
+    GameField(fieldView),
+    mArrowAnalyzer(this, this->view)
 {
-	mArrowAnalyzer = QSharedPointer<ArrowAnalyzer>(new ArrowAnalyzer(QSharedPointer<PlayerField>(this)
-																	 , this->view));
+
 }
 
 AttackStatus PlayerField::attack(int id)

@@ -3,6 +3,7 @@
 
 #include <QTimer>
 #include <QTcpSocket>
+#include <QDebug>
 
 #include "protocol.h"
 #include "clientstate.h"
@@ -21,36 +22,24 @@ public:
     
 public slots:
     /**
-      * Reconnection.
+      * Do nothing, because object is already tried to set connection at current moment.
       */
-    void connect(const QString& serverName, quint16 port) throw(Protocol::AlreadyConnected);
+    void connect(const QString& hostName, quint16 port) throw (Protocol::AlreadyConnected);
     /**
-      * Do nothing.
+      * Abort connection with server
       */
     void abort();
-    /**
-      * We can't send message untill we not connected with server.
-      *
-      * @return always false.
-      */
-    inline void send(Protocol::RequestType type, const QByteArray& bytes)
-        throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
-
 signals:
     void connectedWithServer();
 protected:
     void init();
 private slots:
+    /**
+      * Emit connectedWithServer() signal (which is connected with the same signal of clien object)
+      * and move to SearchGameState.
+      */
     void connectedHandler();
     void errorHandler(QAbstractSocket::SocketError err);
 };
-
-inline void WaitingForServerConnectionState::send(Protocol::RequestType type, const QByteArray& bytes)
-    throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
-{
-    Q_UNUSED(type);
-    Q_UNUSED(bytes);
-    throw Protocol::SendingForbidden();
-}
 
 #endif // WAITINGFORSERVERCONNECTION_H

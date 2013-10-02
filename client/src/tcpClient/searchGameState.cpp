@@ -17,8 +17,6 @@ void SearchGameState::connect(const QString& hostName, quint16 port) throw(Proto
 {
     if (connectionLock)
     {
-        Q_UNUSED(hostName);
-        Q_UNUSED(port);
         throw Protocol::AlreadyConnected();
     }
     else
@@ -36,19 +34,11 @@ void SearchGameState::abort()
     moveIntoState(getStateCollection()->getNoConnectionState());
 }
 
-void SearchGameState::send(Protocol::RequestType type, const QByteArray& bytes)
-    throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
-{
-    Q_UNUSED(type);
-    Q_UNUSED(bytes);
-    throw Protocol::SendingForbidden();
-}
-
 void SearchGameState::handleRecievedRequest(Protocol::RequestType type, const QByteArray& bytes)
 {
     if (type == Protocol::CHECK_STATE)
     {
-        ClientState::send(Protocol::SEEKING_GAME, QByteArray());
+        writeToSocket(Protocol::SEEKING_GAME, QByteArray());
     }
     else if (type == Protocol::GAME_FOUND)
     {
@@ -63,7 +53,7 @@ void SearchGameState::handleRecievedRequest(Protocol::RequestType type, const QB
 void SearchGameState::init()
 {
     connectionLock = true;
-    ClientState::send(Protocol::SEARCH_GAME, QByteArray());
+    ClientState::writeToSocket(Protocol::SEARCH_GAME, QByteArray());
 }
 
 void SearchGameState::connectedHandler()

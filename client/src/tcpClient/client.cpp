@@ -6,12 +6,14 @@ Client::Client(QObject *parent) :
     QObject(parent),
 	stateCollection(new StateCollection(QSharedPointer<Client>(this)))
 {
-    connect(state.data(), SIGNAL(error(const QString&)), this, SIGNAL(received(const QString&)));
-    connect(state.data(), SIGNAL(recieved(const QByteArray&)), this, SIGNAL(received(const QByteArray&)));
+
 }
 
 void Client::connectToServer()
 {
+    // abort all connections and return to NoConnectionState
+    abort();
+    state->connect(Protocol::ServerName, Protocol::ServerPort);
 }
 
 void Client::abort()

@@ -33,24 +33,24 @@ SOURCES += client/src/main.cpp\
     client/src/gameLogics/textureAnalyzer.cpp \
     client/src/gameLogics/player.cpp \
     client/src/view/BattleWidget.cpp \
+    client/src/gameLogics/remotePlayer.cpp \
+    client/src/gameLogics/networkHumanPlayer.cpp \
     client/src/gameLogics/ArrowAnalyzer.cpp \
     client/src/view/ChatAndStatus.cpp \
     client/src/view/StartMenu.cpp \
     client/src/view/AiLvlList.cpp \
     client/src/view/ConnectWidget.cpp \
 	client/src/view/MainWindow.cpp \
-    client/src/tcpClient/remotePlayer.cpp \
-    client/src/tcpClient/networkHumanPlayer.cpp \
     client/src/tcpClient/client.cpp \
     client/src/tcpClient/clientstate.cpp \
-    client/src/tcpClient/waitingForServerConnection.cpp \
     client/src/tcpClient/searchGameState.cpp \
     client/src/tcpClient/noConnectionState.cpp \
     client/src/tcpClient/stateCollection.cpp \
     client/src/tcpClient/waitingForPlayerConnectionState.cpp \
     client/src/tcpClient/gameState.cpp \
+    client/src/appLogics/game.cpp \
+    client/src/tcpClient/waitingForServerConnectionState.cpp
 #    client/src/audioPlayer/audioPlayer.cpp \
-	client/src/appLogics/game.cpp
 
 HEADERS  += client/src/gameLogics/enemyCell.h \
     client/src/gameLogics/types.h \
@@ -72,6 +72,8 @@ HEADERS  += client/src/gameLogics/enemyCell.h \
     client/src/gameLogics/aiPlayerSimple.h \
     client/src/gameLogics/textureAnalyzer.h \
     client/src/view/BattleWidget.h \
+    client/src/gameLogics/remotePlayer.h \
+    client/src/gameLogics/networkHumanPlayer.h \
     client/src/gameLogics/ArrowAnalyzer.h \
     client/src/view/ChatAndStatus.h \
     client/src/view/StartMenu.h \
@@ -85,20 +87,18 @@ HEADERS  += client/src/gameLogics/enemyCell.h \
     client/src/view/InterfaceMainWindow.h \
     client/src/view/InterfaceBattleWidget.h \
     client/src/view/InterfaceField.h \
-	client/src/view/InterfaceInfoTab.h \
-    client/src/tcpClient/remotePlayer.h \
-    client/src/tcpClient/networkHumanPlayer.h \
+    client/src/view/InterfaceInfoTab.h \
     client/src/tcpClient/protocol.h \
     client/src/tcpClient/client.h \
     client/src/tcpClient/clientstate.h \
-    client/src/tcpClient/waitingForServerConnection.h \
     client/src/tcpClient/searchGameState.h \
     client/src/tcpClient/noConnectionState.h \
     client/src/tcpClient/stateCollection.h \
     client/src/tcpClient/waitingForPlayerConnectionState.h \
     client/src/tcpClient/gameState.h \
+    client/src/appLogics/game.h \
+    client/src/tcpClient/waitingForServerConnectionState.h
 #    client/src/audioPlayer/audioPlayer.h \
-	client/src/appLogics/game.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
@@ -112,4 +112,6 @@ FORMS    += client/gui/tabOfInformation.ui \
 RESOURCES += client/gui/pictures/pictures.qrc \
     client/gui/sounds/sounds.qrc
 
-INCLUDEPATH += client/src/view client/src/gameLogics client/src client/src/appLogics
+INCLUDEPATH += client/src/view client/src/gameLogics client/src client/src/appLogics client/src/tcpClient
+
+DEFINES += QT_SHAREDPOINTER_TRACK_POINTERS

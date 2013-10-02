@@ -8,7 +8,11 @@ ClientState::ClientState(const QWeakPointer<Client>& _client,
     client(_client),
     socket(_client.toStrongRef()->socket),
     blockSize(0)
-{}
+{
+    QObject::connect(this, SIGNAL(error(QString)), client.data(), SIGNAL(error(QString)));
+    QObject::connect(this, SIGNAL(received(Protocol::RequestType,QByteArray)),
+            client.data(), SIGNAL(received(Protocol::RequestType,QByteArray)));
+}
 
 void ClientState::moveIntoState(const QSharedPointer<ClientState> &newState)
 {
@@ -19,22 +23,6 @@ void ClientState::moveIntoState(const QSharedPointer<ClientState> &newState)
 QSharedPointer<StateCollection> ClientState::getStateCollection() const
 {
     return client.toStrongRef()->stateCollection;
-}
-
-void ClientState::init()
-{
-}
-
-void ClientState::send(Protocol::RequestType type, const QByteArray& bytes)
-    throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
-{
-    QByteArray byteArray;
-    QDataStream out(&byteArray, QIODevice::WriteOnly);
-    out.setVersion(Protocol::QDataStreamVersion);
-    // send size of request, type and finally information
-    out << quint16(3 + bytes.size()) << quint8(type);
-    byteArray.append(bytes);
-    socket->write(byteArray);
 }
 
 void ClientState::readyReadHandler()
@@ -65,6 +53,13 @@ void ClientState::readyReadHandler()
     handleRecievedRequest(type, bytes);
 }
 
-void ClientState::handleRecievedRequest(Protocol::RequestType type, const QByteArray &bytes)
+void ClientState::writeToSocket(Protocol::RequestType type, const QByteArray &bytes)
 {
+    QByteArray byteArray;
+    QDataStream out(&byteArray, QIODevice::WriteOnly);
+    out.setVersion(Protocol::QDataStreamVersion);
+    // send size of request, type and finally information
+    out << quint16(3 + bytes.size()) << quint8(type);
+    byteArray.append(bytes);
+    socket->write(byteArray);
 }

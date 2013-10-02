@@ -17,7 +17,7 @@ GameMaster::GameMaster(GameType type,
 {   
 	view->showPlayerField();
 	view->showInfoTab();
-	playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
+    playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
 	player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
