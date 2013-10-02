@@ -25,6 +25,7 @@ public:
     void playSound(Sounds track);
     void mute();
     void playBackground();
+    void setVolume(int value);
 private:
     bool isMute;
     QMediaPlayer * sound;
