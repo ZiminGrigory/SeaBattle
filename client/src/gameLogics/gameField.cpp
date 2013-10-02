@@ -1,8 +1,9 @@
 #include "gameField.h"
 
-GameField::GameField(const QSharedPointer<FieldView> &fieldView):
-	view(fieldView), textureAnalyzer(new TextureAnalyzer)
+GameField::GameField(const QSharedPointer<InterfaceField> &fieldView):
+    view(fieldView), textureAnalyzer(new TextureAnalyzer())
 {
+	fleet << 4 << 3 << 2 << 1; //conut of ship
 }
 
 void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
@@ -31,6 +32,7 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
 			repaintCell(row + i, col, i + 1, shipSize, orientation);
         }
     }
+	fleet[shipSize - 1] = fleet.at(shipSize - 1) - 1;
 }
 
 QSharedPointer<Ship> GameField::getShip(int id)
@@ -56,6 +58,7 @@ void GameField::removeShip(int id)
 		field[coordinateOfShip.first][coordinateOfShip.second].removeShip();
 		view->repaint(vectorOfId.at(i - 1), EMPTY);
 	}
+	fleet[size - 1] = fleet.at(size - 1) + 1;
 }
 
 AttackStatus GameField::attack(int id)
@@ -85,12 +88,18 @@ AttackStatus GameField::attack(int id)
 			for (int i = idFirst % FIELD_COL_NUM - 1; i <= idFirst % FIELD_COL_NUM + 1; i++){
 				for (int j = idFirst / FIELD_ROW_NUM - 1; j <= idSecond / FIELD_ROW_NUM + 1; j++){
 					markKilled(j, i);
+					if(!field[j][i].attackable()){
+						field[j][i].attack();
+					}
 				}
 			}
 		} else{
 			for (int i = idFirst % FIELD_COL_NUM - 1; i <= idSecond % FIELD_COL_NUM + 1; i++){
 				for (int j = idFirst / FIELD_ROW_NUM - 1; j <= idFirst / FIELD_ROW_NUM + 1; j++){
 					markKilled(j, i);
+					if(!field[j][i].attackable()){
+						field[j][i].attack();
+					}
 				}
 			}
 		}

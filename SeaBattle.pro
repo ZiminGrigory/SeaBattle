@@ -6,16 +6,14 @@
 CONFIG += mobility
 MOBILITY += multimedia
 
-QT       += core gui
+QT       += core gui network
 QT       += widgets
-QT	 += phonon
+#QT	 += phonon
 
 DEFINES += QT4
 
 TARGET = SeaBattle
 TEMPLATE = app
-
-
 
 SOURCES += client/src/main.cpp\
     client/src/gameLogics/enemyCell.cpp \
@@ -28,20 +26,33 @@ SOURCES += client/src/main.cpp\
     client/src/view/cell.cpp \
     client/src/gameLogics/fleetInstaller.cpp \
     client/src/view/tabOfInformation.cpp \
-    client/src/view/view.cpp \
     client/src/gameLogics/gameCell.cpp \
     client/src/gameLogics/gameField.cpp \
-    client/src/view/fieldView.cpp \
-    client/src/view/infoTabView.cpp \
     client/src/gameLogics/ship.cpp \
     client/src/gameLogics/aiPlayerSimple.cpp \
     client/src/gameLogics/textureAnalyzer.cpp \
     client/src/gameLogics/player.cpp \
     client/src/view/BattleWidget.cpp \
-    client/src/audioPlayer/audioPlayer.cpp
+    client/src/gameLogics/remotePlayer.cpp \
+    client/src/gameLogics/networkHumanPlayer.cpp \
+    client/src/gameLogics/ArrowAnalyzer.cpp \
+    client/src/view/ChatAndStatus.cpp \
+    client/src/view/StartMenu.cpp \
+    client/src/view/AiLvlList.cpp \
+    client/src/view/ConnectWidget.cpp \
+	client/src/view/MainWindow.cpp \
+    client/src/tcpClient/client.cpp \
+    client/src/tcpClient/clientstate.cpp \
+    client/src/tcpClient/searchGameState.cpp \
+    client/src/tcpClient/noConnectionState.cpp \
+    client/src/tcpClient/stateCollection.cpp \
+    client/src/tcpClient/waitingForPlayerConnectionState.cpp \
+    client/src/tcpClient/gameState.cpp \
+    client/src/appLogics/game.cpp \
+    client/src/tcpClient/waitingForServerConnectionState.cpp
+#    client/src/audioPlayer/audioPlayer.cpp \
 
-HEADERS  += \
-    client/src/gameLogics/enemyCell.h \
+HEADERS  += client/src/gameLogics/enemyCell.h \
     client/src/gameLogics/types.h \
     client/src/gameLogics/playerCell.h \
     client/src/gameLogics/ship.h \
@@ -56,21 +67,51 @@ HEADERS  += \
     client/src/view/cell.h \
     client/src/gameLogics/fleetInstaller.h \
     client/src/view/tabOfInformation.h \
-    client/src/view/view.h \
     client/src/gameLogics/gameCell.h \
     client/src/gameLogics/gameField.h \
-    client/src/view/fieldView.h \
-    client/src/view/infoTabView.h \
     client/src/gameLogics/aiPlayerSimple.h \
     client/src/gameLogics/textureAnalyzer.h \
     client/src/view/BattleWidget.h \
-    client/src/audioPlayer/audioPlayer.h
+    client/src/gameLogics/remotePlayer.h \
+    client/src/gameLogics/networkHumanPlayer.h \
+    client/src/gameLogics/ArrowAnalyzer.h \
+    client/src/view/ChatAndStatus.h \
+    client/src/view/StartMenu.h \
+    client/src/view/AiLvlList.h \
+    client/src/view/ConnectWidget.h \
+    client/src/view/MainWindow.h \
+    client/src/view/InterfaceAiLvlList.h \
+    client/src/view/InterfaceStartMenu.h \
+    client/src/view/InterfaceChatAndStatus.h \
+    client/src/view/InterfaceConnectWidget.h \
+    client/src/view/InterfaceMainWindow.h \
+    client/src/view/InterfaceBattleWidget.h \
+    client/src/view/InterfaceField.h \
+    client/src/view/InterfaceInfoTab.h \
+    client/src/tcpClient/protocol.h \
+    client/src/tcpClient/client.h \
+    client/src/tcpClient/clientstate.h \
+    client/src/tcpClient/searchGameState.h \
+    client/src/tcpClient/noConnectionState.h \
+    client/src/tcpClient/stateCollection.h \
+    client/src/tcpClient/waitingForPlayerConnectionState.h \
+    client/src/tcpClient/gameState.h \
+    client/src/appLogics/game.h \
+    client/src/tcpClient/waitingForServerConnectionState.h
+#    client/src/audioPlayer/audioPlayer.h \
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
-    client/src/view/BattleWidget.ui
+    client/src/view/BattleWidget.ui \
+    client/src/view/ChatAndStatus.ui \
+    client/src/view/StartMenu.ui \
+    client/src/view/AiLvlList.ui \
+    client/src/view/ConnectWidget.ui \
+    client/src/view/MainWindow.ui
 
 RESOURCES += client/gui/pictures/pictures.qrc \
     client/gui/sounds/sounds.qrc
 
-INCLUDEPATH += client/src/view client/src/gameLogics client/src
+INCLUDEPATH += client/src/view client/src/gameLogics client/src client/src/appLogics client/src/tcpClient
+
+DEFINES += QT_SHAREDPOINTER_TRACK_POINTERS

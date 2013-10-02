@@ -9,13 +9,6 @@
 #include "player.h"
 
 
-enum Direction {     //paste it to types.h
-    LEFT,
-    DOWN,
-    RIGHT,
-    HIGH
-};
-
 /**
   * Abstract class for two types of AIplayer - smart and simple.
   */

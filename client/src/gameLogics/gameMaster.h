@@ -5,18 +5,18 @@
 #include <QSharedPointer>
 #include <QTimer>
 
-#include "view.h"
 #include "player.h"
 #include "humanPlayer.h"
 #include "aiPlayerSimple.h"
 #include "playerField.h"
-#include "audioPlayer/audioPlayer.h"
+//#include "audioPlayer/audioPlayer.h"
 
 class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-    GameMaster(const QSharedPointer<View>& _view, QObject* parent = 0);
+	GameMaster(GameType type, const QSharedPointer<InterfaceBattleWidget>& _view, QObject* parent = 0);
+
     /**
       * Method start the game.
       */
@@ -45,19 +45,18 @@ private slots:
     void nextTurn(AttackStatus turnResult);
 private:
     typedef QSharedPointer<Player> ptrPlayer;
+    QSharedPointer<GameField> playerField;
+    QSharedPointer<GameField> enemyField;
     ptrPlayer player;
     ptrPlayer enemy;
 
     ptrPlayer turnedPlayer;
     ptrPlayer waitingPlayer;
 
-	QSharedPointer<GameField> playerField;
-    QSharedPointer<GameField> enemyField;
-
-    QSharedPointer<View> view;
+	QSharedPointer<InterfaceBattleWidget> view;
 
     QTimer turnTimer;
-    AudioPlayer * audioPlayer;
+//    QSharedPointer<AudioPlayer> audioPlayer;
     static const int turnTimeout;
 };
 

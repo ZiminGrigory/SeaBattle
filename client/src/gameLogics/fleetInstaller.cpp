@@ -1,11 +1,10 @@
 #include "fleetInstaller.h"
 
 FleetInstaller::FleetInstaller(QVector<ptrShip> playerFleet,
-                               const QSharedPointer<GameField> &playerField,
-                               const QSharedPointer<InfoTabView> &_fleetInfoTab):
+							   const QSharedPointer<GameField> &playerField,
+							   const QSharedPointer<InterfaceInfoTab> &_fleetInfoTab):
     fleet(playerFleet),
-    field(playerField),
-	originFleet(playerFleet),
+	field(playerField),
     fleetInfoTab(_fleetInfoTab)
 {
     qRegisterMetaType<PlacementStatus>("PlacementStatus");
@@ -49,28 +48,11 @@ FleetInstaller::Orientation FleetInstaller::orientation(CellPair cells)
     }
 }
 
-FleetInstaller::ptrShip FleetInstaller::pickShip(FleetInstaller::CellPair cells, FleetInstaller::Orientation orn)
+FleetInstaller::ptrShip FleetInstaller::pickShip(int size)
 {
-    QPair<int, int> point1 = coordinates(cells.first);
-    QPair<int, int> point2 = coordinates(cells.second);
-
-    int length = 0;
-    if (orn == VERTICAL)
-    {
-        length = qAbs(point1.first - point2.first) + 1;
-    }
-    else if (orn == HORIZONTAL)
-    {
-        length = qAbs(point1.second - point2.second) + 1;
-    }
-    else
-    {
-        return ptrShip();
-    }
-
     for (QVector<ptrShip>::iterator itr = fleet.begin(); itr < fleet.end(); itr++)
     {
-        if ((**itr).health() == length)
+        if ((**itr).health() == size)
         {
             ptrShip ship = *itr;
             fleet.erase(itr);
@@ -110,24 +92,55 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
     }
 
 	QPair<int, int> cells(firstId, secondId);
-	Orientation pos = orientation(cells);
-    if (pos == CURVE)
+    Orientation orn = orientation(cells);
+    if (orn == CURVE)
     {
         emit placementResult(NOT_LINE);
         return NOT_LINE;
     }
-	ptrShip ship = pickShip(cells, pos);
+    int size = 0;
+    if (orn == VERTICAL)
+    {
+        size = qAbs(point1.first - point2.first) + 1;
+    }
+    else if (orn == HORIZONTAL)
+    {
+        size = qAbs(point1.second - point2.second) + 1;
+    }
+
+    bool _orn = true;
+    if (orn == VERTICAL)
+    {
+        _orn = false;
+    }
+
+    return shipPlaced(firstId, size, _orn);
+}
+
+FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int id, int size, bool orientation)
+{
+    ptrShip ship = pickShip(size);
     if (!ship)
     {
         emit placementResult(HAVE_NOT_SHIP);
         return HAVE_NOT_SHIP;
     }
 
+    QPair<int, int> point1 = coordinates(id);
+    QPair<int, int> point2 = coordinates(id);
+    if (orientation)
+    {
+        point2.second += size - 1;
+    }
+    else
+    {
+        point2.first += size - 1;
+    }
     // check surrounding cells is there ships
     int startRow = point1.first - 1;
     int startCol = point1.second - 1;
 
-    if (pos == HORIZONTAL)
+    if (orientation)
     {
         int endCol = point2.second + 1;
 
@@ -138,14 +151,14 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
             {
                 if (field->getShip(j * FIELD_ROW_NUM + i))
                 {
-					fleet.append(ship);
+                    fleet.append(ship);
                     emit placementResult(CELL_OCCUPIED);
                     return CELL_OCCUPIED;
                 }
             }
         }
     }
-    else if (pos == VERTICAL)
+    else
     {
         int endRow = point2.first + 1;
 
@@ -156,7 +169,7 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
             {
                 if (field->getShip(i * FIELD_ROW_NUM + j))
                 {
-					fleet.append(ship);
+                    fleet.append(ship);
                     emit placementResult(CELL_OCCUPIED);
                     return CELL_OCCUPIED;
                 }
@@ -164,35 +177,30 @@ FleetInstaller::PlacementStatus FleetInstaller::shipPlaced(int firstId, int seco
         }
     }
 
-    bool orn = true;
-    if (pos == VERTICAL)
-    {
-        orn = false;
-    }
     NameOfShips shipType;
 
-	switch (ship->size()) {
-	case 1:
+    switch (size) {
+    case 1:
         shipType = BOAT_SCOUT;
-		break;
-	case 2:
+        break;
+    case 2:
         shipType = DESTROYER;
-		break;
-	case 3:
+        break;
+    case 3:
         shipType = CRUISER;
-		break;
-	case 4:
+        break;
+    case 4:
         shipType = AEROCARRIER;
-		break;
-	}
+        break;
+    }
     if (fleetInfoTab != NULL)
     {
         fleetInfoTab->changeCounter(shipType, -1);
     }
-    field->setShip(point1.first * FIELD_ROW_NUM + point1.second, orn, ship);
-	existingFleet.append(ship);
+    field->setShip(point1.first * FIELD_ROW_NUM + point1.second, orientation, ship);
+    existingFleet.append(ship);
     emit placementResult(OK);
-	return OK;
+    return OK;
 }
 
 void FleetInstaller::deleteShip(int id)
@@ -214,11 +222,8 @@ bool FleetInstaller::checkIsFleetReady()
 {
     if (fleet.size() == 0)
     {
-        emit fleetInstalled();
+        emit fleetInstalled(existingFleet);
         return true;
     }
     return false;
 }
-
-
-

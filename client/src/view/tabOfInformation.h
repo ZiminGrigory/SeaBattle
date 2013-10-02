@@ -1,24 +1,29 @@
 #pragma once
 #include <QWidget>
 #include "types.h"
+#include "InterfaceInfoTab.h"
+
 namespace Ui {
 class TabOfInformation;
 }
 
-class TabOfInformation : public QWidget
+class TabOfInformation : public InterfaceInfoTab
 {
 	Q_OBJECT
 	
 public:
-	explicit TabOfInformation(QWidget *parent = 0);
+	explicit TabOfInformation();
 	~TabOfInformation();
 	void changeCountOfShip(NameOfShips ship, int count);
+
+public slots:
+	void changeCounter(NameOfShips ship, int difference);
 
 private slots:
 	void pushButtonReadyToFight();
 
 signals:
-	void fieldIsReady();
+	void readyToFight();
 	void needAutoSetting();
 
 private:

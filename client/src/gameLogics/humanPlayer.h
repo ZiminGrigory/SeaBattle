@@ -5,7 +5,7 @@
 
 #include "player.h"
 #include "fleetInstaller.h"
-#include "view.h"
+#include "BattleWidget.h"
 
 // for test purpose
 class HumanPlayerTest;
@@ -16,8 +16,9 @@ class HumanPlayer : public Player
 public:
 	explicit HumanPlayer(const QSharedPointer<GameField> &plrField,
 						 const QSharedPointer<GameField>& enmField,
-						 const QSharedPointer<FieldView>& _plrFieldView,
-						 const QSharedPointer<FieldView>& _enmFieldView, const QSharedPointer<InfoTabView> &infoTab,
+						 const QSharedPointer<InterfaceField>& _plrFieldView,
+						 const QSharedPointer<InterfaceField>& _enmFieldView,
+						 const QSharedPointer<InterfaceInfoTab> &_infoTab,
 						 QObject *parent = 0);
     
     // for test purpose
@@ -32,23 +33,25 @@ public slots:
       * This slot do nothing because it need to wait until player made a choise.
       */
     void turn();
-
-private slots:
+protected slots:
     /**
       * This slot connected with cellWasAttacked() signal of Field view.
       */
-	void cellWasAttacked(int id);
+    virtual void cellWasAttacked(int id);
+private slots:
     /**
       * Reemit fleetInstalled signal with this parametr.
       */
     void reEmitFleetInstalled();
 	void needAutoInstallFleet();
     //void deleteShip(int id);
-private:
-    QSharedPointer<FieldView> plrFieldView;
-    QSharedPointer<FieldView> enmFieldView;
+
+protected:
+	QSharedPointer<InterfaceField> plrFieldView;
+	QSharedPointer<InterfaceField> enmFieldView;
+
     QSharedPointer<FleetInstaller> fleetInst;
-	QSharedPointer<InfoTabView> infoTab;
+	QSharedPointer<InterfaceInfoTab> infoTab;
 	bool myTurn;
 };
 

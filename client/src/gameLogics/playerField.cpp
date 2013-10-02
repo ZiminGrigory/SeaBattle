@@ -1,8 +1,11 @@
 #include "playerField.h"
+using namespace Orientation;
 
-PlayerField::PlayerField(const QSharedPointer<FieldView> &fieldView):
-	GameField(fieldView)
+PlayerField::PlayerField(const QSharedPointer<InterfaceField> &fieldView):
+    GameField(fieldView),
+    mArrowAnalyzer(this, this->view)
 {
+
 }
 
 AttackStatus PlayerField::attack(int id)
@@ -56,4 +59,9 @@ AttackStatus PlayerField::attack(int id)
 void PlayerField::repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation)
 {
 	view->repaint(getIdByCoordinates(row, column), textureAnalyzer->shipTexture(partOfShip, shipSize, orientation));
+}
+
+QVector<int> PlayerField::getFleet()
+{
+	return fleet;
 }

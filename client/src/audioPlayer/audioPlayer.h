@@ -1,9 +1,12 @@
 #ifndef AUDIOPLAYER_H
 #define AUDIOPLAYER_H
-
-#include <Phonon/MediaObject>
-#include <Phonon/AudioOutput>
-#include <Phonon/MediaSource>
+#ifdef QT4
+	#include <Phonon/MediaObject>
+	#include <Phonon/AudioOutput>
+	#include <Phonon/MediaSource>
+#elif QT5
+	#include <Phonon>
+#endif
 
 enum Sounds
 {

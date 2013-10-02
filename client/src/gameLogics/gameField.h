@@ -8,8 +8,8 @@
 #include "ship.h"
 #include "types.h"
 #include "gameCell.h"
-#include "fieldView.h"
 #include "textureAnalyzer.h"
+#include "BattleWidget.h"
 
 /**
   * Abstract class for enemy & player field.
@@ -19,7 +19,11 @@ class GameField : public QObject
 {
     Q_OBJECT
 public:
-	GameField(const QSharedPointer<FieldView>& fieldView);
+	GameField(const QSharedPointer<InterfaceField>& fieldView);
+
+    virtual ~GameField()
+    {}
+
     /**
       * Set ship.
       *
@@ -47,14 +51,24 @@ public:
       * Check could this cell being attack.
       */
     bool attackable(int id);
+signals:
+    /**
+      * This is emited when the ship placed on field.
+      * RemotePlayer class uses it to know about placement of human player's fleet
+      * (to send it then to another game client).
+      */
+    //void shipPlaced(int size, int id, bool orientation);
 protected:
 	int position(QVector<int> vector, int id);
 	void markKilled(int i, int j);
-	typedef QPair<int, int> Coord;
-	QSharedPointer<FieldView> view;
+    virtual void repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation);
+
+    typedef QPair<int, int> Coord;
+	QSharedPointer<InterfaceField> view;
+    QSharedPointer<TextureAnalyzer> textureAnalyzer;
+
 	GameCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
-	QSharedPointer<TextureAnalyzer> textureAnalyzer;
-	virtual void repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation);
+	QVector<int> fleet;// at 0 - count of BOAT_SCOUT at 3 - count of AEROCARRIER
 
 };
 

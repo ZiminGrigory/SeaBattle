@@ -2,23 +2,38 @@
 
 const int GameMaster::turnTimeout = 30 * 1000;
 
-GameMaster::GameMaster(const QSharedPointer<View>& _view,
-                       QObject* parent):
+
+GameMaster::GameMaster(GameType type,
+					   const QSharedPointer<InterfaceBattleWidget> &_view,
+					   QObject* parent):
+
     QObject(parent),
     playerField(NULL),
     enemyField(NULL),
     player(NULL),
-    enemy(NULL),
-    view(_view)
+	enemy(NULL),
+	view(_view)/*,
+	audioPlayer(QSharedPointer<AudioPlayer>(new AudioPlayer()))*/
 {   
-	playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
+	view->showPlayerField();
+	view->showInfoTab();
+    playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
 	player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
 													, view->getPlayerFieldView()
-													, view->getEnemyFieldView(), view->getInfoTabView()));
-    enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
-    audioPlayer = new AudioPlayer();
+                                                    , view->getEnemyFieldView()
+                                                    , view->getInfoTabView()));
+    if (type == AI_SIMPLE_GAME)
+    {
+        enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
+    }
+    else if (type == AI_HARD_GAME)
+    {
+        // ai hard not implemented yet
+        enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
+    }
+
     turnTimer.setSingleShot(true);
 }
 
@@ -36,7 +51,7 @@ void GameMaster::startGame()
     player->installFleet(playerInst);
 
     QSharedPointer<FleetInstaller> enemyInst(new FleetInstaller(FleetFactory::createFleet(),
-                                             enemyField, QSharedPointer<InfoTabView>(NULL)));
+											 enemyField, QSharedPointer<InterfaceInfoTab>(NULL)));
     enemy->installFleet(enemyInst);
 
     turnedPlayer = player;
@@ -112,24 +127,24 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         ptrPlayer tmp = turnedPlayer;
         turnedPlayer = waitingPlayer;
         waitingPlayer = tmp;
-        audioPlayer->playSound(MISS_SOUND);
+//        audioPlayer->playSound(MISS_SOUND);
 
     }
     else if (turnResult == WOUNDED)
     {
         // if ship was wounded or killed then
         // next turn make the same player
-        audioPlayer->playSound(WOUNDED_SOUND);
+//        audioPlayer->playSound(WOUNDED_SOUND);
     }
     else if (turnResult == KILLED)
     {
-        audioPlayer->playSound(KILLED_SOUND);
+//        audioPlayer->playSound(KILLED_SOUND);
     }
     if (player->lose())
     {
 		view->hideTimer();
         view->setMessage("Enemy Win");
-        audioPlayer->playSound(DEFEAT_SOUND);
+//        audioPlayer->playSound(DEFEAT_SOUND);
 		view->getEnemyFieldView()->showResult(YOU);
 		view->getPlayerFieldView()->showResult(YOU);
     }
@@ -137,7 +152,7 @@ void GameMaster::nextTurn(AttackStatus turnResult)
     {
 		view->hideTimer();
         view->setMessage("You Win");
-        audioPlayer->playSound(VICTORY_SOUND);
+//        audioPlayer->playSound(VICTORY_SOUND);
 		view->getPlayerFieldView()->showResult(ENEMY);
 		view->getEnemyFieldView()->showResult(ENEMY);
     }

@@ -7,7 +7,6 @@
 #include "playerField.h"
 #include "fleetFactory.h"
 #include "fleetInstaller.h"
-#include "view.h"
 
 /**
   * Player is a inherited class for all implementation of players (human, AI etc).
@@ -63,7 +62,7 @@ public slots:
       * This slot called by GameMaster to inform player about enemy turn
       * (actually, about what cell being attacked).
       */
-    inline void enemyTurn(int id);
+    virtual inline void enemyTurn(int id);
     /**
       * Choose random cell and attack it.
       * This slot called by GameMaster after timeout.

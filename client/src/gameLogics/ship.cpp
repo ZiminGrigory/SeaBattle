@@ -14,5 +14,25 @@ void Ship::clearCoordinate()
 
 void Ship::appedIdOfPart(int id)
 {
-	coordinates.append(id);
+    coordinates.append(id);
+    // insertion sort
+    // ids will saved in ascending order
+    bool swap = false;
+    int j = coordinates.size() - 1;
+    do
+    {
+        swap = false;
+        if (j - 1 < 0)
+        {
+            continue;
+        }
+        if (coordinates[j] < coordinates[j - 1])
+        {
+            int tmp = coordinates[j];
+            coordinates[j - 1] = coordinates[j];
+            coordinates[j] = tmp;
+            swap = true;
+            j--;
+        }
+    } while (swap && (j > 0));
 }

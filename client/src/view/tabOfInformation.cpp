@@ -1,8 +1,8 @@
 #include "tabOfInformation.h"
 #include "ui_tabOfInformation.h"
 
-TabOfInformation::TabOfInformation(QWidget *parent) :
-	QWidget(parent),
+TabOfInformation::TabOfInformation():
+	InterfaceInfoTab(),
 	ui(new Ui::TabOfInformation)
 {
 	ui->setupUi(this);
@@ -48,11 +48,16 @@ void TabOfInformation::changeCountOfShip(NameOfShips ship, int count)
 	}
 }
 
+void TabOfInformation::changeCounter(NameOfShips ship, int difference)
+{
+	changeCountOfShip(ship, difference);
+}
+
 
 void TabOfInformation::pushButtonReadyToFight()
 {
 	if (isReady()){
-		emit fieldIsReady();
+		emit readyToFight();
 	}
 }
 
