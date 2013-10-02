@@ -1,7 +1,8 @@
 #include "ArrowAnalyzer.h"
+#include "playerField.h"
 
-ArrowAnalyzer::ArrowAnalyzer(QSharedPointer<PlayerField> field,
-							 QSharedPointer<InterfaceField> fieldView):
+ArrowAnalyzer::ArrowAnalyzer(PlayerField* field,
+                             QSharedPointer<InterfaceField> fieldView):
 	mFieldView(fieldView), mField(field), firstId(0)
 {
 	connect(mFieldView.data(), SIGNAL(setFirstArrows(int)), SLOT(setFirstArrows(int)));
@@ -13,7 +14,7 @@ bool ArrowAnalyzer::isEmptyAround(QPair<int, int> ID)
 	for (int i = ID.first - 1; i <= ID.first + 1; i++){
 		for (int j = ID.second - 1; j <= ID.second + 1; j++){
 			if (checkCoord(i, j)){
-                if (mField.toStrongRef()->getShip(getIdByCoordinates(QPair<int, int>(i, j))) != NULL){
+                if (mField->getShip(getIdByCoordinates(QPair<int, int>(i, j))) != NULL){
 					return false;
 				}
 			}
@@ -30,10 +31,10 @@ void ArrowAnalyzer::setFirstArrows(int id)
 	orientation.clear();
 	orientation << true << true << true << true << true;
 	QPair<int, int> point = coordinates(id);
-    if (mField.toStrongRef()->getFleet().first() != 0 ||
-            (mField.toStrongRef()->getFleet().first() != 0
-             && (mField.toStrongRef()->getFleet().at(1) != 0 || mField.toStrongRef()->getFleet().at(2) != 0
-                 || mField.toStrongRef()->getFleet().at(3) != 0))){
+    if (mField->getFleet().first() != 0 ||
+            (mField->getFleet().first() != 0
+             && (mField->getFleet().at(1) != 0 || mField->getFleet().at(2) != 0
+                 || mField->getFleet().at(3) != 0))){
 		orientation.last() = isEmptyAround(point);
 		if (orientation.last()){
 			mFieldView->addImage(getIdByCoordinates(point), ARROW_IN_ITSELF);
@@ -42,16 +43,16 @@ void ArrowAnalyzer::setFirstArrows(int id)
 		}
 	}
 
-    if((mField.toStrongRef()->getFleet().at(1) != 0 || mField.toStrongRef()->getFleet().at(2) != 0
-        || mField.toStrongRef()->getFleet().at(3) != 0) && orientation.last()){
+    if((mField->getFleet().at(1) != 0 || mField->getFleet().at(2) != 0
+        || mField->getFleet().at(3) != 0) && orientation.last()){
 		setArrow(id, ARROW_UP, -1, Orientation::UP);
 		setArrow(id, ARROW_DOWN, 1, Orientation::DOWN);
 		setArrow(id, ARROW_L, -1, Orientation::LEFT);
 		setArrow(id, ARROW_R, + 1, Orientation::RIGHT);
 	}
 
-    if(mField.toStrongRef()->getFleet().at(1) == 0 && (mField.toStrongRef()->getFleet().at(2) != 0
-                                         || mField.toStrongRef()->getFleet().at(3) != 0) && orientation.last()
+    if(mField->getFleet().at(1) == 0 && (mField->getFleet().at(2) != 0
+                                         || mField->getFleet().at(3) != 0) && orientation.last()
 		&& (orientation.at(0) || orientation.at(1) || orientation.at(2) || orientation.at(3))){
 		setArrow(id, ARROW_UP, -2, Orientation::UP);
 		setArrow(id, ARROW_DOWN, + 2, Orientation::DOWN);
@@ -59,8 +60,8 @@ void ArrowAnalyzer::setFirstArrows(int id)
 		setArrow(id, ARROW_R, +2, Orientation::RIGHT);
 	}
 
-    if(mField.toStrongRef()->getFleet().at(1) == 0 && mField.toStrongRef()->getFleet().at(2) == 0
-            && mField.toStrongRef()->getFleet().at(3) != 0 && orientation.last()
+    if(mField->getFleet().at(1) == 0 && mField->getFleet().at(2) == 0
+            && mField->getFleet().at(3) != 0 && orientation.last()
 			&& (orientation.at(0) || orientation.at(1) || orientation.at(2) || orientation.at(3) )){
 		setArrow(id, ARROW_UP, -3, Orientation::UP);
 		setArrow(id, ARROW_DOWN, +3, Orientation::DOWN);
@@ -125,13 +126,13 @@ void ArrowAnalyzer::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int
 	case 1:
 		mFieldView->addImage(firstId, FIRT_POINT);
 		cellsWithArrow.append(firstId);
-        if (mField.toStrongRef()->getFleet().at(1) != 0 && isEmptyAround(point) && orientation.at(int(orient))){
+        if (mField->getFleet().at(1) != 0 && isEmptyAround(point) && orientation.at(int(orient))){
 			mFieldView->addImage(id, ARROW_IN_ITSELF);
 			cellsWithArrow.append(id);
 		}
-        if (((mField.toStrongRef()->getFleet().at(2) != 0) || (mField.toStrongRef()->getFleet().at(3) != 0))
+        if (((mField->getFleet().at(2) != 0) || (mField->getFleet().at(3) != 0))
 				&& isEmptyAround(point) && orientation.at(int(orient))){
-            if (mField.toStrongRef()->getFleet().at(2) != 0){
+            if (mField->getFleet().at(2) != 0){
 				if (isLeftOrRight && orientation.at(int(orient))
 						&& (point.second != 0 && point.second != 9)){
 					point.second = point.second + coefficient;
@@ -139,7 +140,7 @@ void ArrowAnalyzer::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int
 						   && (point.first != 0 && point.first != 9)){
 					point.first = point.first + coefficient;
 				}
-            }else if (mField.toStrongRef()->getFleet().at(3) != 0){
+            }else if (mField->getFleet().at(3) != 0){
 				if (isLeftOrRight && orientation.at(int(orient))
 						&& (point.second > 1 && point.second < 8)){
 					point.second = point.second + 2 * coefficient;
@@ -166,11 +167,11 @@ void ArrowAnalyzer::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int
 	case 2:
 		mFieldView->addImage(firstId, FIRT_POINT);
 		cellsWithArrow.append(firstId);
-        if (mField.toStrongRef()->getFleet().at(2) != 0 && isEmptyAround(point) && orientation.at(int(orient))){
+        if (mField->getFleet().at(2) != 0 && isEmptyAround(point) && orientation.at(int(orient))){
 			mFieldView->addImage(id, ARROW_IN_ITSELF);
 			cellsWithArrow.append(id);
 		}
-        if (mField.toStrongRef()->getFleet().at(3) != 0 && isEmptyAround(point) && orientation.at(int(orient))){
+        if (mField->getFleet().at(3) != 0 && isEmptyAround(point) && orientation.at(int(orient))){
 			point = coordinates(id);
 			if (isLeftOrRight && orientation.at(int(orient))
 					&& (point.second < FIELD_COL_NUM - 1 || point.second > 1)){
@@ -188,7 +189,7 @@ void ArrowAnalyzer::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int
 	case 3:
 		mFieldView->addImage(firstId, FIRT_POINT);
 		cellsWithArrow.append(firstId);
-        if (isEmptyAround(point) && mField.toStrongRef()->getFleet().at(3) != 0 && orientation.at(int(orient))){
+        if (isEmptyAround(point) && mField->getFleet().at(3) != 0 && orientation.at(int(orient))){
 			mFieldView->addImage(id, ARROW_IN_ITSELF);
 			cellsWithArrow.append(id);
 		}
@@ -207,7 +208,7 @@ void ArrowAnalyzer::setArrow(int id, ImageID iD, int difference, Orientation::Or
 	}
 	if (orientation[int(orient)]){
 		orientation[int(orient)] = isEmptyAround(point);
-        if (mField.toStrongRef()->getFleet().at(qAbs(difference)) != 0 && checkCoord(point.first, point.second) && orientation[int(orient)]){
+        if (mField->getFleet().at(qAbs(difference)) != 0 && checkCoord(point.first, point.second) && orientation[int(orient)]){
 			int coefficient = 1;
 			point = coordinates(id);
 			if (iD == ARROW_UP || iD == ARROW_L){

@@ -1,10 +1,12 @@
 #ifndef ARROWANALYZER_H
 #define ARROWANALYZER_H
-#include "types.h"
+
 #include <QSharedPointer>
-#include "playerField.h"
 #include <QVector>
 #include <QPair>
+
+#include "types.h"
+#include "InterfaceField.h"
 
 class PlayerField;
 
@@ -12,7 +14,7 @@ class ArrowAnalyzer : public QObject
 {
 Q_OBJECT
 public:
-    ArrowAnalyzer(QSharedPointer<PlayerField> field,
+    ArrowAnalyzer(PlayerField* field,
 				  QSharedPointer<InterfaceField> fieldView);
 
 public slots:
@@ -26,7 +28,8 @@ private:
     bool isEmptyAround(QPair<int, int> ID);
 
     QSharedPointer<InterfaceField> mFieldView;
-    QWeakPointer<PlayerField> mField;
+    PlayerField* mField;
+
     int firstId;
 	ImageID previousIm;
 	QVector<bool> orientation; // can it go to UP RIGHT DOWN LEFT TO_ITSELF
