@@ -11,7 +11,8 @@ MainWindow::MainWindow() :
 	connectWidget = QSharedPointer<InterfaceConnectWidget> (new ConnectWidget);
 	startMenu = QSharedPointer<InterfaceStartMenu> (new StartMenu);
 	battleWidget = QSharedPointer<InterfaceBattleWidget> (new BattleWidget);
-	setStyleSheet(":/pictures/sea/jpg");
+	this->resize(WINDOW_SIZE);
+	//setStyleSheet(":/pictures/sea/jpg");
 }
 
 MainWindow::~MainWindow()
@@ -21,6 +22,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::showWidget(Widgets widget)
 {
+	this->resize(WINDOW_SIZE);
 	switch (widget) {
 	case BATTLE:
 		ui->LayoutForWidget->addWidget(battleWidget.data());
@@ -33,6 +35,7 @@ void MainWindow::showWidget(Widgets widget)
 	case CONNECT:
 		ui->LayoutForWidget->addWidget(connectWidget.data());
 		connectWidget->show();
+		this->resize(connectWidget->size());
 	break;
 	case AI_MENU:
 		ui->LayoutForWidget->addWidget(aiLvlList.data());

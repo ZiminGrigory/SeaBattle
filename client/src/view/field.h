@@ -5,6 +5,7 @@
 #include <QSharedPointer>
 #include <QTimer>
 #include <QList>
+#include <QMovie>
 #include "InterfaceField.h"
 
 #include "cell.h"
@@ -33,6 +34,7 @@ private slots:
 	void getCoordinate(QPointF first, QPointF second);
 	void deleteShipOnCell(int id);
 	void deleteMessage();
+	void updateBackground(QRect);
 
 signals:
 	void attack(int id);
@@ -52,5 +54,7 @@ private:
 
 	int positionOFItem(int id);
 	QSharedPointer<QGraphicsItem> picturesUnderCell[100];
+
+	QSharedPointer<QMovie> loader;
 };
 

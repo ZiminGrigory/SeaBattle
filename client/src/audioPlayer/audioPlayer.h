@@ -1,12 +1,8 @@
 #ifndef AUDIOPLAYER_H
 #define AUDIOPLAYER_H
-#ifdef QT4
-	#include <Phonon/MediaObject>
-	#include <Phonon/AudioOutput>
-	#include <Phonon/MediaSource>
-#elif QT5
-	#include <Phonon>
-#endif
+#include <QMediaPlayer>
+
+
 
 enum Sounds
 {
@@ -21,8 +17,6 @@ enum Sounds
 };
 
 
-using namespace Phonon;
-
 class AudioPlayer
 {
 
@@ -31,12 +25,11 @@ public:
     void playSound(Sounds track);
     void mute();
     void playBackground();
+    void setVolume(int value);
 private:
+	QString path;
     bool isMute;
-    MediaObject * sound;
-    AudioOutput* audioOutput;
-
-
+    QMediaPlayer * sound;
 
 };
 

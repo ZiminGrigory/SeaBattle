@@ -6,11 +6,12 @@
 CONFIG += mobility
 MOBILITY += multimedia
 
-QT       += core gui network
+QT       += core gui network multimedia
 QT       += widgets
-#QT	 += phonon
+CONFIG += mobility
 
-DEFINES += QT4
+
+DEFINES += QT5
 
 TARGET = SeaBattle
 TEMPLATE = app
@@ -50,8 +51,9 @@ SOURCES += client/src/main.cpp\
     client/src/tcpClient/gameState.cpp \
     client/src/appLogics/game.cpp \
     client/src/tcpClient/waitingForServerConnectionState.cpp \
-    client/src/appLogics/connectionMenu.cpp
-#    client/src/audioPlayer/audioPlayer.cpp \
+	client/src/appLogics/connectionMenu.cpp \
+    client/src/audioPlayer/audioPlayer.cpp
+
 
 HEADERS  += client/src/gameLogics/enemyCell.h \
     client/src/gameLogics/types.h \
@@ -99,8 +101,8 @@ HEADERS  += client/src/gameLogics/enemyCell.h \
     client/src/tcpClient/gameState.h \
     client/src/appLogics/game.h \
     client/src/tcpClient/waitingForServerConnectionState.h \
-    client/src/appLogics/connectionMenu.h
-#    client/src/audioPlayer/audioPlayer.h \
+	client/src/appLogics/connectionMenu.h \
+	client/src/audioPlayer/audioPlayer.h
 
 FORMS    += client/gui/tabOfInformation.ui \
     client/gui/field.ui \
@@ -115,10 +117,9 @@ RESOURCES += client/gui/pictures/pictures.qrc \
     client/gui/sounds/sounds.qrc
 
 INCLUDEPATH += client/src/view\
-		 client/src/gameLogics \
-		 client/src client/src/appLogics client/src/tcpClient\
-		 var/lib usr/lib usr/share/doc
-
-LIBS += pulse
+		 client/src/gameLogics\
+		 client/src\
+		 client/src/appLogics\
+		 client/src/tcpClient\
 
 DEFINES += QT_SHAREDPOINTER_TRACK_POINTERS

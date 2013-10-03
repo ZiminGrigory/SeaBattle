@@ -34,7 +34,9 @@ Field::Field() :
 	}
 //	mScene->setBackgroundBrush(QBrush(QPixmap));
 	ui->graphicsView->setScene(mScene);
-
+	loader = QSharedPointer<QMovie>(new QMovie(":/pictures/sea_animation.gif"));
+	loader->start();
+	connect(loader.data(), SIGNAL(updated(QRect)), SLOT(updateBackground(QRect)));
 }
 
 void Field::paintCell(int id, Textures texture)
@@ -183,6 +185,12 @@ void Field::deleteMessage()
 	disconnect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
 	timer.stop();
 	mScene->removeItem(itemForMessage.data());
+	ui->graphicsView->update();
+}
+
+void Field::updateBackground(QRect)
+{
+	mScene->setBackgroundBrush(QBrush(loader->currentPixmap()));
 	ui->graphicsView->update();
 }
 

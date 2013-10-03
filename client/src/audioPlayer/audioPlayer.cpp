@@ -1,17 +1,20 @@
 #include "audioPlayer.h"
-
+#include "QDir"
 AudioPlayer::AudioPlayer()
 {
-    sound = new MediaObject();
-    audioOutput = new AudioOutput(Phonon::MusicCategory);
-    createPath(sound, audioOutput);
-
+    sound = new QMediaPlayer();
+    sound->setVolume(50);
+	path = QDir::currentPath();
     isMute = false;
 }
 
 void AudioPlayer::mute()
 {
     isMute = true;
+}
+void AudioPlayer::setVolume(int value)
+{
+   sound->setVolume(value);
 }
 
 void AudioPlayer::playSound(Sounds track)
@@ -22,28 +25,28 @@ void AudioPlayer::playSound(Sounds track)
     switch (track)
     {
     case (BEGIN_SOUND):
-        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/begin.wav"));
+		sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/begin.mp3"));
         break;
     case(FIRST_BLOOD):
-        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/first blood.wav"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/first blood.mp3"));
         break;
     case(MISS_SOUND):
-        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/miss.wav"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/miss.mp3"));
         break;
     case(WOUNDED_SOUND):
-        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/wounded.wav"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/wounded.mp3"));
         break;
     case(KILLED_SOUND):
-        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/killed.wav"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/killed.mp3"));
         break;
     case(FINISH_HIM):
-        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/finish him.wav"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/finish him.mp3"));
         break;
     case(VICTORY_SOUND):
-        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/victory.wav"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/victory.mp3"));
         break;
     case(DEFEAT_SOUND):
-        sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/defeat.wav"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/defeat.mp3"));
         break;
     }
     sound->play();
@@ -54,7 +57,7 @@ void AudioPlayer::playBackground()
 {
     if(isMute)
         return;
-    sound->setCurrentSource(Phonon::MediaSource("../SeaBattle/client/gui/sounds/sea.wav"));
+	 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/sea.mp3"));
     sound->play();
 }
 
