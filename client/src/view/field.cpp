@@ -32,11 +32,12 @@ Field::Field() :
 			mScene->addItem(item);
 		}
 	}
-//	mScene->setBackgroundBrush(QBrush(QPixmap));
+
 	ui->graphicsView->setScene(mScene);
-	loader = QSharedPointer<QMovie>(new QMovie(":/pictures/sea_animation.gif"));
-	loader->start();
-	connect(loader.data(), SIGNAL(updated(QRect)), SLOT(updateBackground(QRect)));
+
+	backgroundBrush = QSharedPointer<QMovie>(new QMovie(":/pictures/sea_animation.gif"));
+	backgroundBrush->start();
+	connect(backgroundBrush.data(), SIGNAL(updated(QRect)), SLOT(updateBackground(QRect)));
 }
 
 void Field::paintCell(int id, Textures texture)
@@ -46,28 +47,29 @@ void Field::paintCell(int id, Textures texture)
 
 void Field::showAttackStatus(AttackStatus status)
 {
-	QPixmap message;
-	switch (status) {
+	switch (int(status)) {
 	case MISS:
-		message = QPixmap(":/pictures/MISS.png");
+		attackStatus = new QMovie(":/pictures/miss.gif");
 		break;
 	case WOUNDED:
-		message = QPixmap(":/pictures/WOUNDED.png");
+		attackStatus = new QMovie(":/pictures/wounded.gif");
 		break;
 	case KILLED:
-		message = QPixmap(":/pictures/KILLED.png");
+		attackStatus = new QMovie(":/pictures/killed.gif");
 		break;
 	}
-	itemForMessage = QSharedPointer<QGraphicsItem>(mScene->addPixmap(message));
+	itemForMessage = mScene->addPixmap(attackStatus->currentPixmap());
 	ui->graphicsView->update();
-	timer.start(1000);
+	timer.start(950); //связано с длительностью гифки
 	connect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
+	attackStatus->start();
+	connect(attackStatus, SIGNAL(updated(QRect)), SLOT(updateAttackStatus(QRect)));
 }
 
 void Field::showResult(Players player)
 {
 	QPixmap message;
-	switch (player) {
+	switch (int(player)) {
 	case YOU:
 		message = QPixmap(":/pictures/LOSER.jpeg");
 		break;
@@ -119,25 +121,25 @@ void Field::addImage(int id, ImageID iD)
 		pictureForCell->setPos(getQPointFByID(id));
 		break;
 	}
-//	pictureForCell->setData(DATA_KEY, id);
-//	picturesUnderCell.append(pictureForCell);
+
 	picturesUnderCell[id] = pictureForCell;
 	ui->graphicsView->update();
 }
 
 void Field::removeImageFromCell(int id)
 {
-	//int i = positionOFItem(id);
 	mScene->removeItem(picturesUnderCell[id].data());
-//	picturesUnderCell.remove(positionOFItem(i));
 	ui->graphicsView->update();
 }
 
 Field::~Field()
 {
-	delete ui;
+	for(int i = 0;i < field.size(); i++){
+		delete field[i];
+	}
 	mScene->clear();
 	delete mScene;
+	delete ui;
 }
 
 void Field::setEnabledItself(bool switcher)
@@ -184,22 +186,22 @@ void Field::deleteMessage()
 {
 	disconnect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
 	timer.stop();
-	mScene->removeItem(itemForMessage.data());
+	mScene->removeItem(itemForMessage);
+	delete itemForMessage;
+	delete attackStatus;
 	ui->graphicsView->update();
 }
 
 void Field::updateBackground(QRect)
 {
-	mScene->setBackgroundBrush(QBrush(loader->currentPixmap()));
+	mScene->setBackgroundBrush(QBrush(backgroundBrush->currentPixmap()));
 	ui->graphicsView->update();
 }
 
-int Field::positionOFItem(int id)
+void Field::updateAttackStatus(QRect)
 {
-//	for (int i = 0; i < picturesUnderCell.size(); i++){
-//		if (picturesUnderCell.at(i)->data(DATA_KEY).toInt() == id){
-//			return i;
-//		}
-//	}
-	return 0;
+	mScene->removeItem(itemForMessage);
+	delete itemForMessage;
+	itemForMessage = mScene->addPixmap(attackStatus->currentPixmap());
+	ui->graphicsView->update();
 }

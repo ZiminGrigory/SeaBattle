@@ -35,6 +35,7 @@ private slots:
 	void deleteShipOnCell(int id);
 	void deleteMessage();
 	void updateBackground(QRect);
+	void updateAttackStatus(QRect);
 
 signals:
 	void attack(int id);
@@ -48,13 +49,12 @@ private:
 	Ui::Field *ui;
 	QVector<Cell *> field;
 	QGraphicsScene *mScene;
-	QSharedPointer<QGraphicsItem> itemForMessage;
+	QGraphicsItem *itemForMessage;
 	QSharedPointer<QGraphicsItem> itemForEndMessage;
 	QTimer timer;
-
-	int positionOFItem(int id);
 	QSharedPointer<QGraphicsItem> picturesUnderCell[100];
 
-	QSharedPointer<QMovie> loader;
+	QSharedPointer<QMovie> backgroundBrush;
+	QMovie *attackStatus;
 };
 
