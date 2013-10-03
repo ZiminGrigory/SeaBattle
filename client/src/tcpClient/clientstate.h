@@ -18,7 +18,7 @@ class ClientState : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClientState(const QWeakPointer<Client>& _client, QObject *parent = 0);
+    explicit ClientState(Client* _client, QObject *parent = 0);
 
     virtual ~ClientState() {}
     
@@ -81,7 +81,7 @@ protected:
       */
     void moveIntoState(const QSharedPointer<ClientState>& newState);
 
-    QWeakPointer<Client> client;
+    Client* client;
     QSharedPointer<QTcpSocket> socket;
 private:
     /**

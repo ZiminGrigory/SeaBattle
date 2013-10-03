@@ -5,12 +5,17 @@
 #include <QSharedPointer>
 
 #include "types.h"
+#include "connectionMenu.h"
 #include "gameMaster.h"
 #include "MainWindow.h"
+/*
 #include "BattleWidget.h"
 #include "StartMenu.h"
 #include "AiLvlList.h"
 #include "ConnectWidget.h"
+*/
+
+class ConnectionMenu;
 
 class Game : public QApplication
 {
@@ -46,4 +51,6 @@ public slots:
 private:
 	QSharedPointer<InterfaceMainWindow> view;
     QSharedPointer<GameMaster> gameMaster;
+    QSharedPointer<ConnectionMenu> mConnectionMenu;
+
 };

@@ -2,10 +2,10 @@
 #include "stateCollection.h"
 #include "waitingForServerConnectionState.h"
 
-WaitingForServerConnectionState::WaitingForServerConnectionState(const QWeakPointer<Client> _client, QObject *parent):
+WaitingForServerConnectionState::WaitingForServerConnectionState(Client* _client, QObject *parent):
     ClientState(_client, parent)
 {
-    QObject::connect(this, SIGNAL(connectedWithServer()), client.data(), SIGNAL(connectedWithServer()));
+    QObject::connect(this, SIGNAL(connectedWithServer()), client, SIGNAL(connectedWithServer()));
 }
 
 void WaitingForServerConnectionState::connect(const QString &serverName, quint16 port) throw(Protocol::AlreadyConnected)

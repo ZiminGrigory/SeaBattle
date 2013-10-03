@@ -10,7 +10,7 @@ class SearchGameState : public ClientState
 {
     Q_OBJECT
 public:
-    explicit SearchGameState(const QWeakPointer<Client> _client, QObject* parent = 0);
+    explicit SearchGameState(Client* _client, QObject* parent = 0);
     
 public slots:
     /**

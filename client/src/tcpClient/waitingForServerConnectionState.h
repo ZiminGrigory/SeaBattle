@@ -18,7 +18,7 @@ class WaitingForServerConnectionState : public ClientState
 {
     Q_OBJECT
 public:
-    explicit WaitingForServerConnectionState(const QWeakPointer<Client> _client, QObject *parent = 0);
+    explicit WaitingForServerConnectionState(Client* _client, QObject *parent = 0);
     
 public slots:
     /**
