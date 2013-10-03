@@ -1,3 +1,5 @@
 <RCC>
-    <qresource prefix="/sounds"/>
+    <qresource prefix="/sounds">
+        <file>miss.mp3</file>
+    </qresource>
 </RCC>

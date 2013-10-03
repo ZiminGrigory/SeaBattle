@@ -12,8 +12,8 @@ GameMaster::GameMaster(GameType type,
     enemyField(NULL),
     player(NULL),
 	enemy(NULL),
-	view(_view)/*,
-	audioPlayer(QSharedPointer<AudioPlayer>(new AudioPlayer()))*/
+    view(_view),
+    audioPlayer(QSharedPointer<AudioPlayer>(new AudioPlayer()))
 {   
 	view->showPlayerField();
 	view->showInfoTab();
@@ -56,7 +56,7 @@ void GameMaster::startGame()
 
     turnedPlayer = player;
     waitingPlayer = enemy;
-  // audioPlayer->playSound(BEGIN_SOUND);
+    audioPlayer->playSound(BEGIN_SOUND);
 }
 
 void GameMaster::playerReadyToBattle(Player* sender)
@@ -127,24 +127,24 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         ptrPlayer tmp = turnedPlayer;
         turnedPlayer = waitingPlayer;
         waitingPlayer = tmp;
-//        audioPlayer->playSound(MISS_SOUND);
+        audioPlayer->playSound(MISS_SOUND);
 
     }
     else if (turnResult == WOUNDED)
     {
         // if ship was wounded or killed then
         // next turn make the same player
-//        audioPlayer->playSound(WOUNDED_SOUND);
+        audioPlayer->playSound(WOUNDED_SOUND);
     }
     else if (turnResult == KILLED)
     {
-//        audioPlayer->playSound(KILLED_SOUND);
+        audioPlayer->playSound(KILLED_SOUND);
     }
     if (player->lose())
     {
 		view->hideTimer();
         view->setMessage("Enemy Win");
-//        audioPlayer->playSound(DEFEAT_SOUND);
+        audioPlayer->playSound(DEFEAT_SOUND);
 		view->getEnemyFieldView()->showResult(YOU);
 		view->getPlayerFieldView()->showResult(YOU);
     }
@@ -152,7 +152,7 @@ void GameMaster::nextTurn(AttackStatus turnResult)
     {
 		view->hideTimer();
         view->setMessage("You Win");
-//        audioPlayer->playSound(VICTORY_SOUND);
+        audioPlayer->playSound(VICTORY_SOUND);
 		view->getPlayerFieldView()->showResult(ENEMY);
 		view->getEnemyFieldView()->showResult(ENEMY);
     }

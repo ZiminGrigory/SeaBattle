@@ -9,7 +9,7 @@
 #include "humanPlayer.h"
 #include "aiPlayerSimple.h"
 #include "playerField.h"
-//#include "audioPlayer/audioPlayer.h"
+#include "audioPlayer.h"
 
 class GameMaster : public QObject
 {
@@ -56,7 +56,7 @@ private:
 	QSharedPointer<InterfaceBattleWidget> view;
 
     QTimer turnTimer;
-//    QSharedPointer<AudioPlayer> audioPlayer;
+    QSharedPointer<AudioPlayer> audioPlayer;
     static const int turnTimeout;
 };
 
