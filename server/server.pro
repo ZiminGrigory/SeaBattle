@@ -1,8 +1,15 @@
 
-QT += core
+QT += core network
 
 TARGET = server
 TEMPLATE = app
 
 SOURCES += \
-    main.cpp
+    main.cpp \
+    server.cpp
+
+HEADERS += \
+    server.h \
+    ../protocol.h
+
+INCLUDEPATH += ../

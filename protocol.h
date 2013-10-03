@@ -13,7 +13,7 @@ namespace Protocol
     /**
       *
       */
-    const quint16 ServerPort = 30010;
+    const quint16 ServerPort = 21232;
     /**
       *
       */

@@ -80,7 +80,7 @@ HEADERS  += src/gameLogics/enemyCell.h \
     src/view/InterfaceBattleWidget.h \
     src/view/InterfaceField.h \
     src/view/InterfaceInfoTab.h \
-    src/tcpprotocol.h \
+    ../protocol.h \
     src/tcpClient/client.h \
     src/tcpClient/clientstate.h \
     src/tcpClient/searchGameState.h \
@@ -105,4 +105,4 @@ FORMS    += gui/tabOfInformation.ui \
 RESOURCES += gui/pictures/pictures.qrc \
     gui/sounds/sounds.qrc
 
-INCLUDEPATH += src/view src/gameLogics src/appLogics src/tcpClient src/audioPlayer
+INCLUDEPATH += src/view src/gameLogics src/appLogics src/tcpClient src/audioPlayer ../

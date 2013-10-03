@@ -42,9 +42,14 @@ void SearchGameState::handleRecievedRequest(Protocol::RequestType type, const QB
     }
     else if (type == Protocol::GAME_FOUND)
     {
-        // to do: some code which is exstract host & port from bytes
-        QString hostName;
+        QDataStream request(bytes);
+        request.setVersion(Protocol::QDataStreamVersion);
+
         quint16 port;
+        request >> port;
+
+        QString hostName = QString::fromUtf8(bytes.mid(5).data(), bytes.size() - 5);
+
         connectionLock = false;
         connect(hostName, port);
     }
