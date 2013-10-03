@@ -2,27 +2,27 @@
 #include "clientstate.h"
 #include "stateCollection.h"
 
-ClientState::ClientState(const QWeakPointer<Client>& _client,
+ClientState::ClientState(Client *_client,
                              QObject *parent):
     QObject(parent),
     client(_client),
-    socket(_client.toStrongRef()->socket),
+    socket(_client->socket),
     blockSize(0)
 {
-    QObject::connect(this, SIGNAL(error(QString)), client.data(), SIGNAL(error(QString)));
+    QObject::connect(this, SIGNAL(error(QString)), client, SIGNAL(error(QString)));
     QObject::connect(this, SIGNAL(received(Protocol::RequestType,QByteArray)),
-            client.data(), SIGNAL(received(Protocol::RequestType,QByteArray)));
+            client, SIGNAL(received(Protocol::RequestType,QByteArray)));
 }
 
 void ClientState::moveIntoState(const QSharedPointer<ClientState> &newState)
 {
-    client.toStrongRef()->setState(newState);
+    client->setState(newState);
     newState->init();
 }
 
 QSharedPointer<StateCollection> ClientState::getStateCollection() const
 {
-    return client.toStrongRef()->stateCollection;
+    return client->stateCollection;
 }
 
 void ClientState::readyReadHandler()

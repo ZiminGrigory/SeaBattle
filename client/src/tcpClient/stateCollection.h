@@ -13,7 +13,7 @@
 class StateCollection
 {
 public:
-    StateCollection(const QWeakPointer<Client>& _client):
+    StateCollection(Client* _client):
         client(_client),
         noConnectionState(new NoConnectionState(_client)),
         waitingForServerConnectionState(new WaitingForServerConnectionState(_client)),
@@ -27,7 +27,7 @@ public:
     inline QSharedPointer<ClientState> getWaitingForPlayerConnectionState() const;
     inline QSharedPointer<ClientState> getGameState() const;
 private:
-    QWeakPointer<Client> client;
+    Client* client;
 
     QSharedPointer<ClientState> noConnectionState;
     QSharedPointer<ClientState> waitingForServerConnectionState;

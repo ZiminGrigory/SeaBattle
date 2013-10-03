@@ -4,13 +4,13 @@
 
 const int SearchGameState::connectionTimeout = 10 * 1000;
 
-SearchGameState::SearchGameState(const QWeakPointer<Client> _client, QObject* parent):
+SearchGameState::SearchGameState(Client* _client, QObject* parent):
     ClientState(_client, parent),
     connectionLock(true)
 {
     timer.setSingleShot(true);
     QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(connectionTimeoutHandler()));
-    QObject::connect(client.data(), SIGNAL(connectedWithPlayer()), this, SLOT(connectedHandler()));
+    QObject::connect(client, SIGNAL(connectedWithPlayer()), this, SLOT(connectedHandler()));
 }
 
 void SearchGameState::connect(const QString& hostName, quint16 port) throw(Protocol::AlreadyConnected)
@@ -63,7 +63,7 @@ void SearchGameState::connectedHandler()
 
 void SearchGameState::connectionTimeoutHandler()
 {
-    client.toStrongRef()->abort();
+    client->abort();
     emit error(QString("Player response time elapsed"));
 }
 

@@ -9,7 +9,7 @@ class NoConnectionState : public ClientState
 {
     Q_OBJECT
 public:
-    explicit NoConnectionState(const QWeakPointer<Client>& _client, QObject* parent = 0);
+    explicit NoConnectionState(Client* _client, QObject* parent = 0);
         
 public slots:
     /**

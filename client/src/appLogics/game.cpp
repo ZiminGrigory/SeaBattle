@@ -3,8 +3,12 @@
 Game::Game(int& argc, char** argv):
     QApplication(argc, argv),
 	view(QSharedPointer<InterfaceMainWindow>(new MainWindow())),
-    gameMaster(QSharedPointer<GameMaster>(NULL))
+    gameMaster(QSharedPointer<GameMaster>(NULL)),
+    mConnectionMenu(NULL)
 {
+    QSharedPointer<InterfaceConnectWidget> connectWidget = view->getInterfaceConnectWidget();
+    mConnectionMenu = QSharedPointer<ConnectionMenu>(new ConnectionMenu(this, connectWidget));
+
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonExitPushed()), SLOT(closeAllWindows()));
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonVsPcPushed()), SLOT(aiLevelMenu()));
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonVsPlayerPushed()), SLOT(connectionMenu()));
@@ -12,8 +16,6 @@ Game::Game(int& argc, char** argv):
 	connect(view->getInterfaceAiLvlList().data(), SIGNAL(buttonExitPushed()), SLOT(gameMenu()));
 	connect(view->getInterfaceAiLvlList().data(), SIGNAL(buttonVsSimplePushed()), SLOT(startAISimpleGame()));
 	connect(view->getInterfaceAiLvlList().data(), SIGNAL(buttonVsProPushed()), SLOT(startAIHardGame()));
-
-	connect(view->getInterfaceConnectWidget().data(), SIGNAL(buttonExitPushed()), SLOT(gameMenu()));
 
     gameMenu();
 }
@@ -37,8 +39,8 @@ void Game::aiLevelMenu()
 void Game::connectionMenu()
 {
 	view->hideWidget(START_MENU);
-	view->showWidget(CONNECT);
-	view->getInterfaceConnectWidget()->showLoader();
+    view->showWidget(CONNECT);
+    mConnectionMenu->startConnection();
 }
 
 void Game::startAISimpleGame()

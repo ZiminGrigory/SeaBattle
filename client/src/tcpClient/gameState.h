@@ -7,7 +7,7 @@ class GameState : public ClientState
 {
     Q_OBJECT
 public:
-    explicit GameState(const QWeakPointer<Client>& _client, QObject *parent);
+    explicit GameState(Client* _client, QObject *parent);
     
 public slots:
     /**

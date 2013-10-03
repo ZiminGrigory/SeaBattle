@@ -2,7 +2,7 @@
 #include "stateCollection.h"
 #include "gameState.h"
 
-GameState::GameState(const QWeakPointer<Client>& _client, QObject* parent):
+GameState::GameState(Client* _client, QObject* parent):
     ClientState(_client, parent)
 {
 }
