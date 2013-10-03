@@ -24,14 +24,14 @@ void WaitingForServerConnectionState::abort()
 void WaitingForServerConnectionState::init()
 {
     QObject::connect(socket.data(), SIGNAL(connected()), this, SLOT(connectedHandler()));
-    QObject::connect(socket.data(), SIGNAL((error(QAbstractSocket::SocketError))),
+    QObject::connect(socket.data(), SIGNAL(error(QAbstractSocket::SocketError)),
                      SLOT(errorHandler(QAbstractSocket::SocketError)));
 }
 
 void WaitingForServerConnectionState::connectedHandler()
 {
     disconnect(socket.data(), SIGNAL(connected()), this, SIGNAL(connectedHandler()));
-    disconnect(socket.data(), SIGNAL((error(QAbstractSocket::SocketError))),
+    disconnect(socket.data(), SIGNAL(error(QAbstractSocket::SocketError)),
                      this, SLOT(errorHandler(QAbstractSocket::SocketError)));
 
     moveIntoState(QSharedPointer<ClientState>(getStateCollection()->getSearchGameState()));

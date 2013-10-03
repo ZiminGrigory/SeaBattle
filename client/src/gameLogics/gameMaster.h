@@ -9,7 +9,7 @@
 #include "humanPlayer.h"
 #include "aiPlayerSimple.h"
 #include "playerField.h"
-#include "audioPlayer/audioPlayer.h"
+#include "audioPlayer.h"
 
 class GameMaster : public QObject
 {

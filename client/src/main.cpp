@@ -13,11 +13,6 @@
 int main(int argc, char *argv[])
 {
 	Game game(argc, argv);
-//	QSharedPointer<InterfaceMainWindow> mainWindow = QSharedPointer<MainWindow>(new MainWindow);
-//	mainWindow->show();
-//	mainWindow->showWidget(BATTLE);
-//	GameMaster gameMaster(QSharedPointer<InterfaceBattleWidget>(mainWindow->getInterfaceBattleWidget()));
-//	gameMaster.startGame();
-	return game.exec();
 
+	return game.exec();
 }
