@@ -114,6 +114,11 @@ FORMS    += client/gui/tabOfInformation.ui \
 RESOURCES += client/gui/pictures/pictures.qrc \
     client/gui/sounds/sounds.qrc
 
-INCLUDEPATH += client/src/view client/src/gameLogics client/src client/src/appLogics client/src/tcpClient
+INCLUDEPATH += client/src/view\
+		 client/src/gameLogics \
+		 client/src client/src/appLogics client/src/tcpClient\
+		 var/lib usr/lib usr/share/doc
+
+LIBS += pulse
 
 DEFINES += QT_SHAREDPOINTER_TRACK_POINTERS
