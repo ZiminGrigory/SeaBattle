@@ -25,28 +25,28 @@ void AudioPlayer::playSound(Sounds track)
     switch (track)
     {
     case (BEGIN_SOUND):
-		sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/begin.mp3"));
+		sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/begin.mp3"));
         break;
     case(FIRST_BLOOD):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/first blood.mp3"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/first blood.mp3"));
         break;
     case(MISS_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/miss.mp3"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/miss.mp3"));
         break;
     case(WOUNDED_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/wounded.mp3"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/wounded.mp3"));
         break;
     case(KILLED_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/killed.mp3"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/killed.mp3"));
         break;
     case(FINISH_HIM):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/finish him.mp3"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/finish him.mp3"));
         break;
     case(VICTORY_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/victory.mp3"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/victory.mp3"));
         break;
     case(DEFEAT_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/defeat.mp3"));
+		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/defeat.mp3"));
         break;
     }
     sound->play();

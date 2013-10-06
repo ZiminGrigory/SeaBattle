@@ -23,7 +23,8 @@ GameMaster::GameMaster(GameType type,
 	player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
 													, view->getPlayerFieldView()
                                                     , view->getEnemyFieldView()
-                                                    , view->getInfoTabView()));
+													, view->getInfoTabView()
+													, view->getChatAndStatus()));
     if (type == AI_SIMPLE_GAME)
     {
         enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
@@ -33,7 +34,7 @@ GameMaster::GameMaster(GameType type,
         // ai hard not implemented yet
         enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
     }
-
+	mChat = QSharedPointer<LogAndChat>(new LogAndChat(view->getChatAndStatus()));
     turnTimer.setSingleShot(true);
 }
 
@@ -103,6 +104,11 @@ void GameMaster::informOpponent(int id, AttackStatus turnResult)
     //disconnect(&turnTimer, SIGNAL(timeout()), turnedPlayer.data(), SLOT(randomTurn()));
 
     waitingPlayer->enemyTurn(id);
+	if(turnedPlayer == player) {
+		mChat->cellAttacked(ENEMY, id, turnResult);
+	} else {
+		mChat->cellAttacked(YOU, id, turnResult);
+	}
     nextTurn(turnResult);
 }
 
@@ -127,17 +133,16 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         ptrPlayer tmp = turnedPlayer;
         turnedPlayer = waitingPlayer;
         waitingPlayer = tmp;
-        audioPlayer->playSound(MISS_SOUND);
-
+		audioPlayer->playSound(MISS_SOUND);
     }
     else if (turnResult == WOUNDED)
     {
         // if ship was wounded or killed then
         // next turn make the same player
-        audioPlayer->playSound(WOUNDED_SOUND);
+		audioPlayer->playSound(WOUNDED_SOUND);
     }
     else if (turnResult == KILLED)
-    {
+	{
         audioPlayer->playSound(KILLED_SOUND);
     }
     if (player->lose())

@@ -32,5 +32,11 @@
         <file>wounded.gif</file>
         <file>miss.gif</file>
         <file>killed.gif</file>
+        <file>forChat/WOUNDED.jpg</file>
+        <file>forChat/MISS.jpg</file>
+        <file>forChat/KILLED.jpg</file>
+        <file>forChat/BEGIN.jpg</file>
+        <file>forChat/ATTACK.jpg</file>
+        <file>fon.jpg</file>
     </qresource>
 </RCC>

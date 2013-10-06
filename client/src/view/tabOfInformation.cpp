@@ -6,6 +6,10 @@ TabOfInformation::TabOfInformation():
 	ui(new Ui::TabOfInformation)
 {
 	ui->setupUi(this);
+	//какая-то магия, нашел в сети...
+	QString arg = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,";
+	arg += " stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));";
+	ui->textBrowser->setStyleSheet(arg);
 	QString text = QString::fromLocal8Bit ("ЗДРАВСТВУЙ, УВАЖАЕМЫЙ ИГРОК!\nУстанови флот и в бой!\n");
 	text += QString::fromLocal8Bit("Подсказка: для установки корабля ЛКМ нажмите на нужной клетке ");
 	text += QString::fromLocal8Bit("и отпустите на той же или на другой клетке, где должен закончится корабль");

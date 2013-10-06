@@ -42,7 +42,8 @@ SOURCES += src/main.cpp \
     src/appLogics/game.cpp \
     src/tcpClient/waitingForServerConnectionState.cpp \
     src/appLogics/connectionMenu.cpp \
-    src/audioPlayer/audioPlayer.cpp
+    src/audioPlayer/audioPlayer.cpp \
+    src/gameLogics/LogAndChat.cpp
 
 HEADERS  += src/gameLogics/enemyCell.h \
     src/gameLogics/types.h \
@@ -91,7 +92,8 @@ HEADERS  += src/gameLogics/enemyCell.h \
     src/appLogics/game.h \
     src/tcpClient/waitingForServerConnectionState.h \
     src/appLogics/connectionMenu.h \
-    src/audioPlayer/audioPlayer.h
+    src/audioPlayer/audioPlayer.h \
+    src/gameLogics/LogAndChat.h
 
 FORMS    += gui/tabOfInformation.ui \
     gui/field.ui \

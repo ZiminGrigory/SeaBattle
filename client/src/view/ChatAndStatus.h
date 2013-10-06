@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "InterfaceChatAndStatus.h"
+#include <QTimer>
 
 namespace Ui {
 class ChatAndStatus;
@@ -23,12 +24,14 @@ public slots:
 
 private slots:
 	void getText();
+	void clearPicture();
 
 signals:
 	void getNewMessage(QString text);
 
 private:
 	Ui::ChatAndStatus *ui;
+	QTimer mTimer;
 };
 
 #endif // CHATANDSTATUS_H

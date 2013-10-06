@@ -12,7 +12,11 @@ MainWindow::MainWindow() :
 	startMenu = QSharedPointer<InterfaceStartMenu> (new StartMenu);
 	battleWidget = QSharedPointer<InterfaceBattleWidget> (new BattleWidget);
 	this->resize(WINDOW_SIZE);
-	//setStyleSheet(":/pictures/sea/jpg");
+	QBrush brush(Qt::TexturePattern);
+	brush.setTexture(QPixmap(":/pictures/fon.jpg"));
+	QPalette plt = this->palette();
+	plt.setBrush(QPalette::Background, brush);
+	this->setPalette(plt);
 }
 
 MainWindow::~MainWindow()

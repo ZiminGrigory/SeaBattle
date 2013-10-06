@@ -10,6 +10,7 @@
 #include "aiPlayerSimple.h"
 #include "playerField.h"
 #include "audioPlayer.h"
+#include "LogAndChat.h"
 
 class GameMaster : public QObject
 {
@@ -47,6 +48,7 @@ private:
     typedef QSharedPointer<Player> ptrPlayer;
     QSharedPointer<GameField> playerField;
     QSharedPointer<GameField> enemyField;
+	QSharedPointer<LogAndChat> mChat;
     ptrPlayer player;
     ptrPlayer enemy;
 

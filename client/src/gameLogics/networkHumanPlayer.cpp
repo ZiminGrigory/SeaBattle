@@ -7,9 +7,10 @@ NetworkHumanPlayer::NetworkHumanPlayer(const QSharedPointer<GameField>& plrField
 									   const QSharedPointer<InterfaceField> &_plrFieldView,
 									   const QSharedPointer<InterfaceField> &_enmFieldView,
 									   const QSharedPointer<InterfaceInfoTab> &_infoTab,
+									   const QSharedPointer<InterfaceChatAndStatus> &_chat,
                                        const QSharedPointer<Client>& _client,
 									   QObject* parent):
-    HumanPlayer(plrField,enmField,_plrFieldView,_enmFieldView, _infoTab, parent),
+	HumanPlayer(plrField,enmField,_plrFieldView,_enmFieldView, _infoTab, _chat, parent),
     client(_client)
 {
 }
