@@ -60,6 +60,9 @@ private:
     QTimer turnTimer;
     QSharedPointer<AudioPlayer> audioPlayer;
     static const int turnTimeout;
+
+	int plrFleet;
+	int enemyFleet;
 };
 
 #endif // GAMEMASTER_H

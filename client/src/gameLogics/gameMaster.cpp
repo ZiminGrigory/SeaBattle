@@ -57,7 +57,7 @@ void GameMaster::startGame()
 
     turnedPlayer = player;
     waitingPlayer = enemy;
-    audioPlayer->playSound(BEGIN_SOUND);
+	audioPlayer->playSound(BEGIN_SOUND);
 }
 
 void GameMaster::playerReadyToBattle(Player* sender)
@@ -76,6 +76,11 @@ void GameMaster::playerReadyToBattle(Player* sender)
         view->showEnemyField();
         view->getEnemyFieldView()->setEnabled(true);
         view->getPlayerFieldView()->setEnabled(false);
+		plrFleet = 10;
+		enemyFleet = 10;
+		view->setCountOfFleet(YOU, plrFleet);
+		view->setCountOfFleet(ENEMY, enemyFleet);
+		view->showCountersOfFleet();
         offerTurn();
     }
     isFirst = false;
@@ -144,6 +149,13 @@ void GameMaster::nextTurn(AttackStatus turnResult)
     else if (turnResult == KILLED)
 	{
         audioPlayer->playSound(KILLED_SOUND);
+		if (turnedPlayer == player){
+			enemyFleet--;
+			view->setCountOfFleet(ENEMY, enemyFleet);
+		} else {
+			plrFleet--;
+			view->setCountOfFleet(YOU, plrFleet);
+		}
     }
     if (player->lose())
     {
