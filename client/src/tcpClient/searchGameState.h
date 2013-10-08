@@ -2,6 +2,7 @@
 #define SEARCHGAMESTATE_H
 
 #include <QTimer>
+#include <QTcpServer>
 
 #include "clientstate.h"
 #include "protocol.h"
@@ -21,6 +22,11 @@ public slots:
       * Abort connection with server.
       */
     void abort();
+signals:
+    /**
+     * Emits when this client is waiting for connection from another (using tmpServer) and getting the new one.
+     */
+    void connected();
 protected:
     /**
       * Handle two types of requests - check state & game found.
@@ -33,9 +39,17 @@ protected:
       */
     void init();
 private slots:
+    /**
+     * This slot runs when the socket of this client connects to the remote client app.
+     */
     void connectedHandler();
+    /**
+     * This slot runs when the remote socket connects to the temprorary server on this client app.
+     */
+    void connectionHandler();
     void connectionTimeoutHandler();
 private:
+    QTcpServer tmpServer;
     QTimer timer;
     bool connectionLock;
 

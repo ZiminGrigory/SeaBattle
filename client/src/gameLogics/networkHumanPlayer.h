@@ -31,11 +31,13 @@ public slots:
     void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
 protected slots:
     void cellWasAttacked(int id);
+private:
+    typedef QSharedPointer<Ship> ptrShip;
 private slots:
    /**
      * Sends player's fleet to the remote instance of the game client.
      */
-    void sendPlayerFleet(QVector<FleetInstaller::ptrShip> fleet);
+    void sendPlayerFleet(QVector<ptrShip> fleet);
 private:
     QSharedPointer<Client> client;
 };

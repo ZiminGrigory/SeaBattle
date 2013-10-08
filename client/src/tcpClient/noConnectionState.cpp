@@ -16,7 +16,8 @@ void NoConnectionState::connect(const QString & hostName, quint16 port) throw(Pr
 {
     Q_UNUSED(hostName);
 
-    socket->connectToHost(hostName, port);
+    getSocket()->abort();
+    getSocket()->connectToHost(hostName, port);
     timer.start(connectionTimeout);
     moveIntoState(getStateCollection()->getWaitingForServerConnectionState());
 }

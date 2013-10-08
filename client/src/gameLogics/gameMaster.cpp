@@ -4,8 +4,9 @@ const int GameMaster::turnTimeout = 30 * 1000;
 
 
 GameMaster::GameMaster(GameType type,
-					   const QSharedPointer<InterfaceBattleWidget> &_view,
-					   QObject* parent):
+                       const QSharedPointer<InterfaceBattleWidget> &_view,
+                       const QSharedPointer<Client> &_client,
+                       QObject* parent):
 
     QObject(parent),
     playerField(NULL),
@@ -13,27 +14,48 @@ GameMaster::GameMaster(GameType type,
     player(NULL),
 	enemy(NULL),
     view(_view),
-    audioPlayer(QSharedPointer<AudioPlayer>(new AudioPlayer()))
+    audioPlayer(QSharedPointer<AudioPlayer>(new AudioPlayer())),
+    client(_client)
 {   
 	view->showPlayerField();
 	view->showInfoTab();
     playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
-	player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
-													, view->getPlayerFieldView()
-                                                    , view->getEnemyFieldView()
-													, view->getInfoTabView()
-													, view->getChatAndStatus()));
     if (type == AI_SIMPLE_GAME)
     {
+        player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
+                                                        , view->getPlayerFieldView()
+                                                        , view->getEnemyFieldView()
+														, view->getInfoTabView()
+														, view->getChatAndStatus()));
         enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
     }
     else if (type == AI_HARD_GAME)
     {
+        player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
+                                                        , view->getPlayerFieldView()
+                                                        , view->getEnemyFieldView()
+														, view->getInfoTabView()
+														, view->getChatAndStatus()));
         // ai hard not implemented yet
         enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
     }
+
+    else if (type == NETWORK_GAME)
+    {
+        player = QSharedPointer<Player>(new NetworkHumanPlayer(playerField
+                                                               , enemyField
+                                                               , view->getPlayerFieldView()
+                                                               , view->getEnemyFieldView()
+                                                               , view->getInfoTabView()
+															   , view->getChatAndStatus()
+                                                               , client));
+        enemy = QSharedPointer<Player>(new RemotePlayer(enemyField
+                                                        , playerField
+                                                        , client));
+    }
+
 	mChat = QSharedPointer<LogAndChat>(new LogAndChat(view->getChatAndStatus()));
     turnTimer.setSingleShot(true);
 }

@@ -9,18 +9,25 @@ GameState::GameState(Client* _client, QObject* parent):
 
 void GameState::abort()
 {
-    socket->disconnectFromHost();
+    getSocket()->disconnectFromHost();
     moveIntoState(getStateCollection()->getNoConnectionState());
 }
 
 void GameState::send(Protocol::RequestType type, const QByteArray& bytes)
     throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
 {
-    if ((type != Protocol::FLEET_INSTALLED) || (type != Protocol::TURN_MADE))
+    if ((type != Protocol::FLEET_INSTALLED) && (type != Protocol::TURN_MADE))
     {
         throw Protocol::RequestTypeForbidden();
     }
     writeToSocket(type, bytes);
+}
+
+void GameState::init()
+{
+    QAbstractSocket::SocketState state = getSocket()->state();
+    QObject::connect(getSocket().data(), SIGNAL(readyRead()), this, SLOT(readyReadHandler()));
+
 }
 
 void GameState::handleRecievedRequest(Protocol::RequestType type, const QByteArray& bytes)

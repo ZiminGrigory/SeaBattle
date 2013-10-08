@@ -47,7 +47,10 @@ void Game::startAISimpleGame()
 {
 	view->hideWidget(AI_MENU);
 	view->showWidget(BATTLE);
-	gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_SIMPLE_GAME, view->getInterfaceBattleWidget(), this));
+    gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_SIMPLE_GAME,
+                                                           view->getInterfaceBattleWidget(),
+                                                           QSharedPointer<Client>(NULL),
+                                                           this));
 	gameMaster->startGame();
 }
 
@@ -55,12 +58,25 @@ void Game::startAIHardGame()
 {
 	view->hideWidget(AI_MENU);
 	view->showWidget(BATTLE);
-	gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_HARD_GAME, view->getInterfaceBattleWidget(), this));
+    gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_HARD_GAME,
+                                                           view->getInterfaceBattleWidget(),
+                                                           QSharedPointer<Client>(NULL),
+                                                           this));
 	gameMaster->startGame();
 }
 
-void Game::startNetworkGame()
+void Game::startNetworkGame(const QSharedPointer<Client>& client)
 {
+    view->hideWidget(AI_MENU);
+    view->hideWidget(CONNECT);
+    view->showWidget(BATTLE);
+    gameMaster = QSharedPointer<GameMaster>(new GameMaster(NETWORK_GAME,
+                                                           view->getInterfaceBattleWidget(),
+                                                           client,
+                                                           this));
+    gameMaster->startGame();
+
+    //client->send(Protocol::CHECK_STATE, QByteArray());
 }
 
 

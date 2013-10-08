@@ -7,6 +7,8 @@
 
 #include "player.h"
 #include "humanPlayer.h"
+#include "networkHumanPlayer.h"
+#include "remotePlayer.h"
 #include "aiPlayerSimple.h"
 #include "playerField.h"
 #include "audioPlayer.h"
@@ -16,7 +18,10 @@ class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-	GameMaster(GameType type, const QSharedPointer<InterfaceBattleWidget>& _view, QObject* parent = 0);
+    GameMaster(GameType type,
+               const QSharedPointer<InterfaceBattleWidget>& _view,
+               const QSharedPointer<Client>& _client,
+               QObject* parent = 0);
 
     /**
       * Method start the game.
@@ -59,6 +64,9 @@ private:
 
     QTimer turnTimer;
     QSharedPointer<AudioPlayer> audioPlayer;
+
+    QSharedPointer<Client> client;
+
     static const int turnTimeout;
 
 	int plrFleet;

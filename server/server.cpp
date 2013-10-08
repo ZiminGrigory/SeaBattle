@@ -5,6 +5,7 @@
 #include <QDebug>
 
 #include "server.h"
+#include "playerSocket.h"
 
 Server::Server(QObject* parent) :
     QObject(parent)
@@ -18,39 +19,28 @@ void Server::newConnectionHandler()
 {
     qDebug() << "New connection!";
 
-    QSharedPointer<QTcpSocket> newSocket(server.nextPendingConnection());
-    if (clients.isEmpty())
+    QSharedPointer<PlayerSocket> newPlayer(new PlayerSocket(QSharedPointer<QTcpSocket>(server.nextPendingConnection()),
+                                                            this));
+    players.insert(newPlayer->getKey(), newPlayer);
+}
+
+void Server::findGame(PlayerSocket* _newPlayer)
+{
+    QSharedPointer<PlayerSocket> newPlayer = players.take(_newPlayer->getKey());
+    if ((playersQueue.isEmpty()))
     {
-        clients.enqueue(newSocket);
+        qDebug() << "No avilable players, add player to the queue";
+
+        playersQueue.enqueue(newPlayer);
+        return;
     }
     else
     {
-        QSharedPointer<QTcpSocket> socket(NULL);
-        do
-        {
-            socket = clients.dequeue();
-        } while ((socket->state() != QAbstractSocket::ConnectedState) || clients.isEmpty());
+        QSharedPointer<PlayerSocket> player = playersQueue.dequeue();
 
-        if (clients.isEmpty())
-        {
-            clients.enqueue(newSocket);
-            return;
-        }
+        qDebug() << "Find the pair of players. Let's connect them!";
 
-        sendEnemyConnectionInf(newSocket, socket->peerName(), socket->peerPort());
-        sendEnemyConnectionInf(socket, newSocket->peerName(), newSocket->peerPort());
+        player->sendEnemyConnectionInf(newPlayer, true);
+        newPlayer->sendEnemyConnectionInf(player, false);
     }
-}
-
-void Server::sendEnemyConnectionInf(const QSharedPointer<QTcpSocket>& socket, const QString& hostName, quint16 port)
-{
-    QByteArray bytes;
-    QDataStream request(&bytes, QIODevice::ReadOnly);
-    request.setVersion(Protocol::QDataStreamVersion);
-
-    request << quint16(0) << quint8(Protocol::GAME_FOUND) << port << hostName;
-    request.device()->seek(0);
-    request << quint16(bytes.size());
-
-    socket->write(bytes);
 }

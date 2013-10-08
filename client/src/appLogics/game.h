@@ -47,7 +47,7 @@ public slots:
     /**
       * Start network game.
       */
-    void startNetworkGame();
+    void startNetworkGame(const QSharedPointer<Client>& client);
 private:
 	QSharedPointer<InterfaceMainWindow> view;
     QSharedPointer<GameMaster> gameMaster;
