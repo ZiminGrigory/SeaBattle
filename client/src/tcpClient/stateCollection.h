@@ -18,7 +18,8 @@ public:
         noConnectionState(new NoConnectionState(_client)),
         waitingForServerConnectionState(new WaitingForServerConnectionState(_client)),
         searchGameState(QSharedPointer<ClientState>(new SearchGameState(_client))),
-        waitingForPlayerConnectionState(QSharedPointer<ClientState>(new WaitingForPlayerConnectionState(_client)))
+        waitingForPlayerConnectionState(QSharedPointer<ClientState>(new WaitingForPlayerConnectionState(_client))),
+        gameState(QSharedPointer<ClientState>(new GameState(_client)))
     {}
 
     inline QSharedPointer<ClientState> getNoConnectionState() const;

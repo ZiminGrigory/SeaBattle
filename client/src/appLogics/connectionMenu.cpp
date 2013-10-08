@@ -30,6 +30,9 @@ void ConnectionMenu::connectedWithServerHandler()
 void ConnectionMenu::connectedWithPlayerHandler()
 {
     view->showMessage("Connected with player");
+    view->hideLoader();
+
+    game->startNetworkGame(client);
 }
 
 void ConnectionMenu::errorHandler(const QString &err)

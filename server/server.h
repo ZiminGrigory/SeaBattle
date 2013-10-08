@@ -7,6 +7,9 @@
 #include <QSharedPointer>
 
 #include "protocol.h"
+#include "playerSocket.h"
+
+class PlayerSocket;
 
 class Server : public QObject
 {
@@ -17,14 +20,15 @@ public:
 signals:
 
 public slots:
+    void findGame(PlayerSocket* newPlayer);
 
 private slots:
     void newConnectionHandler();
 private:
-    void sendEnemyConnectionInf(const QSharedPointer<QTcpSocket>& socket, const QString& hostName, quint16 port);
-
     QTcpServer server;
-    QQueue< QSharedPointer<QTcpSocket> > clients;
+
+    QMap<QString, QSharedPointer<PlayerSocket> > players;
+    QQueue< QSharedPointer<PlayerSocket> > playersQueue;
 };
 
 #endif // SERVER_H
