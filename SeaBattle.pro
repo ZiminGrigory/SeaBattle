@@ -11,7 +11,7 @@ QT       += widgets
 CONFIG += mobility
 
 
-DEFINES += QT4
+DEFINES += QT5
 
 TARGET = SeaBattle
 TEMPLATE = app
