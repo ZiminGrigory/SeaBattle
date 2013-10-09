@@ -163,6 +163,9 @@ void Field::getCoordinate(QPointF first, QPointF second)
 	do{
 		qDebug() << list.at(i)->data(DATA_KEY).toInt();
 		condition = list.at(i)->data(DATA_KEY).toInt();
+		if (list.at(i)->data(DATA_KEY).toInt() == 0){
+			condition = true;
+		}
 		i++;
 	}while (!condition);
 	condition = false;
@@ -171,6 +174,9 @@ void Field::getCoordinate(QPointF first, QPointF second)
 	do{
 		qDebug() << list2.at(i)->data(DATA_KEY).toInt();
 		condition = list2.at(i)->data(DATA_KEY).toInt();
+		if (list.at(i)->data(DATA_KEY).toInt() == 0){
+			condition = true;
+		}
 		i++;
 	}while (!condition);
 	secondCell = list2.at(i - 1);
