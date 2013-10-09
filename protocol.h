@@ -9,7 +9,7 @@ namespace Protocol
     /**
       *
       */
-    const QString ServerName = "127.0.0.1";
+    const QString ServerName = "192.168.0.106";
     /**
       *
       */
