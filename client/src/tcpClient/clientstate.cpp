@@ -26,6 +26,8 @@ QSharedPointer<StateCollection> ClientState::getStateCollection() const
 
 void ClientState::readyReadHandler()
 {
+    QAbstractSocket::SocketState test = getSocket()->state();
+
     QDataStream in(getSocket().data());
     in.setVersion(Protocol::QDataStreamVersion);
 
@@ -54,6 +56,8 @@ void ClientState::readyReadHandler()
 
 void ClientState::writeToSocket(Protocol::RequestType type, const QByteArray &bytes)
 {
+    QAbstractSocket::SocketState test = getSocket()->state();
+
     QByteArray byteArray;
     QDataStream out(&byteArray, QIODevice::WriteOnly);
     out.setVersion(Protocol::QDataStreamVersion);

@@ -16,7 +16,8 @@ NetworkHumanPlayer::NetworkHumanPlayer(const QSharedPointer<GameField>& plrField
 
 void NetworkHumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
 {
-    HumanPlayer::installFleet(fleetInstaller);
+    fleetInst = fleetInstaller;
+    setFleetHealth(fleetInst->getFleet());
 
     connect(fleetInst.data(), SIGNAL(fleetInstalled(QVector<ptrShip>)),
             this, SLOT(sendPlayerFleet(QVector<ptrShip>)));
@@ -64,4 +65,6 @@ void NetworkHumanPlayer::sendPlayerFleet(QVector<ptrShip> fleet)
         }
     }
     client->send(Protocol::FLEET_INSTALLED, byteArray);
+
+    emit fleetInstalled(this);
 }

@@ -68,6 +68,7 @@ void SearchGameState::handleRecievedRequest(Protocol::RequestType type, const QB
         if (serverFlag)
         {
             timer.start(connectionTimeout);
+            disconnect(getSocket().data(), SIGNAL(readyRead()), this, SLOT(readyReadHandler()));
             moveIntoState(getStateCollection()->getWaitingForPlayerConnectionState());
         }
         else
@@ -75,6 +76,7 @@ void SearchGameState::handleRecievedRequest(Protocol::RequestType type, const QB
             tmpServer.close();
             getSocket()->abort();
             getSocket()->connectToHost(hostName, port);
+            disconnect(getSocket().data(), SIGNAL(readyRead()), this, SLOT(readyReadHandler()));
             moveIntoState(getStateCollection()->getWaitingForPlayerConnectionState());
         }
     }

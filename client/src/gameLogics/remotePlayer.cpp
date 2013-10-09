@@ -17,6 +17,7 @@ void RemotePlayer::installFleet(const QSharedPointer<FleetInstaller>& fleetInsta
 {
     expectFleet = true;
     fleetInst = fleetInstaller;
+    setFleetHealth(fleetInst->getFleet());
 }
 
 void RemotePlayer::turn()
@@ -82,11 +83,15 @@ void RemotePlayer::fleetInstalledHandler(QVector<Protocol::ShipInfo> fleet) thro
 {
     if (expectFleet)
     {
+        qDebug() << "Fleet was recieved";
+
         for (int i = 0; i < fleet.size(); i++)
         {
             Protocol::ShipInfo ship = fleet[i];
             FleetInstaller::PlacementStatus status =
                     fleetInst->shipPlaced(ship.id, ship.size, ship.orientation);
+
+            qDebug() << i << ": " << "id: " << ship.id << "size: " << ship.size << "orn: " << ship.orientation;
             if (status != FleetInstaller::OK)
             {
                 throw IncorrectFleet();
