@@ -13,15 +13,15 @@ namespace Protocol
     /**
       *
       */
-	const quint16 ServerPort = 21238;
+	const quint16 ServerPort = 21539;
     /**
       *
       */
-    const quint16 ClientPort = 21233;
+	const quint16 ClientPort = 21433;
     /**
       *
       */
-    const quint16 ClientPortTest = 21234;
+	const quint16 ClientPortTest = 21434;
     /**
       *
       */

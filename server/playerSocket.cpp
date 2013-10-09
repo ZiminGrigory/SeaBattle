@@ -7,6 +7,7 @@ PlayerSocket::PlayerSocket(QSharedPointer<QTcpSocket> _socket, Server* _server):
     serverPort(0),
     seekGameFlag(false)
 {
+	blockSize = 0;
     connect(socket.data(), SIGNAL(readyRead()), SLOT(readyReadHandler()));
 }
 
