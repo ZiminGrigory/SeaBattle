@@ -88,7 +88,7 @@ AttackStatus GameField::attack(int id)
 			for (int i = idFirst % FIELD_COL_NUM - 1; i <= idFirst % FIELD_COL_NUM + 1; i++){
 				for (int j = idFirst / FIELD_ROW_NUM - 1; j <= idSecond / FIELD_ROW_NUM + 1; j++){
 					markKilled(j, i);
-					if(!field[j][i].attackable()){
+					if(checkCoord(j,i) && !field[j][i].attackable()){
 						field[j][i].attack();
 					}
 				}
@@ -97,7 +97,7 @@ AttackStatus GameField::attack(int id)
 			for (int i = idFirst % FIELD_COL_NUM - 1; i <= idSecond % FIELD_COL_NUM + 1; i++){
 				for (int j = idFirst / FIELD_ROW_NUM - 1; j <= idFirst / FIELD_ROW_NUM + 1; j++){
 					markKilled(j, i);
-					if(!field[j][i].attackable()){
+					if(checkCoord(j,i) && !field[j][i].attackable()){
 						field[j][i].attack();
 					}
 				}
