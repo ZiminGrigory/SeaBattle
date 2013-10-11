@@ -27,6 +27,11 @@ public:
       * Method start the game.
       */
     void startGame();
+public slots:
+    /**
+      * Print message to chat.
+      */
+    void chat(const QString& message);
 private slots:
     /**
       *

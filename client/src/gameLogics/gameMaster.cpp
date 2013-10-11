@@ -58,6 +58,9 @@ GameMaster::GameMaster(GameType type,
 
 	mChat = QSharedPointer<LogAndChat>(new LogAndChat(view->getChatAndStatus()));
 
+    connect(player.data(), SIGNAL(chat(QString)), SLOT(chat(QString)));
+    connect(enemy.data(), SIGNAL(chat(QString)), SLOT(chat(QString)));
+
     turnedPlayer = player;
 	waitingPlayer = enemy;
     turnTimer.setSingleShot(true);
@@ -80,7 +83,20 @@ void GameMaster::startGame()
 											 enemyField, QSharedPointer<InterfaceInfoTab>(NULL)));
     enemy->installFleet(enemyInst);
 
-	audioPlayer->playSound(BEGIN_SOUND);
+    audioPlayer->playSound(BEGIN_SOUND);
+}
+
+void GameMaster::chat(const QString& message)
+{
+    Player* sender = qobject_cast<Player*>(QObject::sender());
+    if (sender == player)
+    {
+        mChat->playerMessage(YOU, message);
+    }
+    else if (sender == enemy)
+    {
+        mChat->playerMessage(ENEMY, message);
+    }
 }
 
 void GameMaster::playerReadyToBattle(Player* sender)

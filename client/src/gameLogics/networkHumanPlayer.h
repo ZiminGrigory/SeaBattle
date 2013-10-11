@@ -38,6 +38,10 @@ private slots:
      * Sends player's fleet to the remote instance of the game client.
      */
     void sendPlayerFleet(QVector<ptrShip> fleet);
+    /**
+      * Sends chat message.
+      */
+    void sendChatMessage(const QString& message);
 private:
     QSharedPointer<Client> client;
 };

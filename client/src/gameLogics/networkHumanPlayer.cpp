@@ -13,6 +13,7 @@ NetworkHumanPlayer::NetworkHumanPlayer(const QSharedPointer<GameField>& plrField
 	HumanPlayer(plrField,enmField,_plrFieldView,_enmFieldView, _infoTab, _chat, parent),
     client(_client)
 {
+    connect(this, SIGNAL(chat(const QString&)), this, SLOT(sendChatMessage(const QString&)));
 }
 
 void NetworkHumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
@@ -65,4 +66,14 @@ void NetworkHumanPlayer::sendPlayerFleet(QVector<ptrShip> fleet)
         }
     }
     client->send(Protocol::FLEET_INSTALLED, byteArray);
+}
+
+void NetworkHumanPlayer::sendChatMessage(const QString &message)
+{
+    QByteArray byteArray(0, (char)0);
+    QDataStream out(&byteArray, QIODevice::WriteOnly);
+    out.setVersion(Protocol::QDataStreamVersion);
+
+    out << message.toLocal8Bit();
+    client->send(Protocol::CHAT_MESSAGE, byteArray);
 }

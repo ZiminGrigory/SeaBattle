@@ -16,7 +16,8 @@ void GameState::abort()
 void GameState::send(Protocol::RequestType type, const QByteArray& bytes)
     throw (Protocol::SendingForbidden, Protocol::RequestTypeForbidden)
 {
-    if ((type != Protocol::FLEET_INSTALLED) && (type != Protocol::TURN_MADE))
+    if ((type != Protocol::FLEET_INSTALLED) && (type != Protocol::TURN_MADE) &&
+            (type != Protocol::CHAT_MESSAGE))
     {
         throw Protocol::RequestTypeForbidden();
     }
@@ -32,7 +33,7 @@ void GameState::init()
 
 void GameState::handleRecievedRequest(Protocol::RequestType type, const QByteArray& bytes)
 {
-    if ((type == Protocol::FLEET_INSTALLED) || (type == Protocol::TURN_MADE))
+    if ((type == Protocol::FLEET_INSTALLED) || (type == Protocol::TURN_MADE) || (type == Protocol::CHAT_MESSAGE))
     {
         emit received(type, bytes);
     }

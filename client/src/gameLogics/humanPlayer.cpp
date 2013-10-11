@@ -17,6 +17,7 @@ HumanPlayer::HumanPlayer(const QSharedPointer<GameField>& plrField
 {
     connect(enmFieldView.data(), SIGNAL(attack(int)), this, SLOT(cellWasAttacked(int)));
 	connect(infoTab.data(), SIGNAL(needAutoSetting()), this, SLOT(needAutoInstallFleet()));
+    connect(mChat.data(), SIGNAL(getNewMessage(QString)), SIGNAL(chat(QString)));
 }
 
 void HumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)

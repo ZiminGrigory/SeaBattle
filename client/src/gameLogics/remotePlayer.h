@@ -53,6 +53,10 @@ private:
       *
       */
     void turnMadeHandler(int id);
+    /**
+     *
+     */
+    void chatMessageHandler(const QString& message);
 
     QSharedPointer<Client> client;
 
