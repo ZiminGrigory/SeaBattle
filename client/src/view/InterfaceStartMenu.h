@@ -11,6 +11,7 @@ signals:
 	void buttonVsPlayerPushed();
 	void buttonVsPcPushed();
 	void buttonExitPushed();
+	void buttonSettingsPushed();
 };
 
 #endif // INTERFACESTARTMENU_H

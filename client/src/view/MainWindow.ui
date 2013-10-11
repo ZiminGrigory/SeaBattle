@@ -33,20 +33,6 @@
      <height>20</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
-    <property name="title">
-     <string>Игра</string>
-    </property>
-    <addaction name="game"/>
-   </widget>
-   <widget class="QMenu" name="menu_2">
-    <property name="title">
-     <string>Опции</string>
-    </property>
-    <addaction name="options"/>
-   </widget>
-   <addaction name="menu"/>
-   <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="game">

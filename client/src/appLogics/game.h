@@ -48,7 +48,12 @@ public slots:
       * Start network game.
       */
     void startNetworkGame(const QSharedPointer<Client>& client);
+	/**
+	 * @brief settingsMenu start widget with settings menu
+	 */
+	void settingsMenu();
 private:
+	void hideAllWidget();
 	QSharedPointer<InterfaceMainWindow> view;
     QSharedPointer<GameMaster> gameMaster;
     QSharedPointer<ConnectionMenu> mConnectionMenu;

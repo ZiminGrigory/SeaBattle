@@ -8,6 +8,9 @@
 #include "AiLvlList.h"
 #include "ConnectWidget.h"
 #include "BattleWidget.h"
+#include "Settings.h"
+#include "SettingsMenu.h"
+#include "SettingsNetwork.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,12 +29,14 @@ public:
 	QSharedPointer<InterfaceBattleWidget> getInterfaceBattleWidget();
 	QSharedPointer<InterfaceConnectWidget> getInterfaceConnectWidget();
 	QSharedPointer<InterfaceStartMenu> getInterfaceStartMenu();
+	QSharedPointer<InterfaceSettingsMenu> getInterfaceSettingsMenu();
 private:
 	Ui::MainWindow *ui;
 	QSharedPointer<InterfaceAiLvlList> aiLvlList;
 	QSharedPointer<InterfaceConnectWidget> connectWidget;
 	QSharedPointer<InterfaceStartMenu> startMenu;
 	QSharedPointer<InterfaceBattleWidget> battleWidget;
+	QSharedPointer<InterfaceSettingsMenu> settingsMenu;
 };
 
 #endif // MAINWINDOW_H

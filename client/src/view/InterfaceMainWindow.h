@@ -6,6 +6,7 @@
 #include "InterfaceChatAndStatus.h"
 #include "InterfaceConnectWidget.h"
 #include "InterfaceStartMenu.h"
+#include "InterfaceSettingsMenu.h"
 #include <QSharedPointer>
 #include <QMainWindow>
 
@@ -19,7 +20,7 @@ public:
 	virtual QSharedPointer<InterfaceBattleWidget> getInterfaceBattleWidget() = 0;
 	virtual QSharedPointer<InterfaceConnectWidget> getInterfaceConnectWidget() = 0;
 	virtual QSharedPointer<InterfaceStartMenu> getInterfaceStartMenu() = 0;
-
+	virtual QSharedPointer<InterfaceSettingsMenu> getInterfaceSettingsMenu() = 0;
 };
 
 #endif // INTERFACEMAINWINDOW_H

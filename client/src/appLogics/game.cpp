@@ -12,40 +12,40 @@ Game::Game(int& argc, char** argv):
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonExitPushed()), SLOT(closeAllWindows()));
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonVsPcPushed()), SLOT(aiLevelMenu()));
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonVsPlayerPushed()), SLOT(connectionMenu()));
+	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonSettingsPushed()), SLOT(settingsMenu()));
 
 	connect(view->getInterfaceAiLvlList().data(), SIGNAL(buttonExitPushed()), SLOT(gameMenu()));
 	connect(view->getInterfaceAiLvlList().data(), SIGNAL(buttonVsSimplePushed()), SLOT(startAISimpleGame()));
 	connect(view->getInterfaceAiLvlList().data(), SIGNAL(buttonVsProPushed()), SLOT(startAIHardGame()));
+
+	connect(view->getInterfaceSettingsMenu().data(), SIGNAL(buttonBackPushed()), SLOT(gameMenu()));
 
     gameMenu();
 }
 
 void Game::gameMenu()
 {
-
-	view->hideWidget(BATTLE);
-	view->hideWidget(AI_MENU);
-	view->hideWidget(CONNECT);
+	hideAllWidget();
 	view->show();
 	view->showWidget(START_MENU);
 }
 
 void Game::aiLevelMenu()
 {
-	view->hideWidget(START_MENU);
+	hideAllWidget();
 	view->showWidget(AI_MENU);
 }
 
 void Game::connectionMenu()
 {
-	view->hideWidget(START_MENU);
+	hideAllWidget();
     view->showWidget(CONNECT);
     mConnectionMenu->startConnection();
 }
 
 void Game::startAISimpleGame()
 {
-	view->hideWidget(AI_MENU);
+	hideAllWidget();
 	view->showWidget(BATTLE);
     gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_SIMPLE_GAME,
                                                            view->getInterfaceBattleWidget(),
@@ -56,7 +56,7 @@ void Game::startAISimpleGame()
 
 void Game::startAIHardGame()
 {
-	view->hideWidget(AI_MENU);
+	hideAllWidget();
 	view->showWidget(BATTLE);
     gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_HARD_GAME,
                                                            view->getInterfaceBattleWidget(),
@@ -67,8 +67,7 @@ void Game::startAIHardGame()
 
 void Game::startNetworkGame(const QSharedPointer<Client>& client)
 {
-    view->hideWidget(AI_MENU);
-    view->hideWidget(CONNECT);
+	hideAllWidget();
     view->showWidget(BATTLE);
     gameMaster = QSharedPointer<GameMaster>(new GameMaster(NETWORK_GAME,
                                                            view->getInterfaceBattleWidget(),
@@ -76,7 +75,22 @@ void Game::startNetworkGame(const QSharedPointer<Client>& client)
                                                            this));
     gameMaster->startGame();
 
-    //client->send(Protocol::CHECK_STATE, QByteArray());
+	//client->send(Protocol::CHECK_STATE, QByteArray());
+}
+
+void Game::settingsMenu()
+{
+	hideAllWidget();
+	view->showWidget(SETTINGS);
+}
+
+void Game::hideAllWidget()
+{
+	view->hideWidget(START_MENU);
+	view->hideWidget(BATTLE);
+	view->hideWidget(AI_MENU);
+	view->hideWidget(CONNECT);
+	view->hideWidget(SETTINGS);
 }
 
 

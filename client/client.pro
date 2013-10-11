@@ -43,7 +43,10 @@ SOURCES += src/main.cpp \
     src/tcpClient/waitingForServerConnectionState.cpp \
     src/appLogics/connectionMenu.cpp \
     src/audioPlayer/audioPlayer.cpp \
-    src/gameLogics/LogAndChat.cpp
+    src/gameLogics/LogAndChat.cpp \
+    src/view/Settings.cpp \
+    src/view/SettingsMenu.cpp \
+    src/view/SettingsNetwork.cpp
 
 HEADERS  += src/gameLogics/enemyCell.h \
     src/gameLogics/types.h \
@@ -93,7 +96,13 @@ HEADERS  += src/gameLogics/enemyCell.h \
     src/tcpClient/waitingForServerConnectionState.h \
     src/appLogics/connectionMenu.h \
     src/audioPlayer/audioPlayer.h \
-    src/gameLogics/LogAndChat.h
+    src/gameLogics/LogAndChat.h \
+    src/view/Settings.h \
+    src/view/InterfaceVolumeSettings.h \
+    src/view/SettingsMenu.h \
+    src/view/InterfaceSettingsMenu.h \
+    src/view/InterfaceNetworkSettings.h \
+    src/view/SettingsNetwork.h
 
 FORMS    += gui/tabOfInformation.ui \
     gui/field.ui \
@@ -102,7 +111,10 @@ FORMS    += gui/tabOfInformation.ui \
     src/view/StartMenu.ui \
     src/view/AiLvlList.ui \
     src/view/ConnectWidget.ui \
-    src/view/MainWindow.ui
+    src/view/MainWindow.ui \
+    src/view/Settings.ui \
+    src/view/SettingsMenu.ui \
+    src/view/SettingsNetwork.ui
 
 RESOURCES += gui/pictures/pictures.qrc
 

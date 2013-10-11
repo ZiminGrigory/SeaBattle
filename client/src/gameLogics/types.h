@@ -4,6 +4,7 @@
 #include <QPair>
 #include <QSharedPointer>
 #include <QSize>
+#include <QSettings>
 
 namespace Orientation {
 enum Orient{
@@ -18,7 +19,10 @@ enum Widgets{
 	BATTLE,
 	START_MENU,
 	CONNECT,
-	AI_MENU
+	AI_MENU,
+	SETTINGS,
+	SETTINGS_VOLUME,
+	SETTINGS_NETWORK
 };
 
 enum GameType {
@@ -129,6 +133,14 @@ inline QPointF getQPointFByID(int id)
 inline bool checkCoord(int x, int y)
 {
 	return !((x < 0) || (x >= FIELD_ROW_NUM) || (y < 0) || (y >= FIELD_COL_NUM));
+}
+
+static QSettings settings("MySoft", "seaBattle");
+namespace SettingsKey{
+const QString VOLUME_KEY = "audio/volume";
+const QString MUTE_KEY = "audio/mute";
+const QString PORT_KEY = "server/port";
+const QString IP_KEY = "server/ip";
 }
 #endif // TYPES_H
 
