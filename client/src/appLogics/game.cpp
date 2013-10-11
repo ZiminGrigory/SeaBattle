@@ -19,7 +19,7 @@ Game::Game(int& argc, char** argv):
 	connect(view->getInterfaceAiLvlList().data(), SIGNAL(buttonVsProPushed()), SLOT(startAIHardGame()));
 
 	connect(view->getInterfaceSettingsMenu().data(), SIGNAL(buttonBackPushed()), SLOT(gameMenu()));
-
+	connect(view->getInterfaceBattleWidget().data(), SIGNAL(buttonBackPressed()), SLOT(handleBW()));
     gameMenu();
 }
 
@@ -82,6 +82,12 @@ void Game::settingsMenu()
 {
 	hideAllWidget();
 	view->showWidget(SETTINGS);
+}
+
+void Game::handleBW()
+{
+	view->getInterfaceBattleWidget()->clearItself();
+	gameMenu();
 }
 
 void Game::hideAllWidget()

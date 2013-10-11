@@ -52,6 +52,8 @@ public slots:
 	 * @brief settingsMenu start widget with settings menu
 	 */
 	void settingsMenu();
+private slots:
+	void handleBW();
 private:
 	void hideAllWidget();
 	QSharedPointer<InterfaceMainWindow> view;

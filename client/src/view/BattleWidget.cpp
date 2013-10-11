@@ -8,6 +8,7 @@ BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 	ui->setupUi(this);
 	ui->lcdNumber->hide();
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
+	ui->buttonBack->setText(QString::fromLocal8Bit("Назад в главное меню"));
 	mPlayerField = QSharedPointer<InterfaceField>(new Field);
 	mEnemyField = QSharedPointer<InterfaceField>(new Field);;
 	mInfoTab = QSharedPointer<InterfaceInfoTab>(new TabOfInformation);
@@ -20,6 +21,7 @@ BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 	ui->YouCnt->hide();
 	ui->EnemyCntDisplay->hide();
 	ui->YouCntDisplay->hide();
+	connect(ui->buttonBack, SIGNAL(clicked()), SIGNAL(buttonBackPressed()));
 }
 
 void BattleWidget::setMessage(QString text)
@@ -58,6 +60,20 @@ void BattleWidget::showInfoTab()
 {
 	ui->horizontalLayout_2->addWidget(mInfoTab.data());
 	mInfoTab->show();
+}
+
+void BattleWidget::clearItself()
+{
+	mInfoTab->clearItself();
+	mPlayerField->clearItself();
+	mEnemyField->clearItself();
+	mChat->clearChat();
+	ui->EnemyCnt->hide();
+	ui->YouCnt->hide();
+	ui->EnemyCntDisplay->hide();
+	ui->YouCntDisplay->hide();
+	mPlayerField->hide();
+	mEnemyField->hide();
 }
 
 void BattleWidget::showChatAndStatus()

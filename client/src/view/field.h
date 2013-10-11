@@ -23,7 +23,7 @@ public:
 	Cell* getCellView(int id);
 	void addImage(int id, ImageID iD);
 	void removeImageFromCell(int id);
-
+	void clearItself();
 	~Field();
 
 public slots:

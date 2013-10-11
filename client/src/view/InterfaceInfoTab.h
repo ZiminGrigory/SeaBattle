@@ -7,6 +7,7 @@ class InterfaceInfoTab: public QWidget
 {
 public:
 	InterfaceInfoTab(QWidget *parent = 0): QWidget(parent){}
+	virtual void clearItself() = 0;
 
 public slots:
 	virtual void changeCounter(NameOfShips ship, int difference) = 0;

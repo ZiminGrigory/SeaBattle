@@ -26,13 +26,15 @@ public:
 	void showPlayerField();
 	void showEnemyField();
 	void showInfoTab();
+	void clearItself();
 	QSharedPointer<InterfaceField> getPlayerFieldView();
 	QSharedPointer<InterfaceField> getEnemyFieldView();
 	QSharedPointer<InterfaceInfoTab> getInfoTabView();
 	QSharedPointer<InterfaceChatAndStatus> getChatAndStatus();
 	void showCountersOfFleet();
 	void setCountOfFleet(Players plr, int count);
-
+signals:
+	void buttonBackPressed();
 public slots:
 	void setMessage(QString text);
 
