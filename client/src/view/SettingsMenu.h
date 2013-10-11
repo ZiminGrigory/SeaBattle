@@ -25,7 +25,7 @@ private slots:
 	void showVolumeSettings();
 	void hideBoth();
 	void handleNameOfServerWithPort(QString name, quint16 i);
-	void handleVolumeChanged(int i);
+	void handleVolumeChanched(int i);
 	void handleMute(bool isMute);
 
 private:

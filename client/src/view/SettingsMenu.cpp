@@ -61,7 +61,7 @@ void SettingsMenu::handleNameOfServerWithPort(QString name, quint16 i)
 	settings.setValue(SettingsKey::PORT_KEY, i);
 }
 
-void SettingsMenu::handleVolumeChanged(int i)
+void SettingsMenu::handleVolumeChanched(int i)
 {
 	settings.setValue(SettingsKey::VOLUME_KEY, i);
 	emit volumeChanched(i);
