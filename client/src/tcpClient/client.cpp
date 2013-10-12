@@ -1,6 +1,7 @@
 #include "client.h"
 #include "clientstate.h"
 #include "stateCollection.h"
+#include "types.h"
 
 Client::Client(QObject *parent) :
     QObject(parent),
@@ -15,7 +16,17 @@ void Client::connectToServer()
 {
     // abort all connections and return to NoConnectionState
     abort();
-    state->connect(Protocol::ServerName, Protocol::ServerPort);
+	QString serverName = settings.value(SettingsKey::IP_KEY).toString();
+	if (serverName.isEmpty()){
+		serverName = Protocol::ServerName;
+	}
+
+	quint16 port = Protocol::ServerPort;
+
+	if (settings.contains(SettingsKey::PORT_KEY)){
+		port = quint16(settings.value(SettingsKey::PORT_KEY).toInt());
+	}
+	state->connect(serverName, port);
 }
 
 void Client::abort()

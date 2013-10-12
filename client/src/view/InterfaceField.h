@@ -11,6 +11,7 @@ public:
 	virtual void showResult(Players player) = 0;
 	virtual void addImage(int id, ImageID iD) = 0;
 	virtual void removeImageFromCell(int id) = 0;
+	virtual void clearItself() = 0;
 
 public slots:
 	virtual void setEnabledItself(bool switcher) = 0;

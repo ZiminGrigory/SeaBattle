@@ -8,12 +8,7 @@
 #include "connectionMenu.h"
 #include "gameMaster.h"
 #include "MainWindow.h"
-/*
-#include "BattleWidget.h"
-#include "StartMenu.h"
-#include "AiLvlList.h"
-#include "ConnectWidget.h"
-*/
+#include "audioPlayer.h"
 
 class ConnectionMenu;
 
@@ -48,9 +43,18 @@ public slots:
       * Start network game.
       */
     void startNetworkGame(const QSharedPointer<Client>& client);
+	/**
+	 * @brief settingsMenu start widget with settings menu
+	 */
+	void settingsMenu();
+private slots:
+	void handleBW();
 private:
+	void hideAllWidget();
 	QSharedPointer<InterfaceMainWindow> view;
     QSharedPointer<GameMaster> gameMaster;
     QSharedPointer<ConnectionMenu> mConnectionMenu;
+	QSharedPointer<AudioPlayer> audioPlayer;
+
 
 };

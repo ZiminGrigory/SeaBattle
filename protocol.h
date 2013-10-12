@@ -9,11 +9,11 @@ namespace Protocol
     /**
       *
       */
-	const QString ServerName = "192.168.0.106";
+	const QString ServerName = "123.0.0.1";
     /**
       *
       */
-	const quint16 ServerPort = 21539;
+	const quint16 ServerPort = 10000;
     /**
       *
       */

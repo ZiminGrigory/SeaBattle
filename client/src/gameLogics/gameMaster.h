@@ -21,6 +21,7 @@ public:
     GameMaster(GameType type,
                const QSharedPointer<InterfaceBattleWidget>& _view,
                const QSharedPointer<Client>& _client,
+			   const QSharedPointer<AudioPlayer> audioPlayer,
                QObject* parent = 0);
 
     /**
@@ -71,6 +72,7 @@ private:
 
 	int plrFleet;
 	int enemyFleet;
+	bool isFirst;
 };
 
 #endif // GAMEMASTER_H

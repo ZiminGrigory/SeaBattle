@@ -11,6 +11,7 @@ MainWindow::MainWindow() :
 	connectWidget = QSharedPointer<InterfaceConnectWidget> (new ConnectWidget);
 	startMenu = QSharedPointer<InterfaceStartMenu> (new StartMenu);
 	battleWidget = QSharedPointer<InterfaceBattleWidget> (new BattleWidget);
+	settingsMenu = QSharedPointer<InterfaceSettingsMenu> (new SettingsMenu);
 	this->resize(WINDOW_SIZE);
 	QBrush brush(Qt::TexturePattern);
 	brush.setTexture(QPixmap(":/pictures/fon.jpg"));
@@ -45,6 +46,10 @@ void MainWindow::showWidget(Widgets widget)
 		ui->LayoutForWidget->addWidget(aiLvlList.data());
 		aiLvlList->show();
 	break;
+	case SETTINGS:
+		ui->LayoutForWidget->addWidget(settingsMenu.data());
+		settingsMenu->show();
+	break;
 	}
 }
 
@@ -62,6 +67,9 @@ void MainWindow::hideWidget(Widgets widget)
 	break;
 	case AI_MENU:
 		aiLvlList->hide();
+	break;
+	case SETTINGS:
+		settingsMenu->hide();
 	break;
 	}
 }
@@ -84,4 +92,9 @@ QSharedPointer<InterfaceConnectWidget> MainWindow::getInterfaceConnectWidget()
 QSharedPointer<InterfaceStartMenu> MainWindow::getInterfaceStartMenu()
 {
 	return startMenu;
+}
+
+QSharedPointer<InterfaceSettingsMenu> MainWindow::getInterfaceSettingsMenu()
+{
+	return settingsMenu;
 }

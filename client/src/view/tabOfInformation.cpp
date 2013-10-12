@@ -30,6 +30,14 @@ TabOfInformation::~TabOfInformation()
 	delete ui;
 }
 
+void TabOfInformation::clearItself()
+{
+	ui->lcdNumber_4->display(1);
+	ui->lcdNumber_3->display(2);
+	ui->lcdNumber_2->display(3);
+	ui->lcdNumber->display(4);
+}
+
 void TabOfInformation::changeCountOfShip(NameOfShips ship, int count)
 {
 	switch (ship){

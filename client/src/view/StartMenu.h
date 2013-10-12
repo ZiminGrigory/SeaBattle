@@ -20,6 +20,7 @@ signals:
 	void buttonVsPlayerPushed();
 	void buttonVsPcPushed();
 	void buttonExitPushed();
+	void buttonSettingsPushed();
 
 private:
 	Ui::StartMenu *ui;

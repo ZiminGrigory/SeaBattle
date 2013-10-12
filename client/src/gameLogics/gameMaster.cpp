@@ -4,9 +4,9 @@ const int GameMaster::turnTimeout = 30 * 1000;
 
 
 GameMaster::GameMaster(GameType type,
-                       const QSharedPointer<InterfaceBattleWidget> &_view,
-                       const QSharedPointer<Client> &_client,
-                       QObject* parent):
+					   const QSharedPointer<InterfaceBattleWidget> &_view,
+					   const QSharedPointer<Client> &_client, const QSharedPointer<AudioPlayer> audioPlayer,
+					   QObject* parent):
 
     QObject(parent),
     playerField(NULL),
@@ -14,8 +14,9 @@ GameMaster::GameMaster(GameType type,
     player(NULL),
 	enemy(NULL),
     view(_view),
-    audioPlayer(QSharedPointer<AudioPlayer>(new AudioPlayer())),
-    client(_client)
+	audioPlayer(audioPlayer),
+	client(_client),
+	isFirst(true)
 {   
 	view->showPlayerField();
 	view->showInfoTab();
@@ -24,7 +25,7 @@ GameMaster::GameMaster(GameType type,
 
     if (type == AI_SIMPLE_GAME)
     {
-        player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
+		player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
                                                         , view->getPlayerFieldView()
                                                         , view->getEnemyFieldView()
 														, view->getInfoTabView()
@@ -33,7 +34,7 @@ GameMaster::GameMaster(GameType type,
     }
     else if (type == AI_HARD_GAME)
     {
-        player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
+		player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
                                                         , view->getPlayerFieldView()
                                                         , view->getEnemyFieldView()
 														, view->getInfoTabView()
@@ -44,7 +45,7 @@ GameMaster::GameMaster(GameType type,
 
     else if (type == NETWORK_GAME)
     {
-        player = QSharedPointer<Player>(new NetworkHumanPlayer(playerField
+		player = QSharedPointer<Player>(new NetworkHumanPlayer(playerField
                                                                , enemyField
                                                                , view->getPlayerFieldView()
                                                                , view->getEnemyFieldView()
@@ -58,7 +59,7 @@ GameMaster::GameMaster(GameType type,
 
 	mChat = QSharedPointer<LogAndChat>(new LogAndChat(view->getChatAndStatus()));
 
-    turnedPlayer = player;
+	turnedPlayer = player;
 	waitingPlayer = enemy;
     turnTimer.setSingleShot(true);
 }
@@ -85,7 +86,6 @@ void GameMaster::startGame()
 
 void GameMaster::playerReadyToBattle(Player* sender)
 {
-    static bool isFirst = true;
     if (player == sender)
     {
         disconnect(player.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));

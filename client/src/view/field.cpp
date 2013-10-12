@@ -132,6 +132,14 @@ void Field::removeImageFromCell(int id)
 	ui->graphicsView->update();
 }
 
+void Field::clearItself()
+{
+	for (int i = 0; i < field.size(); i++){
+		field[i]->changeStatusOfCell();
+		field[i]->update();
+	}
+}
+
 Field::~Field()
 {
 	for(int i = 0;i < field.size(); i++){

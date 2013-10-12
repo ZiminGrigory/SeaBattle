@@ -1,25 +1,43 @@
 #include "audioPlayer.h"
 #include "QDir"
+#include "types.h"
+
 AudioPlayer::AudioPlayer()
 {
     sound = new QMediaPlayer();
-    sound->setVolume(50);
+	if (settings.contains(SettingsKey::VOLUME_KEY)){
+		int vol = settings.value(SettingsKey::VOLUME_KEY).toInt();
+		sound->setVolume(vol);
+	}
+	else{
+		sound->setVolume(50);
+		settings.setValue((SettingsKey::VOLUME_KEY), 50);
+	}
+	if (settings.contains(SettingsKey::MUTE_KEY)){
+		mIsMute = settings.value(SettingsKey::MUTE_KEY).toBool();
+	}
+	else{
+		settings.setValue((SettingsKey::MUTE_KEY), 0);
+		mIsMute = false;
+	}
 	path = QDir::currentPath();
-    isMute = false;
 }
 
-void AudioPlayer::mute()
+void AudioPlayer::mute(bool isMute)
 {
-    isMute = true;
+	mIsMute = isMute;
+	settings.setValue((SettingsKey::MUTE_KEY), isMute);
+	sound->setMuted(isMute);
 }
 void AudioPlayer::setVolume(int value)
 {
-   sound->setVolume(value);
+	settings.setValue((SettingsKey::VOLUME_KEY), value);
+	sound->setVolume(value);
 }
 
 void AudioPlayer::playSound(Sounds track)
 {
-    if (isMute)
+	if (mIsMute)
         return;
 
     switch (track)
@@ -55,9 +73,9 @@ void AudioPlayer::playSound(Sounds track)
 
 void AudioPlayer::playBackground()
 {
-    if(isMute)
+	if(mIsMute)
         return;
-	 sound->setMedia(QUrl::fromLocalFile(path + "/client/gui/sounds/sea.mp3"));
+	 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/sea.mp3"));
     sound->play();
 }
 

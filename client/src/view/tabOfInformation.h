@@ -14,6 +14,7 @@ class TabOfInformation : public InterfaceInfoTab
 public:
 	explicit TabOfInformation();
 	~TabOfInformation();
+	void clearItself();
 	void changeCountOfShip(NameOfShips ship, int count);
 
 public slots:
