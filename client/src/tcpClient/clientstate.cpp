@@ -56,8 +56,6 @@ void ClientState::readyReadHandler()
 
 void ClientState::writeToSocket(Protocol::RequestType type, const QByteArray &bytes)
 {
-    QAbstractSocket::SocketState test = getSocket()->state();
-
     QByteArray byteArray;
     QDataStream out(&byteArray, QIODevice::WriteOnly);
     out.setVersion(Protocol::QDataStreamVersion);

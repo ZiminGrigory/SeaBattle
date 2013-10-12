@@ -8,8 +8,9 @@ namespace Protocol
 {
     /**
       *
-      */
+	  */
 	const QString ServerName = "123.0.0.1";
+
     /**
       *
       */
@@ -47,7 +48,9 @@ namespace Protocol
         FLEET_INSTALLED = 30,
         // message about remote player's turn
         // expected that next byte are the id of attacked cell
-        TURN_MADE = 31
+        TURN_MADE = 31,
+        // contains the chat text recieved from remote player
+        CHAT_MESSAGE = 32
     };
 
     /**

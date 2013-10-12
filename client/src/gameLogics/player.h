@@ -47,6 +47,10 @@ signals:
     /**
       * After player recieves information about enemy turn, he emits this signal with result of attack.
       */
+    /**
+      * Emits when player print some text to chat.
+      */
+    void chat(const QString& message);
     //void attackResult(AttackStatus res);
 public slots:
     void autoInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);

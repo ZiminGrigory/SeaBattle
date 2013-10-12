@@ -4,7 +4,7 @@
 
 AudioPlayer::AudioPlayer()
 {
-    sound = new QMediaPlayer();
+	sound = new QMediaPlayer();
 	if (settings.contains(SettingsKey::VOLUME_KEY)){
 		int vol = settings.value(SettingsKey::VOLUME_KEY).toInt();
 		sound->setVolume(vol);
@@ -27,7 +27,6 @@ void AudioPlayer::mute(bool isMute)
 {
 	mIsMute = isMute;
 	settings.setValue((SettingsKey::MUTE_KEY), isMute);
-	sound->setMuted(isMute);
 }
 void AudioPlayer::setVolume(int value)
 {

@@ -76,6 +76,15 @@ void RemotePlayer::parseRecievedRequest(Protocol::RequestType type, const QByteA
         turnMadeHandler(id);
         return;
     }
+    case Protocol::CHAT_MESSAGE:
+    {
+        if (bytes.size() == 0)
+        {
+            return;
+        }
+        QString message = QString::fromLocal8Bit(bytes.mid(4));
+        chatMessageHandler(message);
+    }
     }
 }
 
@@ -111,57 +120,7 @@ void RemotePlayer::turnMadeHandler(int id)
     }
 }
 
-
-/*
-void RemotePlayer::connectedToPlayerSlot()
+void RemotePlayer::chatMessageHandler(const QString& message)
 {
-    qDebug() << "Connection success";
+    emit chat(message);
 }
-*/
-
-/*
-void RemotePlayer::errorHandler(QAbstractSocket::SocketError socketError)
-{
-    switch (socketError)
-    {
-    case QAbstractSocket::RemoteHostClosedError:
-        qDebug << "The remote host closed the connection.";
-        break;
-    case QAbstractSocket::HostNotFoundError:
-        qDebug() << "The host was not found. Please check the host name and port settings.";
-        break;
-    case QAbstractSocket::ConnectionRefusedError:
-        qDebug() << "The connection was refused by the peer.";
-        break;
-    default:
-        qDebug << "The following error occurred: " << socketError;
-    }
-}
-*/
-
-/*
-void RemotePlayer::connectedToPlayerSlot()
-{
-    qDebug() << "Connection success";
-}
-*/
-
-/*
-void RemotePlayer::errorHandler(QAbstractSocket::SocketError socketError)
-{
-    switch (socketError)
-    {
-    case QAbstractSocket::RemoteHostClosedError:
-        qDebug << "The remote host closed the connection.";
-        break;
-    case QAbstractSocket::HostNotFoundError:
-        qDebug() << "The host was not found. Please check the host name and port settings.";
-        break;
-    case QAbstractSocket::ConnectionRefusedError:
-        qDebug() << "The connection was refused by the peer.";
-        break;
-    default:
-        qDebug << "The following error occurred: " << socketError;
-    }
-}
-*/
