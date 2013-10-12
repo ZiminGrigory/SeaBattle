@@ -178,17 +178,17 @@ void Field::getCoordinate(QPointF first, QPointF second)
 			condition = true;
 		}
 		i++;
-	}while (!condition);
+	}while (!condition && i < list.size());
 	condition = false;
 	firstCell = list.at(i - 1);
 	i = 0;
 	do{
 		qDebug() << list2.at(i)->data(DATA_KEY).toInt();
-		if (list.at(i)->data(DATA_KEY_NAME).toString() == "cell"){
+		if (list2.at(i)->data(DATA_KEY_NAME).toString() == "cell"){
 			condition = true;
 		}
 		i++;
-	}while (!condition);
+	}while (!condition && i < list2.size());
 	secondCell = list2.at(i - 1);
 	emit placeShip(firstCell->data(DATA_KEY).toInt(), secondCell->data(DATA_KEY).toInt());
 }
