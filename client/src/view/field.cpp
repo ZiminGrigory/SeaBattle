@@ -47,6 +47,9 @@ void Field::paintCell(int id, Textures texture)
 
 void Field::showAttackStatus(AttackStatus status)
 {
+	if (itemForMessage != NULL){
+		deleteMessage();
+	}
 	switch (int(status)) {
 	case MISS:
 		attackStatus = new QMovie(":/pictures/miss.gif");
@@ -198,12 +201,17 @@ void Field::deleteShipOnCell(int id)
 
 void Field::deleteMessage()
 {
-	disconnect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
-	timer.stop();
-	mScene->removeItem(itemForMessage);
-	delete itemForMessage;
-	delete attackStatus;
-	ui->graphicsView->update();
+
+	if (itemForMessage != NULL && attackStatus != NULL){
+		disconnect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
+		timer.stop();
+		mScene->removeItem(itemForMessage);
+		delete itemForMessage;
+		delete attackStatus;
+		itemForMessage = NULL;
+		attackStatus = NULL;
+		ui->graphicsView->update();
+	}
 }
 
 void Field::updateBackground(QRect)
