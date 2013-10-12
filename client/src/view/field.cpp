@@ -23,6 +23,7 @@ Field::Field() :
 			Cell *item = new Cell(x, y);
 			field[(i - 1) * 10 + j - 1] = item;
 			item->setData(DATA_KEY, (i - 1) * 10 + j - 1);
+			item->setData(DATA_KEY_NAME, "cell");
 			item->setPos((j - 1) * x, (i - 1) * y);
 			connect(item, SIGNAL(attacked(int)), SIGNAL(attack(int)));\
 			connect(item, SIGNAL(getCoordinate(QPointF,QPointF)), this, SLOT(getCoordinate(QPointF,QPointF)));
@@ -47,6 +48,9 @@ void Field::paintCell(int id, Textures texture)
 
 void Field::showAttackStatus(AttackStatus status)
 {
+	if (itemForMessage != NULL){
+		deleteMessage();
+	}
 	switch (int(status)) {
 	case MISS:
 		attackStatus = new QMovie(":/pictures/miss.gif");
@@ -170,23 +174,21 @@ void Field::getCoordinate(QPointF first, QPointF second)
 	bool condition = false;
 	do{
 		qDebug() << list.at(i)->data(DATA_KEY).toInt();
-		condition = list.at(i)->data(DATA_KEY).toInt();
-		if (list.at(i)->data(DATA_KEY).toInt() == 0){
+		if (list.at(i)->data(DATA_KEY_NAME).toString() == "cell"){
 			condition = true;
 		}
 		i++;
-	}while (!condition);
+	}while (!condition && i < list.size());
 	condition = false;
 	firstCell = list.at(i - 1);
 	i = 0;
 	do{
 		qDebug() << list2.at(i)->data(DATA_KEY).toInt();
-		condition = list2.at(i)->data(DATA_KEY).toInt();
-		if (list.at(i)->data(DATA_KEY).toInt() == 0){
+		if (list2.at(i)->data(DATA_KEY_NAME).toString() == "cell"){
 			condition = true;
 		}
 		i++;
-	}while (!condition);
+	}while (!condition && i < list2.size());
 	secondCell = list2.at(i - 1);
 	emit placeShip(firstCell->data(DATA_KEY).toInt(), secondCell->data(DATA_KEY).toInt());
 }
@@ -198,12 +200,16 @@ void Field::deleteShipOnCell(int id)
 
 void Field::deleteMessage()
 {
-	disconnect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
-	timer.stop();
-	mScene->removeItem(itemForMessage);
-	delete itemForMessage;
-	delete attackStatus;
-	ui->graphicsView->update();
+	if (itemForMessage != NULL && attackStatus != NULL){
+		disconnect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
+		timer.stop();
+		mScene->removeItem(itemForMessage);
+		delete itemForMessage;
+		delete attackStatus;
+		itemForMessage = NULL;
+		attackStatus = NULL;
+		ui->graphicsView->update();
+	}
 }
 
 void Field::updateBackground(QRect)
