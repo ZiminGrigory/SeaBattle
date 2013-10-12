@@ -14,20 +14,20 @@ AudioPlayer::AudioPlayer()
 		settings.setValue((SettingsKey::VOLUME_KEY), 50);
 	}
 	if (settings.contains(SettingsKey::MUTE_KEY)){
-		isMute = settings.value(SettingsKey::MUTE_KEY).toBool();
+		mIsMute = settings.value(SettingsKey::MUTE_KEY).toBool();
 	}
 	else{
 		settings.setValue((SettingsKey::MUTE_KEY), 0);
-		isMute = false;
+		mIsMute = false;
 	}
 	path = QDir::currentPath();
 }
 
-void AudioPlayer::mute()
+void AudioPlayer::mute(bool isMute)
 {
-    isMute = true;
-	settings.setValue((SettingsKey::MUTE_KEY), 0);
-	sound->setMuted(true);
+	mIsMute = isMute;
+	settings.setValue((SettingsKey::MUTE_KEY), isMute);
+	sound->setMuted(isMute);
 }
 void AudioPlayer::setVolume(int value)
 {
@@ -37,7 +37,7 @@ void AudioPlayer::setVolume(int value)
 
 void AudioPlayer::playSound(Sounds track)
 {
-    if (isMute)
+	if (mIsMute)
         return;
 
     switch (track)
@@ -73,7 +73,7 @@ void AudioPlayer::playSound(Sounds track)
 
 void AudioPlayer::playBackground()
 {
-    if(isMute)
+	if(mIsMute)
         return;
 	 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/sea.mp3"));
     sound->play();

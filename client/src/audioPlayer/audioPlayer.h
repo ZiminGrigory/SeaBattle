@@ -18,18 +18,19 @@ enum Sounds
 };
 
 
-class AudioPlayer
+class AudioPlayer: public QObject
 {
-
+Q_OBJECT
 public:
-    AudioPlayer();
-    void playSound(Sounds track);
-    void mute();
-    void playBackground();
-    void setVolume(int value);
+	AudioPlayer();
+	void playBackground();
+	void playSound(Sounds track);
+public slots:
+	void setVolume(int value);
+	void mute(bool isMute);
 private:
 	QString path;
-    bool isMute;
+	bool mIsMute;
     QMediaPlayer * sound;
 
 };

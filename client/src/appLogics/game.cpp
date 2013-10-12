@@ -8,6 +8,12 @@ Game::Game(int& argc, char** argv):
 {
     QSharedPointer<InterfaceConnectWidget> connectWidget = view->getInterfaceConnectWidget();
     mConnectionMenu = QSharedPointer<ConnectionMenu>(new ConnectionMenu(this, connectWidget));
+	audioPlayer = QSharedPointer<AudioPlayer> (new AudioPlayer);
+
+	connect(view->getInterfaceSettingsMenu().data(), SIGNAL(volumeChanched(int))
+			, audioPlayer.data(), SLOT(setVolume(int)));
+	connect(view->getInterfaceSettingsMenu().data(), SIGNAL(mute(bool))
+			, audioPlayer.data(), SLOT(mute(bool)));
 
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonExitPushed()), SLOT(closeAllWindows()));
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonVsPcPushed()), SLOT(aiLevelMenu()));
@@ -26,8 +32,11 @@ Game::Game(int& argc, char** argv):
 void Game::gameMenu()
 {
 	hideAllWidget();
-	view->show();
 	view->showWidget(START_MENU);
+	view->getInterfaceStartMenu()->resize(WINDOW_SIZE);
+	view->resize(WINDOW_SIZE);
+	view->update();
+	view->show();
 }
 
 void Game::aiLevelMenu()
@@ -47,9 +56,11 @@ void Game::startAISimpleGame()
 {
 	hideAllWidget();
 	view->showWidget(BATTLE);
+	gameMaster.reset();
     gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_SIMPLE_GAME,
                                                            view->getInterfaceBattleWidget(),
                                                            QSharedPointer<Client>(NULL),
+														   audioPlayer,
                                                            this));
 	gameMaster->startGame();
 }
@@ -58,9 +69,11 @@ void Game::startAIHardGame()
 {
 	hideAllWidget();
 	view->showWidget(BATTLE);
+	gameMaster.reset();
     gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_HARD_GAME,
                                                            view->getInterfaceBattleWidget(),
                                                            QSharedPointer<Client>(NULL),
+														   audioPlayer,
                                                            this));
 	gameMaster->startGame();
 }
@@ -69,9 +82,11 @@ void Game::startNetworkGame(const QSharedPointer<Client>& client)
 {
 	hideAllWidget();
     view->showWidget(BATTLE);
+	gameMaster.reset();
     gameMaster = QSharedPointer<GameMaster>(new GameMaster(NETWORK_GAME,
                                                            view->getInterfaceBattleWidget(),
                                                            client,
+														   audioPlayer,
                                                            this));
     gameMaster->startGame();
 

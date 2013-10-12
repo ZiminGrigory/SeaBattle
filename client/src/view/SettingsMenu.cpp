@@ -18,8 +18,8 @@ SettingsMenu::SettingsMenu() :
 	netorkSettings = QSharedPointer<InterfaceNetworkSettings> (new SettingsNetwork);
 	connect(volSettings.data(), SIGNAL(buttonBackPushed()), SLOT(hideBoth()));
 	connect(netorkSettings.data(), SIGNAL(buttonBackPushed()), SLOT(hideBoth()));
-	connect(volSettings.data(), SIGNAL(changeVolume(int)), SLOT(handleVolumeChanched(int)));
-	connect(volSettings.data(), SIGNAL(mute(bool)), SLOT(handleMute(bool)));
+	connect(volSettings.data(), SIGNAL(changeVolume(int)), SIGNAL(volumeChanched(int)));
+	connect(volSettings.data(), SIGNAL(mute(bool)), SIGNAL(mute(bool)));
 	connect(netorkSettings.data(), SIGNAL(nameOfServerWithPort(QString,quint16))
 			, SLOT(handleNameOfServerWithPort(QString,quint16)));
 
@@ -59,16 +59,4 @@ void SettingsMenu::handleNameOfServerWithPort(QString name, quint16 i)
 {
 	settings.setValue(SettingsKey::IP_KEY, name);
 	settings.setValue(SettingsKey::PORT_KEY, i);
-}
-
-void SettingsMenu::handleVolumeChanched(int i)
-{
-	settings.setValue(SettingsKey::VOLUME_KEY, i);
-	emit volumeChanched(i);
-}
-
-void SettingsMenu::handleMute(bool isMute)
-{
-	settings.setValue(SettingsKey::MUTE_KEY, isMute);
-	emit mute(isMute);
 }

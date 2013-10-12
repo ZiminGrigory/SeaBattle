@@ -25,8 +25,6 @@ private slots:
 	void showVolumeSettings();
 	void hideBoth();
 	void handleNameOfServerWithPort(QString name, quint16 i);
-	void handleVolumeChanched(int i);
-	void handleMute(bool isMute);
 
 private:
 	Ui::SettingsMenu *ui;

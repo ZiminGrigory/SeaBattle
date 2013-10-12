@@ -22,6 +22,7 @@ BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 	ui->EnemyCntDisplay->hide();
 	ui->YouCntDisplay->hide();
 	connect(ui->buttonBack, SIGNAL(clicked()), SIGNAL(buttonBackPressed()));
+
 }
 
 void BattleWidget::setMessage(QString text)
@@ -51,9 +52,10 @@ void BattleWidget::showPlayerField()
 void BattleWidget::showEnemyField()
 {
 	ui->lcdNumber->show();
-	ui->horizontalLayout_2->itemAt(1)->widget()->hide();
+	ui->horizontalLayout_2->removeWidget(mInfoTab.data());
 	ui->horizontalLayout_2->addWidget(mEnemyField.data());
 	mEnemyField->show();
+	mInfoTab->hide();
 }
 
 void BattleWidget::showInfoTab()
@@ -64,6 +66,9 @@ void BattleWidget::showInfoTab()
 
 void BattleWidget::clearItself()
 {
+	ui->horizontalLayout_2->removeWidget(mEnemyField.data());
+	ui->horizontalLayout_2->removeWidget(mPlayerField.data());
+	ui->lcdNumber->hide();
 	mInfoTab->clearItself();
 	mPlayerField->clearItself();
 	mEnemyField->clearItself();

@@ -8,12 +8,7 @@
 #include "connectionMenu.h"
 #include "gameMaster.h"
 #include "MainWindow.h"
-/*
-#include "BattleWidget.h"
-#include "StartMenu.h"
-#include "AiLvlList.h"
-#include "ConnectWidget.h"
-*/
+#include "audioPlayer.h"
 
 class ConnectionMenu;
 
@@ -59,5 +54,7 @@ private:
 	QSharedPointer<InterfaceMainWindow> view;
     QSharedPointer<GameMaster> gameMaster;
     QSharedPointer<ConnectionMenu> mConnectionMenu;
+	QSharedPointer<AudioPlayer> audioPlayer;
+
 
 };
