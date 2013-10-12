@@ -4,8 +4,9 @@ const int GameMaster::turnTimeout = 30 * 1000;
 
 
 GameMaster::GameMaster(GameType type,
-					   const QSharedPointer<InterfaceBattleWidget> &_view,
-					   QObject* parent):
+                       const QSharedPointer<InterfaceBattleWidget> &_view,
+                       const QSharedPointer<Client> &_client,
+                       QObject* parent):
 
     QObject(parent),
     playerField(NULL),
@@ -13,27 +14,52 @@ GameMaster::GameMaster(GameType type,
     player(NULL),
 	enemy(NULL),
     view(_view),
-    audioPlayer(QSharedPointer<AudioPlayer>(new AudioPlayer()))
+    audioPlayer(QSharedPointer<AudioPlayer>(new AudioPlayer())),
+    client(_client)
 {   
 	view->showPlayerField();
 	view->showInfoTab();
     playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
-	player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
-													, view->getPlayerFieldView()
-                                                    , view->getEnemyFieldView()
-                                                    , view->getInfoTabView()));
     if (type == AI_SIMPLE_GAME)
     {
+        player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
+                                                        , view->getPlayerFieldView()
+                                                        , view->getEnemyFieldView()
+														, view->getInfoTabView()
+														, view->getChatAndStatus()));
         enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
     }
     else if (type == AI_HARD_GAME)
     {
+        player = QSharedPointer<Player>(new HumanPlayer(playerField, enemyField
+                                                        , view->getPlayerFieldView()
+                                                        , view->getEnemyFieldView()
+														, view->getInfoTabView()
+														, view->getChatAndStatus()));
         // ai hard not implemented yet
         enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
     }
 
+    else if (type == NETWORK_GAME)
+    {
+        player = QSharedPointer<Player>(new NetworkHumanPlayer(playerField
+                                                               , enemyField
+                                                               , view->getPlayerFieldView()
+                                                               , view->getEnemyFieldView()
+                                                               , view->getInfoTabView()
+															   , view->getChatAndStatus()
+                                                               , client));
+        enemy = QSharedPointer<Player>(new RemotePlayer(enemyField
+                                                        , playerField
+                                                        , client));
+    }
+
+	mChat = QSharedPointer<LogAndChat>(new LogAndChat(view->getChatAndStatus()));
+
+    turnedPlayer = player;
+	waitingPlayer = enemy;
     turnTimer.setSingleShot(true);
 }
 
@@ -54,9 +80,7 @@ void GameMaster::startGame()
 											 enemyField, QSharedPointer<InterfaceInfoTab>(NULL)));
     enemy->installFleet(enemyInst);
 
-    turnedPlayer = player;
-    waitingPlayer = enemy;
-    audioPlayer->playSound(BEGIN_SOUND);
+	audioPlayer->playSound(BEGIN_SOUND);
 }
 
 void GameMaster::playerReadyToBattle(Player* sender)
@@ -65,16 +89,31 @@ void GameMaster::playerReadyToBattle(Player* sender)
     if (player == sender)
     {
         disconnect(player.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
+        if (isFirst)
+        {
+            turnedPlayer = player;
+            waitingPlayer = enemy;
+        }
     }
     else if (enemy == sender)
     {
         disconnect(enemy.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
+        if (isFirst)
+        {
+            turnedPlayer = enemy;
+            waitingPlayer = player;
+        }
     }
     if (!isFirst)
     {
         view->showEnemyField();
         view->getEnemyFieldView()->setEnabled(true);
         view->getPlayerFieldView()->setEnabled(false);
+		plrFleet = 10;
+		enemyFleet = 10;
+		view->setCountOfFleet(YOU, plrFleet);
+		view->setCountOfFleet(ENEMY, enemyFleet);
+		view->showCountersOfFleet();
         offerTurn();
     }
     isFirst = false;
@@ -103,6 +142,11 @@ void GameMaster::informOpponent(int id, AttackStatus turnResult)
     //disconnect(&turnTimer, SIGNAL(timeout()), turnedPlayer.data(), SLOT(randomTurn()));
 
     waitingPlayer->enemyTurn(id);
+	if(turnedPlayer == player) {
+		mChat->cellAttacked(ENEMY, id, turnResult);
+	} else {
+		mChat->cellAttacked(YOU, id, turnResult);
+	}
     nextTurn(turnResult);
 }
 
@@ -127,18 +171,24 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         ptrPlayer tmp = turnedPlayer;
         turnedPlayer = waitingPlayer;
         waitingPlayer = tmp;
-        audioPlayer->playSound(MISS_SOUND);
-
+		audioPlayer->playSound(MISS_SOUND);
     }
     else if (turnResult == WOUNDED)
     {
         // if ship was wounded or killed then
         // next turn make the same player
-        audioPlayer->playSound(WOUNDED_SOUND);
+		audioPlayer->playSound(WOUNDED_SOUND);
     }
     else if (turnResult == KILLED)
-    {
+	{
         audioPlayer->playSound(KILLED_SOUND);
+		if (turnedPlayer == player){
+			enemyFleet--;
+			view->setCountOfFleet(ENEMY, enemyFleet);
+		} else {
+			plrFleet--;
+			view->setCountOfFleet(YOU, plrFleet);
+		}
     }
     if (player->lose())
     {

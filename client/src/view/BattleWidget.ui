@@ -160,6 +160,12 @@
            <height>30</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="digitCount">
           <number>2</number>
          </property>

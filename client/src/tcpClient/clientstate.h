@@ -18,7 +18,7 @@ class ClientState : public QObject
 {
     Q_OBJECT
 public:
-    explicit ClientState(const QWeakPointer<Client>& _client, QObject *parent = 0);
+    explicit ClientState(Client* _client, QObject *parent = 0);
 
     virtual ~ClientState() {}
     
@@ -75,22 +75,31 @@ protected:
     /**
       *
       */
+    QSharedPointer<QTcpSocket> getSocket();
+    /**
+      *
+      */
+    void setSocket(const QSharedPointer<QTcpSocket>& socket);
+    /**
+      *
+      */
     QSharedPointer<StateCollection> getStateCollection() const;
     /**
       *
       */
     void moveIntoState(const QSharedPointer<ClientState>& newState);
 
-    QWeakPointer<Client> client;
-    QSharedPointer<QTcpSocket> socket;
-private:
+    Client* client;
+protected slots:
     /**
       * This slot connected to readeRead signal of socket.
       * It recieves request from socket and calls handleRecievedRequest() method of concrete subclass to handle request.
       */
     void readyReadHandler();
+private:
 
     quint16 blockSize;
+
 };
 
 inline void ClientState::connect(const QString &hostName, quint16 port) throw (Protocol::AlreadyConnected)

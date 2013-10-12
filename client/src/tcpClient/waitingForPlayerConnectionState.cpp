@@ -2,10 +2,10 @@
 #include "stateCollection.h"
 #include "waitingForPlayerConnectionState.h"
 
-WaitingForPlayerConnectionState::WaitingForPlayerConnectionState(const QWeakPointer<Client> _client, QObject* parent):
+WaitingForPlayerConnectionState::WaitingForPlayerConnectionState(Client* _client, QObject* parent):
     ClientState(_client, parent)
 {
-    QObject::connect(this, SIGNAL(connectedWithPlayer()), client.data(), SIGNAL(connectedWithPlayer()));
+    QObject::connect(this, SIGNAL(connectedWithPlayer()), client, SIGNAL(connectedWithPlayer()));
 }
 
 void WaitingForPlayerConnectionState::connect(const QString &hostName, quint16 port) throw(Protocol::AlreadyConnected)
@@ -16,24 +16,25 @@ void WaitingForPlayerConnectionState::connect(const QString &hostName, quint16 p
 
 void WaitingForPlayerConnectionState::abort()
 {
-    disconnect(socket.data(), SIGNAL(connected()), this, SIGNAL(connectedHandler()));
-    socket->abort();
+    disconnect(getSocket().data(), SIGNAL(connected()), this, SIGNAL(connectedHandler()));
+    getSocket()->abort();
     moveIntoState(getStateCollection()->getNoConnectionState());
 }
 
 
 void WaitingForPlayerConnectionState::init()
 {
-    QObject::connect(socket.data(), SIGNAL(connected()), this, SLOT(connectedHandler()));
-    QObject::connect(socket.data(), SIGNAL((error(QAbstractSocket::SocketError))),
-                     this, SLOT(errorHandler(QAbstractSocket::SocketError)));
+    QObject::connect(getSocket().data(), SIGNAL(connected()), this, SLOT(connectedHandler()));
+    QObject::connect(getSocket().data(), SIGNAL(error(QAbstractSocket::SocketError)),
+                     SLOT(errorHandler(QAbstractSocket::SocketError)));
 }
 
 void WaitingForPlayerConnectionState::connectedHandler()
 {
-    disconnect(socket.data(), SIGNAL(connected()), this, SIGNAL(connectedHandler()));
-    disconnect(socket.data(), SIGNAL((error(QAbstractSocket::SocketError))),
+    disconnect(getSocket().data(), SIGNAL(connected()), this, SIGNAL(connectedHandler()));
+    disconnect(getSocket().data(), SIGNAL(error(QAbstractSocket::SocketError)),
                      this, SLOT(errorHandler(QAbstractSocket::SocketError)));
+
     moveIntoState(getStateCollection()->getGameState());
     emit connectedWithPlayer();
 }

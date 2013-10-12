@@ -7,9 +7,10 @@ NetworkHumanPlayer::NetworkHumanPlayer(const QSharedPointer<GameField>& plrField
 									   const QSharedPointer<InterfaceField> &_plrFieldView,
 									   const QSharedPointer<InterfaceField> &_enmFieldView,
 									   const QSharedPointer<InterfaceInfoTab> &_infoTab,
+									   const QSharedPointer<InterfaceChatAndStatus> &_chat,
                                        const QSharedPointer<Client>& _client,
 									   QObject* parent):
-    HumanPlayer(plrField,enmField,_plrFieldView,_enmFieldView, _infoTab, parent),
+	HumanPlayer(plrField,enmField,_plrFieldView,_enmFieldView, _infoTab, _chat, parent),
     client(_client)
 {
 }
@@ -18,8 +19,8 @@ void NetworkHumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &flee
 {
     HumanPlayer::installFleet(fleetInstaller);
 
-    connect(fleetInst.data(), SIGNAL(fleetInstalled(QVector<FleetInstaller::ptrShip)),
-            this, SLOT(sendPlayerFleet(QVector<FleetInstaller::ptrShip>)));
+    connect(fleetInst.data(), SIGNAL(fleetInstalled(QVector<ptrShip>)),
+            this, SLOT(sendPlayerFleet(QVector<ptrShip>)));
 }
 
 void NetworkHumanPlayer::cellWasAttacked(int id)
@@ -34,7 +35,7 @@ void NetworkHumanPlayer::cellWasAttacked(int id)
     client->send(Protocol::TURN_MADE, byteArray);
 }
 
-void NetworkHumanPlayer::sendPlayerFleet(QVector<FleetInstaller::ptrShip> fleet)
+void NetworkHumanPlayer::sendPlayerFleet(QVector<ptrShip> fleet)
 {
     QByteArray byteArray;
     QDataStream out(&byteArray, QIODevice::WriteOnly);
@@ -46,15 +47,22 @@ void NetworkHumanPlayer::sendPlayerFleet(QVector<FleetInstaller::ptrShip> fleet)
         ShipInfo shipInfo;
         shipInfo.size = ship->size();
         shipInfo.id = ship->getCoordinate().at(0);
-        if (ship->getCoordinate().at(1) == (ship->getCoordinate().at(0) + 1))
+        if (shipInfo.size > 1)
         {
-            shipInfo.orientation = '1';
+            if (ship->getCoordinate().at(1) == (ship->getCoordinate().at(0) + 1))
+            {
+                shipInfo.orientation = true;
+            }
+            else
+            {
+                shipInfo.orientation = false;
+            }
+            out << shipInfo.size << shipInfo.id << shipInfo.orientation;
         }
         else
         {
-            shipInfo.orientation = '0';
+            out << shipInfo.size << shipInfo.id << quint8(0);
         }
-        out << shipInfo.size << shipInfo.id << shipInfo.orientation;
     }
     client->send(Protocol::FLEET_INSTALLED, byteArray);
 }

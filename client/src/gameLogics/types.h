@@ -3,6 +3,8 @@
 #include <QPointF>
 #include <QPair>
 #include <QSharedPointer>
+#include <QSize>
+
 namespace Orientation {
 enum Orient{
 	UP,
@@ -97,6 +99,8 @@ enum ImageID{
 const int FIELD_ROW_NUM = 10;
 const int FIELD_COL_NUM = 10;
 const int DATA_KEY = 15;
+
+const QSize WINDOW_SIZE = QSize(400, 300);
 
 const int sizeOfCube = 300;
 const int sizeOfCubeDivTen = 30;

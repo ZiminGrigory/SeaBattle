@@ -60,7 +60,6 @@ public slots:
       */
     void send(Protocol::RequestType type, const QByteArray& bytes)
         throw(Protocol::SendingForbidden, Protocol::RequestTypeForbidden);
-    
 private:
     /**
       *

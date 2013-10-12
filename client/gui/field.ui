@@ -24,7 +24,7 @@
        <item>
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>a</string>
+          <string>A</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -34,7 +34,7 @@
        <item>
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>b</string>
+          <string>B</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -44,7 +44,7 @@
        <item>
         <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>c</string>
+          <string>C</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -54,7 +54,7 @@
        <item>
         <widget class="QLabel" name="label_9">
          <property name="text">
-          <string>d</string>
+          <string>D</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -64,7 +64,7 @@
        <item>
         <widget class="QLabel" name="label_10">
          <property name="text">
-          <string>e</string>
+          <string>E</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -74,7 +74,7 @@
        <item>
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>f</string>
+          <string>F</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -84,7 +84,7 @@
        <item>
         <widget class="QLabel" name="label_8">
          <property name="text">
-          <string>g</string>
+          <string>G</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -94,7 +94,7 @@
        <item>
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>h</string>
+          <string>H</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -107,7 +107,7 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>i</string>
+          <string>I</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -117,7 +117,7 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>j</string>
+          <string>J</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>

@@ -9,11 +9,19 @@ namespace Protocol
     /**
       *
       */
-    const QString ServerName = "";
+	const QString ServerName = "192.168.0.106";
     /**
       *
       */
-    const quint16 ServerPort = 30010;
+	const quint16 ServerPort = 21539;
+    /**
+      *
+      */
+	const quint16 ClientPort = 21433;
+    /**
+      *
+      */
+	const quint16 ClientPortTest = 21434;
     /**
       *
       */
@@ -32,6 +40,7 @@ namespace Protocol
         // It is used to check whether player still looking for a game.
         SEEKING_GAME = 10,
         // request to server for the game searching
+        // also contains port of supported socket
         SEARCH_GAME = 20,
         // this request is sent after the remote player installed his fleet
         // expected that next 30 bytes describe the fleet (each ship is defined by his top left id, size & orientation)
@@ -66,7 +75,7 @@ namespace Protocol
         quint8 size;
         quint8 id;
         // true - horizontal, false - vertical
-        quint8 orientation;
+        bool orientation;
     };
 }
 

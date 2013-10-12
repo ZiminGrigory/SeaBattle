@@ -1,6 +1,7 @@
 #ifndef AUDIOPLAYER_H
 #define AUDIOPLAYER_H
-#include <QMediaPlayer.h>
+
+#include <QMediaPlayer>
 
 
 
@@ -27,6 +28,7 @@ public:
     void playBackground();
     void setVolume(int value);
 private:
+	QString path;
     bool isMute;
     QMediaPlayer * sound;
 

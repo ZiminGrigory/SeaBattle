@@ -18,23 +18,26 @@ public:
     /**
       * @var _socket Constructor expects recieve QTcpSocket connected with the remote instance of game client.
       */
-    NetworkHumanPlayer(const QSharedPointer<GameField> &plrField,
-                       const QSharedPointer<GameField>& enmField,
+	NetworkHumanPlayer(const QSharedPointer<GameField> &plrField,
+					   const QSharedPointer<GameField>& enmField,
 					   const QSharedPointer<InterfaceField>& _plrFieldView,
 					   const QSharedPointer<InterfaceField>& _enmFieldView,
 					   const QSharedPointer<InterfaceInfoTab>& _infoTab,
-                       const QSharedPointer<Client>& _client,
-                       QObject *parent = 0);
+					   const QSharedPointer<InterfaceChatAndStatus> &_chat,
+					   const QSharedPointer<Client>& _client,
+					   QObject *parent = 0);
 
 public slots:
     void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
 protected slots:
     void cellWasAttacked(int id);
+private:
+    typedef QSharedPointer<Ship> ptrShip;
 private slots:
    /**
      * Sends player's fleet to the remote instance of the game client.
      */
-    void sendPlayerFleet(QVector<FleetInstaller::ptrShip> fleet);
+    void sendPlayerFleet(QVector<ptrShip> fleet);
 private:
     QSharedPointer<Client> client;
 };

@@ -8,7 +8,7 @@ class WaitingForPlayerConnectionState : public ClientState
 {
     Q_OBJECT
 public:
-    explicit WaitingForPlayerConnectionState(const QWeakPointer<Client> _client, QObject *parent = 0);
+    explicit WaitingForPlayerConnectionState(Client* _client, QObject *parent = 0);
 signals:
     void connectedWithPlayer();
 public slots:

@@ -19,6 +19,7 @@ public:
 						 const QSharedPointer<InterfaceField>& _plrFieldView,
 						 const QSharedPointer<InterfaceField>& _enmFieldView,
 						 const QSharedPointer<InterfaceInfoTab> &_infoTab,
+						 const QSharedPointer<InterfaceChatAndStatus> &_chat,
 						 QObject *parent = 0);
     
     // for test purpose
@@ -52,6 +53,7 @@ protected:
 
     QSharedPointer<FleetInstaller> fleetInst;
 	QSharedPointer<InterfaceInfoTab> infoTab;
+	QSharedPointer<InterfaceChatAndStatus> mChat;
 	bool myTurn;
 };
 

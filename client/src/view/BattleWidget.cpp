@@ -14,9 +14,9 @@ BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 	mChat = QSharedPointer<InterfaceChatAndStatus>(new ChatAndStatus);
 	timer.setSingleShot(false);
 	showChatAndStatus();
-	ui->EnemyCnt->setText(QString::fromLocal8Bit("Осталось кораблей:"));
+	ui->EnemyCnt->setText(QString::fromLocal8Bit("<font color = black>Осталось кораблей:<\\font>"));
 	ui->EnemyCnt->hide();
-	ui->YouCnt->setText(QString::fromLocal8Bit("Осталось кораблей:"));
+	ui->YouCnt->setText(QString::fromLocal8Bit("<font color = black>Осталось кораблей:<\\font>"));
 	ui->YouCnt->hide();
 	ui->EnemyCntDisplay->hide();
 	ui->YouCntDisplay->hide();
@@ -24,7 +24,7 @@ BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 
 void BattleWidget::setMessage(QString text)
 {
-	ui->label->setText(QString::fromLocal8Bit(text.toLocal8Bit()));
+	ui->label->setText(QString::fromLocal8Bit("<font color = black>"+text.toLocal8Bit() + "<\\font>"));
 }
 
 void BattleWidget::setTime(int time)
@@ -95,7 +95,7 @@ void BattleWidget::showCountersOfFleet()
 
 void BattleWidget::setCountOfFleet(Players plr, int count)
 {
-	if (plr = YOU){
+	if (plr == YOU){
 		ui->YouCntDisplay->display(count);
 	} else if (plr == ENEMY){
 		ui->EnemyCntDisplay->display(count);

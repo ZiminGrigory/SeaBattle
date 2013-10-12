@@ -10,13 +10,14 @@ RemotePlayer::RemotePlayer(const QSharedPointer<GameField>& plrField,
     fleetInst(NULL)
 {
     connect(client.data(), SIGNAL(received(Protocol::RequestType, const QByteArray&)),
-            SLOT(parseRecievedRequest(Protocol::RequestType,QByteArray)));
+            SLOT(parseRecievedRequest(Protocol::RequestType, const QByteArray&)));
 }
 
 void RemotePlayer::installFleet(const QSharedPointer<FleetInstaller>& fleetInstaller)
 {
     expectFleet = true;
     fleetInst = fleetInstaller;
+    setFleetHealth(fleetInst->getFleet());
 }
 
 void RemotePlayer::turn()
@@ -50,8 +51,7 @@ void RemotePlayer::parseRecievedRequest(Protocol::RequestType type, const QByteA
             request >> ship.size;
             request >> ship.id;
             request >> ship.orientation;
-            if ((ship.size < 1) || (ship.size > 4) || (ship.id >= 100) ||
-                    (ship.orientation != 0) || (ship.orientation != 1))
+            if ((ship.size < 1) || (ship.size > 4) || (ship.id >= 100))
             {
                 throw IncorrectRequest();
             }
@@ -83,17 +83,23 @@ void RemotePlayer::fleetInstalledHandler(QVector<Protocol::ShipInfo> fleet) thro
 {
     if (expectFleet)
     {
+        qDebug() << "Fleet was recieved";
+
         for (int i = 0; i < fleet.size(); i++)
         {
             Protocol::ShipInfo ship = fleet[i];
             FleetInstaller::PlacementStatus status =
-                    fleetInst->shipPlaced(ship.id, ship.size, static_cast<bool>(ship.orientation));
+                    fleetInst->shipPlaced(ship.id, ship.size, ship.orientation);
+
+            qDebug() << i << ": " << "id: " << ship.id << "size: " << ship.size << "orn: " << ship.orientation;
             if (status != FleetInstaller::OK)
             {
                 throw IncorrectFleet();
             }
         }
     }
+
+    emit fleetInstalled(this);
 }
 
 void RemotePlayer::turnMadeHandler(int id)

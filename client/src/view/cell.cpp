@@ -4,7 +4,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QPixmap>
 
-Cell::Cell(int x, int y): y(y), x(x), mTexture(":/pictures/sea.jpg")
+Cell::Cell(int x, int y): y(y), x(x), mTexture("")
 {
 }
 
@@ -13,7 +13,7 @@ void Cell::changeStatusOfCell(Textures texture)
 {
 	//расширить
 	switch (texture) {
-	case EMPTY: mTexture = ":/pictures/sea.jpg";
+	case EMPTY: mTexture = "";
 		break;
     case SHIP_DAMAGED: mTexture = ":/pictures/smoke.jpg";
 		break;
@@ -71,7 +71,9 @@ void Cell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 {
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
-	painter->setBrush(QBrush(QPixmap(mTexture)));
+	if (mTexture != ""){
+		painter->setBrush(QBrush(QPixmap(mTexture)));
+	}
 	painter->drawRect(boundingRect());
 }
 

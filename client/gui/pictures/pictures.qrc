@@ -22,14 +22,21 @@
         <file>middle part burning hor.jpg</file>
         <file>head burning hor.jpg</file>
         <file>bottom burning hor.jpg</file>
-        <file>MISS.png</file>
-        <file>WOUNDED.png</file>
-        <file>KILLED.png</file>
         <file>WINNER.jpeg</file>
         <file>LOSER.jpeg</file>
         <file>arrow.png</file>
         <file>cirle arrow.png</file>
         <file>first point.png</file>
         <file>loader.gif</file>
+        <file>sea_animation.gif</file>
+        <file>wounded.gif</file>
+        <file>miss.gif</file>
+        <file>killed.gif</file>
+        <file>forChat/WOUNDED.jpg</file>
+        <file>forChat/MISS.jpg</file>
+        <file>forChat/KILLED.jpg</file>
+        <file>forChat/BEGIN.jpg</file>
+        <file>forChat/ATTACK.jpg</file>
+        <file>fon.jpg</file>
     </qresource>
 </RCC>

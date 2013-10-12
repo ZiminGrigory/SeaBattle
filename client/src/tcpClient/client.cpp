@@ -4,9 +4,11 @@
 
 Client::Client(QObject *parent) :
     QObject(parent),
-	stateCollection(new StateCollection(QSharedPointer<Client>(this)))
+    state(NULL),
+    socket(new QTcpSocket()),
+    stateCollection(new StateCollection(this))
 {
-
+    state = stateCollection->getNoConnectionState();
 }
 
 void Client::connectToServer()
