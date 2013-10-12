@@ -103,6 +103,7 @@ enum ImageID{
 const int FIELD_ROW_NUM = 10;
 const int FIELD_COL_NUM = 10;
 const int DATA_KEY = 15;
+const int DATA_KEY_NAME = 16;
 
 const QSize WINDOW_SIZE = QSize(400, 300);
 

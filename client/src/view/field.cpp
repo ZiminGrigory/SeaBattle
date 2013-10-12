@@ -23,6 +23,7 @@ Field::Field() :
 			Cell *item = new Cell(x, y);
 			field[(i - 1) * 10 + j - 1] = item;
 			item->setData(DATA_KEY, (i - 1) * 10 + j - 1);
+			item->setData(DATA_KEY_NAME, "cell");
 			item->setPos((j - 1) * x, (i - 1) * y);
 			connect(item, SIGNAL(attacked(int)), SIGNAL(attack(int)));\
 			connect(item, SIGNAL(getCoordinate(QPointF,QPointF)), this, SLOT(getCoordinate(QPointF,QPointF)));
@@ -173,8 +174,7 @@ void Field::getCoordinate(QPointF first, QPointF second)
 	bool condition = false;
 	do{
 		qDebug() << list.at(i)->data(DATA_KEY).toInt();
-		condition = list.at(i)->data(DATA_KEY).toInt();
-		if (list.at(i)->data(DATA_KEY).toInt() == 0){
+		if (list.at(i)->data(DATA_KEY_NAME).toString() == "cell"){
 			condition = true;
 		}
 		i++;
@@ -184,8 +184,7 @@ void Field::getCoordinate(QPointF first, QPointF second)
 	i = 0;
 	do{
 		qDebug() << list2.at(i)->data(DATA_KEY).toInt();
-		condition = list2.at(i)->data(DATA_KEY).toInt();
-		if (list.at(i)->data(DATA_KEY).toInt() == 0){
+		if (list.at(i)->data(DATA_KEY_NAME).toString() == "cell"){
 			condition = true;
 		}
 		i++;
@@ -201,7 +200,6 @@ void Field::deleteShipOnCell(int id)
 
 void Field::deleteMessage()
 {
-
 	if (itemForMessage != NULL && attackStatus != NULL){
 		disconnect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
 		timer.stop();
