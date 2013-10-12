@@ -142,6 +142,9 @@ void Field::clearItself()
 		field[i]->changeStatusOfCell();
 		field[i]->update();
 	}
+	mScene->removeItem(itemForEndMessage.data());
+	itemForEndMessage.clear();
+	itemForEndMessage.reset();
 }
 
 Field::~Field()
