@@ -65,6 +65,8 @@ void AudioPlayer::playSound(Sounds track)
     case(DEFEAT_SOUND):
 		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/defeat.mp3"));
         break;
+    case(SHIP_SET_SOUND):
+        sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/ship_set.mp3"));
     }
     sound->play();
 

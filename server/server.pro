@@ -12,6 +12,6 @@ SOURCES += \
 HEADERS += \
     server.h \
     ../protocol.h \
-    playerSocket.h
+	playerSocket.h \
 
 INCLUDEPATH += ../

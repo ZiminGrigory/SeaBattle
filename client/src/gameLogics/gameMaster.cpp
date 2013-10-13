@@ -63,6 +63,8 @@ GameMaster::GameMaster(GameType type,
     connect(player.data(), SIGNAL(chat(QString)), SLOT(chat(QString)));
     connect(enemy.data(), SIGNAL(chat(QString)), SLOT(chat(QString)));
 
+    connect(playerField.data(), SIGNAL(shipSet()), this, SLOT(playShipSetSound()));
+
 	turnedPlayer = player;
 	waitingPlayer = enemy;
     turnTimer.setSingleShot(true);
@@ -228,4 +230,9 @@ void GameMaster::nextTurn(AttackStatus turnResult)
         // else continue game
         offerTurn();
     }
+}
+
+void GameMaster::playShipSetSound()
+{
+    audioPlayer->playSound(SHIP_SET_SOUND);
 }
