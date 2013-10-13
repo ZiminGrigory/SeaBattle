@@ -9,6 +9,7 @@ class Cell: public QObject, public QGraphicsItem
 	Q_OBJECT
 public:
 	Cell(int x, int y);
+	~Cell();
 	QRectF boundingRect() const;
 	QPainterPath shape() const;
 	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -23,9 +24,14 @@ signals:
 	void deleteShip(int id);
 	void coordinatesOfMouseNow(int id);
 	void setArrows(int id);
+private slots:
+	void handleGifSignal(QRect);
 private:
+	void handleGif(Textures texture);
 	int x;
 	int y;
 	QPointF first;
 	QString mTexture;
+	QPixmap mCurrentTexture;
+	QMovie *gifMovie;
 };

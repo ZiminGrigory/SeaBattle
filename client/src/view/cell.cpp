@@ -3,23 +3,33 @@
 #include <QCursor>
 #include <QGraphicsSceneMouseEvent>
 #include <QPixmap>
+#include <QMovie>
 
-Cell::Cell(int x, int y): y(y), x(x), mTexture("")
+Cell::Cell(int x, int y): y(y), x(x), mTexture("empty"), gifMovie(NULL)
 {
+}
+
+Cell::~Cell()
+{
+	if (gifMovie != NULL){
+		delete gifMovie;
+	}
 }
 
 
 void Cell::changeStatusOfCell(Textures texture)
 {
 	//расширить
+	if (gifMovie != NULL){
+		gifMovie->stop();
+	}
 	switch (texture) {
-	case EMPTY: mTexture = "";
+	case EMPTY: mTexture = "empty";
 		break;
-    case SHIP_DAMAGED: mTexture = ":/pictures/smoke.jpg";
+	case SHIP_DAMAGED: mTexture = "gif";
+		handleGif(SHIP_DAMAGED);
 		break;
-	case SHIP_KILLED: mTexture = ":/pictures/smoke.jpg";
-		break;
-    case MISS_CELL: mTexture = ":/pictures/splash.jpg";
+	case MISS_CELL: mTexture = ":/pictures/splash.jpg";
 		break;
 	case SHIP_POOP_VERTICAL: mTexture = ":/pictures/bottom.jpg";
 		break;
@@ -35,23 +45,64 @@ void Cell::changeStatusOfCell(Textures texture)
 		break;
 	case SHIP_SINGLE: mTexture = ":/pictures/small ship.jpg";
 		break;
-	case SHIP_POOP_VERTICAL_BURN: mTexture = ":/pictures/bottom burning.jpg";
+	case SHIP_POOP_VERTICAL_BURN: mTexture = "gif";
+		handleGif(SHIP_POOP_VERTICAL_BURN);
 		break;
-	case SHIP_BOW_VERTICAL_BURN: mTexture = ":/pictures/head burning.jpg";
+	case SHIP_BOW_VERTICAL_BURN: mTexture = "gif";
+		handleGif(SHIP_BOW_VERTICAL_BURN);
 		break;
-	case SHIP_DECK_VERTICAL_BURN: mTexture = ":/pictures/middle part burning.jpg";
+	case SHIP_DECK_VERTICAL_BURN: mTexture = "gif";
+		handleGif(SHIP_DECK_VERTICAL_BURN);
 		break;
-	case SHIP_POOP_HORIZONTAL_BURN: mTexture = ":/pictures/bottom burning hor.jpg";
+	case SHIP_POOP_HORIZONTAL_BURN: mTexture = "gif";
+		handleGif(SHIP_POOP_HORIZONTAL_BURN);
 		break;
-	case SHIP_BOW_HORIZONTAL_BURN: mTexture = ":/pictures/head burning hor.jpg";
+	case SHIP_BOW_HORIZONTAL_BURN: mTexture = "gif";
+		handleGif(SHIP_BOW_HORIZONTAL_BURN);
 		break;
-	case SHIP_DECK_HORIZONTAL_BURN: mTexture = ":/pictures/middle part burning hor.jpg";
+	case SHIP_DECK_HORIZONTAL_BURN: mTexture = "gif";
+		handleGif(SHIP_DECK_HORIZONTAL_BURN);
 		break;
-	case SHIP_SINGLE_BURN: mTexture = ":/pictures/small ship burning.jpg";
+	case SHIP_SINGLE_BURN: mTexture = "gif";
+		handleGif(SHIP_SINGLE_BURN);
 		break;
 	case WRECK: mTexture = ":/pictures/wreck.jpg";
 		break;
 	}
+	this->update();
+}
+
+void Cell::handleGif(Textures texture)
+{
+	if (gifMovie != NULL){
+		gifMovie->stop();
+		delete gifMovie;
+	}
+	switch (texture) {
+	case SHIP_DAMAGED: gifMovie = new QMovie(":/pictures/smoke_animation.gif");
+		break;
+	case SHIP_POOP_VERTICAL_BURN: gifMovie = new QMovie(":/pictures/bottom_burning.gif");
+		break;
+	case SHIP_BOW_VERTICAL_BURN: gifMovie = new QMovie(":/pictures/head_burning.gif");
+		break;
+	case SHIP_DECK_VERTICAL_BURN: gifMovie = new QMovie(":/pictures/middle-part-burning-animation.gif");
+		break;
+	case SHIP_POOP_HORIZONTAL_BURN: gifMovie = new QMovie(":/pictures/head-burning-animation_hor.gif");
+		break;
+	case SHIP_BOW_HORIZONTAL_BURN: gifMovie = new QMovie(":/pictures/bottom-burning-animation_hor.gif");
+		break;
+	case SHIP_DECK_HORIZONTAL_BURN: gifMovie = new QMovie(":/pictures/middle-part-burning-animation_hor.gif");
+		break;
+	case SHIP_SINGLE_BURN: gifMovie = new QMovie(":/pictures/small-ship-burning-animation.gif");
+		break;
+	}
+	gifMovie->start();
+	connect(gifMovie, SIGNAL(updated(QRect)),this, SLOT(handleGifSignal(QRect)));
+}
+
+void Cell::handleGifSignal(QRect)
+{
+	mCurrentTexture = gifMovie->currentPixmap();
 	this->update();
 }
 
@@ -71,8 +122,10 @@ void Cell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 {
 	Q_UNUSED(option);
 	Q_UNUSED(widget);
-	if (mTexture != ""){
+	if (mTexture != "empty" && mTexture != "gif" ){
 		painter->setBrush(QBrush(QPixmap(mTexture)));
+	} else if (mTexture == "gif"){
+		painter->setBrush(QBrush(QPixmap(mCurrentTexture)));
 	}
 	painter->drawRect(boundingRect());
 }
