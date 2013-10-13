@@ -58,6 +58,10 @@ signals:
       * (to send it then to another game client).
       */
     //void shipPlaced(int size, int id, bool orientation);
+    /**
+      *
+      **/
+    void shipSet();
 protected:
 	int position(QVector<int> vector, int id);
 	void markKilled(int i, int j);

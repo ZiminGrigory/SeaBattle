@@ -55,6 +55,10 @@ private slots:
       * This slot ends current turn and start the new one.
       */
     void nextTurn(AttackStatus turnResult);
+    /**
+      *
+      */
+    void playShipSetSound();
 private:
     typedef QSharedPointer<Player> ptrPlayer;
     QSharedPointer<GameField> playerField;

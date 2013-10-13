@@ -33,6 +33,8 @@ void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
         }
     }
 	fleet[shipSize - 1] = fleet.at(shipSize - 1) - 1;
+
+    emit shipSet();
 }
 
 QSharedPointer<Ship> GameField::getShip(int id)
