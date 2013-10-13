@@ -39,6 +39,8 @@ Field::Field() :
 	backgroundBrush = QSharedPointer<QMovie>(new QMovie(":/pictures/sea_animation.gif"));
 	backgroundBrush->start();
 	connect(backgroundBrush.data(), SIGNAL(updated(QRect)), SLOT(updateBackground(QRect)));
+	itemForMessage = NULL;
+	attackStatus = NULL;
 }
 
 void Field::paintCell(int id, Textures texture)

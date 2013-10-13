@@ -3,7 +3,7 @@
 #include <QByteArray>
 #include <QDataStream>
 #include <QDebug>
-
+#include "../client/src/gameLogics/types.h"
 #include "server.h"
 #include "playerSocket.h"
 
@@ -11,7 +11,12 @@ Server::Server(QObject* parent) :
     QObject(parent)
 {
     connect(&server, SIGNAL(newConnection()), SLOT(newConnectionHandler()));
-    bool res = server.listen(QHostAddress::Any, Protocol::ServerPort);
+	quint16 port = Protocol::ServerPort;
+
+	if (settings.contains(SettingsKey::PORT_KEY)){
+		port = quint16(settings.value(SettingsKey::PORT_KEY).toInt());
+	}
+	bool res = server.listen(QHostAddress::Any, port);
     qDebug() << "is listening = " << res;
 }
 
