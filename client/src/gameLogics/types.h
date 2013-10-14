@@ -15,6 +15,15 @@ enum Orient{
 };
 }
 
+enum PlacementStatus
+{
+    OK,
+    UNCORRECT_COORDINATES,
+    NOT_LINE,
+    HAVE_NOT_SHIP,
+    CELL_OCCUPIED
+};
+
 enum Widgets{
 	BATTLE,
 	START_MENU,

@@ -1,8 +1,9 @@
 #include "playerField.h"
 using namespace Orientation;
 
-PlayerField::PlayerField(const QSharedPointer<InterfaceField> &fieldView):
-    GameField(fieldView),
+PlayerField::PlayerField(const QSharedPointer<InterfaceField> &fieldView,
+                         const QSharedPointer<InterfaceInfoTab> &infoTabView):
+    GameField(fieldView, infoTabView),
     mArrowAnalyzer(this, this->view)
 {
 
@@ -61,7 +62,13 @@ void PlayerField::repaintCell(int row, int column, int partOfShip, int shipSize,
 	view->repaint(getIdByCoordinates(row, column), textureAnalyzer->shipTexture(partOfShip, shipSize, orientation));
 }
 
-QVector<int> PlayerField::getFleet()
+QVector<int> PlayerField::getShipTypesNum()
 {
-	return fleet;
+    QVector<int> shipTypes(4, 0);
+    QVector< QSharedPointer<Ship> > availableFleet = flInst->getFleet();
+    for (QVector< QSharedPointer<Ship> >::Iterator ship = availableFleet.begin(); ship != availableFleet.end(); ++ship)
+    {
+        ++shipTypes[(*ship)->size() - 1];
+    }
+    return shipTypes;
 }

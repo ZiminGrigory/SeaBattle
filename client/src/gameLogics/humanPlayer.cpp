@@ -10,7 +10,6 @@ HumanPlayer::HumanPlayer(const QSharedPointer<GameField>& plrField
     Player(plrField, enmField, parent),
     plrFieldView(_plrFieldView),
     enmFieldView(_enmFieldView),
-	fleetInst(NULL),
 	infoTab(_infoTab),
 	myTurn(false),
 	mChat(_chat)
@@ -20,15 +19,14 @@ HumanPlayer::HumanPlayer(const QSharedPointer<GameField>& plrField
     connect(mChat.data(), SIGNAL(getNewMessage(QString)), SIGNAL(chat(QString)));
 }
 
-void HumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
+void HumanPlayer::installFleet()
 {
-    fleetInst = fleetInstaller;
-	setFleetHealth(fleetInst->getFleet());
-    connect(plrFieldView.data(), SIGNAL(placeShip(int,int)), fleetInst.data(), SLOT(shipPlaced(int,int)));
-    connect(plrFieldView.data(), SIGNAL(deleteShip(int)), fleetInst.data(), SLOT(deleteShip(int)));
+    setFleetHealth(myField->getFleet());
+    connect(plrFieldView.data(), SIGNAL(placeShip(int,int)), myField.data(), SLOT(setShip(int,int)));
+    connect(plrFieldView.data(), SIGNAL(deleteShip(int)), myField.data(), SLOT(deleteShip(int)));
+    connect(infoTab.data(), SIGNAL(readyToFight()), myField.data(), SLOT(checkIsFleetReady()));
 
-    connect(fleetInst.data(), SIGNAL(fleetInstalled(QVector<ptrShip>)),
-            this, SLOT(reEmitFleetInstalled()));
+    connect(myField.data(), SIGNAL(fleetInstalled()), this, SLOT(reEmitFleetInstalled()));
     /*
     connect(fleetInstaller, SIGNAL(shipPlacedSuccesfully(NameOfShips, int))
             , view, SLOT(changeCounter(NameOfShips,int)));
@@ -57,6 +55,6 @@ void HumanPlayer::reEmitFleetInstalled()
 
 void HumanPlayer::needAutoInstallFleet()
 {
-	fleetInst->clear();
-	autoInstallFleet(fleetInst);
+    myField->removeInstalledFleet();
+    autoInstallFleet();
 }

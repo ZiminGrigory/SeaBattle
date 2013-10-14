@@ -16,12 +16,12 @@ NetworkHumanPlayer::NetworkHumanPlayer(const QSharedPointer<GameField>& plrField
     connect(this, SIGNAL(chat(const QString&)), this, SLOT(sendChatMessage(const QString&)));
 }
 
-void NetworkHumanPlayer::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
+void NetworkHumanPlayer::installFleet()
 {
-    HumanPlayer::installFleet(fleetInstaller);
+    HumanPlayer::installFleet();
 
-    connect(fleetInst.data(), SIGNAL(fleetInstalled(QVector<ptrShip>)),
-            this, SLOT(sendPlayerFleet(QVector<ptrShip>)));
+    connect(myField.data(), SIGNAL(fleetInstalled()),
+            this, SLOT(sendPlayerFleet()));
 }
 
 void NetworkHumanPlayer::cellWasAttacked(int id)
@@ -36,8 +36,10 @@ void NetworkHumanPlayer::cellWasAttacked(int id)
     client->send(Protocol::TURN_MADE, byteArray);
 }
 
-void NetworkHumanPlayer::sendPlayerFleet(QVector<ptrShip> fleet)
+void NetworkHumanPlayer::sendPlayerFleet()
 {
+    QVector<ptrShip> fleet = myField->getFleet();
+
     QByteArray byteArray;
     QDataStream out(&byteArray, QIODevice::WriteOnly);
     out.setVersion(Protocol::QDataStreamVersion);

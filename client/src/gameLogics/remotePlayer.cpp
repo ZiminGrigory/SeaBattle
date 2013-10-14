@@ -6,18 +6,16 @@ RemotePlayer::RemotePlayer(const QSharedPointer<GameField>& plrField,
     Player(plrField, enmField),
     client(_client),
     myTurn(false),
-    expectFleet(false),
-    fleetInst(NULL)
+    expectFleet(false)
 {
     connect(client.data(), SIGNAL(received(Protocol::RequestType, const QByteArray&)),
             SLOT(parseRecievedRequest(Protocol::RequestType, const QByteArray&)));
 }
 
-void RemotePlayer::installFleet(const QSharedPointer<FleetInstaller>& fleetInstaller)
+void RemotePlayer::installFleet()
 {
     expectFleet = true;
-    fleetInst = fleetInstaller;
-    setFleetHealth(fleetInst->getFleet());
+    setFleetHealth(myField->getFleet());
 }
 
 void RemotePlayer::turn()
@@ -97,11 +95,11 @@ void RemotePlayer::fleetInstalledHandler(QVector<Protocol::ShipInfo> fleet) thro
         for (int i = 0; i < fleet.size(); i++)
         {
             Protocol::ShipInfo ship = fleet[i];
-            FleetInstaller::PlacementStatus status =
-                    fleetInst->shipPlaced(ship.id, ship.size, ship.orientation);
+            PlacementStatus status =
+                    myField->setShip(ship.id, ship.size, ship.orientation);
 
             qDebug() << i << ": " << "id: " << ship.id << "size: " << ship.size << "orn: " << ship.orientation;
-            if (status != FleetInstaller::OK)
+            if (status != OK)
             {
                 throw IncorrectFleet();
             }

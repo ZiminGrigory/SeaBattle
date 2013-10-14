@@ -20,7 +20,7 @@ GameMaster::GameMaster(GameType type,
 {   
 	view->showPlayerField();
 	view->showInfoTab();
-    playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView()));
+    playerField = QSharedPointer<GameField>(new PlayerField(view->getPlayerFieldView(), view->getInfoTabView()));
     enemyField = QSharedPointer<GameField>(new GameField(view->getEnemyFieldView()));
 
     if (type == AI_SIMPLE_GAME)
@@ -63,7 +63,8 @@ GameMaster::GameMaster(GameType type,
     connect(player.data(), SIGNAL(chat(QString)), SLOT(chat(QString)));
     connect(enemy.data(), SIGNAL(chat(QString)), SLOT(chat(QString)));
 
-    connect(playerField.data(), SIGNAL(shipSet()), this, SLOT(playShipSetSound()));
+    connect(playerField.data(), SIGNAL(shipPlacementResult(PlacementStatus)),
+            this, SLOT(playShipSetSound(PlacementStatus)));
 
 	turnedPlayer = player;
 	waitingPlayer = enemy;
@@ -79,13 +80,9 @@ void GameMaster::startGame()
     view->getPlayerFieldView()->setEnabled(true);
     view->showInfoTab();
     view->setMessage("Install fleet");
-    QSharedPointer<FleetInstaller> playerInst(new FleetInstaller(FleetFactory::createFleet(),
-                                                                 playerField, view->getInfoTabView()));
-    player->installFleet(playerInst);
 
-    QSharedPointer<FleetInstaller> enemyInst(new FleetInstaller(FleetFactory::createFleet(),
-											 enemyField, QSharedPointer<InterfaceInfoTab>(NULL)));
-    enemy->installFleet(enemyInst);
+    player->installFleet();
+    enemy->installFleet();
 
     audioPlayer->playSound(BEGIN_SOUND);
 }
@@ -232,7 +229,8 @@ void GameMaster::nextTurn(AttackStatus turnResult)
     }
 }
 
-void GameMaster::playShipSetSound()
+void GameMaster::playShipSetSound(PlacementStatus status)
 {
+    Q_UNUSED(status);
     audioPlayer->playSound(SHIP_SET_SOUND);
 }

@@ -1,8 +1,9 @@
 #include "player.h"
 
-void Player::randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
+void Player::randomInstallFleet()
 {
-	QVector<FleetInstaller::ptrShip> fleet = fleetInstaller->getFleet();
+    myField->removeInstalledFleet();
+    QVector<FleetInstaller::ptrShip> fleet = myField->getFleet();
 	setFleetHealth(fleet);
 	int size = fleet.size();
 
@@ -37,7 +38,7 @@ void Player::randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInsta
 		int first = 0;
 
 		int second = 0;
-		FleetInstaller::PlacementStatus status = FleetInstaller::OK;
+        PlacementStatus status = OK;
 		do
 		{
 			do
@@ -57,7 +58,7 @@ void Player::randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInsta
 			if (shipSize == 1){
 				first = getIdByCoordinates(point1);
 				second = getIdByCoordinates(point2);
-				status = fleetInstaller->shipPlaced(first, second);
+                status = myField->setShip(first, second);
 			}else {
 				if (isHorizontal)
 				{
@@ -69,10 +70,10 @@ void Player::randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInsta
 				}
 				first = getIdByCoordinates(point1);
 				second = getIdByCoordinates(point2);
-				status = fleetInstaller->shipPlaced(first, second);
+                status = myField->setShip(first, second);
 			}
-		} while((status != FleetInstaller::OK) &&
-				(status != FleetInstaller::HAVE_NOT_SHIP));
+        } while((status != OK) &&
+                (status != HAVE_NOT_SHIP));
 	}
 }
 

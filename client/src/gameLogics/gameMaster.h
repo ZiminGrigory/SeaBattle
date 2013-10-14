@@ -58,7 +58,7 @@ private slots:
     /**
       *
       */
-    void playShipSetSound();
+    void playShipSetSound(PlacementStatus status);
 private:
     typedef QSharedPointer<Player> ptrPlayer;
     QSharedPointer<GameField> playerField;

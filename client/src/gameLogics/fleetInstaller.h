@@ -11,6 +11,8 @@
 #include "ship.h"
 #include "gameField.h"
 
+class GameField;
+
 /**
   * This class places player's fleets before battle.
   */
@@ -22,46 +24,30 @@ public:
     /**
       * This enum contains statuses of placement of ship.
       */
-    Q_ENUMS(PlacementStatus);
-    enum PlacementStatus
-    {
-        OK,
-        UNCORRECT_COORDINATES,
-        NOT_LINE,
-        HAVE_NOT_SHIP,
-        CELL_OCCUPIED
-    };
 
     typedef QPair<int, int> CellPair;
 
     FleetInstaller(QVector<ptrShip> playerFleet,
-                   const QSharedPointer<GameField>& playerField,
-				   const QSharedPointer<InterfaceInfoTab>& _fleetInfoTab);
+                   GameField *playerField,
+                   const QSharedPointer<InterfaceInfoTab>& _fleetInfoTab);
 
     QVector<ptrShip> getFleet() const;
+    QVector< QSharedPointer<Ship> > getInstalledFleet() const;
 	/**
 	  * This method delete all ship on field.
 	  */
 	void clear();
-
-signals:
     /**
-      * Signal emitted after shipPlaced() slot ended work.
-      * Signal contains result of last try to place ship on cells.
+      *
       */
-	void placementResult(PlacementStatus res);
-    /**
-      * This signal emits when all fleet was correctly installed.
-      */
-    void fleetInstalled(QVector<ptrShip> _fleet);
-    //void shipPlacedSuccesfully(NameOfShips nameOfShip, int difference);
+    ptrShip getLastShip();
 public slots:
     /**
       * This slot informs object about a try to place ship on cells kept in QVector.
       * It might connect to view object for human player or to other method for generate fleet for ai.
       * Slot emits signal placementResult() with status of this try to place ship.
       */
-    PlacementStatus shipPlaced(int firstId, int secondId);
+    PlacementStatus setShip(int firstId, int secondId);
     /**
       * The same as previous, but with different interface.
       *
@@ -69,12 +55,11 @@ public slots:
       * @var size size of ship
       * @var orientation true - horizontal, false - vertical
       */
-    PlacementStatus shipPlaced(int id, int size, bool orientation);
+    PlacementStatus setShip(int id, int size, bool orientation);
     /**
       * This slot remove the ship from field if cell with recieved id contained some ship.
       */
     void deleteShip(int id);
-private slots:
     /**
       * Check, was all ships in fleet installed on field.
       * Return true if it's ok and emit fleetInstalled() signal.
@@ -103,12 +88,11 @@ private:
 	int positionOfShip(QVector<QSharedPointer<Ship> > vector, const QSharedPointer<Ship> ship);
 
     QVector<ptrShip> fleet;
-    QSharedPointer<GameField> field;
+    ptrShip lastShip;
+    GameField* field;
 	QSharedPointer<InterfaceInfoTab> fleetInfoTab;
 	QVector<QSharedPointer<Ship> > existingFleet;
 };
-
-Q_DECLARE_METATYPE(FleetInstaller::PlacementStatus);
 
 
 

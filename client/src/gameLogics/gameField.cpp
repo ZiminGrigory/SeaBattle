@@ -1,40 +1,14 @@
 #include "gameField.h"
+#include "fleetInstaller.h"
 
-GameField::GameField(const QSharedPointer<InterfaceField> &fieldView):
-    view(fieldView), textureAnalyzer(new TextureAnalyzer())
+GameField::GameField(const QSharedPointer<InterfaceField>& fieldView,
+                     const QSharedPointer<InterfaceInfoTab>& infoTabView):
+    view(fieldView),
+    textureAnalyzer(new TextureAnalyzer()),
+    fleet(FleetFactory::createFleet()),
+    flInst(new FleetInstaller(fleet, this, infoTabView))
 {
-	fleet << 4 << 3 << 2 << 1; //conut of ship
-}
-
-void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
-{
-    QPair<int, int> coord = coordinates(id);
-    int row = coord.first;
-    int col = coord.second;
-    int shipSize = ship->size();
-    // if orientation == true, then ship has horizontal orientation
-    if (orientation)
-    {
-        for (int i = 0; i < shipSize; i++)
-        {
-            field[row][col + i].setShip(ship);
-			ship.data()->appedIdOfPart(getIdByCoordinates(row, col + i));
-			repaintCell(row, col + i, i + 1, shipSize, orientation);
-        }
-    }
-    // otherwise - vertical orientation
-    else
-    {
-        for (int i = 0; i < shipSize; i++)
-        {
-            field[row + i][col].setShip(ship);
-			ship.data()->appedIdOfPart(getIdByCoordinates(row + i, col));
-			repaintCell(row + i, col, i + 1, shipSize, orientation);
-        }
-    }
-	fleet[shipSize - 1] = fleet.at(shipSize - 1) - 1;
-
-    emit shipSet();
+    //fleet << 4 << 3 << 2 << 1; //conut of ship
 }
 
 QSharedPointer<Ship> GameField::getShip(int id)
@@ -48,19 +22,58 @@ QSharedPointer<Ship> GameField::getShip(int id)
     return field[x][y].getShip();
 }
 
-void GameField::removeShip(int id)
+QVector<QSharedPointer<Ship> > GameField::getFleet()
 {
+    return fleet;
+}
+
+QVector<QSharedPointer<Ship> > GameField::getInstalledFleet()
+{
+    return flInst->getInstalledFleet();
+}
+
+PlacementStatus GameField::setShip(int firstId, int secondId)
+{
+    PlacementStatus status = flInst->setShip(firstId, secondId);
+    emit shipPlacementResult(status);
+    return status;
+}
+
+PlacementStatus GameField::setShip(int id, int size, bool orientation)
+{
+    PlacementStatus status = flInst->setShip(id, size, orientation);
+    emit shipPlacementResult(status);
+    return status;
+}
+
+void GameField::deleteShip(int id)
+{
+    flInst->deleteShip(id);
+
 	QPair<int, int> coordinateOfShip = coordinates(id);
 	QSharedPointer<Ship> ship = field[coordinateOfShip.first][coordinateOfShip.second].getShip();
 	int size = ship->size();
 	QVector<int> vectorOfId = ship->getCoordinate();
 	ship->clearCoordinate();
-	for(int i = 1; i <= size; i++){
+    for(int i = 1; i <= size; i++) {
 		QPair<int, int> coordinateOfShip = coordinates(vectorOfId.at(i - 1));
 		field[coordinateOfShip.first][coordinateOfShip.second].removeShip();
 		view->repaint(vectorOfId.at(i - 1), EMPTY);
 	}
-	fleet[size - 1] = fleet.at(size - 1) + 1;
+    //fleet[size - 1] = fleet.at(size - 1) + 1;
+}
+
+void GameField::removeInstalledFleet()
+{
+    flInst->clear();
+}
+
+void GameField::checkIsFleetReady()
+{
+    if (flInst->checkIsFleetReady())
+    {
+        emit fleetInstalled();
+    }
 }
 
 AttackStatus GameField::attack(int id)
@@ -135,6 +148,35 @@ void GameField::markKilled(int i, int j)
 	}
 }
 
+void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)
+{
+    QPair<int, int> coord = coordinates(id);
+    int row = coord.first;
+    int col = coord.second;
+    int shipSize = ship->size();
+    // if orientation == true, then ship has horizontal orientation
+    if (orientation)
+    {
+        for (int i = 0; i < shipSize; i++)
+        {
+            field[row][col + i].setShip(ship);
+            ship.data()->appedIdOfPart(getIdByCoordinates(row, col + i));
+            repaintCell(row, col + i, i + 1, shipSize, orientation);
+        }
+    }
+    // otherwise - vertical orientation
+    else
+    {
+        for (int i = 0; i < shipSize; i++)
+        {
+            field[row + i][col].setShip(ship);
+            ship.data()->appedIdOfPart(getIdByCoordinates(row + i, col));
+            repaintCell(row + i, col, i + 1, shipSize, orientation);
+        }
+    }
+    //fleet[shipSize - 1] = fleet.at(shipSize - 1) - 1;
+}
+
 void GameField::repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation)
 {
 	Q_UNUSED(row);
@@ -166,3 +208,5 @@ bool GameField::attackable(int id)
         return true;
     }
 }
+
+

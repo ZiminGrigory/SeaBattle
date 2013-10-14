@@ -31,7 +31,7 @@ public:
     /**
       * Slot intall player fleet on field.
       */
-    virtual void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller) = 0;
+    virtual void installFleet() = 0;
 signals:
     /**
       * This signal must be emitted when player chose a cell to attack (id is an identifeir of a cell).
@@ -53,7 +53,7 @@ signals:
     void chat(const QString& message);
     //void attackResult(AttackStatus res);
 public slots:
-    void autoInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
+    void autoInstallFleet();
     /**
       * This slot called by GameMaster to offer player make his choise (choose a cell for attack).
       */
@@ -86,7 +86,7 @@ protected:
     /**
       *
       */
-    void randomInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
+    void randomInstallFleet();
     /**
       *
       */
@@ -148,7 +148,7 @@ void Player::setFleetHealth(const QVector<FleetInstaller::ptrShip> &fleet)
     }
 }
 
-inline void Player::autoInstallFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
+inline void Player::autoInstallFleet()
 {
-    randomInstallFleet(fleetInstaller);
+    randomInstallFleet();
 }
