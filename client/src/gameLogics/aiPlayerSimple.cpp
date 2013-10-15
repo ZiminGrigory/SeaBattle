@@ -13,6 +13,7 @@ AIPlayerSimple::AIPlayerSimple(const QSharedPointer<GameField> &plrField,
     directionChanged = false;
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
+
 }
 
 void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
