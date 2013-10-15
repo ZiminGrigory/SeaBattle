@@ -4,7 +4,6 @@
 #include <QObject>
 
 #include "player.h"
-#include "fleetInstaller.h"
 #include "BattleWidget.h"
 
 // for test purpose

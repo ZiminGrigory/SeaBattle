@@ -5,8 +5,6 @@
 #include "ship.h"
 #include "gameField.h"
 #include "playerField.h"
-#include "fleetFactory.h"
-#include "fleetInstaller.h"
 
 /**
   * Player is a inherited class for all implementation of players (human, AI etc).

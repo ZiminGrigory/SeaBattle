@@ -152,7 +152,7 @@ PlacementStatus FleetInstaller::setShip(int id, int size, bool orientation)
         {
             for (int j = startRow; j < startRow + 3; j++)
             {
-                if (field->getShip(j * FIELD_ROW_NUM + i))
+                if (checkCoord(j, i) && field->getShip(j * FIELD_ROW_NUM + i))
                 {
                     fleet.append(ship);
                     return CELL_OCCUPIED;
@@ -169,7 +169,7 @@ PlacementStatus FleetInstaller::setShip(int id, int size, bool orientation)
         {
             for (int j = startCol; j < startCol + 3; j++)
             {
-                if (field->getShip(i * FIELD_ROW_NUM + j))
+                if (checkCoord(j, i) && field->getShip(i * FIELD_ROW_NUM + j))
                 {
                     fleet.append(ship);
                     return CELL_OCCUPIED;
@@ -207,7 +207,7 @@ PlacementStatus FleetInstaller::setShip(int id, int size, bool orientation)
     return OK;
 }
 
-void FleetInstaller::deleteShip(int id)
+bool FleetInstaller::deleteShip(int id)
 {
     if (field->getShip(id) != NULL)
     {
@@ -220,7 +220,9 @@ void FleetInstaller::deleteShip(int id)
 		if (existingFleet.size() != 0){
 			existingFleet.remove(positionOfShip(existingFleet, field->getShip(id)));
 		}
+        return true;
     }
+    return false;
 }
 
 bool FleetInstaller::checkIsFleetReady()

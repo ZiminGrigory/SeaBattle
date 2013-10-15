@@ -21,9 +21,6 @@ class FleetInstaller : public QObject
     Q_OBJECT
 public:
     typedef QSharedPointer<Ship> ptrShip;
-    /**
-      * This enum contains statuses of placement of ship.
-      */
 
     typedef QPair<int, int> CellPair;
 
@@ -57,9 +54,10 @@ public slots:
       */
     PlacementStatus setShip(int id, int size, bool orientation);
     /**
-      * This slot remove the ship from field if cell with recieved id contained some ship.
+      * This slot backs ship to the array of ship which are needed to install.
+      * If on cell with passed id placed the ship - return true, false otherwise.
       */
-    void deleteShip(int id);
+    bool deleteShip(int id);
     /**
       * Check, was all ships in fleet installed on field.
       * Return true if it's ok and emit fleetInstalled() signal.
@@ -80,9 +78,6 @@ private:
     /**
       * Pick ship from fleet with length defined by pair of ids of cells and positioning.
       * If there isn't suited ship in fleet, it returns null pointer.
-      *
-      *
-      *
       */
     ptrShip pickShip(int size);
 	int positionOfShip(QVector<QSharedPointer<Ship> > vector, const QSharedPointer<Ship> ship);

@@ -48,19 +48,20 @@ PlacementStatus GameField::setShip(int id, int size, bool orientation)
 
 void GameField::deleteShip(int id)
 {
-    flInst->deleteShip(id);
-
-	QPair<int, int> coordinateOfShip = coordinates(id);
-	QSharedPointer<Ship> ship = field[coordinateOfShip.first][coordinateOfShip.second].getShip();
-	int size = ship->size();
-	QVector<int> vectorOfId = ship->getCoordinate();
-	ship->clearCoordinate();
-    for(int i = 1; i <= size; i++) {
-		QPair<int, int> coordinateOfShip = coordinates(vectorOfId.at(i - 1));
-		field[coordinateOfShip.first][coordinateOfShip.second].removeShip();
-		view->repaint(vectorOfId.at(i - 1), EMPTY);
-	}
-    //fleet[size - 1] = fleet.at(size - 1) + 1;
+    if (flInst->deleteShip(id))
+    {
+        QPair<int, int> coordinateOfShip = coordinates(id);
+        QSharedPointer<Ship> ship = field[coordinateOfShip.first][coordinateOfShip.second].getShip();
+        int size = ship->size();
+        QVector<int> vectorOfId = ship->getCoordinate();
+        ship->clearCoordinate();
+        for(int i = 1; i <= size; i++) {
+            QPair<int, int> coordinateOfShip = coordinates(vectorOfId.at(i - 1));
+            field[coordinateOfShip.first][coordinateOfShip.second].removeShip();
+            view->repaint(vectorOfId.at(i - 1), EMPTY);
+        }
+        //fleet[size - 1] = fleet.at(size - 1) + 1;
+    }
 }
 
 void GameField::removeInstalledFleet()
