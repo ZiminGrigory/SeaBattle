@@ -16,7 +16,7 @@ public:
     explicit AIPlayerSimple(const QSharedPointer<GameField>& plrField,
                       const QSharedPointer<GameField>& enmField,
                       QObject *parent = 0);
-     void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
+     void installFleet();
 private:
 	 void changeDirection();
 

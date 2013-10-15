@@ -28,7 +28,7 @@ public:
 					   QObject *parent = 0);
 
 public slots:
-    void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
+    void installFleet();
 protected slots:
     void cellWasAttacked(int id);
 private:
@@ -37,7 +37,7 @@ private slots:
    /**
      * Sends player's fleet to the remote instance of the game client.
      */
-    void sendPlayerFleet(QVector<ptrShip> fleet);
+    void sendPlayerFleet();
     /**
       * Sends chat message.
       */

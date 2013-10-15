@@ -10,6 +10,10 @@
 #include "gameCell.h"
 #include "textureAnalyzer.h"
 #include "BattleWidget.h"
+#include "fleetFactory.h"
+#include "fleetInstaller.h"
+
+class FleetInstaller;
 
 /**
   * Abstract class for enemy & player field.
@@ -19,13 +23,51 @@ class GameField : public QObject
 {
     Q_OBJECT
 public:
-	GameField(const QSharedPointer<InterfaceField>& fieldView);
+    GameField(const QSharedPointer<InterfaceField>& fieldView,
+              const QSharedPointer<InterfaceInfoTab>& infoTabView = QSharedPointer<InterfaceInfoTab>(NULL));
 
     virtual ~GameField()
     {}
 
+
+    /**
+      * Return pointer to ship placed on cell with passed id.
+      */
+    QSharedPointer<Ship> getShip(int id);
+    /**
+      * Return fleet assigned with this field.
+      */
+    QVector< QSharedPointer<Ship> > getFleet();
+    /**
+      *
+      */
+    QVector< QSharedPointer<Ship> > getInstalledFleet();
+    /**
+      * Attack cell with id given by argument. Return the result of attack.
+      */
+	virtual AttackStatus attack(int id);
+    /**
+      * Check could this cell being attack.
+      */
+    bool attackable(int id);
+public slots:
+    /**
+      * Sets ship on field. To define position of placement this slot uses two id,
+      * which should be on the single straight.
+      */
+    PlacementStatus setShip(int firstId, int secondId);
+    /**
+      * The same as previous, but with different interface.
+      *
+      * @var id top left id of cell which on ship will placed
+      * @var size size of ship
+      * @var orientation true - horizontal, false - vertical
+      */
+    PlacementStatus setShip(int id, int size, bool orientation);
     /**
       * Set ship.
+      * This slot assumes that id, size, and ship are correct, so there are not any checks.
+      * Use this slot quite carefully.
       *
       * @param id id of cell where ship will placed (if ship occupied few cells, it cell will be top or left,
       *     depend on orientation.
@@ -36,32 +78,27 @@ public:
       */
     void setShip(int id, bool orientation, QSharedPointer<Ship> ship);
     /**
-      * Return pointer to ship placed on cell with passed id.
+      * This slot remove the ship from field if cell with recieved id contained some ship.
       */
-    QSharedPointer<Ship> getShip(int id);
+    void deleteShip(int id);
     /**
-      * Remove ship placed on cell with recieved id.
+      * This method delete all ship installed on field.
       */
-    void removeShip(int id);
-    /**
-      * Attack cell with id given by argument. Return the result of attack.
-      */
-	virtual AttackStatus attack(int id);
-    /**
-      * Check could this cell being attack.
-      */
-    bool attackable(int id);
-signals:
-    /**
-      * This is emited when the ship placed on field.
-      * RemotePlayer class uses it to know about placement of human player's fleet
-      * (to send it then to another game client).
-      */
-    //void shipPlaced(int size, int id, bool orientation);
+    void removeInstalledFleet();
     /**
       *
-      **/
-    void shipSet();
+      */
+    void checkIsFleetReady();
+signals:
+    /**
+      * Signal emitted after shipPlaced() slot ended work.
+      * Signal contains result of last try to place ship on cells.
+      */
+    void shipPlacementResult(PlacementStatus res);
+    /**
+      * This signal emits when all fleet was correctly installed.
+      */
+    void fleetInstalled();
 protected:
 	int position(QVector<int> vector, int id);
 	void markKilled(int i, int j);
@@ -72,7 +109,9 @@ protected:
     QSharedPointer<TextureAnalyzer> textureAnalyzer;
 
 	GameCell field[FIELD_ROW_NUM][FIELD_COL_NUM];
-	QVector<int> fleet;// at 0 - count of BOAT_SCOUT at 3 - count of AEROCARRIER
+    //QVector<int> fleet;
+    QVector< QSharedPointer<Ship> > fleet;
+    QSharedPointer<FleetInstaller> flInst;
 
 };
 

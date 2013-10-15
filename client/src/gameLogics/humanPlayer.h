@@ -4,7 +4,6 @@
 #include <QObject>
 
 #include "player.h"
-#include "fleetInstaller.h"
 #include "BattleWidget.h"
 
 // for test purpose
@@ -28,7 +27,7 @@ public:
     /**
       *
       */
-    void installFleet(const QSharedPointer<FleetInstaller>& fleetInstaller);
+    void installFleet();
 public slots:
     /**
       * This slot do nothing because it need to wait until player made a choise.
@@ -51,7 +50,6 @@ protected:
 	QSharedPointer<InterfaceField> plrFieldView;
 	QSharedPointer<InterfaceField> enmFieldView;
 
-    QSharedPointer<FleetInstaller> fleetInst;
 	QSharedPointer<InterfaceInfoTab> infoTab;
 	QSharedPointer<InterfaceChatAndStatus> mChat;
 	bool myTurn;

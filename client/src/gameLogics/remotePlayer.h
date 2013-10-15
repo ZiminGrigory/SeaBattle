@@ -33,7 +33,7 @@ public:
     /**
       *
       */
-    void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller);
+    void installFleet();
 public slots:
     /**
       *
@@ -63,6 +63,5 @@ private:
     bool myTurn;
     bool expectFleet;
 
-    QSharedPointer<FleetInstaller> fleetInst;
     QVector<Protocol::ShipInfo> enemyFleetCopy;
 };

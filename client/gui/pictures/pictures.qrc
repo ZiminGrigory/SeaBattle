@@ -38,5 +38,13 @@
         <file>forChat/BEGIN.jpg</file>
         <file>forChat/ATTACK.jpg</file>
         <file>fon.jpg</file>
+        <file>smoke_animation.gif</file>
+        <file>bottom_burning.gif</file>
+        <file>bottom-burning-animation_hor.gif</file>
+        <file>head_burning.gif</file>
+        <file>head-burning-animation_hor.gif</file>
+        <file>middle-part-burning-animation_hor.gif</file>
+        <file>middle-part-burning-animation.gif</file>
+        <file>small-ship-burning-animation.gif</file>
     </qresource>
 </RCC>

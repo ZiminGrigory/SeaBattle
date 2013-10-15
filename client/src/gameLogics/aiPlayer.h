@@ -20,7 +20,7 @@ public:
 					  const QSharedPointer<GameField>& enmField,
 					  QObject *parent = 0);
 
-    virtual void installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller) = 0;
+    virtual void installFleet() = 0;
     virtual ~AIPlayer()
     {}
 protected:

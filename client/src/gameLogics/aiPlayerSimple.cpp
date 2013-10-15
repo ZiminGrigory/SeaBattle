@@ -16,9 +16,9 @@ AIPlayerSimple::AIPlayerSimple(const QSharedPointer<GameField> &plrField,
 
 }
 
-void AIPlayerSimple::installFleet(const QSharedPointer<FleetInstaller> &fleetInstaller)
+void AIPlayerSimple::installFleet()
 {
-    this->randomInstallFleet(fleetInstaller);
+    this->randomInstallFleet();
 	emit fleetInstalled(this);
 }
 void AIPlayerSimple::changeDirection()
