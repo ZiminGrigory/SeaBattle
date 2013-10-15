@@ -5,7 +5,8 @@
 #include <QPixmap>
 #include <QMovie>
 
-Cell::Cell(int x, int y): y(y), x(x), mTexture("empty"), gifMovie(NULL)
+Cell::Cell(int x, int y): y(y), x(x), mTexture("empty")
+  , gifMovie(NULL)
 {
 }
 
