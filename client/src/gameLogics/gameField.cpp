@@ -91,8 +91,7 @@ AttackStatus GameField::attack(int id)
     }
     else if (res == WOUNDED)
     {
-        view->repaint(getIdByCoordinates(x, y), SHIP_DAMAGED);
-		view->showAttackStatus(WOUNDED);
+		handleResWOUNDED(x, y);
     }
     else if (res == KILLED)
 	{
@@ -104,18 +103,14 @@ AttackStatus GameField::attack(int id)
 			for (int i = idFirst % FIELD_COL_NUM - 1; i <= idFirst % FIELD_COL_NUM + 1; i++){
 				for (int j = idFirst / FIELD_ROW_NUM - 1; j <= idSecond / FIELD_ROW_NUM + 1; j++){
 					markKilled(j, i);
-					if(checkCoord(j,i) && !field[j][i].attackable()){
-						field[j][i].attack();
-					}
+					handleResKILLED(j, i);
 				}
 			}
 		} else{
 			for (int i = idFirst % FIELD_COL_NUM - 1; i <= idSecond % FIELD_COL_NUM + 1; i++){
 				for (int j = idFirst / FIELD_ROW_NUM - 1; j <= idFirst / FIELD_ROW_NUM + 1; j++){
 					markKilled(j, i);
-					if(checkCoord(j,i) && !field[j][i].attackable()){
-						field[j][i].attack();
-					}
+					handleResKILLED(j, i);
 				}
 			}
 		}
@@ -185,6 +180,19 @@ void GameField::repaintCell(int row, int column, int partOfShip, int shipSize, b
 	Q_UNUSED(partOfShip);
 	Q_UNUSED(shipSize);
 	Q_UNUSED(orientation);
+}
+
+void GameField::handleResWOUNDED(int x, int y)
+{
+	view->repaint(getIdByCoordinates(x, y), SHIP_DAMAGED);
+	view->showAttackStatus(WOUNDED);
+}
+
+void GameField::handleResKILLED(int j, int i)
+{
+	if(checkCoord(j,i) && !field[j][i].attackable()){
+		field[j][i].attack();
+	}
 }
 
 int GameField::position(QVector<int> vector, int id)

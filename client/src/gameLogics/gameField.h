@@ -45,7 +45,7 @@ public:
     /**
       * Attack cell with id given by argument. Return the result of attack.
       */
-	virtual AttackStatus attack(int id);
+	/*virtual */AttackStatus attack(int id);
     /**
       * Check could this cell being attack.
       */
@@ -103,7 +103,8 @@ protected:
 	int position(QVector<int> vector, int id);
 	void markKilled(int i, int j);
     virtual void repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation);
-
+	virtual void handleResWOUNDED(int x, int y);
+	virtual void handleResKILLED(int j, int i);
     typedef QPair<int, int> Coord;
 	QSharedPointer<InterfaceField> view;
     QSharedPointer<TextureAnalyzer> textureAnalyzer;
