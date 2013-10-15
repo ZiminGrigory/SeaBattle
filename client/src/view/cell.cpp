@@ -152,6 +152,15 @@ void Cell::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton){
 		QPointF second = event->scenePos();
+		if (second.x() >= sizeOfCube){
+			second.setX(sizeOfCube - sizeOfCubeDivTen);
+		} else if (second.x() < 0){
+			second.setX(0);
+		} else if (second.y() >= sizeOfCube){
+			second.setY(sizeOfCube - sizeOfCubeDivTen);
+		} else if (second.y() < 0){
+			second.setY(0);
+		}
 		emit getCoordinate(first, second);
 	}
 }
@@ -160,5 +169,7 @@ void Cell::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
 	int x = event->scenePos().toPoint().x() / sizeOfCubeDivTen;
 	int y = event->scenePos().toPoint().y() / sizeOfCubeDivTen;
-	emit coordinatesOfMouseNow(getIdByCoordinates(y, x));
+	if (x >= 0 && x < FIELD_COL_NUM && y >= 0 && y < FIELD_COL_NUM){
+		emit coordinatesOfMouseNow(getIdByCoordinates(y, x));
+	}
 }

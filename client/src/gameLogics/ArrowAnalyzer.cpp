@@ -75,13 +75,13 @@ void ArrowAnalyzer::setNextArrow(int id)
 	if (id == firstId){
 		return;
 	}
-	if (id - firstId < 10 && id - firstId > 0){//right
+	if (id - firstId < 10 && id - firstId > 0 && (firstId - id) / 10 == 0){//right
 		analyzeNextArrow(Orientation::RIGHT, ARROW_R, id);
-	}else if (firstId - id < 10 && firstId - id > 0){//left
+	}else if (firstId - id < 10 && firstId - id > 0 && (firstId - id) / 10 == 0){//left
 		analyzeNextArrow(Orientation::LEFT, ARROW_L, id);
-	}else if (firstId - id >= 10){//UP
+	}else if (firstId - id >= 10 && (firstId - id) % 10 == 0){//UP
 		analyzeNextArrow(Orientation::UP, ARROW_UP, id);
-	}else if (id - firstId >= 10){//DOWN
+	}else if (id - firstId >= 10 && (firstId - id) % 10 == 0){//DOWN
 		analyzeNextArrow(Orientation::DOWN, ARROW_DOWN, id);
 	}
 }
@@ -120,6 +120,7 @@ void ArrowAnalyzer::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int
 	} else if (orient == Orientation::UP){
 		switcher = switcher / FIELD_COL_NUM * -1;
 	}
+
 	QPair<int, int> point = coordinates(id);
 	deleteAllArrows(id, id);
 	switch (switcher) {
@@ -174,10 +175,10 @@ void ArrowAnalyzer::analyzeNextArrow(Orientation::Orient orient, ImageID iD, int
         if (mField->getShipTypesNum().at(3) != 0 && isEmptyAround(point) && orientation.at(int(orient))){
 			point = coordinates(id);
 			if (isLeftOrRight && orientation.at(int(orient))
-					&& (point.second < FIELD_COL_NUM - 1 || point.second > 1)){
+					&& (point.second < FIELD_COL_NUM - 1 && point.second > 1)){
 				point.second = point.second + coefficient;
 			} else if (!isLeftOrRight && orientation.at(int(orient))
-					   && (point.first < FIELD_ROW_NUM - 1 || point.first > 1)){
+					   && (point.first < FIELD_ROW_NUM - 1 && point.first > 1)){
 				point.first = point.first + coefficient;
 			}
 			if (isEmptyAround(point) && point != coordinates(id)){
