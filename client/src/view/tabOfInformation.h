@@ -16,6 +16,7 @@ public:
 	~TabOfInformation();
 	void clearItself();
 	void changeCountOfShip(NameOfShips ship, int count);
+	void playerReady(Players player);
 
 public slots:
 	void changeCounter(NameOfShips ship, int difference);

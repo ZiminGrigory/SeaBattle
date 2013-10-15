@@ -23,6 +23,11 @@ TabOfInformation::TabOfInformation():
 	ui->label_2->setPixmap(QPixmap(":/pictures/cruiser.png"));
 	ui->label_3->setPixmap(QPixmap(":/pictures/destroyer.png"));
 	ui->label_4->setPixmap(QPixmap(":/pictures/boat scout.png"));
+	ui->label_isReady->setText(QString::fromLocal8Bit("<font color = black>Готовность игроков:<\\font>"));
+	ui->label_forCheckBoxEnemy->setText(QString::fromLocal8Bit("<font color = black>Соперник<\\font>"));
+	ui->label_forCheckBoxYou->setText(QString::fromLocal8Bit("<font color = black>Вы<\\font>"));
+	ui->checkBox_Enemy->setChecked(false);
+	ui->checkBox_You->setChecked(false);
 }
 
 TabOfInformation::~TabOfInformation()
@@ -36,6 +41,8 @@ void TabOfInformation::clearItself()
 	ui->lcdNumber_3->display(2);
 	ui->lcdNumber_2->display(3);
 	ui->lcdNumber->display(4);
+	ui->toolButton->setEnabled(true);
+	ui->toolButton_2->setEnabled(true);
 }
 
 void TabOfInformation::changeCountOfShip(NameOfShips ship, int count)
@@ -60,6 +67,15 @@ void TabOfInformation::changeCountOfShip(NameOfShips ship, int count)
 	}
 }
 
+void TabOfInformation::playerReady(Players player)
+{
+	if (player == YOU){
+		ui->checkBox_You->setChecked(true);
+	}else{
+		ui->checkBox_Enemy->setChecked(true);
+	}
+}
+
 void TabOfInformation::changeCounter(NameOfShips ship, int difference)
 {
 	changeCountOfShip(ship, difference);
@@ -70,6 +86,8 @@ void TabOfInformation::pushButtonReadyToFight()
 {
 	if (isReady()){
 		emit readyToFight();
+		ui->toolButton->setEnabled(false);
+		ui->toolButton_2->setEnabled(false);
 	}
 }
 

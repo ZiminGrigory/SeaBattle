@@ -11,6 +11,7 @@ public:
 
 public slots:
 	virtual void changeCounter(NameOfShips ship, int difference) = 0;
+	virtual void playerReady(Players player) = 0;
 
 signals:
 	void readyToFight();

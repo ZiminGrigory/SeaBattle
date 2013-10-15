@@ -106,19 +106,21 @@ void GameMaster::playerReadyToBattle(Player* sender)
     {
         disconnect(player.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
         if (isFirst)
-        {
+		{
             turnedPlayer = player;
             waitingPlayer = enemy;
         }
+		view->getInfoTabView()->playerReady(YOU);
     }
     else if (enemy == sender)
     {
         disconnect(enemy.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
         if (isFirst)
-        {
+		{
             turnedPlayer = enemy;
             waitingPlayer = player;
         }
+		view->getInfoTabView()->playerReady(ENEMY);
     }
     if (!isFirst)
     {
