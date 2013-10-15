@@ -34,6 +34,7 @@ Field::Field() :
 		}
 	}
 	ui->graphicsView->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
+	ui->graphicsView->setCacheMode(QGraphicsView::CacheNone);
 	ui->graphicsView->setScene(mScene);
 	backgroundBrush = QSharedPointer<QMovie>(new QMovie(":/pictures/sea_animation.gif"));
 	backgroundBrush->start();
