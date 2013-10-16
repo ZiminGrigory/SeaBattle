@@ -67,6 +67,9 @@ void AudioPlayer::playSound(Sounds track)
         break;
     case(SHIP_SET_SOUND):
         sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/ship_set.mp3"));
+        break;
+    case(SHIP_SET_ERR_SOUND):
+        sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/ship_set_error.mp3"));
     }
     sound->play();
 

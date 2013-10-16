@@ -110,6 +110,7 @@ void GameMaster::playerReadyToBattle(Player* sender)
             turnedPlayer = player;
             waitingPlayer = enemy;
         }
+        view->setMessage("Ждём соперника");
 		view->getInfoTabView()->playerReady(YOU);
     }
     else if (enemy == sender)
@@ -120,6 +121,7 @@ void GameMaster::playerReadyToBattle(Player* sender)
             turnedPlayer = enemy;
             waitingPlayer = player;
         }
+        view->setMessage("Противник готов");
 		view->getInfoTabView()->playerReady(ENEMY);
     }
     if (!isFirst)
@@ -234,5 +236,12 @@ void GameMaster::nextTurn(AttackStatus turnResult)
 void GameMaster::playShipSetSound(PlacementStatus status)
 {
     Q_UNUSED(status);
-    audioPlayer->playSound(SHIP_SET_SOUND);
+    if (status == OK)
+    {
+        audioPlayer->playSound(SHIP_SET_SOUND);
+    }
+    else
+    {
+        audioPlayer->playSound(SHIP_SET_ERR_SOUND);
+    }
 }
