@@ -18,14 +18,11 @@ public:
     /**
       * @var _socket Constructor expects recieve QTcpSocket connected with the remote instance of game client.
       */
-	NetworkHumanPlayer(const QSharedPointer<GameField> &plrField,
-					   const QSharedPointer<GameField>& enmField,
-					   const QSharedPointer<InterfaceField>& _plrFieldView,
-					   const QSharedPointer<InterfaceField>& _enmFieldView,
-					   const QSharedPointer<InterfaceInfoTab>& _infoTab,
-					   const QSharedPointer<InterfaceChatAndStatus> &_chat,
-					   const QSharedPointer<Client>& _client,
-					   QObject *parent = 0);
+    NetworkHumanPlayer(const QSharedPointer<GameField> &plrField,
+                       const QSharedPointer<GameField>& enmField,
+                       const QSharedPointer<InterfaceBattleWidget>& battleWidget,
+                       const QSharedPointer<Client>& _client,
+                       QObject *parent = 0);
 
 public slots:
     void installFleet();

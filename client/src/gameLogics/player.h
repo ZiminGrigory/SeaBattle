@@ -43,13 +43,13 @@ signals:
       */
     void fleetInstalled(Player* sender);
     /**
-      * After player recieves information about enemy turn, he emits this signal with result of attack.
-      */
-    /**
       * Emits when player print some text to chat.
       */
     void chat(const QString& message);
-    //void attackResult(AttackStatus res);
+    /**
+      * Emits when player want to quit a game.
+      */
+    void quit();
 public slots:
     void autoInstallFleet();
     /**
@@ -106,9 +106,9 @@ inline Player::Player(const QSharedPointer<GameField>& plrField,
                       const QSharedPointer<GameField>& enmField,
                       QObject *parent):
     QObject(parent),
-    fleetHealth(0),
     myField(plrField),
-    enemyField(enmField)
+    enemyField(enmField),
+    fleetHealth(0)
 {
 }
 

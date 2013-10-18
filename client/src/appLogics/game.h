@@ -6,7 +6,8 @@
 
 #include "types.h"
 #include "connectionMenu.h"
-#include "gameMaster.h"
+#include "aiGameMaster.h"
+#include "networkGameMaster.h"
 #include "MainWindow.h"
 #include "audioPlayer.h"
 

@@ -57,6 +57,10 @@ private:
      *
      */
     void chatMessageHandler(const QString& message);
+    /**
+     *
+     */
+    void quitHandler();
 
     QSharedPointer<Client> client;
 
