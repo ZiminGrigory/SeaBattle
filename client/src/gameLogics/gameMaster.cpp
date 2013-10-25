@@ -40,7 +40,7 @@ GameMaster::GameMaster(GameType type,
 														, view->getInfoTabView()
 														, view->getChatAndStatus()));
         // ai hard not implemented yet
-        enemy = QSharedPointer<Player>(new AIPlayerSimple(enemyField, playerField));
+        enemy = QSharedPointer<Player>(new AIPlayerSmart(enemyField, playerField));
     }
 
     else if (type == NETWORK_GAME)

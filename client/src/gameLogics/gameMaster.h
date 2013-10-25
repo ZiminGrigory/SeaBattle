@@ -10,6 +10,7 @@
 #include "networkHumanPlayer.h"
 #include "remotePlayer.h"
 #include "aiPlayerSimple.h"
+#include "aiPlayerSmart.h"
 #include "playerField.h"
 #include "audioPlayer.h"
 #include "LogAndChat.h"
