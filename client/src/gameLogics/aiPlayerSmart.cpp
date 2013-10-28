@@ -10,7 +10,8 @@ AIPlayerSmart::AIPlayerSmart(const QSharedPointer<GameField> &plrField,
     destroyer = 2;
     cruiser = 3;
     smallship = 4;
-
+    currentSquare.first = -1;
+    currentSquare.second = -1;
     strategy = new DiagonalShoot(enmField); // will be random for each square
 }
 
@@ -29,41 +30,48 @@ void AIPlayerSmart::turn()
 int AIPlayerSmart::chooseCell()
 {
 
-    if (aerocarrier == 1) // trying to find biggest ship
+    int i = currentSquare.first;
+    int j = currentSquare.second;
+
+   if (aerocarrier == 1) // trying to find biggest ship
     {
-        for (int i = 0; i < 3; i++) // for now I've made square choose just in order. In future it will be random.
+        while(currentSquare.first == -1 || strategy->fourSquareShooted(i, j))
         {
-            for (int j = 0; j < 3; j++)
-            {
-                if (!strategy->fourSquareShooted(i, j))
-                    return strategy->fourSquare(i, j); // method returns one of diagonals cells
-           }
+            i = qrand()%3;
+            j = qrand()%3;
+            currentSquare.first = i;
+            currentSquare.second = j;
+
         }
+
+        return strategy->fourSquare(i, j); // method returns one of diagonals cells
     }
-    if (cruiser != 0) // now we finding some 3 ships
+    if (destroyer != 0) // now we finding some 3 ships
     {
-        for (int i = 0; i < 4; i ++)
+        while(currentSquare.first == -1 || strategy->threeSquareShooted(i, j))
         {
-            for (int j = 0; j < 4; j++)
-            {
-                if (!strategy->threeSquareShooted(i,j))
-                    return strategy->threeSquare(i,j);
-            }
-
+            i = qrand()%4;
+            j = qrand()%4;
+            currentSquare.first = i;
+            currentSquare.second = j;
         }
+
+        return strategy->threeSquare(i,j);
 
     }
-    if (destroyer != 0) // 2 ships
+    if (cruiser != 0)
+     // 2 ships
     {
-        for (int i = 0; i < 5; i++)
-        {
-            for (int j = 0; j < 5; j++)
-            {
-                if(!strategy->twoSquareShooted(i, j))
-                    return strategy->twoSquare(i,j);
-            }
 
+        while(currentSquare.first == -1 || strategy->twoSquareShooted(i, j))
+        {
+            i = qrand()%5;
+            j = qrand()%5;
+            currentSquare.first = i;
+            currentSquare.second = j;
         }
+        return strategy->twoSquare(i, j);
+
     }
     return chooseRandomCell();
     // if we came here  there are left only small ships, there's no special rules to find them
@@ -74,21 +82,22 @@ int AIPlayerSmart::chooseCell()
 void AIPlayerSmart::decreaseFleet(int currentShip)
 {
     switch (currentShip) {
-    case BOAT_SCOUT:
+    case 1:
         smallship--;
         break;
-    case DESTROYER:
+    case 3:
         destroyer--;
         break;
-    case CRUISER:
+    case 2:
         cruiser--;
         break;
-    case AEROCARRIER:
+    case 4:
         aerocarrier--;
         break;
     default:
         break;
 
     }
-
+    currentSquare.first = -1;
+    currentSquare.second = -1;
 }

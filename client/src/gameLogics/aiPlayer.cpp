@@ -45,10 +45,13 @@ void AIPlayer::delayTurn()
 {
     int id = 0;
 
+
     if((isWounded) &&
             ((lastAttackResult == WOUNDED) || directionChanged) ) // here we've found right direction for attack (3 or 4 ships)
     {
-        currentShip++;
+
+        if(!directionChanged)
+            currentShip++;
         directionChanged = false;
         switch(direction)
         {
@@ -108,12 +111,12 @@ void AIPlayer::delayTurn()
             currentShip++;
             break;
         case (KILLED):
-            id = this->chooseCell();
-            isWounded = false;
-            clear();
             currentShip++;
             decreaseFleet(currentShip);
+            id = this->chooseCell();
+            isWounded = false;
             lastAttackedCell = id;
+            clear();
 
             break;
         }

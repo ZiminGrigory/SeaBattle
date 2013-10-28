@@ -21,6 +21,7 @@ public:
 protected:
     QSharedPointer<GameField>  enemyField;
     int id;
+    int squareSize(int squareNumberWidth, int squareNumberHeight, int size);
 };
 
 class DiagonalShoot : public SquareShootStrategy
