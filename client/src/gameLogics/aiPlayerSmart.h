@@ -22,6 +22,7 @@ private slots:
 
 private:
     int chooseCell();
+    QPair<int, int> currentSquare;
     int aerocarrier;
     int cruiser;
     int destroyer;
