@@ -1,6 +1,7 @@
 
 TEMPLATE = subdirs
 
+
 SUBDIRS = client server
 
 OTHER_FILES += \

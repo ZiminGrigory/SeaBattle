@@ -48,7 +48,9 @@ SOURCES += src/main.cpp \
     src/view/SettingsMenu.cpp \
     src/view/SettingsNetwork.cpp \
     src/gameLogics/networkGameMaster.cpp \
-    src/gameLogics/aiGameMaster.cpp
+    src/gameLogics/aiGameMaster.cpp \
+    src/gameLogics/aiPlayerSmart.cpp \
+    src/gameLogics/squareShootStrategy.cpp
 
 HEADERS  += src/gameLogics/enemyCell.h \
     src/gameLogics/types.h \
@@ -106,7 +108,9 @@ HEADERS  += src/gameLogics/enemyCell.h \
     src/view/InterfaceNetworkSettings.h \
     src/view/SettingsNetwork.h \
     src/gameLogics/networkGameMaster.h \
-    src/gameLogics/aiGameMaster.h
+    src/gameLogics/aiGameMaster.h \
+    src/gameLogics/aiPlayerSmart.h \
+    src/gameLogics/squareShootStrategy.h
 
 FORMS    += gui/tabOfInformation.ui \
     gui/field.ui \

@@ -8,12 +8,120 @@ AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
 				   QObject *parent):
 	Player(plrField, enmField, parent)
 {
+    isWounded = false;
+    lastAttackResult = NOT_ATTACKED;
     for(int i = 0; i < 3; i++)
         attackedCells[i] = 0;
     cnt = 2;
     directionChanged = false;
+    currentShip = 0;
     //connect(this, SIGNAL(turnMade(int)), );
 	qsrand(QTime::currentTime().msec());
+}
+
+void AIPlayer::changeDirection()
+{
+    switch (direction)
+    {
+    case (LEFT):
+        direction = RIGHT;
+        break;
+    case(DOWN):
+        direction = HIGH;
+        break;
+    case (RIGHT):
+        direction = RIGHT;
+        break;
+    case (HIGH):
+        direction = DOWN;
+        break;
+
+    }
+    cnt = 1;
+    directionChanged = true;
+}
+
+void AIPlayer::delayTurn()
+{
+    int id = 0;
+
+    if((isWounded) &&
+            ((lastAttackResult == WOUNDED) || directionChanged) ) // here we've found right direction for attack (3 or 4 ships)
+    {
+        currentShip++;
+        directionChanged = false;
+        switch(direction)
+        {
+        case LEFT:
+           if(enemyField->attackable(lastAttackedCell - cnt))
+                id = lastAttackedCell - cnt;
+           else
+               changeDirection();
+           break;
+        case DOWN:
+            if(enemyField->attackable(lastAttackedCell + 10 * cnt))
+                id = lastAttackedCell + 10 * cnt;
+            else
+                changeDirection();
+            break;
+        case RIGHT:
+            if(enemyField->attackable(lastAttackedCell  + cnt))
+                id = lastAttackedCell  + cnt;
+            else
+                changeDirection();
+            break;
+        case HIGH:
+            if (enemyField->attackable(lastAttackedCell - 10 * cnt))
+                id = lastAttackedCell - 10 * cnt;
+            else
+                changeDirection();
+            break;
+        }
+        cnt++;
+        lastAttackResult = enemyField->attack(id);
+        if(lastAttackResult == MISS)
+            changeDirection();
+
+    }
+    else if ((isWounded) && (lastAttackResult == MISS))
+    {
+        id = tryToKill(lastAttackedCell);
+        lastAttackResult = enemyField->attack(id);
+    }
+    else
+    {
+        switch(lastAttackResult)
+        {
+        case (NOT_ATTACKED):
+            id = this->chooseCell();
+            lastAttackedCell = id;
+            break;
+        case(MISS):
+            id = chooseCell();
+            isWounded = false;
+            clear();
+            lastAttackedCell = id;
+            break;
+        case(WOUNDED):
+            isWounded = true;
+            id = tryToKill(lastAttackedCell);
+            currentShip++;
+            break;
+        case (KILLED):
+            id = this->chooseCell();
+            isWounded = false;
+            clear();
+            currentShip++;
+            decreaseFleet(currentShip);
+            lastAttackedCell = id;
+
+            break;
+        }
+
+    lastAttackResult = enemyField->attack(id);
+    }
+
+    emit turnMade(id, lastAttackResult);
 }
 
 void AIPlayer::clear()
@@ -23,6 +131,7 @@ void AIPlayer::clear()
         attackedCells[i] = 0;
     cnt = 2;
 	directionChanged = false;
+    currentShip = 0;
 }
 
 int AIPlayer::tryToKill(int id)
