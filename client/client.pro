@@ -17,4 +17,3 @@ include(src/iView/iView.pri)
 include(src/view/view.pri)
 include(src/qmlView/qmlView.pri)
 include(src/tcpClient/tcpClient.pri)
-
