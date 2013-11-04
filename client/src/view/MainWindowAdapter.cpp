@@ -7,6 +7,7 @@ MainWindowAdapter::MainWindowAdapter()
 	mInterfaceConnectWidget = QSharedPointer<InterfaceConnectWidget>(new ConnectWidgetAdapter(mAdaptee.getInterfaceConnectWidget()));
 	mInterfaceStartMenu = QSharedPointer<InterfaceStartMenu>(new StartMenuAdapter(mAdaptee.getInterfaceStartMenu()));
 	mInterfaceSettingsMenu = QSharedPointer<InterfaceSettingsMenu>(new SettingsMenuAdapter(mAdaptee.getInterfaceSettingsMenu()));
+	mAdaptee.show();
 }
 
 void MainWindowAdapter::showWidget(Widgets widget)

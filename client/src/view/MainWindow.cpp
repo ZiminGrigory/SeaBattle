@@ -77,8 +77,8 @@ void MainWindow::hideWidget(Widgets widget)
 void MainWindow::showMain()
 {
 	startMenu->resize(WINDOW_SIZE);
-	resize(WINDOW_SIZE);
-	update();
+	this->resize(WINDOW_SIZE);
+	this->update();
 }
 
 QSharedPointer<AiLvlList> MainWindow::getInterfaceAiLvlList()

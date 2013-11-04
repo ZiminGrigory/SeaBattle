@@ -10,8 +10,8 @@ class FieldAdapter : public InterfaceField
 public:
 	FieldAdapter(const QSharedPointer<Field>& adaptee);
 
-	void showAttackStatus(AttackStatus status) = 0;
-	void showResult(Players player) = 0;
+	void showAttackStatus(AttackStatus status);
+	void showResult(Players player);
 	void addImage(int id, ImageID iD);
 	void removeImageFromCell(int id);
 	void clearItself();
@@ -29,7 +29,7 @@ signals:
 	void setNextArrow(int id);
 
 private:
-	QSharedPointer<FieldAdapter> mAdaptee;
+	QSharedPointer<Field> mAdaptee;
 };
 
 #endif // FIELDADAPTER_H
