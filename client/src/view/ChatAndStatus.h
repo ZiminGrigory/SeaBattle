@@ -9,7 +9,7 @@ namespace Ui {
 class ChatAndStatus;
 }
 
-class ChatAndStatus : public InterfaceChatAndStatus, public QWidget
+class ChatAndStatus : public QWidget
 {
 	Q_OBJECT
 

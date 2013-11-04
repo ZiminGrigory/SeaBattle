@@ -16,7 +16,7 @@ namespace Ui {
 class BattleWidget;
 }
 
-class BattleWidget : public InterfaceBattleWidget, public QWidget
+class BattleWidget : public QWidget
 {
 	Q_OBJECT
 
@@ -32,10 +32,10 @@ public:
     void showGameBreakDialog(const QString &message);
     void showQuitDialog();
 
-	QSharedPointer<InterfaceField> getPlayerFieldView();
-	QSharedPointer<InterfaceField> getEnemyFieldView();
-	QSharedPointer<InterfaceInfoTab> getInfoTabView();
-	QSharedPointer<InterfaceChatAndStatus> getChatAndStatus();
+	QSharedPointer<Field> getPlayerFieldView();
+	QSharedPointer<Field> getEnemyFieldView();
+	QSharedPointer<TabOfInformation> getInfoTabView();
+	QSharedPointer<ChatAndStatus> getChatAndStatus();
 	void showCountersOfFleet();
 	void setCountOfFleet(Players plr, int count);
 signals:
@@ -51,10 +51,10 @@ private:
     QMessageBox gameBreakDialog;
     QMessageBox quitDialog;
 	QTimer timer;
-	QSharedPointer<InterfaceField> mPlayerField;
-	QSharedPointer<InterfaceField> mEnemyField;
-	QSharedPointer<InterfaceInfoTab> mInfoTab;
-	QSharedPointer<InterfaceChatAndStatus> mChat;
+	QSharedPointer<Field> mPlayerField;
+	QSharedPointer<Field> mEnemyField;
+	QSharedPointer<TabOfInformation> mInfoTab;
+	QSharedPointer<ChatAndStatus> mChat;
 	void showChatAndStatus();
 
 private slots:

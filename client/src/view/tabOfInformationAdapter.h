@@ -1,13 +1,15 @@
 #ifndef TABOFINFORMATIONADAPTER_H
 #define TABOFINFORMATIONADAPTER_H
 
-#include <InterfaceInfoTab.h>
-#include <tabOfInformation.h>
+#include <QSharedPointer>
+
+#include "InterfaceInfoTab.h"
+#include "tabOfInformation.h"
 
 class TabOfInformationAdapter : public InterfaceInfoTab
 {
 public:
-	TabOfInformationAdapter();
+	TabOfInformationAdapter(const QSharedPointer<TabOfInformation>& adaptee);
 
 	void clearItself();
 public slots:
@@ -18,7 +20,7 @@ signals:
 	void readyToFight();
 	void needAutoSetting();
 private:
-	TabOfInformation mAdaptee;
+	QSharedPointer<TabOfInformation> mAdaptee;
 };
 
 #endif // TABOFINFORMATIONADAPTER_H

@@ -2,7 +2,6 @@
 #include "ui_BattleWidget.h"
 
 BattleWidget::BattleWidget() :
-	InterfaceBattleWidget(),
 	QWidget(),
 	ui(new Ui::BattleWidget),
     gameBreakDialog(this),
@@ -13,10 +12,10 @@ BattleWidget::BattleWidget() :
 	ui->lcdNumber->hide();
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
 	ui->buttonBack->setText(QString::fromLocal8Bit("Назад в главное меню"));
-	mPlayerField = QSharedPointer<InterfaceField>(new Field);
-	mEnemyField = QSharedPointer<InterfaceField>(new Field);;
-	mInfoTab = QSharedPointer<InterfaceInfoTab>(new TabOfInformation);
-	mChat = QSharedPointer<InterfaceChatAndStatus>(new ChatAndStatus);
+	mPlayerField = QSharedPointer<Field>(new Field);
+	mEnemyField = QSharedPointer<Field>(new Field);;
+	mInfoTab = QSharedPointer<TabOfInformation>(new TabOfInformation);
+	mChat = QSharedPointer<ChatAndStatus>(new ChatAndStatus);
 	timer.setSingleShot(false);
 	showChatAndStatus();
 	ui->EnemyCnt->setText(QString::fromLocal8Bit("<font color = black>Осталось кораблей:<\\font>"));
@@ -125,7 +124,7 @@ QSharedPointer<InterfaceField> BattleWidget::getEnemyFieldView()
 	return mEnemyField;
 }
 
-QSharedPointer<InterfaceInfoTab> BattleWidget::getInfoTabView()
+QSharedPointer<TabOfInformation> BattleWidget::getInfoTabView()
 {
 	return mInfoTab;
 }
