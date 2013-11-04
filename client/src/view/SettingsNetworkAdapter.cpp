@@ -1,6 +1,6 @@
 #include "SettingsNetworkAdapter.h"
 
-SettingsNetworkAdapter::SettingsNetworkAdapter(): mAdaptee(_mAdaptee)
+SettingsNetworkAdapter::SettingsNetworkAdapter(const QSharedPointer<SettingsNetwork>& _mAdaptee): mAdaptee(_mAdaptee)
 {
 	connect(mAdaptee.data(), SIGNAL(nameOfServerWithPort(QString server, quint16 port)),
 			SIGNAL(nameOfServerWithPort(QString server, quint16 port)));

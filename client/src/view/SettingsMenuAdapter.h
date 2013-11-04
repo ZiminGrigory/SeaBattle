@@ -6,7 +6,7 @@
 class SettingsMenuAdapter : public InterfaceSettingsMenu
 {
 public:
-	SettingsMenuAdapter(QSharedPointer<SettingsMenu> _mAdaptee);
+	SettingsMenuAdapter(const QSharedPointer<SettingsMenu>& _mAdaptee);
 
 signals:
 	void mute(bool switcher);

@@ -5,7 +5,6 @@
 
 
 Field::Field() :
-	InterfaceField(),
 	QWidget(),
 	ui(new Ui::Field)
 {

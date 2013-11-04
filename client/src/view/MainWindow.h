@@ -27,9 +27,9 @@ public:
 	void hideWidget(Widgets widget);
 	void showMain();
 	QSharedPointer<AiLvlList> getInterfaceAiLvlList();
-	QSharedPointer<ConnectWidget> getInterfaceBattleWidget();
-	QSharedPointer<StartMenu> getInterfaceConnectWidget();
-	QSharedPointer<BattleWidget> getInterfaceStartMenu();
+	QSharedPointer<BattleWidget> getInterfaceBattleWidget();
+	QSharedPointer<ConnectWidget> getInterfaceConnectWidget();
+	QSharedPointer<StartMenu> getInterfaceStartMenu();
 	QSharedPointer<SettingsMenu> getInterfaceSettingsMenu();
 private:
 	Ui::MainWindow *ui;

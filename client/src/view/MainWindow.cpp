@@ -2,7 +2,7 @@
 #include "ui_MainWindow.h"
 
 MainWindow::MainWindow() :
-	QWidget(),
+	QMainWindow(),
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
@@ -79,11 +79,6 @@ void MainWindow::showMain()
 	startMenu->resize(WINDOW_SIZE);
 	resize(WINDOW_SIZE);
 	update();
-}
-
-void MainWindow::resize(const QSize& size)
-{
-
 }
 
 QSharedPointer<AiLvlList> MainWindow::getInterfaceAiLvlList()

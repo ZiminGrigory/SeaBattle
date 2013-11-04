@@ -1,6 +1,6 @@
 #include "fieldAdapter.h"
 
-FieldAdapter::FieldAdapter(const QSharedPointer<Field> adaptee) :
+FieldAdapter::FieldAdapter(const QSharedPointer<Field> &adaptee) :
 	mAdaptee(adaptee)
 {
 	connect(mAdaptee.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));

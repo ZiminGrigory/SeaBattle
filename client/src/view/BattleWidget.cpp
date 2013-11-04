@@ -114,12 +114,12 @@ void BattleWidget::showChatAndStatus()
 	ui->layoutForChat->addWidget(mChat.data());
 }
 
-QSharedPointer<InterfaceField> BattleWidget::getPlayerFieldView()
+QSharedPointer<Field> BattleWidget::getPlayerFieldView()
 {
 	return mPlayerField;
 }
 
-QSharedPointer<InterfaceField> BattleWidget::getEnemyFieldView()
+QSharedPointer<Field> BattleWidget::getEnemyFieldView()
 {
 	return mEnemyField;
 }
@@ -129,7 +129,7 @@ QSharedPointer<TabOfInformation> BattleWidget::getInfoTabView()
 	return mInfoTab;
 }
 
-QSharedPointer<InterfaceChatAndStatus> BattleWidget::getChatAndStatus()
+QSharedPointer<ChatAndStatus> BattleWidget::getChatAndStatus()
 {
 	return mChat;
 }

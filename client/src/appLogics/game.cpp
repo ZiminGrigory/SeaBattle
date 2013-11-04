@@ -1,8 +1,8 @@
 #include "game.h"
-
+#include "MainWindowAdapter.h"
 Game::Game(int& argc, char** argv):
     QApplication(argc, argv),
-	view(QSharedPointer<InterfaceMainWindow>(new MainWindow())),
+	view(QSharedPointer<InterfaceMainWindow>(new MainWindowAdapter())),
     gameMaster(QSharedPointer<GameMaster>(NULL)),
     mConnectionMenu(NULL)
 {

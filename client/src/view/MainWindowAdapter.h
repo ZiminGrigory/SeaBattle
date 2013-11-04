@@ -2,9 +2,9 @@
 #define MAINWINDOWADAPTER_H
 #include "InterfaceMainWindow.h"
 #include "MainWindow.h"
-#include "AiLvlListAdapter.h"
-#include "BattleWidgetAdapter.h"
-#include "ConnectWidgetAdapter.h"
+#include "aiLvlListAdapter.h"
+#include "battleWidgetAdapter.h"
+#include "connectWidgetAdapter.h"
 #include "SettingsMenuAdapter.h"
 #include "StartMenuAdapter.h"
 class MainWindowAdapter: public InterfaceMainWindow

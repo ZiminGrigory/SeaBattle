@@ -2,7 +2,6 @@
 #include "ui_AiLvlList.h"
 
 AiLvlList::AiLvlList() :
-	InterfaceAiLvlList(),
 	QWidget(),
 	ui(new Ui::AiLvlList)
 {
