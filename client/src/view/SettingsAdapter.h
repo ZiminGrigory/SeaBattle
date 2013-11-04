@@ -6,7 +6,7 @@
 class SettingsAdapter : public InterfaceVolumeSettings
 {
 public:
-	SettingsAdapter();
+	SettingsAdapter(QSharedPointer<Settings> _mAdaptee);
 
 signals:
 	void changeVolume(int volume);

@@ -6,7 +6,7 @@
 class StartMenuAdapter : public InterfaceStartMenu
 {
 public:
-	StartMenuAdapter();
+	StartMenuAdapter(QSharedPointer<StartMenu> _mAdaptee);
 	Q_OBJECT
 signals:
 	void buttonVsPlayerPushed();

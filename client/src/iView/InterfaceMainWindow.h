@@ -18,7 +18,7 @@ public:
 	virtual ~InterfaceMainWindow() {}
 	virtual void showWidget(Widgets widget) = 0;
 	virtual void hideWidget(Widgets widget) = 0;
-	virtual void showMain();
+	virtual void showMain() = 0;
 	virtual QSharedPointer<InterfaceAiLvlList> getInterfaceAiLvlList() = 0;
 	virtual QSharedPointer<InterfaceBattleWidget> getInterfaceBattleWidget() = 0;
 	virtual QSharedPointer<InterfaceConnectWidget> getInterfaceConnectWidget() = 0;

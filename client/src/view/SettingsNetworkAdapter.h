@@ -6,7 +6,7 @@
 class SettingsNetworkAdapter :public InterfaceNetworkSettings
 {
 public:
-	SettingsNetworkAdapter();
+	SettingsNetworkAdapter(QSharedPointer<SettingsNetwork> _mAdaptee);
 signals:
 	void nameOfServerWithPort(QString server, quint16 port);
 	void buttonBackPushed();
