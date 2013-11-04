@@ -1,8 +1,12 @@
 #include "BattleWidget.h"
 #include "ui_BattleWidget.h"
 
-BattleWidget::BattleWidget() :InterfaceBattleWidget(),
+BattleWidget::BattleWidget() :
+	InterfaceBattleWidget(),
+	QWidget(),
 	ui(new Ui::BattleWidget),
+    gameBreakDialog(this),
+    quitDialog(this),
 	timer()
 {
 	ui->setupUi(this);
@@ -21,8 +25,10 @@ BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 	ui->YouCnt->hide();
 	ui->EnemyCntDisplay->hide();
 	ui->YouCntDisplay->hide();
-	connect(ui->buttonBack, SIGNAL(clicked()), SIGNAL(buttonBackPressed()));
+    quitDialog.setText(QString::fromLocal8Bit("Вы уверены, что хотите покинуть игру?"));
+    quitDialog.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
 
+	connect(ui->buttonBack, SIGNAL(clicked()), SIGNAL(buttonBackPressed()));
 }
 
 void BattleWidget::setMessage(QString text)
@@ -78,7 +84,30 @@ void BattleWidget::clearItself()
 	ui->EnemyCntDisplay->hide();
 	ui->YouCntDisplay->hide();
 	mPlayerField->hide();
-	mEnemyField->hide();
+    mEnemyField->hide();
+}
+
+void BattleWidget::showGameBreakDialog(const QString& message)
+{
+    gameBreakDialog.setText(message);
+    QMessageBox::StandardButton res = static_cast<QMessageBox::StandardButton>(gameBreakDialog.exec());
+    if (res == QMessageBox::Ok)
+    {
+        emit gameBreakDialogOkPressed();
+    }
+}
+
+void BattleWidget::showQuitDialog()
+{
+    QMessageBox::StandardButton res = static_cast<QMessageBox::StandardButton>(quitDialog.exec());
+    if (res == QMessageBox::Ok)
+    {
+        emit quitDialogOkPressed();
+    }
+    else if (res == QMessageBox::Cancel)
+    {
+        emit quitDialogCancelPressed();
+    }
 }
 
 void BattleWidget::showChatAndStatus()

@@ -5,14 +5,12 @@ AIPlayerSimple::AIPlayerSimple(const QSharedPointer<GameField> &plrField,
 								 QObject *parent):
     AIPlayer(plrField, enmField, parent)
 {
-    isWounded = false;
-    lastAttackResult = NOT_ATTACKED;
-    for(int i = 0; i < 3; i++)
-        attackedCells[i] = 0;
-    cnt = 2;
-    directionChanged = false;
+
     //connect(this, SIGNAL(turnMade(int)), );
     qsrand(QTime::currentTime().msec());
+
+
+
 }
 
 void AIPlayerSimple::installFleet()
@@ -20,109 +18,22 @@ void AIPlayerSimple::installFleet()
     this->randomInstallFleet();
 	emit fleetInstalled(this);
 }
-void AIPlayerSimple::changeDirection()
-{
-    switch (direction)
-    {
-    case (LEFT):
-        direction = RIGHT;
-        break;
-    case(DOWN):
-        direction = HIGH;
-        break;
-    case (RIGHT):
-        direction = RIGHT;
-        break;
-    case (HIGH):
-        direction = DOWN;
-        break;
 
-    }
-    cnt = 1;
-    directionChanged = true;
+int AIPlayerSimple::chooseCell()
+{
+    return chooseRandomCell();
 }
 
+
+void AIPlayerSimple::decreaseFleet(int currentShip)
+{
+    //do nothing
+}
 
 void AIPlayerSimple::turn()
 {
     QTimer::singleShot(AIPlayer::delay, this, SLOT(delayTurn()));
 }
 
-void AIPlayerSimple::delayTurn()
-{
-    int id = 0;
 
-    if((isWounded) &&
-            ((lastAttackResult == WOUNDED) || directionChanged) ) // here we've found right direction for attack (3 or 4 ships)
-    {
-        directionChanged = false;
-        switch(direction)
-        {
-        case LEFT:
-           if(enemyField->attackable(lastAttackedCell - cnt))
-                id = lastAttackedCell - cnt;
-           else
-               changeDirection();
-           break;
-        case DOWN:
-            if(enemyField->attackable(lastAttackedCell + 10 * cnt))
-                id = lastAttackedCell + 10 * cnt;
-            else
-                changeDirection();
-            break;
-        case RIGHT:
-            if(enemyField->attackable(lastAttackedCell  + cnt))
-                id = lastAttackedCell  + cnt;
-            else
-                changeDirection();
-            break;
-        case HIGH:
-            if (enemyField->attackable(lastAttackedCell - 10 * cnt))
-                id = lastAttackedCell - 10 * cnt;
-            else
-                changeDirection();
-            break;
-        }
-        cnt++;
-        lastAttackResult = enemyField->attack(id);
-        if(lastAttackResult == MISS)
-            changeDirection();
-
-    }
-    else if ((isWounded) && (lastAttackResult == MISS))
-    {
-        id = tryToKill(lastAttackedCell);
-        lastAttackResult = enemyField->attack(id);
-    }
-    else
-    {
-        switch(lastAttackResult)
-        {
-        case (NOT_ATTACKED):
-            id = this->chooseRandomCell();
-            lastAttackedCell = id;
-            break;
-        case(MISS):
-            id = chooseRandomCell();
-            isWounded = false;
-            clear();
-            lastAttackedCell = id;
-            break;
-        case(WOUNDED):
-            isWounded = true;
-            id = tryToKill(lastAttackedCell);
-            break;
-        case (KILLED):
-            id = this->chooseRandomCell();
-            isWounded = false;
-            clear();
-            lastAttackedCell = id;
-            break;
-        }
-
-    lastAttackResult = enemyField->attack(id);
-    }
-
-    emit turnMade(id, lastAttackResult);
-}
 

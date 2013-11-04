@@ -15,10 +15,13 @@ class HumanPlayer : public Player
 public:
 	explicit HumanPlayer(const QSharedPointer<GameField> &plrField,
 						 const QSharedPointer<GameField>& enmField,
+                         const QSharedPointer<InterfaceBattleWidget>& battleWidget,
+                         /*
 						 const QSharedPointer<InterfaceField>& _plrFieldView,
 						 const QSharedPointer<InterfaceField>& _enmFieldView,
 						 const QSharedPointer<InterfaceInfoTab> &_infoTab,
 						 const QSharedPointer<InterfaceChatAndStatus> &_chat,
+                                              */
 						 QObject *parent = 0);
     
     // for test purpose

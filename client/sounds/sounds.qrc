@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/sounds">
+        <file>begin.mp3</file>
+        <file>wounded.mp3</file>
+        <file>defeat.mp3</file>
+        <file>finish him.mp3</file>
+        <file>first blood.mp3</file>
+        <file>killed.mp3</file>
+        <file>sea.mp3</file>
+        <file>ship_set_error.mp3</file>
+        <file>ship_set.mp3</file>
+        <file>victory.mp3</file>
+    </qresource>
+    <qresource prefix="/sounds2">
+        <file>miss.mp3</file>
+    </qresource>
+</RCC>

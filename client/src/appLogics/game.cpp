@@ -25,18 +25,15 @@ Game::Game(int& argc, char** argv):
 	connect(view->getInterfaceAiLvlList().data(), SIGNAL(buttonVsProPushed()), SLOT(startAIHardGame()));
 
 	connect(view->getInterfaceSettingsMenu().data(), SIGNAL(buttonBackPushed()), SLOT(gameMenu()));
-	connect(view->getInterfaceBattleWidget().data(), SIGNAL(buttonBackPressed()), SLOT(handleBW()));
+
     gameMenu();
 }
 
 void Game::gameMenu()
 {
 	hideAllWidget();
+	view->showMain();
 	view->showWidget(START_MENU);
-	view->getInterfaceStartMenu()->resize(WINDOW_SIZE);
-	view->resize(WINDOW_SIZE);
-	view->update();
-	view->show();
 }
 
 void Game::aiLevelMenu()
@@ -58,11 +55,11 @@ void Game::startAISimpleGame()
 {
 	hideAllWidget();
 	view->showWidget(BATTLE);
-    gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_SIMPLE_GAME,
+    gameMaster = QSharedPointer<GameMaster>(new AiGameMaster(AiGameMaster::EASY,
                                                            view->getInterfaceBattleWidget(),
-                                                           QSharedPointer<Client>(NULL),
 														   audioPlayer,
                                                            this));
+    connect(gameMaster.data(), SIGNAL(gameInterrupted()), SLOT(handleBW()));
 	gameMaster->startGame();
 }
 
@@ -70,11 +67,11 @@ void Game::startAIHardGame()
 {
 	hideAllWidget();
 	view->showWidget(BATTLE);
-    gameMaster = QSharedPointer<GameMaster>(new GameMaster(AI_HARD_GAME,
+    gameMaster = QSharedPointer<GameMaster>(new AiGameMaster(AiGameMaster::HARD,
                                                            view->getInterfaceBattleWidget(),
-                                                           QSharedPointer<Client>(NULL),
 														   audioPlayer,
                                                            this));
+    connect(gameMaster.data(), SIGNAL(gameInterrupted()), SLOT(handleBW()));
 	gameMaster->startGame();
 }
 
@@ -82,11 +79,11 @@ void Game::startNetworkGame(const QSharedPointer<Client>& client)
 {
 	hideAllWidget();
     view->showWidget(BATTLE);
-    gameMaster = QSharedPointer<GameMaster>(new GameMaster(NETWORK_GAME,
-                                                           view->getInterfaceBattleWidget(),
-                                                           client,
+    gameMaster = QSharedPointer<GameMaster>(new NetworkGameMaster(view->getInterfaceBattleWidget(),
 														   audioPlayer,
+                                                           client,
                                                            this));
+    connect(gameMaster.data(), SIGNAL(gameInterrupted()), SLOT(handleBW()));
     gameMaster->startGame();
 
 	//client->send(Protocol::CHECK_STATE, QByteArray());

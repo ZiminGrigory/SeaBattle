@@ -2,7 +2,9 @@
 #include "ui_ChatAndStatus.h"
 #include "QPixmap"
 
-ChatAndStatus::ChatAndStatus() : InterfaceChatAndStatus(),
+ChatAndStatus::ChatAndStatus() :
+	InterfaceChatAndStatus(),
+	QWidget(),
 	ui(new Ui::ChatAndStatus)
 {
 	ui->setupUi(this);
@@ -24,9 +26,11 @@ void ChatAndStatus::appendMessage(Players plr, QString text)
 	QString firstText;
 	if (plr == YOU){
 		firstText = QString::fromLocal8Bit("<font color = blue>ВЫ: <\\font>");
-	} else {
+    } else if (plr == ENEMY) {
 		firstText = QString::fromLocal8Bit("<font color = red>ВРАГ: <\\font>");
-	}
+    } else if (plr == GAME) {
+        firstText = QString::fromLocal8Bit("<font color = green>ИГРА: <\\font>");
+    }
 
 	firstText += QString("<font color = black>" + text + "<\\font>");
 	ui->textBrowser->append(firstText);

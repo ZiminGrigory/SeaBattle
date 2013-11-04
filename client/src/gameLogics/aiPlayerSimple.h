@@ -18,8 +18,9 @@ public:
                       QObject *parent = 0);
      void installFleet();
 private:
-	 void changeDirection();
-
+     //void changeDirection();
+     int chooseCell();
+     void decreaseFleet(int currentShip);
 public slots:
     /**
       * Nothing to thing about it, choose the random cell!
@@ -29,7 +30,7 @@ private slots:
     /**
       * Subsidiary slot for the delay attack
       */
-    void delayTurn();
+    //void delayTurn();
 
 };
 

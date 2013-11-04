@@ -7,12 +7,12 @@ namespace Ui {
 class SettingsMenu;
 }
 
-class SettingsMenu : public InterfaceSettingsMenu
+class SettingsMenu : public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit SettingsMenu();
+	SettingsMenu();
 	~SettingsMenu();
 
 signals:

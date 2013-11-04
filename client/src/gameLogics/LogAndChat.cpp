@@ -28,7 +28,12 @@ void LogAndChat::cellAttacked(Players plr, int id, AttackStatus status)
 
 void LogAndChat::playerMessage(Players plr, QString message)
 {
-	mChat->appendMessage(plr, message);
+    mChat->appendMessage(plr, message);
+}
+
+void LogAndChat::gameMasterMessage(const QString &message)
+{
+    mChat->appendMessage(GAME, message);
 }
 
 QString LogAndChat::messageFactory(int id, AttackStatus status)

@@ -42,31 +42,34 @@ void AudioPlayer::playSound(Sounds track)
     switch (track)
     {
     case (BEGIN_SOUND):
-		sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/begin.mp3"));
+		sound->setMedia(QUrl("qrc:/sounds/begin.mp3"));
         break;
     case(FIRST_BLOOD):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/first blood.mp3"));
+		 sound->setMedia(QUrl("qrc:/sounds/first blood.mp3"));
         break;
     case(MISS_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/miss.mp3"));
+		 sound->setMedia(QUrl("qrc:/sounds2/miss.mp3"));
         break;
     case(WOUNDED_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/wounded.mp3"));
+		 sound->setMedia(QUrl("qrc:/sounds/wounded.mp3"));
         break;
     case(KILLED_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/killed.mp3"));
+		 sound->setMedia(QUrl("qrc:/sounds/killed.mp3"));
         break;
     case(FINISH_HIM):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/finish him.mp3"));
+		 sound->setMedia(QUrl("qrc:/sounds/finish him.mp3"));
         break;
     case(VICTORY_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/victory.mp3"));
+		 sound->setMedia(QUrl("qrc:/sounds/victory.mp3"));
         break;
     case(DEFEAT_SOUND):
-		 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/defeat.mp3"));
+		 sound->setMedia(QUrl("qrc:/sounds/defeat.mp3"));
         break;
     case(SHIP_SET_SOUND):
-        sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/ship_set.mp3"));
+		sound->setMedia(QUrl("qrc:/sounds/ship_set.mp3"));
+        break;
+    case(SHIP_SET_ERR_SOUND):
+		sound->setMedia(QUrl("qrc:/sounds/ship_set_error.mp3"));
     }
     sound->play();
 
@@ -76,7 +79,7 @@ void AudioPlayer::playBackground()
 {
 	if(mIsMute)
         return;
-	 sound->setMedia(QUrl::fromLocalFile(path + "/gui/sounds/sea.mp3"));
+	 sound->setMedia(QUrl::fromLocalFile("qrc:/sounds/sea.mp3"));
     sound->play();
 }
 

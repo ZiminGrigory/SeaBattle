@@ -2,7 +2,7 @@
 #include "ui_SettingsNetwork.h"
 
 SettingsNetwork::SettingsNetwork() :
-	InterfaceNetworkSettings(),
+	QWidget(),
 	ui(new Ui::SettingsNetwork)
 {
 	ui->setupUi(this);

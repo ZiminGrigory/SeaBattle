@@ -13,17 +13,18 @@ namespace Ui {
 class Field;
 }
 
-class Field : public InterfaceField
+class Field : public InterfaceField, public QWidget
 {
 	Q_OBJECT
 public:
-	explicit Field();
+	Field();
 	void showAttackStatus(AttackStatus status);
 	void showResult(Players player);
 	Cell* getCellView(int id);
 	void addImage(int id, ImageID iD);
 	void removeImageFromCell(int id);
 	void clearItself();
+	void setAttackable(bool attackable);
 	~Field();
 
 public slots:
