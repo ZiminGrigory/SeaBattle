@@ -10,7 +10,8 @@ HEADERS += src/view/field.h \
     src/view/MainWindow.h \
     src/view/Settings.h \
     src/view/SettingsMenu.h \
-    src/view/SettingsNetwork.h
+    src/view/SettingsNetwork.h \
+    src/view/tabOfInformationAdapter.h
 
 SOURCES += src/view/tabOfInformation.cpp \
     src/view/BattleWidget.cpp \
@@ -23,7 +24,8 @@ SOURCES += src/view/tabOfInformation.cpp \
     src/view/MainWindow.cpp \
     src/view/Settings.cpp \
     src/view/SettingsMenu.cpp \
-    src/view/SettingsNetwork.cpp
+    src/view/SettingsNetwork.cpp \
+    src/view/tabOfInformationAdapter.cpp
 
 FORMS    += src/view/tabOfInformation.ui \
     src/view/field.ui \

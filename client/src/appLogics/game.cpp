@@ -32,11 +32,8 @@ Game::Game(int& argc, char** argv):
 void Game::gameMenu()
 {
 	hideAllWidget();
+	view->showMain();
 	view->showWidget(START_MENU);
-	view->getInterfaceStartMenu()->resize(WINDOW_SIZE);
-	view->resize(WINDOW_SIZE);
-	view->update();
-	view->show();
 }
 
 void Game::aiLevelMenu()

@@ -16,7 +16,7 @@ namespace Ui {
 class BattleWidget;
 }
 
-class BattleWidget : public InterfaceBattleWidget
+class BattleWidget : public InterfaceBattleWidget, public QWidget
 {
 	Q_OBJECT
 

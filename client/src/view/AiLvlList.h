@@ -8,10 +8,9 @@ namespace Ui {
 class AiLvlList;
 }
 
-class AiLvlList :public InterfaceAiLvlList
+class AiLvlList : public InterfaceAiLvlList, public QWidget
 {
 	Q_OBJECT
-
 public:
 	explicit AiLvlList();
 	~AiLvlList();

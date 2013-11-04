@@ -3,6 +3,7 @@
 
 Settings::Settings() :
 	InterfaceVolumeSettings(),
+	QWidget(),
 	ui(new Ui::Settings)
 {
 	ui->setupUi(this);

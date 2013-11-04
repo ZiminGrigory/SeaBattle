@@ -3,6 +3,7 @@
 
 MainWindow::MainWindow() :
 	InterfaceMainWindow(),
+	QWidget(),
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
@@ -72,6 +73,18 @@ void MainWindow::hideWidget(Widgets widget)
 		settingsMenu->hide();
 	break;
 	}
+}
+
+void MainWindow::showMain()
+{
+	startMenu->resize(WINDOW_SIZE);
+	resize(WINDOW_SIZE);
+	update();
+}
+
+void MainWindow::resize(const QSize& size)
+{
+
 }
 
 QSharedPointer<InterfaceAiLvlList> MainWindow::getInterfaceAiLvlList()

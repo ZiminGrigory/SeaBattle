@@ -2,11 +2,11 @@
 #define INTERFACEAILVLLIST_H
 #include <QWidget>
 
-class InterfaceAiLvlList: public QWidget
+class InterfaceAiLvlList : public QObject
 {
+	Q_OBJECT
 public:
-	InterfaceAiLvlList(QWidget *parent = 0): QWidget(parent){}
-
+	virtual ~InterfaceAiLvlList() {}
 signals:
 	void buttonExitPushed();
 	void buttonVsSimplePushed();

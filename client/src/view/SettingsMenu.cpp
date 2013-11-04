@@ -5,6 +5,7 @@
 
 SettingsMenu::SettingsMenu() :
 	InterfaceSettingsMenu(),
+	QWidget(),
 	ui(new Ui::SettingsMenu)
 {
 	ui->setupUi(this);

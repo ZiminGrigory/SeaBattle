@@ -6,6 +6,7 @@
 
 Field::Field() :
 	InterfaceField(),
+	QWidget(),
 	ui(new Ui::Field)
 {
 	ui->setupUi(this);
@@ -145,6 +146,11 @@ void Field::clearItself()
 	mScene->removeItem(itemForEndMessage.data());
 	itemForEndMessage.clear();
 	itemForEndMessage.reset();
+}
+
+void Field::setAttackable(bool attackable)
+{
+	setEnabled(attackable);
 }
 
 Field::~Field()

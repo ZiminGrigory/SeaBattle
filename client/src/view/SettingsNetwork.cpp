@@ -3,6 +3,7 @@
 
 SettingsNetwork::SettingsNetwork() :
 	InterfaceNetworkSettings(),
+	QWidget(),
 	ui(new Ui::SettingsNetwork)
 {
 	ui->setupUi(this);

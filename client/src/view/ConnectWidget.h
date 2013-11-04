@@ -10,12 +10,12 @@ namespace Ui {
 class ConnectWidget;
 }
 
-class ConnectWidget :public InterfaceConnectWidget
+class ConnectWidget :public InterfaceConnectWidget, public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit ConnectWidget();
+	ConnectWidget();
 	~ConnectWidget();
 	void showMessage(QString text);
 	void showLoader();

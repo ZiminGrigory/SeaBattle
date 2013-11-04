@@ -2,7 +2,9 @@
 #include "ui_ChatAndStatus.h"
 #include "QPixmap"
 
-ChatAndStatus::ChatAndStatus() : InterfaceChatAndStatus(),
+ChatAndStatus::ChatAndStatus() :
+	InterfaceChatAndStatus(),
+	QWidget(),
 	ui(new Ui::ChatAndStatus)
 {
 	ui->setupUi(this);

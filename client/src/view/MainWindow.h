@@ -16,15 +16,16 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public InterfaceMainWindow
+class MainWindow : public InterfaceMainWindow, public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	explicit MainWindow();
+	MainWindow();
 	~MainWindow();
 	void showWidget(Widgets widget);
 	void hideWidget(Widgets widget);
+	void showMain();
 	QSharedPointer<InterfaceAiLvlList> getInterfaceAiLvlList();
 	QSharedPointer<InterfaceBattleWidget> getInterfaceBattleWidget();
 	QSharedPointer<InterfaceConnectWidget> getInterfaceConnectWidget();
@@ -34,7 +35,7 @@ private:
 	Ui::MainWindow *ui;
 	QSharedPointer<InterfaceAiLvlList> aiLvlList;
 	QSharedPointer<InterfaceConnectWidget> connectWidget;
-	QSharedPointer<InterfaceStartMenu> startMenu;
+	QSharedPointer<StartMenu> startMenu;
 	QSharedPointer<InterfaceBattleWidget> battleWidget;
 	QSharedPointer<InterfaceSettingsMenu> settingsMenu;
 };

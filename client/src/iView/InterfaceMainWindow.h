@@ -8,14 +8,17 @@
 #include "InterfaceStartMenu.h"
 #include "InterfaceSettingsMenu.h"
 #include <QSharedPointer>
+#include <QSize>
 #include <QMainWindow>
 
-class InterfaceMainWindow: public QMainWindow
+class InterfaceMainWindow : public QObject
 {
+	Q_OBJECT
 public:
-	InterfaceMainWindow(QWidget *parent = 0): QMainWindow(parent){}
+	virtual ~InterfaceMainWindow() {}
 	virtual void showWidget(Widgets widget) = 0;
 	virtual void hideWidget(Widgets widget) = 0;
+	virtual void showMain();
 	virtual QSharedPointer<InterfaceAiLvlList> getInterfaceAiLvlList() = 0;
 	virtual QSharedPointer<InterfaceBattleWidget> getInterfaceBattleWidget() = 0;
 	virtual QSharedPointer<InterfaceConnectWidget> getInterfaceConnectWidget() = 0;

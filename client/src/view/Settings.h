@@ -1,5 +1,6 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
+
 //отвечает за звук, переименовывать класс с формой - ооочень плохой план
 #include "InterfaceVolumeSettings.h"
 
@@ -7,12 +8,12 @@ namespace Ui {
 class Settings;
 }
 
-class Settings : public InterfaceVolumeSettings
+class Settings : public InterfaceVolumeSettings, public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit Settings();
+	Settings();
 	~Settings();
 
 signals:

@@ -7,12 +7,12 @@ namespace Ui {
 class SettingsNetwork;
 }
 
-class SettingsNetwork : public InterfaceNetworkSettings
+class SettingsNetwork : public InterfaceNetworkSettings, public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit SettingsNetwork();
+	SettingsNetwork();
 	~SettingsNetwork();
 
 signals:

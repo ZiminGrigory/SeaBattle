@@ -1,7 +1,9 @@
 #include "BattleWidget.h"
 #include "ui_BattleWidget.h"
 
-BattleWidget::BattleWidget() :InterfaceBattleWidget(),
+BattleWidget::BattleWidget() :
+	InterfaceBattleWidget(),
+	QWidget(),
 	ui(new Ui::BattleWidget),
     gameBreakDialog(this),
     quitDialog(this),

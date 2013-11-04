@@ -1,14 +1,15 @@
 #ifndef INTARFACEINFOTAB_H
 #define INTARFACEINFOTAB_H
+
 #include <QWidget>
 #include "types.h"
 
-class InterfaceInfoTab: public QWidget
+class InterfaceInfoTab : public QObject
 {
+	Q_OBJECT
 public:
-	InterfaceInfoTab(QWidget *parent = 0): QWidget(parent){}
+	virtual ~InterfaceInfoTab() {}
 	virtual void clearItself() = 0;
-
 public slots:
 	virtual void changeCounter(NameOfShips ship, int difference) = 0;
 	virtual void playerReady(Players player) = 0;

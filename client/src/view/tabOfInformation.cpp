@@ -2,7 +2,6 @@
 #include "ui_tabOfInformation.h"
 
 TabOfInformation::TabOfInformation():
-	InterfaceInfoTab(),
 	ui(new Ui::TabOfInformation)
 {
 	ui->setupUi(this);

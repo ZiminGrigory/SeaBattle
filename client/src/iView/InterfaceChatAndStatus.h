@@ -1,13 +1,15 @@
 #ifndef INTERFACECHATANDSTATUS_H
 #define INTERFACECHATANDSTATUS_H
+
 #include <QString>
 #include <QWidget>
 #include "types.h"
 
-class InterfaceChatAndStatus: public QWidget
+class InterfaceChatAndStatus : public QObject
 {
+	Q_OBJECT
 public:
-	InterfaceChatAndStatus(QWidget *parent = 0): QWidget(parent){}
+	virtual ~InterfaceChatAndStatus() {}
 	virtual void clearChat() = 0;
 
 public slots:

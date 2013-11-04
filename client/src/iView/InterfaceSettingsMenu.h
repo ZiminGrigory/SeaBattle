@@ -1,14 +1,14 @@
 #ifndef INTERFACESETTINGSMENU_H
 #define INTERFACESETTINGSMENU_H
-#include <QWidget>
+
 #include "InterfaceNetworkSettings.h"
 #include "InterfaceVolumeSettings.h"
 
-class InterfaceSettingsMenu: public QWidget
+class InterfaceSettingsMenu : public QObject
 {
+	Q_OBJECT
 public:
-	InterfaceSettingsMenu(QWidget *parent = 0): QWidget(parent){}
-
+	virtual ~InterfaceSettingsMenu() {}
 signals:
 	void mute(bool switcher);
 	void volumeChanched(int i);
