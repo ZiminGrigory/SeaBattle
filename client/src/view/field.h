@@ -13,7 +13,7 @@ namespace Ui {
 class Field;
 }
 
-class Field : public InterfaceField, public QWidget
+class Field : public QWidget
 {
 	Q_OBJECT
 public:
