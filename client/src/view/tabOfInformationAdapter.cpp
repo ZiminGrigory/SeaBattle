@@ -1,22 +1,23 @@
 #include "tabOfInformationAdapter.h"
 
-TabOfInformationAdapter::TabOfInformationAdapter()
+TabOfInformationAdapter::TabOfInformationAdapter(const QSharedPointer<TabOfInformation>& adaptee) :
+	mAdaptee(adaptee)
 {
-	connect(&mAdaptee, SIGNAL(needAutoSetting()), this, SIGNAL(needAutoSetting()));
-	connect(&mAdaptee, SIGNAL(readyToFight()), this, SIGNAL(readyToFight()));
+	connect(mAdaptee.data(), SIGNAL(needAutoSetting()), this, SIGNAL(needAutoSetting()));
+	connect(mAdaptee.data(), SIGNAL(readyToFight()), this, SIGNAL(readyToFight()));
 }
 
 void TabOfInformationAdapter::clearItself()
 {
-	mAdaptee.clearItself();
+	mAdaptee->clearItself();
 }
 
 void TabOfInformationAdapter::changeCounter(NameOfShips ship, int difference)
 {
-	mAdaptee.changeCounter(ship, difference);
+	mAdaptee->changeCounter(ship, difference);
 }
 
 void TabOfInformationAdapter::playerReady(Players player)
 {
-	mAdaptee.playerReady(player);
+	mAdaptee->playerReady(player);
 }

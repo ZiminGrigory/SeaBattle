@@ -8,7 +8,7 @@ namespace Ui {
 class AiLvlList;
 }
 
-class AiLvlList : public InterfaceAiLvlList, public QWidget
+class AiLvlList : public QWidget
 {
 	Q_OBJECT
 public:
