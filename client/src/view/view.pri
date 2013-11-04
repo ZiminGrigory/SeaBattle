@@ -12,11 +12,16 @@ HEADERS += src/view/field.h \
     src/view/SettingsMenu.h \
     src/view/SettingsNetwork.h \
     src/view/tabOfInformationAdapter.h \
+    src/view/StartMenuAdapter.h \
+    src/view/SettingsNetworkAdapter.h \
+    src/view/SettingsMenuAdapter.h \
+    src/view/SettingsAdapter.h \
+	src/view/MainWindowAdapter.h \
     src/view/aiLvlListAdapter.h \
     src/view/battleWidgetAdapter.h \
     src/view/chatAndStatusAdapter.h \
     src/view/connectWidgetAdapter.h \
-    src/view/fieldAdapter.h
+	src/view/fieldAdapter.h
 
 SOURCES += src/view/tabOfInformation.cpp \
     src/view/BattleWidget.cpp \
@@ -30,12 +35,17 @@ SOURCES += src/view/tabOfInformation.cpp \
     src/view/Settings.cpp \
     src/view/SettingsMenu.cpp \
     src/view/SettingsNetwork.cpp \
-    src/view/tabOfInformationAdapter.cpp \
+	src/view/tabOfInformationAdapter.cpp \
+    src/view/StartMenuAdapter.cpp \
+    src/view/SettingsNetworkAdapter.cpp \
+    src/view/SettingsMenuAdapter.cpp \
+    src/view/SettingsAdapter.cpp \
+	src/view/MainWindowAdapter.cpp \
     src/view/aiLvlListAdapter.cpp \
     src/view/battleWidgetAdapter.cpp \
     src/view/chatAndStatusAdapter.cpp \
     src/view/connectWidgetAdapter.cpp \
-    src/view/fieldAdapter.cpp
+	src/view/fieldAdapter.cpp
 
 FORMS    += src/view/tabOfInformation.ui \
     src/view/field.ui \

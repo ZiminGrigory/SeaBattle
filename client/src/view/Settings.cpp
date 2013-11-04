@@ -2,7 +2,6 @@
 #include "ui_Settings.h"
 
 Settings::Settings() :
-	InterfaceVolumeSettings(),
 	QWidget(),
 	ui(new Ui::Settings)
 {

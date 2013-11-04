@@ -2,7 +2,6 @@
 #include "ui_ConnectWidget.h"
 
 ConnectWidget::ConnectWidget() :
-	InterfaceConnectWidget(),
 	QWidget(),
 	ui(new Ui::ConnectWidget)
 {

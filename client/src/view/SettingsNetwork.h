@@ -7,7 +7,7 @@ namespace Ui {
 class SettingsNetwork;
 }
 
-class SettingsNetwork : public InterfaceNetworkSettings, public QWidget
+class SettingsNetwork : public QWidget
 {
 	Q_OBJECT
 

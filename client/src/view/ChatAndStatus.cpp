@@ -3,7 +3,6 @@
 #include "QPixmap"
 
 ChatAndStatus::ChatAndStatus() :
-	InterfaceChatAndStatus(),
 	QWidget(),
 	ui(new Ui::ChatAndStatus)
 {

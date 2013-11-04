@@ -2,7 +2,6 @@
 #include "ui_StartMenu.h"
 
 StartMenu::StartMenu() :
-	 InterfaceStartMenu(),
 	 QWidget(),
 	ui(new Ui::StartMenu)
 {

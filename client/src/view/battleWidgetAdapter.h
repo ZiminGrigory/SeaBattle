@@ -33,7 +33,7 @@ signals:
 	void quitDialogOkPressed();
 	void quitDialogCancelPressed();
 public slots:
-	void setMessage(QString text) = 0;
+	void setMessage(QString text);
 private:
 	QSharedPointer<BattleWidget> mAdaptee;
 

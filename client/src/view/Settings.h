@@ -8,7 +8,7 @@ namespace Ui {
 class Settings;
 }
 
-class Settings : public InterfaceVolumeSettings, public QWidget
+class Settings : public QWidget
 {
 	Q_OBJECT
 

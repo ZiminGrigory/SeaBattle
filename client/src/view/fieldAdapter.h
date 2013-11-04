@@ -8,7 +8,7 @@ class FieldAdapter : public InterfaceField
 {
 	Q_OBJECT
 public:
-	FieldAdapter(const QSharedPointer<Field> adaptee);
+	FieldAdapter(const QSharedPointer<Field>& adaptee);
 
 	void showAttackStatus(AttackStatus status) = 0;
 	void showResult(Players player) = 0;

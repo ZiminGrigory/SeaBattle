@@ -10,7 +10,7 @@ namespace Ui {
 class ConnectWidget;
 }
 
-class ConnectWidget :public InterfaceConnectWidget, public QWidget
+class ConnectWidget : public QWidget
 {
 	Q_OBJECT
 
