@@ -79,6 +79,7 @@ void MainWindow::showMain()
 	startMenu->resize(WINDOW_SIZE);
 	resize(WINDOW_SIZE);
 	update();
+	show();
 }
 
 QSharedPointer<AiLvlList> MainWindow::getInterfaceAiLvlList()

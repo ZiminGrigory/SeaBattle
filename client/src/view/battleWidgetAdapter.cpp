@@ -2,10 +2,10 @@
 
 BattleWidgetAdapter::BattleWidgetAdapter(const QSharedPointer<BattleWidget>& adaptee) :
 	mAdaptee(adaptee),
-	mPlayerFieldView(adaptee->getPlayerFieldView()),
-	mEnemyFieldView(adaptee->getEnemyFieldView()),
-	mInfoTabView(adaptee->getInfoTabView()),
-	mChatAndStatus(adaptee->getChatAndStatus())
+	mPlayerFieldView(new FieldAdapter(adaptee->getPlayerFieldView())),
+	mEnemyFieldView(new FieldAdapter(adaptee->getEnemyFieldView())),
+	mInfoTabView(new TabOfInformationAdapter(adaptee->getInfoTabView())),
+	mChatAndStatus(new ChatAndStatusAdapter(adaptee->getChatAndStatus()))
 {
 	connect(adaptee.data(), SIGNAL(gameBreakDialogOkPressed()), this, SIGNAL(gameBreakDialogOkPressed()));
 	connect(adaptee.data(), SIGNAL(quitDialogOkPressed()), this, SIGNAL(quitDialogOkPressed()));
@@ -61,6 +61,26 @@ void BattleWidgetAdapter::showGameBreakDialog(const QString& message)
 void BattleWidgetAdapter::showQuitDialog()
 {
 	mAdaptee->showQuitDialog();
+}
+
+QSharedPointer<InterfaceField> BattleWidgetAdapter::getPlayerFieldView()
+{
+	return mPlayerFieldView;
+}
+
+QSharedPointer<InterfaceField> BattleWidgetAdapter::getEnemyFieldView()
+{
+	return mEnemyFieldView;
+}
+
+QSharedPointer<InterfaceInfoTab> BattleWidgetAdapter::getInfoTabView()
+{
+	return mInfoTabView;
+}
+
+QSharedPointer<InterfaceChatAndStatus> BattleWidgetAdapter::getChatAndStatus()
+{
+	return mChatAndStatus;
 }
 
 void BattleWidgetAdapter::setMessage(QString text)
