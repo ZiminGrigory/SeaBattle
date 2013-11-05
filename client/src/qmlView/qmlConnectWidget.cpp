@@ -1,0 +1,2 @@
+#include "qmlConnectWidget.h"
+
