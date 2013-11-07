@@ -23,3 +23,8 @@ SOURCES += \
     src/qmlView/qmlNetworkSettings.cpp \
     src/qmlView/qmlSettingsMenu.cpp \
     src/qmlView/qmlVolumeSettings.cpp
+
+OTHER_FILES += \
+    src/qmlView/qml/StartMenu.qml \
+    src/qmlView/qml/ShipButton.qml \
+    src/qmlView/qml/BombButton.qml
