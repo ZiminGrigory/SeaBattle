@@ -40,8 +40,8 @@ Rectangle {
 		id: bombImg
 		width: parent.width
 		height: parent.height
-		property string quitPath: "image://imageProvider/quit_button.png"
-		property string settingPath: "image://imageProvider/settings_button.png"
+		property string quitPath: "image://provider/qml/quit_button.png"
+		property string settingPath: "image://provider/qml/settings_button.png"
 		source: parent.type == 1 ? quitPath : settingPath
 	}
 }

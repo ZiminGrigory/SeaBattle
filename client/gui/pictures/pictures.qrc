@@ -47,4 +47,11 @@
         <file>middle-part-burning-animation.gif</file>
         <file>small-ship-burning-animation.gif</file>
     </qresource>
+    <qresource prefix="/qml">
+        <file alias="background.jpg">qml/background.jpg</file>
+        <file alias="quit_button.png">qml/quit_button.png</file>
+        <file alias="settings_button.png">qml/settings_button.png</file>
+        <file alias="vs_computer_button.png">qml/vs_computer_button.png</file>
+        <file alias="vs_player_button.png">qml/vs_player_button.png</file>
+    </qresource>
 </RCC>

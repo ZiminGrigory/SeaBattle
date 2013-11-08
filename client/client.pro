@@ -17,4 +17,4 @@ include(src/iView/iView.pri)
 include(src/view/view.pri)
 include(src/qmlView/qmlView.pri)
 include(src/tcpClient/tcpClient.pri)
-include(src/qmlView/qtquick2applicationviewer/qtquick2applicationviewer.pri)
+

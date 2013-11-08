@@ -15,7 +15,7 @@ Rectangle {
 		id: background
 		width: main.width
 		height: main.height
-		source: "/home/evgeniy/projects/qml_helloworld/untitled/background.jpg"
+		source: "image://provider/qml/background.jpg"
 	}
 
 	ShipButton {

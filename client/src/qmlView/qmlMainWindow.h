@@ -1,12 +1,21 @@
 #ifndef QMLMAINWINDOW_H
 #define QMLMAINWINDOW_H
 
-#include <InterfaceMainWindow.h>
+#include "InterfaceMainWindow.h"
+#include "imageprovider.h"
+#include "qtquick2applicationviewer.h"
+
+#include "qmlAiLvlList.h"
+#include "qmlBattleWidget.h"
+#include "qmlConnectWidget.h"
+#include "qmlStartMenu.h"
+#include "qmlSettingsMenu.h"
 
 class QmlMainWindow : public InterfaceMainWindow
 {
 public:
 	QmlMainWindow();
+	~QmlMainWindow();
 	void showWidget(Widgets widget);
 	void hideWidget(Widgets widget);
 	void showMain();
@@ -15,6 +24,16 @@ public:
 	QSharedPointer<InterfaceConnectWidget> getInterfaceConnectWidget();
 	QSharedPointer<InterfaceStartMenu> getInterfaceStartMenu();
 	QSharedPointer<InterfaceSettingsMenu> getInterfaceSettingsMenu();
+private:
+	QtQuick2ApplicationViewer mQuickView;
+
+	QSharedPointer<QmlAiLvlList> mAiLvlList;
+	QSharedPointer<QmlBattleWidget> mBattleWidget;
+	QSharedPointer<QmlConnectWidget> mConnectWidget;
+	QSharedPointer<QmlStartMenu> mStartMenu;
+	QSharedPointer<QmlSettingsMenu> mSettingsMenu;
+
+	QSharedPointer<QObject> mCurrentQmlObject;
 };
 
 #endif // QMLMAINWINDOW_H

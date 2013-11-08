@@ -1,3 +1,12 @@
+
+folder_01.source = qml
+folder_01.target = qml
+DEPLOYMENTFOLDERS = folder_01
+
+include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
+
+qtcAddDeployment()
+
 HEADERS += \
     src/qmlView/qmlMainWindow.h \
     src/qmlView/qmlStartMenu.h \
@@ -9,7 +18,8 @@ HEADERS += \
     src/qmlView/qmlInfoTab.h \
     src/qmlView/qmlNetworkSettings.h \
     src/qmlView/qmlSettingsMenu.h \
-    src/qmlView/qmlVolumeSettings.h
+    src/qmlView/qmlVolumeSettings.h \
+    src/qmlView/imageprovider.h
 
 SOURCES += \
     src/qmlView/qmlMainWindow.cpp \

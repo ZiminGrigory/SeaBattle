@@ -9,6 +9,7 @@
 #include "aiGameMaster.h"
 #include "networkGameMaster.h"
 #include "MainWindow.h"
+#include "qmlMainWindow.h"
 #include "audioPlayer.h"
 
 class ConnectionMenu;

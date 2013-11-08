@@ -17,8 +17,8 @@ Rectangle {
 		id: ship
 		width: parent.width
 		height: parent.height
-		property string vsAiPath: "image://imageProvider/vs_computer_button.png"
-		property string vsPlrPath: "image://imageProvider/vs_player_button.png"
+		property string vsAiPath: "image://provider/qml/vs_computer_button.png"
+		property string vsPlrPath: "image://provider/qml/vs_player_button.png"
 		source: parent.type == 1 ? vsAiPath : vsPlrPath
 	}
 
