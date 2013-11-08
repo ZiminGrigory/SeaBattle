@@ -28,6 +28,9 @@ public:
 	QSharedPointer<InterfaceStartMenu> getInterfaceStartMenu();
 	QSharedPointer<InterfaceSettingsMenu> getInterfaceSettingsMenu();
 private:
+	/*
+	 * Эта штука отвечает за отображение qml компонентов в окошке.
+	 */
 	QtQuick2ApplicationViewer mQuickView;
 
 	QSharedPointer<QmlAiLvlList> mAiLvlList;
@@ -36,7 +39,13 @@ private:
 	QSharedPointer<QmlStartMenu> mStartMenu;
 	QSharedPointer<QmlSettingsMenu> mSettingsMenu;
 
+	/*
+	 * Отображаемый в данный момент объект.
+	 */
 	QSharedPointer<QmlRootWidget> mCurrentQmlObject;
+	/*
+	 * Эта штука передаётся в конструкторе всем qml виджетам, чтобы они умели себя добавлять в окно.
+	 */
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 

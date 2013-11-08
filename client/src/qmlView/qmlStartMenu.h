@@ -25,9 +25,12 @@ signals:
 	void buttonSettingsPushed();
 
 private:
+	// путь к qml файлу (путь не от исходников, а от исполняемого файла)
 	static const QString componentUrl;
 
+	// QQuickItem - это сам объект, созданный из qml файла
 	QSharedPointer<QQuickItem> mStartMenu;
+	// эта штука для добавления элементов на окно
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 

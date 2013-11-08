@@ -6,10 +6,13 @@ QmlMainWindow::QmlMainWindow():
 	mWidgetAppender(new QmlWidgetAppender(&mQuickView))
 
 {
+	// ImageProvider специальный класс, который позволяет qml объектам подгружать картинки, из ресурсов, например
 	ImageProvider* imageProvider = new ImageProvider();
+	// добавляем его в наш qml движок
 	mQuickView.engine()->addImageProvider("provider", imageProvider);
 	mQuickView.resize(QML_WINDOW_SIZE);
 
+	// сразу создаём все компоненты интерфейса
 	mAiLvlList = QSharedPointer<QmlAiLvlList>(new QmlAiLvlList(mQuickView.engine(), mWidgetAppender));
 	mBattleWidget = QSharedPointer<QmlBattleWidget>(new QmlBattleWidget);
 	mConnectWidget = QSharedPointer<QmlConnectWidget>(new QmlConnectWidget(mQuickView.engine(), mWidgetAppender));
@@ -27,12 +30,14 @@ QmlMainWindow::~QmlMainWindow()
 
 void QmlMainWindow::showWidget(Widgets widget)
 {
+	// сначала прячем текущий qml
 	if (mCurrentQmlObject)
 	{
 		mCurrentQmlObject->hide();
 	}
 	switch (widget)
 	{
+		// показываем новый
 		case START_MENU:
 			mStartMenu->show();
 			break;
@@ -50,7 +55,7 @@ void QmlMainWindow::showWidget(Widgets widget)
 
 void QmlMainWindow::hideWidget(Widgets widget)
 {
-
+	// to do
 }
 
 void QmlMainWindow::showMain()
