@@ -2,23 +2,26 @@
 
 #include "qmlMainWindow.h"
 
-QmlMainWindow::QmlMainWindow()
+QmlMainWindow::QmlMainWindow():
+	mWidgetAppender(new QmlWidgetAppender(&mQuickView))
+
 {
 	ImageProvider* imageProvider = new ImageProvider();
 	mQuickView.engine()->addImageProvider("provider", imageProvider);
+	mQuickView.resize(QML_WINDOW_SIZE);
 
-	mAiLvlList = QSharedPointer<QmlAiLvlList>(new QmlAiLvlList);
+	mAiLvlList = QSharedPointer<QmlAiLvlList>(new QmlAiLvlList(mQuickView.engine(), mWidgetAppender));
 	mBattleWidget = QSharedPointer<QmlBattleWidget>(new QmlBattleWidget);
-	mConnectWidget = QSharedPointer<QmlConnectWidget>(new QmlConnectWidget);
-	mStartMenu = QSharedPointer<QmlStartMenu>(new QmlStartMenu(mQuickView.engine()));
-	mSettingsMenu = QSharedPointer<QmlSettingsMenu>(new QmlSettingsMenu);
+	mConnectWidget = QSharedPointer<QmlConnectWidget>(new QmlConnectWidget(mQuickView.engine(), mWidgetAppender));
+	mStartMenu = QSharedPointer<QmlStartMenu>(new QmlStartMenu(mQuickView.engine(), mWidgetAppender));
+	mSettingsMenu = QSharedPointer<QmlSettingsMenu>(new QmlSettingsMenu(mQuickView.engine(), mWidgetAppender));
 }
 
 QmlMainWindow::~QmlMainWindow()
 {
 	if (mCurrentQmlObject)
 	{
-		mCurrentQmlObject->setParent(NULL);
+		mCurrentQmlObject->hide();
 	}
 }
 
@@ -26,14 +29,22 @@ void QmlMainWindow::showWidget(Widgets widget)
 {
 	if (mCurrentQmlObject)
 	{
-		mCurrentQmlObject->setParent(NULL);
+		mCurrentQmlObject->hide();
 	}
 	switch (widget)
 	{
 		case START_MENU:
-			mStartMenu->getQmlObject()->setParentItem(mQuickView.contentItem());
+			mStartMenu->show();
 			break;
-
+		case AI_MENU:
+			mAiLvlList->show();
+			break;
+		case SETTINGS:
+			mSettingsMenu->show();
+			break;
+		case CONNECT:
+			mConnectWidget->show();
+			break;
 	}
 }
 

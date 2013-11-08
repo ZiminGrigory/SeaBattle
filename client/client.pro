@@ -6,6 +6,11 @@ DEFINES += QT5
 TARGET = client
 TEMPLATE = app
 
+# here we choose view mode
+# QML_VIEW - qml view
+# WIDGETS_VIEW - simple qt widgets
+DEFINES += QML_VIEW
+
 SOURCES += src/main.cpp
 
 INCLUDEPATH += src/view src/iView src/qmlView src/gameLogics src/appLogics src/tcpClient src/audioPlayer ../

@@ -7,14 +7,17 @@
 #include <QQuickItem>
 
 #include "InterfaceStartMenu.h"
+#include "qmlWidgetAppender.h"
+#include "qmlRootWidget.h"
 
-class QmlStartMenu : public InterfaceStartMenu
+class QmlStartMenu : public InterfaceStartMenu, public QmlRootWidget
 {
 	Q_OBJECT
 public:
-	QmlStartMenu(QQmlEngine* engine);
+	QmlStartMenu(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder);
 
-	QSharedPointer<QQuickItem> getQmlObject() const;
+	void show();
+	void hide();
 signals:
 	void buttonVsPlayerPushed();
 	void buttonVsPcPushed();
@@ -25,6 +28,7 @@ private:
 	static const QString componentUrl;
 
 	QSharedPointer<QQuickItem> mStartMenu;
+	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 
 #endif // QMLSTARTMENU_H

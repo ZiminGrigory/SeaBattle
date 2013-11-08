@@ -10,6 +10,9 @@
 #include "qmlConnectWidget.h"
 #include "qmlStartMenu.h"
 #include "qmlSettingsMenu.h"
+#include "qmlViewTypes.h"
+#include "qmlRootWidget.h"
+#include "qmlWidgetAppender.h"
 
 class QmlMainWindow : public InterfaceMainWindow
 {
@@ -33,7 +36,8 @@ private:
 	QSharedPointer<QmlStartMenu> mStartMenu;
 	QSharedPointer<QmlSettingsMenu> mSettingsMenu;
 
-	QSharedPointer<QObject> mCurrentQmlObject;
+	QSharedPointer<QmlRootWidget> mCurrentQmlObject;
+	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 
 #endif // QMLMAINWINDOW_H

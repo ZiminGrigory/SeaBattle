@@ -51,6 +51,7 @@ public slots:
 	void settingsMenu();
 private slots:
 	void handleBW();
+	void exitButtonHandler();
 private:
 	void hideAllWidget();
 	QSharedPointer<InterfaceMainWindow> view;

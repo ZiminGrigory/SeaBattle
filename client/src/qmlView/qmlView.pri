@@ -19,7 +19,10 @@ HEADERS += \
     src/qmlView/qmlNetworkSettings.h \
     src/qmlView/qmlSettingsMenu.h \
     src/qmlView/qmlVolumeSettings.h \
-    src/qmlView/imageprovider.h
+    src/qmlView/imageprovider.h \
+    src/qmlView/qmlViewTypes.h \
+    src/qmlView/qmlRootWidget.h \
+    src/qmlView/qmlWidgetAppender.h
 
 SOURCES += \
     src/qmlView/qmlMainWindow.cpp \
@@ -32,9 +35,13 @@ SOURCES += \
     src/qmlView/qmlInfoTab.cpp \
     src/qmlView/qmlNetworkSettings.cpp \
     src/qmlView/qmlSettingsMenu.cpp \
-    src/qmlView/qmlVolumeSettings.cpp
+    src/qmlView/qmlVolumeSettings.cpp \
+    src/qmlView/qmlWidgetAppender.cpp
 
 OTHER_FILES += \
     src/qmlView/qml/StartMenu.qml \
     src/qmlView/qml/ShipButton.qml \
-    src/qmlView/qml/BombButton.qml
+    src/qmlView/qml/BombButton.qml \
+    src/qmlView/qml/AiLvlMenu.qml \
+    src/qmlView/qml/ConnectWidget.qml \
+    src/qmlView/qml/SettingsMenu.qml

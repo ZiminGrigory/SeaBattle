@@ -6,10 +6,10 @@ Rectangle {
 	width: 240
 	height: 320
 
-	property alias testText: test.text
-
 	signal vsPlayerClicked()
 	signal vsAiClicked()
+	signal settingsClicked()
+	signal quitClicked()
 
 	Image {
 		id: background
@@ -60,6 +60,15 @@ Rectangle {
 		type: 0
 		startX: 10
 		startY: parent.height - height - 10
+
+		MouseArea {
+			id: settingsMouseArea
+			width: parent.width
+			height: parent.height
+			Component.onCompleted: {
+				settingsMouseArea.clicked.connect(main.settingsClicked)
+			}
+		}
 	}
 
 	BombButton {
@@ -68,12 +77,15 @@ Rectangle {
 		type: 1
 		startX: parent.width - width - 10
 		startY: parent.height - height - 10
+
+		MouseArea {
+			id: quitMouseArea
+			width: parent.width
+			height: parent.height
+			Component.onCompleted: {
+				quitMouseArea.clicked.connect(main.quitClicked)
+			}
+		}
 	}
 
-	Text {
-		text: "test"
-		id: test
-		color: "white"
-		anchors.bottom: parent.bottom
-	}
 }
