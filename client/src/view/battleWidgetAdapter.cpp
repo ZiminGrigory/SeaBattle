@@ -4,10 +4,11 @@
 #include "chatAndStatusAdapter.h"
 BattleWidgetAdapter::BattleWidgetAdapter(const QSharedPointer<BattleWidget>& adaptee) :
 	mAdaptee(adaptee),
-	mPlayerFieldView(QSharedPointer<FieldAdapter>(new FieldAdapter(adaptee->getPlayerFieldView()))),
-	mEnemyFieldView(QSharedPointer<FieldAdapter>(new FieldAdapter(adaptee->getEnemyFieldView()))),
-	mInfoTabView(QSharedPointer<TabOfInformationAdapter>(new TabOfInformationAdapter(adaptee->getInfoTabView()))),
-	mChatAndStatus(QSharedPointer<ChatAndStatusAdapter>(new ChatAndStatusAdapter(adaptee->getChatAndStatus())))
+
+	mPlayerFieldView(new FieldAdapter(adaptee->getPlayerFieldView())),
+	mEnemyFieldView(new FieldAdapter(adaptee->getEnemyFieldView())),
+	mInfoTabView(new TabOfInformationAdapter(adaptee->getInfoTabView())),
+	mChatAndStatus(new ChatAndStatusAdapter(adaptee->getChatAndStatus()))
 {
 	connect(adaptee.data(), SIGNAL(gameBreakDialogOkPressed()), this, SIGNAL(gameBreakDialogOkPressed()));
 	connect(adaptee.data(), SIGNAL(quitDialogOkPressed()), this, SIGNAL(quitDialogOkPressed()));

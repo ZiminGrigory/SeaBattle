@@ -5,6 +5,9 @@
 
 #include "InterfaceBattleWidget.h"
 #include "BattleWidget.h"
+#include "fieldAdapter.h"
+#include "chatAndStatusAdapter.h"
+#include "tabOfInformationAdapter.h"
 
 class BattleWidgetAdapter : public InterfaceBattleWidget
 {
