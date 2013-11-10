@@ -4,7 +4,7 @@ import QtQuick 2.0
 Rectangle {
 	id: shipButton
 	// Specifies the game mode that activates the button
-	property int type
+	property int type // this property for image of button, 0..3 see down
 	property int angle
 
 	width: parent.width * 0.8
@@ -19,7 +19,10 @@ Rectangle {
 		height: parent.height
 		property string vsAiPath: "image://provider/qml/vs_computer_button.png"
 		property string vsPlrPath: "image://provider/qml/vs_player_button.png"
-		source: parent.type == 1 ? vsAiPath : vsPlrPath
+		property string vsAiSimplePath: "image://provider/qml/vs_player_button.png"
+		property string vsAiHardPath: "image://provider/qml/vs_player_button.png"
+		property variant texture:[vsPlrPath, vsAiPath, vsAiSimplePath, vsAiHardPath]
+		source: texture[parent.type]
 	}
 
 	SequentialAnimation {

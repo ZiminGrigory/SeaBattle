@@ -36,6 +36,7 @@ Rectangle {
 		}
 	}
 
+
 	Image {
 		id: bombImg
 		width: parent.width
