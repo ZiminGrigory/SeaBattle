@@ -53,5 +53,7 @@
         <file alias="settings_button.png">qml/settings_button.png</file>
         <file alias="vs_computer_button.png">qml/vs_computer_button.png</file>
         <file alias="vs_player_button.png">qml/vs_player_button.png</file>
+        <file alias="vs_computer_button_hard.png">qml/vs_computer_button_hard.png</file>
+        <file alias="vs_computer_button_simple.png">qml/vs_computer_button_simple.png</file>
     </qresource>
 </RCC>

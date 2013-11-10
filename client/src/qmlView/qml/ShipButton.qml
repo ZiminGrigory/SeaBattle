@@ -19,8 +19,8 @@ Rectangle {
 		height: parent.height
 		property string vsAiPath: "image://provider/qml/vs_computer_button.png"
 		property string vsPlrPath: "image://provider/qml/vs_player_button.png"
-		property string vsAiSimplePath: "image://provider/qml/vs_player_button.png"
-		property string vsAiHardPath: "image://provider/qml/vs_player_button.png"
+		property string vsAiSimplePath: "image://provider/qml/vs_computer_button_simple.png"
+		property string vsAiHardPath: "image://provider/qml/vs_computer_button_hard.png"
 		property variant texture:[vsPlrPath, vsAiPath, vsAiSimplePath, vsAiHardPath]
 		source: texture[parent.type]
 	}
