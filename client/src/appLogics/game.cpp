@@ -1,11 +1,18 @@
 #include "game.h"
 #include "MainWindowAdapter.h"
+
 Game::Game(int& argc, char** argv):
     QApplication(argc, argv),
-	view(QSharedPointer<InterfaceMainWindow>(new MainWindowAdapter())),
     gameMaster(QSharedPointer<GameMaster>(NULL)),
     mConnectionMenu(NULL)
 {
+	// to do: replace it to constructor argument
+	#ifdef WIDGETS_VIEW
+		view = QSharedPointer<InterfaceMainWindow>(new MainWindowAdapter());
+	#elif QML_VIEW
+		view = QSharedPointer<InterfaceMainWindow>(new QmlMainWindow());
+	#endif
+
     QSharedPointer<InterfaceConnectWidget> connectWidget = view->getInterfaceConnectWidget();
     mConnectionMenu = QSharedPointer<ConnectionMenu>(new ConnectionMenu(this, connectWidget));
 	audioPlayer = QSharedPointer<AudioPlayer> (new AudioPlayer);
@@ -15,7 +22,7 @@ Game::Game(int& argc, char** argv):
 	connect(view->getInterfaceSettingsMenu().data(), SIGNAL(mute(bool))
 			, audioPlayer.data(), SLOT(mute(bool)));
 
-	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonExitPushed()), SLOT(closeAllWindows()));
+	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonExitPushed()), SLOT(exitButtonHandler()));
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonVsPcPushed()), SLOT(aiLevelMenu()));
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonVsPlayerPushed()), SLOT(connectionMenu()));
 	connect(view->getInterfaceStartMenu().data(), SIGNAL(buttonSettingsPushed()), SLOT(settingsMenu()));
@@ -101,6 +108,17 @@ void Game::handleBW()
 	gameMaster.clear();
 	view->getInterfaceBattleWidget()->clearItself();
 	gameMenu();
+}
+
+void Game::exitButtonHandler()
+{
+	qDebug() << "Exit ...";
+	// closeAllWindows() doesn't work with QQuickWindow for some reasons
+	#ifdef WIDGETS_VIEW
+		closeAllWindows();
+	#elif QML_VIEW
+		quit();
+	#endif
 }
 
 void Game::hideAllWidget()
