@@ -16,9 +16,7 @@ HEADERS += \
     src/qmlView/qmlChatAndStatus.h \
     src/qmlView/qmlConnectWidget.h \
     src/qmlView/qmlInfoTab.h \
-    src/qmlView/qmlNetworkSettings.h \
     src/qmlView/qmlSettingsMenu.h \
-    src/qmlView/qmlVolumeSettings.h \
     src/qmlView/imageprovider.h \
     src/qmlView/qmlViewTypes.h \
     src/qmlView/qmlRootWidget.h \
@@ -33,9 +31,7 @@ SOURCES += \
     src/qmlView/qmlChatAndStatus.cpp \
     src/qmlView/qmlConnectWidget.cpp \
     src/qmlView/qmlInfoTab.cpp \
-    src/qmlView/qmlNetworkSettings.cpp \
     src/qmlView/qmlSettingsMenu.cpp \
-    src/qmlView/qmlVolumeSettings.cpp \
     src/qmlView/qmlWidgetAppender.cpp
 
 OTHER_FILES += \
