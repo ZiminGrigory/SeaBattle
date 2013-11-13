@@ -12,13 +12,28 @@ AIPlayerSmart::AIPlayerSmart(const QSharedPointer<GameField> &plrField,
     smallship = 4;
     currentSquare.first = -1;
     currentSquare.second = -1;
-    strategy = new DiagonalShoot(enmField); // will be random for each square
+    strategy2 = new DoubleDiagonalShoot(enmField);
+    strategy1 = new DiagonalShoot(enmField);
+    int q = qrand () % 2;
+    if (q == 1)
+        strategy = strategy1;
+    else
+        strategy = strategy2;
 }
 
 void AIPlayerSmart::installFleet()
 {
     this->randomInstallFleet();
     emit fleetInstalled(this);
+}
+
+void AIPlayerSmart::changeStrategy()
+{
+    if (strategy == strategy1)
+        strategy = strategy2;
+    else
+        strategy = strategy1;
+
 }
 
 void AIPlayerSmart::turn()
@@ -90,14 +105,19 @@ void AIPlayerSmart::decreaseFleet(int currentShip)
         break;
     case 2:
         cruiser--;
+
         break;
     case 4:
         aerocarrier--;
+
         break;
     default:
         break;
 
     }
+    changeStrategy();
     currentSquare.first = -1;
     currentSquare.second = -1;
+
+
 }

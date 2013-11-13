@@ -29,7 +29,9 @@ private:
     int smallship;
     void decreaseFleet(int currentShip);
     SquareShootStrategy * strategy;
-
+    void changeStrategy();
+    SquareShootStrategy * strategy1;
+    SquareShootStrategy * strategy2;
 };
 
 #endif // AIPLAYERSMART_H
