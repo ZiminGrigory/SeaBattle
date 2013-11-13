@@ -53,5 +53,17 @@
         <file alias="settings_button.png">qml/settings_button.png</file>
         <file alias="vs_computer_button.png">qml/vs_computer_button.png</file>
         <file alias="vs_player_button.png">qml/vs_player_button.png</file>
+        <file alias="vs_computer_button_hard.png">qml/vs_computer_button_hard.png</file>
+        <file alias="vs_computer_button_simple.png">qml/vs_computer_button_simple.png</file>
+        <file alias="sounds_0.png">qml/sounds_0.png</file>
+        <file alias="sounds_1.png">qml/sounds_1.png</file>
+        <file alias="sounds_2.png">qml/sounds_2.png</file>
+        <file alias="sounds_3.png">qml/sounds_3.png</file>
+        <file alias="sounds_off.png">qml/sounds_off.png</file>
+        <file alias="plus.png">qml/plus.png</file>
+        <file alias="minus.png">qml/minus.png</file>
+        <file alias="settings.png">qml/settings.png</file>
+        <file alias="label_ip.png">qml/label_ip.png</file>
+        <file alias="label_port.png">qml/label_port.png</file>
     </qresource>
 </RCC>

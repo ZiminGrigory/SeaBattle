@@ -3,10 +3,14 @@
 
 #include <QQuickWindow>
 #include <QQuickItem>
-
+#include <string>
 #include "InterfaceSettingsMenu.h"
 #include "qmlRootWidget.h"
 #include "qmlWidgetAppender.h"
+#include <iostream>
+#include "types.h"
+
+using namespace std;
 
 class QmlSettingsMenu : public InterfaceSettingsMenu, public QmlRootWidget
 {
@@ -21,6 +25,9 @@ signals:
 	void mute(bool switcher);
 	void volumeChanched(int i);
 	void buttonBackPushed();
+private slots:
+	void volumeHandler(int lvl);
+	void ipAndPortHandler(QString ip, QString port);
 private:
 	static const QString componentUrl;
 

@@ -1,7 +1,10 @@
 #include "battleWidgetAdapter.h"
-
+#include "fieldAdapter.h"
+#include "tabOfInformationAdapter.h"
+#include "chatAndStatusAdapter.h"
 BattleWidgetAdapter::BattleWidgetAdapter(const QSharedPointer<BattleWidget>& adaptee) :
 	mAdaptee(adaptee),
+
 	mPlayerFieldView(new FieldAdapter(adaptee->getPlayerFieldView())),
 	mEnemyFieldView(new FieldAdapter(adaptee->getEnemyFieldView())),
 	mInfoTabView(new TabOfInformationAdapter(adaptee->getInfoTabView())),

@@ -12,7 +12,7 @@ QmlStartMenu::QmlStartMenu(QQmlEngine* engine, const QSharedPointer<QmlWidgetApp
 	QQmlComponent component(engine, QUrl::fromLocalFile(componentUrl));
 	// на основе компонента создаём уже сам объект, с которым будем работать
 	mStartMenu = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(component.create()));
-
+	//mStartMenu->setProperty("")
 	// коннектим сигналы, объявленные в qml файле, с сигналами нашего интерфейса
 	connect(mStartMenu.data(), SIGNAL(vsAiClicked()), this, SIGNAL(buttonVsPcPushed()));
 	connect(mStartMenu.data(), SIGNAL(vsPlayerClicked()), this, SIGNAL(buttonVsPlayerPushed()));

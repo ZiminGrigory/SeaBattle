@@ -55,7 +55,22 @@ void QmlMainWindow::showWidget(Widgets widget)
 
 void QmlMainWindow::hideWidget(Widgets widget)
 {
-	// to do
+	switch (widget)
+	{
+		// показываем новый
+		case START_MENU:
+			mStartMenu->hide();
+			break;
+		case AI_MENU:
+			mAiLvlList->hide();
+			break;
+		case SETTINGS:
+			mSettingsMenu->hide();
+			break;
+		case CONNECT:
+			mConnectWidget->hide();
+			break;
+	}
 }
 
 void QmlMainWindow::showMain()

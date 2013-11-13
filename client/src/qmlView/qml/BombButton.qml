@@ -8,6 +8,7 @@ Rectangle {
 
 	// 0 -quit
 	// 1 - settings
+	// 9 - hide
 	property int type
 
 	property int startX
@@ -39,6 +40,7 @@ Rectangle {
 		}
 	}
 
+
 	Image {
 		id: bombImg
 		width: parent.width
@@ -46,5 +48,6 @@ Rectangle {
 		property string quitPath: "image://provider/qml/quit_button.png"
 		property string settingPath: "image://provider/qml/settings_button.png"
 		source: parent.type == 1 ? quitPath : settingPath
+		visible: parent.type != 9
 	}
 }

@@ -55,26 +55,26 @@ Rectangle {
 	}
 
 	BombButton {
-		id: rightBombButton
+		id: leftBombButton
 
 		startX: 10
 		startY: parent.height - height - 10
 
 		MouseArea {
-			id: rightBombButtonMouseArea
+			id: leftBombButtonMouseArea
 			width: parent.width
 			height: parent.height
 		}
 	}
 
 	BombButton {
-		id: leftBombButton
+		id: rightBombButton
 
 		startX: parent.width - width - 10
 		startY: parent.height - height - 10
 
 		MouseArea {
-			id: leftBombButtonMouseArea
+			id: rightBombButtonMouseArea
 			width: parent.width
 			height: parent.height
 
