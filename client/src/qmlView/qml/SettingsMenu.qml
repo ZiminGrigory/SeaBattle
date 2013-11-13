@@ -185,8 +185,11 @@ Rectangle {
 			height: parent.height
 			Component.onCompleted: {
 				quitMouseArea.clicked.connect(main.quitClicked)
-				ipAndPort(textInputIP.toString(), textInputPort.toString())
-				volume(soundControl.currentState)
+			}
+			onClicked: {
+				ipAndPort(textInputIP.getText(0,textInputIP.maximumLength)
+						  , textInputPort.getText(0,textInputPort.maximumLength))
+				volume(currentVolumeState)
 			}
 		}
 	}
