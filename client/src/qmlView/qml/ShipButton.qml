@@ -3,7 +3,10 @@ import QtQuick 2.0
 
 Rectangle {
 	id: shipButton
+
 	// Specifies the game mode that activates the button
+	// 0 - vs ai (int start menu)
+	// 1 - vs player
 	property int type
 	property int angle
 

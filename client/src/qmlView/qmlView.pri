@@ -44,4 +44,5 @@ OTHER_FILES += \
     src/qmlView/qml/BombButton.qml \
     src/qmlView/qml/AiLvlMenu.qml \
     src/qmlView/qml/ConnectWidget.qml \
-    src/qmlView/qml/SettingsMenu.qml
+    src/qmlView/qml/SettingsMenu.qml \
+    src/qmlView/qml/Menu.qml

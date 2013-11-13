@@ -6,7 +6,10 @@ Rectangle {
 	height: width
 	color: "transparent"
 
+	// 0 -quit
+	// 1 - settings
 	property int type
+
 	property int startX
 	property int startY
 	x: startX
