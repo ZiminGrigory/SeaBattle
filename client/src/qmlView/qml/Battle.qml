@@ -5,17 +5,19 @@ Rectangle {
 	width: 240
 	height: 320
 
-	signal ready()
 	signal backPressed()
-	signal infoPressed()
 	signal arrowPressed()
 
+	property int countOfFleet: 10;
+	property int countOfPlr: 10;
+	property int countOfEnemy: 10;
+	property list<Item> mList:[
 	Image {
 		id: background
 		width: main.width
 		height: main.height
 		source: "qrc:/qml/background.jpg"
-	}
+	},
 
 	Image{
 		id:lableCountOfShip
@@ -23,7 +25,7 @@ Rectangle {
 		width: main.width / 4 * 2
 		height: main.height / 10
 		source: "qrc:/qml/qml/countOfShip.png"
-	}
+	},
 
 	Image{
 		id:countOfShip
@@ -46,23 +48,26 @@ Rectangle {
 			State {name: "0";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}}
 		]
 		onCurrentNumberChanged: {countOfShip.state = currentNumber.toString()}
-	}
+	},
 
 	Image{
-		id: buttonReady
-		width: lableCountOfShip.width / 2
-		height: lableCountOfShip.height
-		source: "qrc:/qml/qml/ready.png"
+		signal needAutoSet()
+		id:autoButton
+		width:countOfShip.width
+		height: countOfShip.height
 		anchors.left: countOfShip.right
+		source: "qrc:/qml/qml/auto.png"
+		visible: true
+
 		MouseArea{
-			id:buttonReadyMouseArea
+			id:autoButtonMouseArea
 			width: parent.width
 			height: parent.height
 			onClicked: {
-				buttonReadyMouseArea.clicked.connect(main.ready)
+				autoButton.needAutoSet
 			}
 		}
-	}
+	},
 
 	Field{
 		id: plrField
@@ -72,7 +77,7 @@ Rectangle {
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
 		anchors.topMargin: 5
-	}
+	},
 
 	Field{
 		visible: false
@@ -82,11 +87,11 @@ Rectangle {
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
 		anchors.topMargin: 5
-	}
+	},
 
 	BombButton {
 		id: backButton
-		type: 1
+		type: 3
 		startX: parent.width - width - 10
 		startY: parent.height - height - 10
 
@@ -95,20 +100,40 @@ Rectangle {
 			width: parent.width
 			height: parent.height
 			onClicked: {
-				backMouseArea.clicked.connect(main.backPressed)
+				main.backPressed
 			}
 		}
-	}
+	},
+
+
+	BombButton{
+		signal ready()
+		id: buttonReady
+		startX: 10
+		startY: parent.height - height - 10
+		type: 2
+		visible: true
+
+		MouseArea{
+			id:buttonReadyMouseArea
+			width: parent.width
+			height: parent.height
+			onClicked: {
+				buttonReady.ready
+			}
+		}
+	},
 
 	Image{
+		signal infoPressed()
 		id: infoButton
 		width: main.width / 2.3
-		height: width / 3.2
+		height: width / 2
 		source: "qrc:/qml/help.png"
 		visible: true
 		property int currentPicture: 0
 		anchors.bottom: main.bottom
-		anchors.topMargin: height / 10
+		anchors.bottomMargin: height / 4
 		anchors.horizontalCenter: main.horizontalCenter
 		states:[
 			State {name: "0";PropertyChanges { target: infoButton; source: "qrc:/qml/qml/help.png"}},
@@ -120,17 +145,21 @@ Rectangle {
 			width: parent.width
 			height: parent.height
 			onClicked: {
-				infoButtonMouseArea.clicked.connect(main.infoPressed)
+				infoButton.infoPressed
 			}
 		}
-	}
+	},
 
 	Image{
+		visible: false
 		id: arrowButton
 		width: main.width / 2.3
-		height: width / 3.2
+		height: width / 2
 		source: "qrc:/qml/arrow right.png"
 		property int currentPicture: 0
+		anchors.horizontalCenter: main.horizontalCenter
+		anchors.bottom: main.bottom
+		anchors.bottomMargin: height / 4
 		states:[
 			State {name: "0";PropertyChanges { target: infoButton; source: "qrc:/qml/arrow right.png"}},
 			State {name: "1";PropertyChanges { target: infoButton; source: "qrc:/qml/arrow left.png"}}
@@ -141,11 +170,21 @@ Rectangle {
 			width: parent.width
 			height: parent.height
 			onClicked: {
-				arrowButtonMouseArea.clicked.connect(main.arrowPressed)
+				parent.currentPicture = (parent.currentPicture + 1) % 2
+				arrowPressed
 			}
 		}
-		anchors.horizontalCenter: main.horizontalCenter
-		anchors.bottom: infoButton.top
-		anchors.topMargin: height / 10
+	}]
+
+	onArrowPressed: {
+		if(plrField.visible == true){
+			plrField.visible = false;
+			enemyField.visible = true;
+			countOfShip.currentNumber = countOfEnemy;
+		}else{
+			plrField.visible = true;
+			enemyField.visible = false;
+			countOfShip.currentNumber = countOfPlr;
+		}
 	}
 }

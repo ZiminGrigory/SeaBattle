@@ -16,7 +16,6 @@ QmlSettingsMenu::QmlSettingsMenu(QQmlEngine* engine, const QSharedPointer<QmlWid
 	mSettingsWidget->setProperty("ip", settings.value(SettingsKey::IP_KEY));
 	mSettingsWidget->setProperty("port", settings.value(SettingsKey::PORT_KEY));
 	mSettingsWidget->setProperty("currentVolumeState", settings.value(SettingsKey::VOLUME_KEY).toInt() / 25);
-
 }
 
 void QmlSettingsMenu::show()

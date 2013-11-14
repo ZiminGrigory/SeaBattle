@@ -63,7 +63,7 @@ Rectangle {
 	BombButton {
 		id: quitButton
 
-		type: 1
+		type: 3
 		startX: parent.width - width - 10
 		startY: parent.height - height - 10
 

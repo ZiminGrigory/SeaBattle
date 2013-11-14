@@ -175,7 +175,7 @@ Rectangle {
 	BombButton {
 		id: backButton
 
-		type: 1
+		type: 3
 		startX: main.width - width - 10
 		startY: main.height - height - 10
 

@@ -74,5 +74,8 @@
         <file>qml/10.png</file>
         <file>qml/ready.png</file>
         <file>qml/startTitle.png</file>
+        <file>qml/back_button.png</file>
+        <file>qml/fight_button.png</file>
+        <file>qml/auto.png</file>
     </qresource>
 </RCC>

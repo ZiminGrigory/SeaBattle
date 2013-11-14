@@ -104,4 +104,5 @@ Rectangle {
 			}
 		}
 	}
+	Battle{}
 }
