@@ -1,9 +1,13 @@
 #include "qmlBattleWidget.h"
 
 
+const QString QmlBattleWidget::componentUrl = "qml/qml/Battle.qml";
 
-QmlBattleWidget::QmlBattleWidget()
+QmlBattleWidget::QmlBattleWidget(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder) :
+	mWidgetAppender(widgetAppeder)
 {
+	QQmlComponent component(engine, QUrl::fromLocalFile(componentUrl));
+	mBattleWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(component.create()));
 
 }
 
@@ -55,6 +59,16 @@ void QmlBattleWidget::showGameBreakDialog(const QString& message)
 void QmlBattleWidget::showQuitDialog()
 {
 
+}
+
+void QmlBattleWidget::show()
+{
+	mWidgetAppender->show(mBattleWidget);
+}
+
+void QmlBattleWidget::hide()
+{
+	mWidgetAppender->hide(mBattleWidget);
 }
 
 QSharedPointer<InterfaceField> QmlBattleWidget::getPlayerFieldView()

@@ -14,7 +14,7 @@ QmlMainWindow::QmlMainWindow():
 
 	// сразу создаём все компоненты интерфейса
 	mAiLvlList = QSharedPointer<QmlAiLvlList>(new QmlAiLvlList(mQuickView.engine(), mWidgetAppender));
-	mBattleWidget = QSharedPointer<QmlBattleWidget>(new QmlBattleWidget);
+	mBattleWidget = QSharedPointer<QmlBattleWidget>(new QmlBattleWidget(mQuickView.engine(), mWidgetAppender));
 	mConnectWidget = QSharedPointer<QmlConnectWidget>(new QmlConnectWidget(mQuickView.engine(), mWidgetAppender));
 	mStartMenu = QSharedPointer<QmlStartMenu>(new QmlStartMenu(mQuickView.engine(), mWidgetAppender));
 	mSettingsMenu = QSharedPointer<QmlSettingsMenu>(new QmlSettingsMenu(mQuickView.engine(), mWidgetAppender));
@@ -38,6 +38,9 @@ void QmlMainWindow::showWidget(Widgets widget)
 	switch (widget)
 	{
 		// показываем новый
+		case BATTLE:
+			mBattleWidget->show();
+		break;
 		case START_MENU:
 			mStartMenu->show();
 			break;
@@ -70,6 +73,9 @@ void QmlMainWindow::hideWidget(Widgets widget)
 		case CONNECT:
 			mConnectWidget->hide();
 			break;
+		case BATTLE:
+			mBattleWidget->hide();
+		break;
 	}
 }
 

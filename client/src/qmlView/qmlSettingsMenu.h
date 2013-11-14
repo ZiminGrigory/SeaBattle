@@ -8,8 +8,6 @@
 #include "qmlWidgetAppender.h"
 #include "types.h"
 
-using namespace std;
-
 class QmlSettingsMenu : public InterfaceSettingsMenu, public QmlRootWidget
 {
 	Q_OBJECT

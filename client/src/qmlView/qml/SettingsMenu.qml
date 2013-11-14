@@ -33,21 +33,21 @@ Rectangle {
 	}
 
 	Image{
-		id: plus
+		id: minus
 		width: main.width/6
 		height: main.width/6
 		anchors.left: text.left
 		anchors.leftMargin: text.width / 7
 		anchors.top: text.top
 		anchors.topMargin: text.height * 1.3
-		source: "image://provider/qml/plus.png"
+		source: "image://provider/qml/minus.png"
 		MouseArea {
-			id: plusMouseArea
+			id: minusMouseArea
 			width: parent.width
 			height: parent.height
 			onClicked: {
-				if(main.currentVolumeState < 4){
-					main.currentVolumeState = main.currentVolumeState + 1
+				if(main.currentVolumeState != 0){
+					main.currentVolumeState = main.currentVolumeState - 1
 					soundControl.state = soundControl.massivOfStates[main.currentVolumeState]
 				}
 			}
@@ -58,10 +58,10 @@ Rectangle {
 		id: soundControl
 		width: main.width/3
 		height: main.width/3
-		anchors.top: plus.top
-		anchors.topMargin: -plus.height / 2
-		anchors.left: plus.left
-		anchors.leftMargin: plus.width *1.1
+		anchors.top: minus.top
+		anchors.topMargin: -minus.height / 2
+		anchors.left: minus.left
+		anchors.leftMargin: minus.width *1.1
 		property variant massivOfStates: ["0","1","2","3","4"];
 
 		state: massivOfStates[currentVolumeState]
@@ -90,21 +90,21 @@ Rectangle {
 	}
 
 	Image{
-		id: minus
+		id: plus
 		width: main.width/6
 		height: main.width/6
-		anchors.left: plus.left
-		anchors.leftMargin: plus.width* 1.1 + soundControl.width
+		anchors.left: minus.left
+		anchors.leftMargin: minus.width* 1.1 + soundControl.width
 		anchors.top: text.top
 		anchors.topMargin: text.height * 1.3
-		source: "image://provider/qml/minus.png"
+		source: "image://provider/qml/plus.png"
 		MouseArea {
-			id: minusMouseArea
+			id: plusMouseArea
 			width: parent.width
 			height: parent.height
 			onClicked: {
-				if(main.currentVolumeState != 0){
-					main.currentVolumeState = main.currentVolumeState - 1
+				if(main.currentVolumeState < 4){
+					main.currentVolumeState = main.currentVolumeState + 1
 					soundControl.state = soundControl.massivOfStates[main.currentVolumeState]
 				}
 			}

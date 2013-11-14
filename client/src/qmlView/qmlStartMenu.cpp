@@ -1,5 +1,5 @@
 #include <QQmlComponent>
-
+#include <QDebug>
 #include "qmlStartMenu.h"
 
 const QString QmlStartMenu::componentUrl = "qml/qml/StartMenu.qml";
@@ -18,6 +18,8 @@ QmlStartMenu::QmlStartMenu(QQmlEngine* engine, const QSharedPointer<QmlWidgetApp
 	connect(mStartMenu.data(), SIGNAL(vsPlayerClicked()), this, SIGNAL(buttonVsPlayerPushed()));
 	connect(mStartMenu.data(), SIGNAL(settingsClicked()), this, SIGNAL(buttonSettingsPushed()));
 	connect(mStartMenu.data(), SIGNAL(quitClicked()), this, SIGNAL(buttonExitPushed()));
+
+
 }
 
 void QmlStartMenu::show()

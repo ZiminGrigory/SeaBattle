@@ -22,6 +22,15 @@ Rectangle {
 		source: "image://provider/qml/background.jpg"
 	}
 
+	Image {
+		id: startTitle
+		width: main.width
+		height: main.height / 9
+		anchors.top: main.top
+		anchors.topMargin: height / 1.5
+		source: "qrc:/qml/qml/startTitle.png"
+	}
+
 	// свои qml компоненты, которые лежат в той же директории, можно спокойно добавлять
 	ShipButton {
 		id: vsPlayerButton
@@ -95,5 +104,4 @@ Rectangle {
 			}
 		}
 	}
-
 }

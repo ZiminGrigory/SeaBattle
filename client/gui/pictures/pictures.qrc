@@ -1,51 +1,51 @@
 <RCC>
     <qresource prefix="/pictures">
-        <file>small ship.jpg</file>
-        <file>bottom burning.jpg</file>
-        <file>bottom.jpg</file>
-        <file>head burning.jpg</file>
-        <file>head.jpg</file>
-        <file>middle part burning.jpg</file>
-        <file>middle part.jpg</file>
-        <file>sea.jpg</file>
-        <file>smoke.jpg</file>
-        <file>splash.jpg</file>
-        <file>wreck.jpg</file>
-        <file>aerocarrier.png</file>
-        <file>cruiser.png</file>
-        <file>destroyer.png</file>
-        <file>boat scout.png</file>
-        <file>bottom_hor.jpg</file>
-        <file>head_hor.jpg</file>
-        <file>middle part_hor.jpg</file>
-        <file>small ship burning.jpg</file>
-        <file>middle part burning hor.jpg</file>
-        <file>head burning hor.jpg</file>
-        <file>bottom burning hor.jpg</file>
-        <file>WINNER.jpeg</file>
-        <file>LOSER.jpeg</file>
-        <file>arrow.png</file>
-        <file>cirle arrow.png</file>
-        <file>first point.png</file>
-        <file>loader.gif</file>
-        <file>sea_animation.gif</file>
-        <file>wounded.gif</file>
-        <file>miss.gif</file>
-        <file>killed.gif</file>
+        <file alias="small ship.jpg">small ship.jpg</file>
+        <file alias="bottom burning.jpg">bottom burning.jpg</file>
+        <file alias="bottom.jpg">bottom.jpg</file>
+        <file alias="head burning.jpg">head burning.jpg</file>
+        <file alias="head.jpg">head.jpg</file>
+        <file alias="middle part burning.jpg">middle part burning.jpg</file>
+        <file alias="middle part.jpg">middle part.jpg</file>
+        <file alias="small ship.jpg">sea.jpg</file>
+        <file alias="smoke.jpg">smoke.jpg</file>
+        <file alias="splash.jpg">splash.jpg</file>
+        <file alias="wreck.jpg">wreck.jpg</file>
+        <file alias="aerocarrier.png">aerocarrier.png</file>
+        <file alias="cruiser.png">cruiser.png</file>
+        <file alias="destroyer.png">destroyer.png</file>
+        <file alias="boat scout.png">boat scout.png</file>
+        <file alias="bottom_hor.jpg">bottom_hor.jpg</file>
+        <file alias="head_hor.jpg">head_hor.jpg</file>
+        <file alias="middle part_hor.jpg">middle part_hor.jpg</file>
+        <file alias="small ship burning.jpg">small ship burning.jpg</file>
+        <file alias="middle part burning hor.jpg">middle part burning hor.jpg</file>
+        <file alias="head burning hor.jpg">head burning hor.jpg</file>
+        <file alias="bottom burning hor.jpg">bottom burning hor.jpg</file>
+        <file alias="WINNER.jpeg">WINNER.jpeg</file>
+        <file alias="LOSER.jpeg">LOSER.jpeg</file>
+        <file alias="arrow.png">arrow.png</file>
+        <file alias="cirle arrow.png">cirle arrow.png</file>
+        <file alias="first point.png">first point.png</file>
+        <file alias="loader.gif">loader.gif</file>
+        <file alias="sea_animation.gif">sea_animation.gif</file>
+        <file alias="wounded.gif">wounded.gif</file>
+        <file alias="miss.gif">miss.gif</file>
+        <file alias="killed.gif">killed.gif</file>
         <file>forChat/WOUNDED.jpg</file>
         <file>forChat/MISS.jpg</file>
         <file>forChat/KILLED.jpg</file>
         <file>forChat/BEGIN.jpg</file>
         <file>forChat/ATTACK.jpg</file>
         <file>fon.jpg</file>
-        <file>smoke_animation.gif</file>
-        <file>bottom_burning.gif</file>
-        <file>bottom-burning-animation_hor.gif</file>
-        <file>head_burning.gif</file>
-        <file>head-burning-animation_hor.gif</file>
-        <file>middle-part-burning-animation_hor.gif</file>
-        <file>middle-part-burning-animation.gif</file>
-        <file>small-ship-burning-animation.gif</file>
+        <file alias="smoke_animation.gif">smoke_animation.gif</file>
+        <file alias="bottom_burning.gif">bottom_burning.gif</file>
+        <file alias="bottom-burning-animation_hor.gif">bottom-burning-animation_hor.gif</file>
+        <file alias="head_burning.gif">head_burning.gif</file>
+        <file alias="head-burning-animation_hor.gif">head-burning-animation_hor.gif</file>
+        <file alias="middle-part-burning-animation_hor.gif">middle-part-burning-animation_hor.gif</file>
+        <file alias="middle-part-burning-animation.gif">middle-part-burning-animation.gif</file>
+        <file alias="small-ship-burning-animation.gif">small-ship-burning-animation.gif</file>
     </qresource>
     <qresource prefix="/qml">
         <file alias="background.jpg">qml/background.jpg</file>
@@ -65,5 +65,14 @@
         <file alias="settings.png">qml/settings.png</file>
         <file alias="label_ip.png">qml/label_ip.png</file>
         <file alias="label_port.png">qml/label_port.png</file>
+        <file alias="arrow right.png">qml/arrow right.png</file>
+        <file alias="arrow left.png">qml/arrow left.png</file>
+        <file alias="help.png">qml/help.png</file>
+        <file alias="helping.png">qml/helping.png</file>
+        <file>qml/countOfShip.png</file>
+        <file>qml/9.png</file>
+        <file>qml/10.png</file>
+        <file>qml/ready.png</file>
+        <file>qml/startTitle.png</file>
     </qresource>
 </RCC>
