@@ -11,13 +11,28 @@ Rectangle {
 	property int countOfFleet: 10;
 	property int countOfPlr: 10;
 	property int countOfEnemy: 10;
-	property list<Item> mList:[
+
+//	import QtQuick 2.0
+
+//	Item {
+//	    width: 100; height: 100
+
+//	    Rectangle {
+//	        anchors.fill: parent
+//	        objectName: "rect"
+//	    }
+//	}
+//	The child could be located like this:
+//	QObject *rect = object->findChild<QObject*>("rect");
+//	if (rect)
+//	    rect->setProperty("color", "red");
+
 	Image {
 		id: background
 		width: main.width
 		height: main.height
 		source: "qrc:/qml/background.jpg"
-	},
+	}
 
 	Image{
 		id:lableCountOfShip
@@ -25,9 +40,10 @@ Rectangle {
 		width: main.width / 4 * 2
 		height: main.height / 10
 		source: "qrc:/qml/qml/countOfShip.png"
-	},
+	}
 
 	Image{
+		objectName: "mCountOfShipn"
 		id:countOfShip
 		property int currentNumber: 10
 		width: lableCountOfShip.width / 2
@@ -48,9 +64,10 @@ Rectangle {
 			State {name: "0";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}}
 		]
 		onCurrentNumberChanged: {countOfShip.state = currentNumber.toString()}
-	},
+	}
 
 	Image{
+		objectName: "mAutoButton"
 		signal needAutoSet()
 		id:autoButton
 		width:countOfShip.width
@@ -67,9 +84,10 @@ Rectangle {
 				autoButton.needAutoSet
 			}
 		}
-	},
+	}
 
 	Field{
+		objectName:"mPlrField"
 		id: plrField
 		z: 1
 		visible: true
@@ -77,9 +95,10 @@ Rectangle {
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
 		anchors.topMargin: 5
-	},
+	}
 
 	Field{
+		objectName:"mEnemyField"
 		visible: false
 		z: 1
 		id: enemyField
@@ -87,7 +106,7 @@ Rectangle {
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
 		anchors.topMargin: 5
-	},
+	}
 
 	BombButton {
 		id: backButton
@@ -103,10 +122,11 @@ Rectangle {
 				main.backPressed
 			}
 		}
-	},
+	}
 
 
 	BombButton{
+		objectName:"mButtonReady"
 		signal ready()
 		id: buttonReady
 		startX: 10
@@ -122,9 +142,10 @@ Rectangle {
 				buttonReady.ready
 			}
 		}
-	},
+	}
 
 	Image{
+		objectName:"mInfoButton"
 		signal infoPressed()
 		id: infoButton
 		width: main.width / 2.3
@@ -148,7 +169,7 @@ Rectangle {
 				infoButton.infoPressed
 			}
 		}
-	},
+	}
 
 	Image{
 		visible: false
@@ -174,7 +195,7 @@ Rectangle {
 				arrowPressed
 			}
 		}
-	}]
+	}
 
 	onArrowPressed: {
 		if(plrField.visible == true){
