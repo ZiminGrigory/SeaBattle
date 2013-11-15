@@ -3,14 +3,10 @@
 
 #include <QQuickWindow>
 #include <QQuickItem>
-#include <string>
 #include "InterfaceSettingsMenu.h"
 #include "qmlRootWidget.h"
 #include "qmlWidgetAppender.h"
-#include <iostream>
 #include "types.h"
-
-using namespace std;
 
 class QmlSettingsMenu : public InterfaceSettingsMenu, public QmlRootWidget
 {

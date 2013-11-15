@@ -2,12 +2,15 @@
 #define QMLINFOTAB_H
 
 #include "InterfaceInfoTab.h"
+#include <QSharedPointer>
 
 class QmlInfoTab : public InterfaceInfoTab
 {
 	Q_OBJECT
 public:
-	QmlInfoTab();
+	QmlInfoTab(const QSharedPointer<QObject> &_buttonAutoSetting
+			   , const QSharedPointer<QObject> &_buttonReady
+			   , const QSharedPointer<QObject> &_shipCounter);
 
 	void clearItself();
 public slots:
@@ -17,6 +20,12 @@ public slots:
 signals:
 	void readyToFight();
 	void needAutoSetting();
+
+private:
+	QSharedPointer<QObject> buttonAutoSetting;
+	QSharedPointer<QObject> buttonReady;
+	QSharedPointer<QObject> shipCounter;
+	int countOfShip;
 };
 
 #endif // QMLINFOTAB_H

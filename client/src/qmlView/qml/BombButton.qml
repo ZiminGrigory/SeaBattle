@@ -47,7 +47,10 @@ Rectangle {
 		height: parent.height
 		property string quitPath: "image://provider/qml/quit_button.png"
 		property string settingPath: "image://provider/qml/settings_button.png"
-		source: parent.type == 1 ? quitPath : settingPath
+		property string toFightPath: "qrc:/qml/qml/fight_button.png"
+		property string backPath: "qrc:/qml/qml/back_button.png"
+		property variant texture:[settingPath, quitPath, toFightPath, backPath]
+		source: parent.type != 9 ? texture[parent.type] : ""
 		visible: parent.type != 9
 	}
 }
