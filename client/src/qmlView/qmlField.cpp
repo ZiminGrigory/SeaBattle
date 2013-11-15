@@ -6,6 +6,7 @@ const QString QmlField::componentUrl = "qml/qml/Field.qml";
 QmlField::QmlField(const QSharedPointer<QObject> &fieldWidget):
 	mFieldWidget(QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(fieldWidget.data())))
 {
+	mFieldWidget->setProperty("width", 100);
 	mField = mFieldWidget->property("array").toList();
 	//qDebug() << mField;
 	connect(mFieldWidget.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));
