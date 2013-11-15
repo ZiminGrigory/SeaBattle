@@ -15,14 +15,15 @@ void LogAndChat::cellAttacked(Players plr, int id, AttackStatus status)
 		tmpStatus = PictureStatus::KILL_SHIP;
 		break;
 	}
-
-	mChat->showPicture(plr, tmpStatus);
-	if (plr == YOU){
-		mChat->showPicture(ENEMY, PictureStatus::ATTACKED);
-		mChat->appendMessage(ENEMY, messageFactory(id, status));
-	} else if (plr == ENEMY){
-		mChat->showPicture(YOU, PictureStatus::ATTACKED);
-		mChat->appendMessage(YOU, messageFactory(id, status));
+	if (mChat!= NULL){
+		mChat->showPicture(plr, tmpStatus);
+		if (plr == YOU){
+			mChat->showPicture(ENEMY, PictureStatus::ATTACKED);
+			mChat->appendMessage(ENEMY, messageFactory(id, status));
+		} else if (plr == ENEMY){
+			mChat->showPicture(YOU, PictureStatus::ATTACKED);
+			mChat->appendMessage(YOU, messageFactory(id, status));
+		}
 	}
 }
 
@@ -33,7 +34,9 @@ void LogAndChat::playerMessage(Players plr, QString message)
 
 void LogAndChat::gameMasterMessage(const QString &message)
 {
-    mChat->appendMessage(GAME, message);
+	if (mChat!= NULL){
+		mChat->appendMessage(GAME, message);
+	}
 }
 
 QString LogAndChat::messageFactory(int id, AttackStatus status)
