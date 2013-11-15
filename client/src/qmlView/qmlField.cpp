@@ -4,8 +4,9 @@
 const QString QmlField::componentUrl = "qml/qml/Field.qml";
 
 QmlField::QmlField(const QSharedPointer<QObject> &fieldWidget):
-	mFieldWidget(QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(fieldWidget.data())))
+	mFieldWidgetObject(fieldWidget)
 {
+	mFieldWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(fieldWidget.data()));
 	mField = mFieldWidget->property("array").toList();
 	//qDebug() << mField;
 	connect(mFieldWidget.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));

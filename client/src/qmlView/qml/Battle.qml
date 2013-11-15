@@ -95,6 +95,9 @@ Rectangle {
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
 		anchors.topMargin: 5
+		Component.onCompleted: {
+			console.log("mPlrField")
+		}
 	}
 
 	Field{
@@ -106,9 +109,6 @@ Rectangle {
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
 		anchors.topMargin: 5
-		Component.onCompleted: {
-			update
-		}
 	}
 
 	BombButton {
