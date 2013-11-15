@@ -1,5 +1,5 @@
 #include "qmlInfoTab.h"
-
+#include "QDebug"
 
 
 QmlInfoTab::QmlInfoTab(const QSharedPointer<QObject> &_buttonAutoSetting
@@ -8,7 +8,7 @@ QmlInfoTab::QmlInfoTab(const QSharedPointer<QObject> &_buttonAutoSetting
 	buttonAutoSetting(_buttonAutoSetting), buttonReady(_buttonReady), shipCounter(_shipCounter), countOfShip(10)
 {
 	connect(buttonAutoSetting.data(), SIGNAL(needAutoSet()), SIGNAL(needAutoSetting()));
-	connect(buttonReady.data(), SIGNAL(ready()), SIGNAL(readyToFight()));
+	connect(buttonReady.data(), SIGNAL(ready()), SLOT(handleReadyButton()));
 }
 
 void QmlInfoTab::clearItself()
@@ -26,3 +26,12 @@ void QmlInfoTab::playerReady(Players player)
 {
 	Q_UNUSED(player)
 }
+
+void QmlInfoTab::handleReadyButton()
+{
+	if (shipCounter->property("currentNumber").toInt() == 0){
+		qDebug() << "ready";
+		emit readyToFight();
+	}
+}
+

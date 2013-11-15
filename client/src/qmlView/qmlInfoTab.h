@@ -26,6 +26,9 @@ private:
 	QSharedPointer<QObject> buttonReady;
 	QSharedPointer<QObject> shipCounter;
 	int countOfShip;
+
+private slots:
+	void handleReadyButton();
 };
 
 #endif // QMLINFOTAB_H

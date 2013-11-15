@@ -21,6 +21,9 @@ public:
 	void clearItself();
 	void setAttackable(bool attackable);
 
+	void setBattleMode(bool isBattle);
+	void setDeleteShipMode(bool isDeleteMode);
+
 public slots:
 	void setEnabledItself(bool switcher);
 	void repaint(int id, Textures texture);
@@ -35,7 +38,7 @@ signals:
 private:
 	static const QString componentUrl;
 
-	QSharedPointer<QQuickItem> mFieldWidget;
+	QSharedPointer<QObject> mFieldWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 	QSharedPointer<QObject> mFieldWidgetObject;
 	QVariantList mField;

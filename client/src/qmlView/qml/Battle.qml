@@ -7,11 +7,12 @@ Rectangle {
 
 	signal backPressed()
 	signal arrowPressed()
+	signal deleteMode(bool isActive)
 
 	property int countOfFleet: 10;
 	property int countOfPlr: 10;
 	property int countOfEnemy: 10;
-
+	property bool isFight: false;
 //	import QtQuick 2.0
 
 //	Item {
@@ -80,8 +81,8 @@ Rectangle {
 			id:autoButtonMouseArea
 			width: parent.width
 			height: parent.height
-			onClicked: {
-				autoButton.needAutoSet
+			Component.onCompleted: {
+				autoButtonMouseArea.clicked.connect(autoButton.needAutoSet)
 			}
 		}
 	}
@@ -95,9 +96,6 @@ Rectangle {
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
 		anchors.topMargin: 5
-		Component.onCompleted: {
-			console.log("mPlrField")
-		}
 	}
 
 	Field{
@@ -149,30 +147,76 @@ Rectangle {
 
 	Image{
 		objectName:"mInfoButton"
-		signal infoPressed()
+		signal infoPressed
 		id: infoButton
-		width: main.width / 2.3
-		height: width / 2
+		width: main.width / 2.5
+		height: width / 4
 		source: "qrc:/qml/help.png"
 		visible: true
 		property int currentPicture: 0
+
 		anchors.bottom: main.bottom
-		anchors.bottomMargin: height / 4
+		anchors.bottomMargin: height/4
 		anchors.horizontalCenter: main.horizontalCenter
+
 		states:[
-			State {name: "0";PropertyChanges { target: infoButton; source: "qrc:/qml/qml/help.png"}},
-			State {name: "1";PropertyChanges { target: infoButton; source: "qrc:/qml/qml/helping.png"}}
+			State {name: "0";PropertyChanges { target: infoButton; source: "qrc:/qml/help.png"}},
+			State {name: "1";PropertyChanges { target: infoButton; source: "qrc:/qml/helping.png"}}
 		]
 		onCurrentPictureChanged: {infoButton.state = currentPicture.toString();}
 		MouseArea {
 			id: infoButtonMouseArea
 			width: parent.width
 			height: parent.height
-			onClicked: {
-				infoButton.infoPressed
+			Component.onCompleted: {
+				infoButtonMouseArea.clicked.connect(parent.changePicture)
+			}
+		}
+		function changePicture(){
+			currentPicture = (currentPicture + 1) % 2
+		}
+		// to do: make girl
+	}
+
+	Image{
+		objectName:"mDeleteModeButton"
+		id: deleteModeButton
+		width: main.width / 2.5
+		height: width / 4
+		source: "qrc:/qml/qml/delete button.png"
+		visible: true
+		property int currentPicture: 0
+
+		anchors.bottom: infoButton.top
+		anchors.bottomMargin: height/4
+		anchors.horizontalCenter: main.horizontalCenter
+
+		states:[
+			State {name: "0";PropertyChanges { target: deleteModeButton; source: "qrc:/qml/qml/delete button.png"}},
+			State {name: "1";PropertyChanges { target: deleteModeButton; source: "qrc:/qml/qml/deleting.png"}}
+		]
+		onCurrentPictureChanged: {deleteModeButton.state = currentPicture.toString();}
+		MouseArea {
+			id: deleteModeButtonMouseArea
+			width: parent.width
+			height: parent.height
+			Component.onCompleted: {
+				deleteModeButtonMouseArea.clicked.connect(parent.analizeDeleteMode)
+			}
+		}
+		function changePicture(){
+			currentPicture = (currentPicture + 1) % 2
+		}
+		function analizeDeleteMode(){
+			changePicture()
+			if(deleteModeButton.currentPicture == 0){
+				main.deleteMode(false)
+			} else {
+				main.deleteMode(true)
 			}
 		}
 	}
+
 
 	Image{
 		visible: false
@@ -185,18 +229,24 @@ Rectangle {
 		anchors.bottom: main.bottom
 		anchors.bottomMargin: height / 4
 		states:[
-			State {name: "0";PropertyChanges { target: infoButton; source: "qrc:/qml/arrow right.png"}},
-			State {name: "1";PropertyChanges { target: infoButton; source: "qrc:/qml/arrow left.png"}}
+			State {name: "0";PropertyChanges { target: arrowButton; source: "qrc:/qml/arrow right.png"}},
+			State {name: "1";PropertyChanges { target: arrowButton; source: "qrc:/qml/arrow left.png"}}
 		]
-		onCurrentPictureChanged: {infoButton.state = currentPicture.toString()}
+		onCurrentPictureChanged: {arrowButton.state = currentPicture.toString()}
 		MouseArea {
 			id: arrowButtonMouseArea
 			width: parent.width
 			height: parent.height
-			onClicked: {
-				parent.currentPicture = (parent.currentPicture + 1) % 2
-				arrowPressed
+			Component.onCompleted: {
+				arrowButtonMouseArea.clicked.connect(parent.analizeArrow)
 			}
+		}
+		function changePicture(){
+			currentPicture = (currentPicture + 1) % 2
+		}
+		function analizeArrow(){
+			changePicture()
+			main.arrowPressed()
 		}
 	}
 
@@ -209,6 +259,20 @@ Rectangle {
 			plrField.visible = true;
 			enemyField.visible = false;
 			countOfShip.currentNumber = countOfPlr;
+		}
+	}
+
+	onIsFightChanged: {
+		if (isFight){
+			arrowButton.visible = true; infoButton.visible = false; buttonReady.visible = false;
+			autoButton.visible = false; plrField.enabled = false; deleteModeButton.visible = false;
+			arrowButton.currentPicture = 0;
+
+		} else{
+			arrowButton.visible = false; infoButton.visible = true; buttonReady.visible = true;
+			autoButton.visible = true; plrField.visible = true; enemyField.visible = false; plrField.enabled = true
+			deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
+
 		}
 	}
 }

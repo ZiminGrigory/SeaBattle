@@ -14,6 +14,7 @@ Rectangle {
 	signal clickedOnCell(int id)
 	signal pressedOnCell(int id)
 	signal releasedOnCell(int x, int y)
+	property  variant mStates: ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"]
 
 	AnimatedImage{
 		id: mId
@@ -46,7 +47,7 @@ Rectangle {
 			 },
 			 State {
 				name: "15"
-				PropertyChanges { target: mId; source: "qrc:/pictures/boat scout.png"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/small ship.jpg"}
 			},
 			State {
 			   name: "5"
@@ -121,5 +122,10 @@ Rectangle {
 		onClicked: {clickedOnCell(coordinates)}
 		onPressed: {pressedOnCell(coordinates)}
 		onReleased: {releasedOnCell(mouseX, mouseY)}
+	}
+
+	onCurrentStateChanged: {
+		console.log("current state is ",currentState)
+		mId.state = mStates[currentState]
 	}
 }

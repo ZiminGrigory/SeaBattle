@@ -59,14 +59,12 @@ function handlePressed(id){
 function handleClicked(id){
 	attack(id)
 	deleteShip(id)
-	console.log(id)
 }
 
 function handleReleased(x,y){
 	if (x < cellSize && y < cellSize && x > 0 && y > 0){
 		placeShip(pressedId, pressedId);
-	}
-	if (x > cellSize){
+	}else if (x > cellSize){
 		placeShip(pressedId, Math.round(pressedId + integerDivision(x,cellSize)));
 		console.log(pressedId, Math.round(pressedId + integerDivision(x,cellSize)));
 	} else if (y > cellSize){

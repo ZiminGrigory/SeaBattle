@@ -44,7 +44,8 @@ signals:
 
 public slots:
 	void setMessage(QString text);
-
+private slots:
+	void handleDeleteShipMode(bool isActive);
 private:
 	static const QString componentUrl;
 	QSharedPointer<QmlInfoTab> mInfoTab;
