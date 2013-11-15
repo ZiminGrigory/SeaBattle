@@ -7,6 +7,9 @@
 #include "qmlRootWidget.h"
 #include "qmlWidgetAppender.h"
 #include "types.h"
+#include "qmlInfoTab.h"
+#include "qmlField.h"
+
 
 class QmlBattleWidget : public InterfaceBattleWidget, public QmlRootWidget
 {
@@ -44,7 +47,9 @@ public slots:
 
 private:
 	static const QString componentUrl;
-
+	QSharedPointer<QmlInfoTab> mInfoTab;
+	QSharedPointer<QmlField> mPlrField;
+	QSharedPointer<QmlField> mEnemyField;
 	QSharedPointer<QQuickItem> mBattleWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };

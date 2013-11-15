@@ -106,6 +106,9 @@ Rectangle {
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
 		anchors.topMargin: 5
+		Component.onCompleted: {
+			update
+		}
 	}
 
 	BombButton {
@@ -118,8 +121,8 @@ Rectangle {
 			id: backMouseArea
 			width: parent.width
 			height: parent.height
-			onClicked: {
-				main.backPressed
+			Component.onCompleted: {
+				backMouseArea.clicked.connect(main.backPressed)
 			}
 		}
 	}
@@ -138,8 +141,8 @@ Rectangle {
 			id:buttonReadyMouseArea
 			width: parent.width
 			height: parent.height
-			onClicked: {
-				buttonReady.ready
+			Component.onCompleted: {
+				buttonReadyMouseArea.clicked.connect(buttonReady.ready)
 			}
 		}
 	}
