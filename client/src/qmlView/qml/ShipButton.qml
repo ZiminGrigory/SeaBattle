@@ -3,8 +3,14 @@ import QtQuick 2.0
 
 Rectangle {
 	id: shipButton
+
 	// Specifies the game mode that activates the button
-	property int type // this property for image of button, 0..3 see down
+	// 0 - vs ai (int start menu)
+	// 1 - vs player
+	// 2 - vs simple ai
+	// 3 - vs hard ai
+	property int type
+
 	property int angle
 
 	width: parent.width * 0.8
@@ -21,7 +27,7 @@ Rectangle {
 		property string vsPlrPath: "image://provider/qml/vs_player_button.png"
 		property string vsAiSimplePath: "image://provider/qml/vs_computer_button_simple.png"
 		property string vsAiHardPath: "image://provider/qml/vs_computer_button_hard.png"
-		property variant texture:[vsPlrPath, vsAiPath, vsAiSimplePath, vsAiHardPath]
+		property variant texture:[vsAiPath, vsPlrPath, vsAiSimplePath, vsAiHardPath]
 		source: texture[parent.type]
 	}
 

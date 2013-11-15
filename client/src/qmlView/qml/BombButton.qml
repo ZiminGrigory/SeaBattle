@@ -6,7 +6,11 @@ Rectangle {
 	height: width
 	color: "transparent"
 
+	// 0 -quit
+	// 1 - settings
+	// 9 - hide
 	property int type
+
 	property int startX
 	property int startY
 	x: startX
@@ -47,5 +51,6 @@ Rectangle {
 		property string backPath: "qrc:/qml/qml/back_button.png"
 		property variant texture:[settingPath, quitPath, toFightPath, backPath]
 		source: texture[parent.type]
+		visible: parent.type != 9
 	}
 }

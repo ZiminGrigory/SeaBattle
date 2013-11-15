@@ -44,4 +44,5 @@ OTHER_FILES += \
     src/qmlView/qml/Cell.qml \
     src/qmlView/qml/Field.qml \
     src/qmlView/qml/FieldBuilder.js \
-    src/qmlView/qml/Battle.qml
+	src/qmlView/qml/Battle.qml\
+	src/qmlView/qml/Menu.qml
