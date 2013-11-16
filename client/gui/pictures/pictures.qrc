@@ -79,5 +79,7 @@
         <file>qml/delete button.png</file>
         <file>qml/deleting.png</file>
         <file>qml/sea_battle_title.png</file>
+        <file>qml/Radar.gif</file>
+        <file>qml/repeat_button.png</file>
     </qresource>
 </RCC>

@@ -16,7 +16,7 @@ Rectangle {
 	signal releasedOnCell(int x, int y)
 	property  variant mStates: ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"]
 
-	AnimatedImage{
+	/*Animated*/Image{
 		id: mId
 		state: currentState.toString()
 		width: parent.width
@@ -79,31 +79,31 @@ Rectangle {
 			 },
 			State {
 				name: "16"
-				PropertyChanges { target: mId; source: "qrc:/pictures/smoke.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/smoke_animation.gif"}
 			 },
 			State {
 				name: "8"
-				PropertyChanges { target: mId; source: "qrc:/pictures/bottom burning.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/bottom_burning.gif"}
 			 },
 			State {
 				name: "11"
-				PropertyChanges { target: mId; source: "qrc:/pictures/bottom burning hor.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/bottom-burning-animation_hor.gif"}
 			 },
 			State {
 				name: "9"
-				PropertyChanges { target: mId; source: "qrc:/pictures/head burning.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/head_burning.gif"}
 			 },
 			State {
 				name: "12"
-				PropertyChanges { target: mId; source: "qrc:/pictures/head burning hor.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/head-burning-animation_hor.gif"}
 			 },
 			State {
 				name: "10"
-				PropertyChanges { target: mId; source: "qrc:/pictures/middle part burning.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/middle-part-burning-animation.gif"}
 			 },
 			State {
 				name: "13"
-				PropertyChanges { target: mId; source: "qrc:/pictures/middle part burning hor.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/middle-part-burning-animation_hor.gif"}
 			 },
 			State {
 				name: "18"
@@ -111,7 +111,7 @@ Rectangle {
 			 },
 			State {
 				name: "14"
-				PropertyChanges { target: mId; source: "qrc:/pictures/small ship burning.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/small-ship-burning-animation.gif"}
 			 }
 		 ]
 	}

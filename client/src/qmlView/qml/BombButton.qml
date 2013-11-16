@@ -49,7 +49,8 @@ Rectangle {
 		property string settingPath: "image://provider/qml/settings_button.png"
 		property string toFightPath: "qrc:/qml/qml/fight_button.png"
 		property string backPath: "qrc:/qml/qml/back_button.png"
-		property variant texture:[settingPath, quitPath, toFightPath, backPath]
+		property string repeatPath: "qrc:/qml/qml/repeat_button.png"
+		property variant texture:[settingPath, quitPath, toFightPath, backPath, repeatPath]
 		source: parent.type != 9 ? texture[parent.type] : ""
 		visible: parent.type != 9
 	}

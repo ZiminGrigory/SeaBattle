@@ -28,7 +28,8 @@ signals:
 
 private:
 	static const QString componentUrl;
-
+	QObject *textBrowser;
+	QObject *loader;
 	QSharedPointer<QQuickItem> mConnectWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
