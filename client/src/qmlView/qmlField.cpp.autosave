@@ -8,7 +8,6 @@ QmlField::QmlField(const QSharedPointer<QObject> &fieldWidget):
 {
 	//mFieldWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(fieldWidget.data()));
 	mField = mFieldWidgetObject->property("array").toList();
-	//qDebug() << mField;
 	connect(mFieldWidgetObject.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));
 	connect(mFieldWidgetObject.data(), SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
 	connect(mFieldWidgetObject.data(), SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));

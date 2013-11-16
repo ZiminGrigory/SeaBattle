@@ -37,6 +37,7 @@ private:
 
 	QSharedPointer<QQuickItem> mFieldWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
+	QSharedPointer<QObject> mFieldWidgetObject;
 	QVariantList mField;
 };
 

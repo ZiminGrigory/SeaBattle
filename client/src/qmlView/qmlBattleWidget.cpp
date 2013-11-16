@@ -5,7 +5,8 @@
 const QString QmlBattleWidget::componentUrl = "qml/qml/Battle.qml";
 
 QmlBattleWidget::QmlBattleWidget(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder) :
-	mWidgetAppender(widgetAppeder)
+	mWidgetAppender(widgetAppeder),
+	mChatAndStatus(new QmlChatAndStatus())
 {
 	QQmlComponent component(engine, QUrl::fromLocalFile(componentUrl));
 	mBattleWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(component.create()));
@@ -21,11 +22,6 @@ QmlBattleWidget::QmlBattleWidget(QQmlEngine* engine, const QSharedPointer<QmlWid
 
 void QmlBattleWidget::showPlayerField()
 {
-	// crashed here ...
-	QObject* mField = mBattleWidget->findChild<QObject*>("mPlrField");
-	qDebug() << mField;
-	qDebug() << (mField == NULL);
-	//mField->setProperty("visible", true);
 }
 
 void QmlBattleWidget::showEnemyField()
@@ -105,7 +101,7 @@ QSharedPointer<InterfaceInfoTab> QmlBattleWidget::getInfoTabView()
 
 QSharedPointer<InterfaceChatAndStatus> QmlBattleWidget::getChatAndStatus()
 {
-	return QSharedPointer<InterfaceChatAndStatus>();
+	return mChatAndStatus;
 }
 
 void QmlBattleWidget::setMessage(QString text)

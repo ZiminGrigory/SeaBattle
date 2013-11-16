@@ -8,6 +8,7 @@
 #include "qmlWidgetAppender.h"
 #include "types.h"
 #include "qmlInfoTab.h"
+#include "qmlChatAndStatus.h"
 #include "qmlField.h"
 
 
@@ -50,6 +51,7 @@ private:
 	QSharedPointer<QmlInfoTab> mInfoTab;
 	QSharedPointer<QmlField> mPlrField;
 	QSharedPointer<QmlField> mEnemyField;
+	QSharedPointer<QmlChatAndStatus> mChatAndStatus;
 	QSharedPointer<QQuickItem> mBattleWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
