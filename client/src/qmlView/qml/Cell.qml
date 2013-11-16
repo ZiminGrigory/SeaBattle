@@ -59,7 +59,7 @@ Rectangle {
 			 },
 			State {
 				name: "7"
-				PropertyChanges { target: mId; source: "qrc:/pictures/middle part hor.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/middle part_hor.jpg"}
 			},
 			State {
 				name: "2"
