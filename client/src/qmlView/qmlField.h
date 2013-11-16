@@ -12,7 +12,7 @@ class QmlField : public InterfaceField
 {
 	Q_OBJECT
 public:
-	QmlField(const QSharedPointer<QObject> &fieldWidget);
+	QmlField(QObject* fieldWidget);
 
 	void showAttackStatus(AttackStatus status);
 	void showResult(Players player);
@@ -20,6 +20,9 @@ public:
 	void removeImageFromCell(int id);
 	void clearItself();
 	void setAttackable(bool attackable);
+
+	void setBattleMode(bool isBattle);
+	void setDeleteShipMode(bool isDeleteMode);
 
 public slots:
 	void setEnabledItself(bool switcher);
@@ -35,9 +38,8 @@ signals:
 private:
 	static const QString componentUrl;
 
-	QSharedPointer<QQuickItem> mFieldWidget;
+	QObject* mFieldWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
-	QSharedPointer<QObject> mFieldWidgetObject;
 	QVariantList mField;
 };
 

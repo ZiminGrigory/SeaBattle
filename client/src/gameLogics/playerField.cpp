@@ -1,4 +1,5 @@
 #include "playerField.h"
+#include <QDebug>
 using namespace Orientation;
 
 PlayerField::PlayerField(const QSharedPointer<InterfaceField> &fieldView,

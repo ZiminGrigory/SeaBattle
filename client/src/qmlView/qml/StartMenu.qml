@@ -31,4 +31,5 @@ Rectangle {
 			menu.rightBombButton.clicked.connect(quitClicked)
 		}
 	}
+
 }

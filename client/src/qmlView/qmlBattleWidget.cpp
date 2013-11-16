@@ -12,21 +12,28 @@ QmlBattleWidget::QmlBattleWidget(QQmlEngine* engine, const QSharedPointer<QmlWid
 	mBattleWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(component.create()));
 	mBattleWidget->dumpObjectTree();
 	connect(mBattleWidget.data(), SIGNAL(backPressed()), this, SIGNAL(quitDialogOkPressed()));
-
-	mInfoTab = QSharedPointer<QmlInfoTab>(new QmlInfoTab(QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mAutoButton"))
-													 ,QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mButtonReady"))
-													 ,QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mCountOfShipn"))));
-	mPlrField = QSharedPointer<QmlField>(new QmlField(QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mPlrField"))));
-	mEnemyField = QSharedPointer<QmlField>(new QmlField(QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mEnemyField"))));
+	connect(mBattleWidget.data(), SIGNAL(deleteMode(bool)), SLOT(handleDeleteShipMode(bool)));
+	mInfoTab = QSharedPointer<QmlInfoTab>(new QmlInfoTab(mBattleWidget->findChild<QObject*>("mAutoButton")
+													 ,mBattleWidget->findChild<QObject*>("mButtonReady")
+													 ,mBattleWidget->findChild<QObject*>("mCountOfShip")));
+	mPlrField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mPlrField")));
+	mEnemyField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mEnemyField")));
 }
 
 void QmlBattleWidget::showPlayerField()
 {
+	// crashed here ...
+	QObject* mField = mBattleWidget->findChild<QObject*>("mPlrField");
+	qDebug() << mField;
+	mField->setProperty("visible", true);
 }
 
 void QmlBattleWidget::showEnemyField()
 {
 	//to do, there we give command to start
+	mBattleWidget->setProperty("isFight", true);
+	mPlrField->setBattleMode(true);
+	mEnemyField->setBattleMode(true);
 }
 
 void QmlBattleWidget::showInfoTab()
@@ -62,6 +69,13 @@ void QmlBattleWidget::setCountOfFleet(Players plr, int count)
 void QmlBattleWidget::clearItself()
 {
 	//to do call in children
+	mBattleWidget->setProperty("isFight", false);
+	mPlrField->clearItself();
+	mBattleWidget->setProperty("countOfEnemy", 10);
+	mBattleWidget->setProperty("countOfPlr", 10);
+	mEnemyField->clearItself();
+	mPlrField->setBattleMode(false);
+	mEnemyField->setBattleMode(false);
 }
 
 void QmlBattleWidget::showGameBreakDialog(const QString& message)
@@ -108,4 +122,9 @@ void QmlBattleWidget::setMessage(QString text)
 {
 	//unused....
 	Q_UNUSED(text)
+}
+
+void QmlBattleWidget::handleDeleteShipMode(bool isActive)
+{
+	mPlrField->setDeleteShipMode(isActive);
 }

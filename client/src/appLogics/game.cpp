@@ -6,6 +6,7 @@ Game::Game(int& argc, char** argv):
     gameMaster(QSharedPointer<GameMaster>(NULL)),
     mConnectionMenu(NULL)
 {
+
 	// to do: replace it to constructor argument
 	#ifdef WIDGETS_VIEW
 		view = QSharedPointer<InterfaceMainWindow>(new MainWindowAdapter());

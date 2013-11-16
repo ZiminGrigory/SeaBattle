@@ -4,10 +4,12 @@ import "FieldBuilder.js" as FieldBuilder
 Rectangle {
 	id: main
 	property int mSize: 150
-	onHeightChanged: FieldBuilder.startNewGame(mSize)
 
 	width: mSize
 	height: mSize
+
+	Component.onCompleted: FieldBuilder.startNewGame(mSize)
+
 
 	signal attack(int id);
 	signal placeShip(int firstId, int secondId);
@@ -17,7 +19,8 @@ Rectangle {
 
 	AnimatedImage{
 		id: sea
-		source: "qrc:/pictures/sea_animation.gif"
+		//source: "sea_animation.gif"
+		playing: true
 		height: mSize
 		width: mSize
 	}

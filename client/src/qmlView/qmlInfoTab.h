@@ -8,9 +8,9 @@ class QmlInfoTab : public InterfaceInfoTab
 {
 	Q_OBJECT
 public:
-	QmlInfoTab(const QSharedPointer<QObject> &_buttonAutoSetting
-			   , const QSharedPointer<QObject> &_buttonReady
-			   , const QSharedPointer<QObject> &_shipCounter);
+	QmlInfoTab(QObject* _buttonAutoSetting
+			   , QObject* _buttonReady
+			   , QObject* _shipCounter);
 
 	void clearItself();
 public slots:
@@ -22,10 +22,13 @@ signals:
 	void needAutoSetting();
 
 private:
-	QSharedPointer<QObject> buttonAutoSetting;
-	QSharedPointer<QObject> buttonReady;
-	QSharedPointer<QObject> shipCounter;
+	QObject* buttonAutoSetting;
+	QObject* buttonReady;
+	QObject* shipCounter;
 	int countOfShip;
+
+private slots:
+	void handleReadyButton();
 };
 
 #endif // QMLINFOTAB_H

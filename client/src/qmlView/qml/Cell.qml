@@ -14,6 +14,7 @@ Rectangle {
 	signal clickedOnCell(int id)
 	signal pressedOnCell(int id)
 	signal releasedOnCell(int x, int y)
+	property  variant mStates: ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18"]
 
 	AnimatedImage{
 		id: mId
@@ -46,7 +47,7 @@ Rectangle {
 			 },
 			 State {
 				name: "15"
-				PropertyChanges { target: mId; source: "qrc:/pictures/boat scout.png"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/small ship.jpg"}
 			},
 			State {
 			   name: "5"
@@ -58,7 +59,7 @@ Rectangle {
 			 },
 			State {
 				name: "7"
-				PropertyChanges { target: mId; source: "qrc:/pictures/middle part_hor.jpg"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/middle part hor.jpg"}
 			},
 			State {
 				name: "2"
@@ -78,31 +79,31 @@ Rectangle {
 			 },
 			State {
 				name: "16"
-				PropertyChanges { target: mId; source: "qrc:/pictures/smoke_animation.gif"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/smoke.jpg"}
 			 },
 			State {
 				name: "8"
-				PropertyChanges { target: mId; source: "qrc:/pictures/bottom_burning.gif"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/bottom burning.jpg"}
 			 },
 			State {
 				name: "11"
-				PropertyChanges { target: mId; source: "qrc:/pictures/bottom-burning-animation_hor.gif"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/bottom burning hor.jpg"}
 			 },
 			State {
 				name: "9"
-				PropertyChanges { target: mId; source: "qrc:/pictures/head_burning.gif"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/head burning.jpg"}
 			 },
 			State {
 				name: "12"
-				PropertyChanges { target: mId; source: "qrc:/pictures/head-burning-animation_hor.gif"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/head burning hor.jpg"}
 			 },
 			State {
 				name: "10"
-				PropertyChanges { target: mId; source: "qrc:/pictures/middle-part-burning-animation.gif"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/middle part burning.jpg"}
 			 },
 			State {
 				name: "13"
-				PropertyChanges { target: mId; source: "qrc:/pictures/middle-part-burning-animation_hor.gif"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/middle part burning hor.jpg"}
 			 },
 			State {
 				name: "18"
@@ -110,7 +111,7 @@ Rectangle {
 			 },
 			State {
 				name: "14"
-				PropertyChanges { target: mId; source: "qrc:/pictures/small-ship-burning-animation.gif"}
+				PropertyChanges { target: mId; source: "qrc:/pictures/small ship burning.jpg"}
 			 }
 		 ]
 	}
@@ -121,5 +122,10 @@ Rectangle {
 		onClicked: {clickedOnCell(coordinates)}
 		onPressed: {pressedOnCell(coordinates)}
 		onReleased: {releasedOnCell(mouseX, mouseY)}
+	}
+
+	onCurrentStateChanged: {
+		console.log("current state is ",currentState)
+		mId.state = mStates[currentState]
 	}
 }

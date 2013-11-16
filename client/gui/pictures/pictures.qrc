@@ -7,7 +7,7 @@
         <file alias="head.jpg">head.jpg</file>
         <file alias="middle part burning.jpg">middle part burning.jpg</file>
         <file alias="middle part.jpg">middle part.jpg</file>
-        <file alias="small ship.jpg">sea.jpg</file>
+        <file alias="sea.jpg">sea.jpg</file>
         <file alias="smoke.jpg">smoke.jpg</file>
         <file alias="splash.jpg">splash.jpg</file>
         <file alias="wreck.jpg">wreck.jpg</file>
@@ -73,9 +73,11 @@
         <file>qml/9.png</file>
         <file>qml/10.png</file>
         <file>qml/ready.png</file>
-        <file>qml/startTitle.png</file>
         <file>qml/back_button.png</file>
         <file>qml/fight_button.png</file>
         <file>qml/auto.png</file>
+        <file>qml/delete button.png</file>
+        <file>qml/deleting.png</file>
+        <file>qml/sea_battle_title.png</file>
     </qresource>
 </RCC>

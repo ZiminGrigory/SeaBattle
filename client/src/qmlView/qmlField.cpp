@@ -3,16 +3,14 @@
 #include "types.h"
 const QString QmlField::componentUrl = "qml/qml/Field.qml";
 
-QmlField::QmlField(const QSharedPointer<QObject> &fieldWidget):
-	mFieldWidgetObject(fieldWidget)
+QmlField::QmlField(QObject* fieldWidget):
+	mFieldWidget(fieldWidget)
 {
-	//mFieldWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(fieldWidget.data()));
-	mField = mFieldWidgetObject->property("array").toList();
+	mField = mFieldWidget->property("array").toList();
 	//qDebug() << mField;
-	connect(mFieldWidgetObject.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));
-	connect(mFieldWidgetObject.data(), SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
-	connect(mFieldWidgetObject.data(), SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
-	//repaint(22, WRECK);
+	//connect(mFieldWidget.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));
+	//connect(mFieldWidget.data(), SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
+	connect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
 }
 
 void QmlField::showAttackStatus(AttackStatus status)
@@ -45,6 +43,32 @@ void QmlField::clearItself()
 void QmlField::setAttackable(bool attackable)
 {
 
+}
+
+void QmlField::setBattleMode(bool isBattle)
+{
+	if(isBattle){
+		connect(mFieldWidget, SIGNAL(attack(int)), this, SIGNAL(attack(int)));
+		disconnect(mFieldWidget, SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
+		disconnect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
+	} else {
+		disconnect(mFieldWidget, SIGNAL(attack(int)), this, SIGNAL(attack(int)));
+		disconnect(mFieldWidget, SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
+		connect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
+	}
+}
+
+void QmlField::setDeleteShipMode(bool isDeleteMode)
+{
+	if(isDeleteMode){
+		disconnect(mFieldWidget, SIGNAL(attack(int)), this, SIGNAL(attack(int)));
+		connect(mFieldWidget, SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
+		disconnect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
+	} else{
+		disconnect(mFieldWidget, SIGNAL(attack(int)), this, SIGNAL(attack(int)));
+		disconnect(mFieldWidget, SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
+		connect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
+	}
 }
 
 void QmlField::setEnabledItself(bool switcher)

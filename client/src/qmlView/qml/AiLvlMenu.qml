@@ -19,9 +19,8 @@ Rectangle {
 
 		topShipButtonType: 2
 		bottomShipButtonType: 3
-		leftBombButtonType: 9
+		//leftBombButtonType: 9
 		rightBombButtonType: 1
-
 
 		Component.onCompleted: {
 			menu.topShipButton.clicked.connect(vsAiSimpleClicked)

@@ -23,6 +23,14 @@ Rectangle {
 		source: "image://provider/qml/background.jpg"
 	}
 
+		Image {
+			id: startTitle
+			width: menu.width
+			height: menu.height / 5
+			anchors.top: menu.top
+			source: "qrc:/qml/qml/sea_battle_title.png"
+		}
+
 	// свои qml компоненты, которые лежат в той же директории, можно спокойно добавлять
 	ShipButton {
 		id: topShipButton
