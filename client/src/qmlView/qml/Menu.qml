@@ -65,8 +65,11 @@ Rectangle {
 	BombButton {
 		id: leftBombButton
 
-		startX: 10
-		startY: parent.height - height - 10
+//		startX: 10
+//		startY: parent.height - height - 10
+
+		anchors.left: parent.left
+		anchors.bottom: parent.bottom
 
 		MouseArea {
 			id: leftBombButtonMouseArea
@@ -78,8 +81,11 @@ Rectangle {
 	BombButton {
 		id: rightBombButton
 
-		startX: parent.width - width - 10
-		startY: parent.height - height - 10
+//		startX: parent.width - width - 10
+//		startY: parent.height - height - 10
+
+		anchors.right: parent.right
+		anchors.bottom: parent.bottom
 
 		MouseArea {
 			id: rightBombButtonMouseArea

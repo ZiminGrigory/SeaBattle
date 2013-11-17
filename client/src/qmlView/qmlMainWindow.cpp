@@ -1,16 +1,21 @@
 #include <QQuickItem>
+#include <QScreen>
 
 #include "qmlMainWindow.h"
 
 QmlMainWindow::QmlMainWindow():
-	mWidgetAppender(new QmlWidgetAppender(&mQuickView))
-
+	mWidgetAppender(new QmlWidgetAppender(&mQuickView, mQuickView.screen()))
 {
 	// ImageProvider специальный класс, который позволяет qml объектам подгружать картинки, из ресурсов, например
 	ImageProvider* imageProvider = new ImageProvider();
 	// добавляем его в наш qml движок
 	mQuickView.engine()->addImageProvider("provider", imageProvider);
-	mQuickView.resize(QML_WINDOW_SIZE);
+
+	#ifdef Q_OS_ANDROID
+		mQuickView.resize(mQuickView.screen()->availableSize());
+	#else
+		mQuickView.resize(QML_WINDOW_SIZE);
+	#endif
 
 	// сразу создаём все компоненты интерфейса
 	mAiLvlList = QSharedPointer<QmlAiLvlList>(new QmlAiLvlList(mQuickView.engine(), mWidgetAppender));

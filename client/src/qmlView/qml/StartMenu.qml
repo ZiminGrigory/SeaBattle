@@ -1,12 +1,7 @@
 import QtQuick 2.0
 
-
 Rectangle {
 	id: main
-
-	width: 320
-	height: 480
-
 	// сигналы для внешнего мира :)
 	signal vsAiClicked()
 	signal vsPlayerClicked()

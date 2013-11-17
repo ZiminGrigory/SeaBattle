@@ -4,12 +4,12 @@ import "FieldBuilder.js" as FieldBuilder
 Rectangle {
 	id: main
 	property int mSize: 150
+	property alias fieldStatus: status.state
 
 	width: mSize
 	height: mSize
 
 	Component.onCompleted: FieldBuilder.startNewGame(mSize)
-
 
 	signal attack(int id);
 	signal placeShip(int firstId, int secondId);
@@ -17,11 +17,15 @@ Rectangle {
 
 	property variant array
 
-	AnimatedImage{
+	/*Animated*/Image{
 		id: sea
 		source: "qrc:/pictures/sea_animation.gif"
-		playing: true
+
 		height: mSize
 		width: mSize
+	}
+
+	FieldMessage {
+		id: status
 	}
 }

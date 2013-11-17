@@ -172,6 +172,13 @@ void GameMaster::nextTurn(AttackStatus turnResult)
 	}
 	else
 	{
+		if (turnedPlayer == player) {
+			view->switchToEnemyField();
+		}
+		else {
+			view->switchToPlayerField();
+		}
+
 		// else continue game
 		offerTurn();
 	}

@@ -5,6 +5,18 @@ Rectangle {
 	width: 320
 	height: 480
 
+	function switchToPlayerField() {
+		enemyField.visible = false;
+		plrField.visible = true;
+		arrowButton.currentPicture ="right"
+	}
+
+	function switchToEnemyField() {
+		plrField.visible = false;
+		enemyField.visible = true;
+		arrowButton.currentPicture ="left"
+	}
+
 	signal backPressed()
 	signal arrowPressed()
 	signal deleteMode(bool isActive)
@@ -21,36 +33,31 @@ Rectangle {
 		source: "qrc:/qml/background.jpg"
 	}
 
-	Image{
+	Text{
 		id:lableCountOfShip
 		anchors.top: main.top
 		width: main.width / 4 * 2
 		height: main.height / 10
-		source: "qrc:/qml/qml/countOfShip.png"
+		style: Text.Outline; styleColor: "black"
+		text: "Корабли:"
+		font.family: "Helvetica"
+		font.pointSize: height / 2
+		color: "white"
 	}
 
-	Image{
+	Text{
 		objectName: "mCountOfShip"
 		id:countOfShip
 		property int currentNumber: 10
 		width: lableCountOfShip.width / 2
 		height: lableCountOfShip.height
-		source: "qrc:/qml/qml/10.png"
 		anchors.left: lableCountOfShip.right
-		states:[
-			State {name: "10";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}},
-			State {name: "9";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/9.png"}},
-			State {name: "8";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}},
-			State {name: "7";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}},
-			State {name: "6";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}},
-			State {name: "5";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}},
-			State {name: "4";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}},
-			State {name: "3";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}},
-			State {name: "2";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}},
-			State {name: "1";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}},
-			State {name: "0";PropertyChanges { target: countOfShip; source: "qrc:/qml/qml/10.png"}}
-		]
-		onCurrentNumberChanged: {countOfShip.state = currentNumber.toString()}
+		style: Text.Outline; styleColor: "black"
+		text: "10"
+		font.family: "Helvetica"
+		font.pointSize: height / 2
+		color: "white"
+		onCurrentNumberChanged: {countOfShip.text = currentNumber.toString()}
 	}
 
 	Image{
@@ -80,7 +87,7 @@ Rectangle {
 		width:height
 		height: countOfShip.height
 		anchors.left: countOfShip.right
-		style: Text.Outline; styleColor: "red"
+		style: Text.Outline; styleColor: "white"
 		text: "22"
 		font.family: "Helvetica"
 		font.pointSize: height / 1.5
@@ -112,8 +119,9 @@ Rectangle {
 	BombButton {
 		id: backButton
 		type: 3
-		startX: parent.width - width - 10
-		startY: parent.height - height - 10
+
+		anchors.right: parent.right
+		anchors.bottom: parent.bottom
 
 		MouseArea {
 			id: backMouseArea
@@ -130,8 +138,10 @@ Rectangle {
 		objectName:"mButtonReady"
 		signal ready()
 		id: buttonReady
-		startX: 10
-		startY: parent.height - height - 10
+
+		anchors.left: parent.left
+		anchors.bottom: parent.bottom
+
 		type: 2
 		visible: true
 
@@ -224,25 +234,29 @@ Rectangle {
 		width: main.width / 2.3
 		height: width / 2
 		source: "qrc:/qml/arrow right.png"
-		property int currentPicture: 0
+		property string currentPicture: "right"
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.bottom: main.bottom
 		anchors.bottomMargin: height / 4
 		states:[
-			State {name: "0";PropertyChanges { target: arrowButton; source: "qrc:/qml/arrow right.png"}},
-			State {name: "1";PropertyChanges { target: arrowButton; source: "qrc:/qml/arrow left.png"}}
+			State {name: "right";PropertyChanges { target: arrowButton; source: "qrc:/qml/arrow right.png"}},
+			State {name: "left";PropertyChanges { target: arrowButton; source: "qrc:/qml/arrow left.png"}}
 		]
 		onCurrentPictureChanged: {arrowButton.state = currentPicture.toString()}
 		MouseArea {
 			id: arrowButtonMouseArea
 			width: parent.width
 			height: parent.height
-			Component.onCompleted: {
-				arrowButtonMouseArea.clicked.connect(parent.analizeArrow)
+			onClicked: {
+				parent.analizeArrow();
 			}
 		}
 		function changePicture(){
-			currentPicture = (currentPicture + 1) % 2
+			if (currentPicture == "right"){
+				currentPicture ="left"
+			} else{
+				currentPicture = "right"
+			}
 		}
 		function analizeArrow(){
 			changePicture()
