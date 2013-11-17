@@ -11,6 +11,11 @@ TEMPLATE = app
 # WIDGETS_VIEW - simple qt widgets
 DEFINES += QML_VIEW
 
+# here we choose qml size mode
+# QML_VIEW_DESKTOP - qml view on PC
+# QML_VIEW_PHONE  - qml view on Phone
+DEFINES += QML_VIEW_DESKTOP
+
 SOURCES += src/main.cpp
 
 INCLUDEPATH += src/view src/iView src/qmlView src/gameLogics src/appLogics src/tcpClient src/audioPlayer ../

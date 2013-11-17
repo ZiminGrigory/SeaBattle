@@ -1,8 +1,8 @@
 import QtQuick 2.0
 
 Rectangle {
-	width: 240
-	height: 320
+	width: 320
+	height: 480
 	id: main
 
 	signal repeat
@@ -24,7 +24,7 @@ Rectangle {
 		}
 	}
 
-	/*Animated*/Image{
+	AnimatedImage{
 		id: loader
 		objectName: "loader"
 		anchors.horizontalCenter: main.horizontalCenter

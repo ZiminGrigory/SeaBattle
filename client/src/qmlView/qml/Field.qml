@@ -19,7 +19,7 @@ Rectangle {
 
 	AnimatedImage{
 		id: sea
-		//source: "sea_animation.gif"
+		source: "qrc:/pictures/sea_animation.gif"
 		playing: true
 		height: mSize
 		width: mSize
