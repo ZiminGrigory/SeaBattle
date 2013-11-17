@@ -10,7 +10,8 @@ QmlBattleWidget::QmlBattleWidget(QQmlEngine* engine, const QSharedPointer<QmlWid
 {
 	QQmlComponent component(engine, QUrl::fromLocalFile(componentUrl));
 	mBattleWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(component.create()));
-	mBattleWidget->dumpObjectTree();
+
+	timer = mBattleWidget->findChild<QObject*>("timer");
 	connect(mBattleWidget.data(), SIGNAL(backPressed()), this, SIGNAL(quitDialogOkPressed()));
 	connect(mBattleWidget.data(), SIGNAL(deleteMode(bool)), SLOT(handleDeleteShipMode(bool)));
 	mInfoTab = QSharedPointer<QmlInfoTab>(new QmlInfoTab(mBattleWidget->findChild<QObject*>("mAutoButton")
@@ -43,13 +44,13 @@ void QmlBattleWidget::showInfoTab()
 
 void QmlBattleWidget::setTime(int time)
 {
-	Q_UNUSED(time)
-	//unused....
+	timer->setProperty("visible", true);
+	timer->setProperty("text", time);
 }
 
 void QmlBattleWidget::hideTimer()
 {
-	//unused....
+	timer->setProperty("visible", false);
 }
 
 void QmlBattleWidget::showCountersOfFleet()

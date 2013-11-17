@@ -73,6 +73,20 @@ Rectangle {
 		}
 	}
 
+	Text{
+		objectName: "timer"
+		id: timer
+		visible: false
+		width:height
+		height: countOfShip.height
+		anchors.left: countOfShip.right
+		style: Text.Outline; styleColor: "red"
+		text: "22"
+		font.family: "Helvetica"
+		font.pointSize: height / 1.5
+		color: "black"
+	}
+
 	Field{
 		objectName:"mPlrField"
 		id: plrField
@@ -258,7 +272,7 @@ Rectangle {
 			arrowButton.visible = false; infoButton.visible = true; buttonReady.visible = true;
 			autoButton.visible = true; plrField.visible = true; enemyField.visible = false; plrField.enabled = true
 			deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
-
+			timer.visible = false
 		}
 	}
 }

@@ -55,6 +55,7 @@ private:
 	QSharedPointer<QmlChatAndStatus> mChatAndStatus;
 	QSharedPointer<QQuickItem> mBattleWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
+	QObject *timer;
 };
 
 #endif // QMLBATTLEWIDGET_H
