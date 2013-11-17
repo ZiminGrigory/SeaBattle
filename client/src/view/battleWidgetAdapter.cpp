@@ -66,6 +66,16 @@ void BattleWidgetAdapter::showQuitDialog()
 	mAdaptee->showQuitDialog();
 }
 
+void BattleWidgetAdapter::switchToPlayerField()
+{
+
+}
+
+void BattleWidgetAdapter::switchToEnemyField()
+{
+
+}
+
 QSharedPointer<InterfaceField> BattleWidgetAdapter::getPlayerFieldView()
 {
 	return mPlayerFieldView;

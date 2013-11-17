@@ -46,6 +46,9 @@
         <file alias="middle-part-burning-animation_hor.gif">middle-part-burning-animation_hor.gif</file>
         <file alias="middle-part-burning-animation.gif">middle-part-burning-animation.gif</file>
         <file alias="small-ship-burning-animation.gif">small-ship-burning-animation.gif</file>
+        <file>wounded.png</file>
+        <file>miss.png</file>
+        <file>killed.png</file>
     </qresource>
     <qresource prefix="/qml">
         <file alias="background.jpg">qml/background.jpg</file>

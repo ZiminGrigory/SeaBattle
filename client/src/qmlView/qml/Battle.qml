@@ -5,6 +5,16 @@ Rectangle {
 	width: 240
 	height: 320
 
+	function switchToPlayerField() {
+		enemyField.visible = false;
+		plrField.visible = true;
+	}
+
+	function switchToEnemyField() {
+		plrField.visible = false;
+		enemyField.visible = true;
+	}
+
 	signal backPressed()
 	signal arrowPressed()
 	signal deleteMode(bool isActive)
@@ -112,8 +122,9 @@ Rectangle {
 	BombButton {
 		id: backButton
 		type: 3
-		startX: parent.width - width - 10
-		startY: parent.height - height - 10
+
+		anchors.right: parent.right
+		anchors.bottom: parent.bottom
 
 		MouseArea {
 			id: backMouseArea
@@ -130,8 +141,10 @@ Rectangle {
 		objectName:"mButtonReady"
 		signal ready()
 		id: buttonReady
-		startX: 10
-		startY: parent.height - height - 10
+
+		anchors.left: parent.left
+		anchors.bottom: parent.bottom
+
 		type: 2
 		visible: true
 

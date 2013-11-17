@@ -15,7 +15,22 @@ QmlField::QmlField(QObject* fieldWidget):
 
 void QmlField::showAttackStatus(AttackStatus status)
 {
+	QString state = "";
 
+	switch (status) {
+		case MISS:
+			state = "miss";
+			break;
+		case WOUNDED:
+			state = "wounded";
+			break;
+		case KILLED:
+			state = "killed";
+			break;
+	}
+	if (state != "") {
+		mFieldWidget->setProperty("fieldStatus", state);
+	}
 }
 
 void QmlField::showResult(Players player)

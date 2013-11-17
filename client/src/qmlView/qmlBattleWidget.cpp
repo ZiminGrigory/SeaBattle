@@ -1,5 +1,8 @@
 #include "qmlBattleWidget.h"
-#include "QDebug"
+#include <QDebug>
+#include <QTimer>
+
+
 //i know, that this code very horrible, but...deadline and other problem make me to do this
 
 const QString QmlBattleWidget::componentUrl = "qml/qml/Battle.qml";
@@ -89,6 +92,26 @@ void QmlBattleWidget::showQuitDialog()
 	//unused....
 }
 
+void QmlBattleWidget::switchToPlayerField()
+{
+	QTimer::singleShot(1000, this, SLOT(delayedSwitchToPlayerField()));
+}
+
+void QmlBattleWidget::delayedSwitchToPlayerField()
+{
+	QMetaObject::invokeMethod(mBattleWidget.data(), "switchToPlayerField");
+}
+
+void QmlBattleWidget::switchToEnemyField()
+{
+	QTimer::singleShot(1000, this, SLOT(delayedSwitchToEnemyField()));
+}
+
+void QmlBattleWidget::delayedSwitchToEnemyField()
+{
+	QMetaObject::invokeMethod(mBattleWidget.data(), "switchToEnemyField");
+}
+
 void QmlBattleWidget::show()
 {
 	mWidgetAppender->show(mBattleWidget);
@@ -129,3 +152,4 @@ void QmlBattleWidget::handleDeleteShipMode(bool isActive)
 {
 	mPlrField->setDeleteShipMode(isActive);
 }
+

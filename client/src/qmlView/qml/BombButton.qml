@@ -6,6 +6,7 @@ Rectangle {
 	height: width
 	color: "transparent"
 
+
 	// 0 -quit
 	// 1 - settings
 	// 9 - hide
@@ -27,18 +28,18 @@ Rectangle {
 		}
 	}
 
-	SequentialAnimation {
-		running: true
-		loops: Animation.Infinite
-		ParallelAnimation {
-			NumberAnimation { target: bomb; property: "x"; to: randomAddition(startX) ; duration: 2000; }
-			NumberAnimation { target: bomb; property: "y"; to: randomAddition(startY) ; duration: 2000; }
-		}
-		ParallelAnimation {
-			NumberAnimation { target: bomb; property: "x"; to: startX; duration: 2000; }
-			NumberAnimation { target: bomb; property: "y"; to: startY; duration: 2000; }
-		}
-	}
+//	SequentialAnimation {
+//		running: true
+//		loops: Animation.Infinite
+//		ParallelAnimation {
+//			NumberAnimation { target: bomb; property: "x"; to: randomAddition(startX) ; duration: 2000; }
+//			NumberAnimation { target: bomb; property: "y"; to: randomAddition(startY) ; duration: 2000; }
+//		}
+//		ParallelAnimation {
+//			NumberAnimation { target: bomb; property: "x"; to: startX; duration: 2000; }
+//			NumberAnimation { target: bomb; property: "y"; to: startY; duration: 2000; }
+//		}
+//	}
 
 
 	Image {

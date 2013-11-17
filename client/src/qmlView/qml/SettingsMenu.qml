@@ -23,13 +23,21 @@ Rectangle {
 		source: "image://provider/qml/background.jpg"
 	}
 
-	Image{
+	Text {
 		id: text
 		width: main.width
 		height: main.height / 6
 		anchors.horizontalCenter: parent.horizontalCenter
 		anchors.top: parent.top
-		source: "image://provider/qml/settings.png"
+		text: "Настройки"
+		color: "white"
+		font.pointSize: 16
+		font.bold: true
+		style: Text.Outline
+		styleColor: "black"
+		horizontalAlignment: Text.AlignHCenter
+		verticalAlignment: Text.AlignVCenter
+		//source: "image://provider/qml/settings.png"
 	}
 
 	Image{
@@ -111,14 +119,22 @@ Rectangle {
 		}
 	}
 
-	Image{
+	Text {
 		id:labelIP
 		width: main.width
 		height: main.height / 9
 		anchors.horizontalCenter: text.horizontalCenter
 		anchors.top: text.top
 		anchors.topMargin: (text.height + soundControl.height)
-		source: "image://provider/qml/label_ip.png"
+		//source: "image://provider/qml/label_ip.png"
+		text: "IP сервера"
+		color: "white"
+		style: Text.Outline
+		styleColor: "black"
+		font.bold: true
+		font.pointSize: 12
+		horizontalAlignment: Text.AlignHCenter
+		verticalAlignment: Text.AlignVCenter
 	 }
 
 	Rectangle{
@@ -142,14 +158,22 @@ Rectangle {
 		}
 	}
 
-	Image{
+	Text {
 		id:labelPort
 		width: main.width
 		height: main.height / 9
 		anchors.horizontalCenter: labelIP.horizontalCenter
 		anchors.top: labelIp_input.top
 		anchors.topMargin: (labelIp_input.height)* 1.2
-		source: "image://provider/qml/label_port.png"
+		text: "Порт"
+		color: "white"
+		style: Text.Outline
+		styleColor: "black"
+		font.bold: true
+		font.pointSize: 12
+		horizontalAlignment: Text.AlignHCenter
+		verticalAlignment: Text.AlignVCenter
+		//source: "image://provider/qml/label_port.png"
 	 }
 
 	Rectangle{

@@ -25,6 +25,8 @@ public:
 	void clearItself();
 	void showGameBreakDialog(const QString& message);
 	void showQuitDialog();
+	void switchToPlayerField();
+	void switchToEnemyField();
 
 	QSharedPointer<InterfaceField> getPlayerFieldView();
 	QSharedPointer<InterfaceField> getEnemyFieldView();

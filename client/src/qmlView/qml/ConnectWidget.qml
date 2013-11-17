@@ -1,8 +1,6 @@
 import QtQuick 2.0
 
 Rectangle {
-	width: 240
-	height: 320
 	id: main
 
 	signal repeat

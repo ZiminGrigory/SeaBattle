@@ -3,9 +3,6 @@ import QtQuick 2.0
 Rectangle {
 	id: main
 
-	width: 240
-	height: 320
-
 	// сигналы для внешнего мира :)
 	signal vsAiSimpleClicked()
 	signal vsAihardClicked()

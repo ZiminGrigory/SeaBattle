@@ -1,11 +1,8 @@
 import QtQuick 2.0
-
+import QtQuick.Window 2.1
 
 Rectangle {
 	id: main
-
-	width: 240
-	height: 320
 
 	// сигналы для внешнего мира :)
 	signal vsAiClicked()

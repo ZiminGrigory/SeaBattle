@@ -28,6 +28,8 @@ public:
 	void clearItself();
 	void showGameBreakDialog(const QString& message);
 	void showQuitDialog();
+	void switchToPlayerField();
+	void switchToEnemyField();
 
 	void show();
 	void hide();
@@ -47,6 +49,8 @@ public slots:
 	void setMessage(QString text);
 private slots:
 	void handleDeleteShipMode(bool isActive);
+	void delayedSwitchToPlayerField();
+	void delayedSwitchToEnemyField();
 private:
 	static const QString componentUrl;
 	QSharedPointer<QmlInfoTab> mInfoTab;
