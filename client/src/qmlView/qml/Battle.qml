@@ -8,6 +8,7 @@ Rectangle {
 	function switchToPlayerField() {
 		enemyField.visible = false;
 		plrField.visible = true;
+
 	}
 
 	function switchToEnemyField() {
@@ -250,9 +251,13 @@ Rectangle {
 			id: arrowButtonMouseArea
 			width: parent.width
 			height: parent.height
-			Component.onCompleted: {
-				arrowButtonMouseArea.clicked.connect(parent.analizeArrow)
+			onClicked: {
+				parent.analizeArrow();
 			}
+
+//			Component.onCompleted: {
+//				arrowButtonMouseArea.clicked.connect(parent.analizeArrow)
+//			}
 		}
 		function changePicture(){
 			currentPicture = (currentPicture + 1) % 2

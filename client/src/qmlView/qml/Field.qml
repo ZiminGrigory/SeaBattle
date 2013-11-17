@@ -6,6 +6,7 @@ Rectangle {
 	property int mSize: 150
 	property alias fieldStatus: status.state
 
+
 	width: mSize
 	height: mSize
 
@@ -26,5 +27,6 @@ Rectangle {
 
 	FieldMessage {
 		id: status
+
 	}
 }

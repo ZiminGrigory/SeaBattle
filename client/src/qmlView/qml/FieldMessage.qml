@@ -50,11 +50,11 @@ Rectangle {
 		},
 		State {
 			name: "you_turn"
-			PropertyChanges { target: img; source: "qrc:/pictures/you_turn.gif"; visible: true }
+			PropertyChanges { target: img; source: "qrc:/pictures/you_turn.png"; visible: true }
 		},
 		State {
 			name: "enemy_turn"
-			PropertyChanges { target: img; source: "qrc:/pictures/enemy_turn.gif"; visible: true }
+			PropertyChanges { target: img; source: "qrc:/pictures/enemy_turn.png"; visible: true }
 		}
 	]
 }
