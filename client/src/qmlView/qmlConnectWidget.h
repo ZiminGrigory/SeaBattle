@@ -12,7 +12,7 @@ class QmlConnectWidget : public InterfaceConnectWidget, public QmlRootWidget
 {
 	Q_OBJECT
 public:
-	QmlConnectWidget(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder);
+	QmlConnectWidget(QObject* widget);
 
 	void showMessage(QString text);
 	void showLoader();
@@ -27,10 +27,9 @@ signals:
 	void buttonTryAgainPushed();
 
 private:
-	static const QString componentUrl;
 	QObject *textBrowser;
 	QObject *loader;
-	QSharedPointer<QQuickItem> mConnectWidget;
+	QObject* mConnectWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 

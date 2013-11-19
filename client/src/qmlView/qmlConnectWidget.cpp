@@ -2,13 +2,12 @@
 
 const QString QmlConnectWidget::componentUrl = "qml/qml/ConnectWidget.qml";
 
-QmlConnectWidget::QmlConnectWidget(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder) :
+QmlConnectWidget::QmlConnectWidget(QObject* widget) :
+	mConnectWidget(widget),
 	mWidgetAppender(widgetAppeder)
 {
-	QQmlComponent component(engine, QUrl::fromLocalFile(componentUrl));
-	mConnectWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(component.create()));
-	connect(mConnectWidget.data(), SIGNAL(repeat()), this, SIGNAL(buttonTryAgainPushed()));
-	connect(mConnectWidget.data(), SIGNAL(quitClicked()), this, SIGNAL(buttonExitPushed()));
+	connect(mConnectWidget, SIGNAL(repeat()), this, SIGNAL(buttonTryAgainPushed()));
+	connect(mConnectWidget, SIGNAL(quitClicked()), this, SIGNAL(buttonExitPushed()));
 	textBrowser = mConnectWidget->findChild<QObject*>("messageBox");
 	loader = mConnectWidget->findChild<QObject*>("loader");
 }

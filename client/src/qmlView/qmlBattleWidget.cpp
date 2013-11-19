@@ -5,18 +5,14 @@
 
 //i know, that this code very horrible, but...deadline and other problem make me to do this
 
-const QString QmlBattleWidget::componentUrl = "qml/qml/Battle.qml";
-
-QmlBattleWidget::QmlBattleWidget(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder) :
+QmlBattleWidget::QmlBattleWidget(QObject* widget) :
+	mBattleWidget(widget),
 	mWidgetAppender(widgetAppeder),
 	mChatAndStatus(new QmlChatAndStatus())
 {
-	QQmlComponent component(engine, QUrl::fromLocalFile(componentUrl));
-	mBattleWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(component.create()));
-
 	timer = mBattleWidget->findChild<QObject*>("timer");
-	connect(mBattleWidget.data(), SIGNAL(backPressed()), this, SIGNAL(quitDialogOkPressed()));
-	connect(mBattleWidget.data(), SIGNAL(deleteMode(bool)), SLOT(handleDeleteShipMode(bool)));
+	connect(mBattleWidget, SIGNAL(backPressed()), this, SIGNAL(quitDialogOkPressed()));
+	connect(mBattleWidget, SIGNAL(deleteMode(bool)), SLOT(handleDeleteShipMode(bool)));
 	mInfoTab = QSharedPointer<QmlInfoTab>(new QmlInfoTab(mBattleWidget->findChild<QObject*>("mAutoButton")
 													 ,mBattleWidget->findChild<QObject*>("mButtonReady")
 													 ,mBattleWidget->findChild<QObject*>("mCountOfShip")));
@@ -99,7 +95,7 @@ void QmlBattleWidget::switchToPlayerField()
 
 void QmlBattleWidget::delayedSwitchToPlayerField()
 {
-	QMetaObject::invokeMethod(mBattleWidget.data(), "switchToPlayerField");
+	QMetaObject::invokeMethod(mBattleWidget, "switchToPlayerField");
 }
 
 void QmlBattleWidget::switchToEnemyField()
@@ -109,7 +105,7 @@ void QmlBattleWidget::switchToEnemyField()
 
 void QmlBattleWidget::delayedSwitchToEnemyField()
 {
-	QMetaObject::invokeMethod(mBattleWidget.data(), "switchToEnemyField");
+	QMetaObject::invokeMethod(mBattleWidget, "switchToEnemyField");
 }
 
 void QmlBattleWidget::show()

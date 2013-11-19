@@ -12,7 +12,7 @@ class QmlAiLvlList : public InterfaceAiLvlList, public QmlRootWidget
 {
 	Q_OBJECT
 public:
-	QmlAiLvlList(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder);
+	QmlAiLvlList(QObject* widget);
 
 	void show();
 	void hide();
@@ -24,7 +24,7 @@ signals:
 private:
 	static const QString componentUrl;
 
-	QSharedPointer<QQuickItem> mAiLvlList;
+	QObject* mAiLvlList;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 

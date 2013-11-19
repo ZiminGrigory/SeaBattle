@@ -12,7 +12,7 @@ class QmlSettingsMenu : public InterfaceSettingsMenu, public QmlRootWidget
 {
 	Q_OBJECT
 public:
-	QmlSettingsMenu(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder);
+	QmlSettingsMenu(QObject* widget);
 
 	void show();
 	void hide();
@@ -27,7 +27,7 @@ private slots:
 private:
 	static const QString componentUrl;
 
-	QSharedPointer<QQuickItem> mSettingsWidget;
+	QObject* mSettingsWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 

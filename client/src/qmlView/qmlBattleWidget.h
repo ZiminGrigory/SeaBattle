@@ -16,7 +16,7 @@ class QmlBattleWidget : public InterfaceBattleWidget, public QmlRootWidget
 {
 	Q_OBJECT
 public:
-	QmlBattleWidget(QQmlEngine *engine, const QSharedPointer<QmlWidgetAppender> &widgetAppeder);
+	QmlBattleWidget(QObject* widget);
 
 	void showPlayerField();
 	void showEnemyField();
@@ -52,12 +52,12 @@ private slots:
 	void delayedSwitchToPlayerField();
 	void delayedSwitchToEnemyField();
 private:
-	static const QString componentUrl;
 	QSharedPointer<QmlInfoTab> mInfoTab;
 	QSharedPointer<QmlField> mPlrField;
 	QSharedPointer<QmlField> mEnemyField;
 	QSharedPointer<QmlChatAndStatus> mChatAndStatus;
-	QSharedPointer<QQuickItem> mBattleWidget;
+
+	QObject* mBattleWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 	QObject *timer;
 };
