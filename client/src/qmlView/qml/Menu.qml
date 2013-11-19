@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
 	id: menu
+	color: "transparent"
 
 	property alias topShipButtonType: topShipButton.type
 	property alias bottomShipButtonType: bottomShipButton.type

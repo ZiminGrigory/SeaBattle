@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
 	width: 320
-	height: 480
+	height: 320
 	id: main
 
 	// фон
@@ -10,7 +10,7 @@ Rectangle {
 		id: background
 		width: main.width
 		height: main.height
-		source: "image://provider/qml/background.jpg"
+		source: "qrc:/qml/background.jpg"
 	}
 
 	AiLvlMenu{
@@ -19,6 +19,7 @@ Rectangle {
 		height: parent.height
 		objectName: "AiLvlMenu"
 		visible: false
+		color: "transparent"
 	}
 
 	Battle{
@@ -27,6 +28,7 @@ Rectangle {
 		height: parent.height
 		objectName: "Battle"
 		visible: false
+		color: "transparent"
 	}
 
 	ConnectWidget{
@@ -35,6 +37,7 @@ Rectangle {
 		height: parent.height
 		objectName: "ConnectWidget"
 		visible: false
+		color: "transparent"
 	}
 
 	SettingsMenu{
@@ -43,6 +46,7 @@ Rectangle {
 		height: parent.height
 		objectName: "SettingsMenu"
 		visible: false
+		color: "transparent"
 	}
 
 	StartMenu{
@@ -50,7 +54,8 @@ Rectangle {
 		width: parent.width
 		height: parent.height
 		objectName: "StartMenu"
-		visible: false
+		visible: true
+		color: "transparent"
 	}
 
 	function hideAllWidgets(){

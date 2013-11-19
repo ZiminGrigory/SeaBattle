@@ -3,16 +3,13 @@
 #include <QString>
 #include <QDebug>
 
-const QString QmlSettingsMenu::componentUrl = "qml/qml/SettingsMenu.qml";
 
-QmlSettingsMenu::QmlSettingsMenu(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder) :
-	mWidgetAppender(widgetAppeder)
+QmlSettingsMenu::QmlSettingsMenu(QObject* widget) :
+	mSettingsWidget(widget)
 {
-	QQmlComponent component(engine, QUrl::fromLocalFile(componentUrl));
-	mSettingsWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(component.create()));
-	connect(mSettingsWidget.data(), SIGNAL(volume(int)), this, SLOT(volumeHandler(int)));
-	connect(mSettingsWidget.data(), SIGNAL(ipAndPort(QString, QString)), this, SLOT(ipAndPortHandler(QString,QString)));
-	connect(mSettingsWidget.data(), SIGNAL(quitClicked()), SIGNAL(buttonBackPushed()));
+	connect(mSettingsWidget, SIGNAL(volume(int)), this, SLOT(volumeHandler(int)));
+	connect(mSettingsWidget, SIGNAL(ipAndPort(QString, QString)), this, SLOT(ipAndPortHandler(QString,QString)));
+	connect(mSettingsWidget, SIGNAL(quitClicked()), SIGNAL(buttonBackPushed()));
 	mSettingsWidget->setProperty("ip", settings.value(SettingsKey::IP_KEY));
 	mSettingsWidget->setProperty("port", settings.value(SettingsKey::PORT_KEY));
 	mSettingsWidget->setProperty("currentVolumeState", settings.value(SettingsKey::VOLUME_KEY).toInt() / 25);
@@ -20,12 +17,10 @@ QmlSettingsMenu::QmlSettingsMenu(QQmlEngine* engine, const QSharedPointer<QmlWid
 
 void QmlSettingsMenu::show()
 {
-	mWidgetAppender->show(mSettingsWidget);
 }
 
 void QmlSettingsMenu::hide()
 {
-	mWidgetAppender->hide(mSettingsWidget);
 }
 
 void QmlSettingsMenu::volumeHandler(int lvl)

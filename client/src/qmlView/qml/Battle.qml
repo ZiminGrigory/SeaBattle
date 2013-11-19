@@ -243,6 +243,10 @@ Rectangle {
 			onClicked: {
 				parent.analizeArrow();
 			}
+
+//			Component.onCompleted: {
+//				arrowButtonMouseArea.clicked.connect(parent.analizeArrow)
+//			}
 		}
 		function changePicture(){
 			if (currentPicture == "right"){

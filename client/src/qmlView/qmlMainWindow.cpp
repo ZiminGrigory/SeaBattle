@@ -11,82 +11,88 @@ QmlMainWindow::QmlMainWindow():
 	// добавляем его в наш qml движок
 	mQuickView.engine()->addImageProvider("provider", imageProvider);
 
-	#ifdef Q_OS_ANDROID
-		mQuickView.resize(mQuickView.screen()->availableSize());
-	#else
-		mQuickView.resize(QML_WINDOW_SIZE);
-	#endif
+
+	mQuickView.setMainQmlFile("qml/qml/Main.qml");
 
 	// сразу создаём все компоненты интерфейса
-	mAiLvlList = QSharedPointer<QmlAiLvlList>(new QmlAiLvlList(mQuickView.engine(), mWidgetAppender));
-	mBattleWidget = QSharedPointer<QmlBattleWidget>(new QmlBattleWidget(mQuickView.engine(), mWidgetAppender));
-	mConnectWidget = QSharedPointer<QmlConnectWidget>(new QmlConnectWidget(mQuickView.engine(), mWidgetAppender));
-	mStartMenu = QSharedPointer<QmlStartMenu>(new QmlStartMenu(mQuickView.engine(), mWidgetAppender));
-	mSettingsMenu = QSharedPointer<QmlSettingsMenu>(new QmlSettingsMenu(mQuickView.engine(), mWidgetAppender));
+
+	mRoot = mQuickView.rootObject();
+#ifdef Q_OS_ANDROID
+	mRoot->setWidth(mQuickView.screen()->availableSize().width());
+	mRoot->setHeight(mQuickView.screen()->availableSize().height());
+	mQuickView.resize(mQuickView.screen()->availableSize());
+#else
+	mRoot->setWidth(QML_WINDOW_SIZE.width());
+	mRoot->setHeight(QML_WINDOW_SIZE.height());
+	mQuickView.resize(QML_WINDOW_SIZE);
+#endif
+
+
+
+	mAiLvlList = QSharedPointer<QmlAiLvlList>(new QmlAiLvlList(mRoot->findChild<QObject*>("AiLvlMenu")));
+	mBattleWidget = QSharedPointer<QmlBattleWidget>(new QmlBattleWidget(mRoot->findChild<QObject*>("Battle")));
+	mConnectWidget = QSharedPointer<QmlConnectWidget>(new QmlConnectWidget(mRoot->findChild<QObject*>("ConnectWidget")));
+	mStartMenu = QSharedPointer<QmlStartMenu>(new QmlStartMenu(mRoot->findChild<QObject*>("StartMenu")));
+	mSettingsMenu = QSharedPointer<QmlSettingsMenu>(new QmlSettingsMenu(mRoot->findChild<QObject*>("SettingsMenu")));
 }
 
 QmlMainWindow::~QmlMainWindow()
 {
-	if (mCurrentQmlObject)
-	{
-		mCurrentQmlObject->hide();
-	}
 }
 
 void QmlMainWindow::showWidget(Widgets widget)
 {
 	// сначала прячем текущий qml
-	if (mCurrentQmlObject)
-	{
-		mCurrentQmlObject->hide();
-	}
+
+	QMetaObject::invokeMethod(mRoot, "hideAllWidgets");
 	switch (widget)
 	{
 		// показываем новый
 		case BATTLE:
-			mBattleWidget->show();
+			mRoot->setProperty("state", "Battle");
 		break;
 		case START_MENU:
-			mStartMenu->show();
+			mRoot->setProperty("state", "StartMenu");
 			break;
 		case AI_MENU:
-			mAiLvlList->show();
+			mRoot->setProperty("state", "AiLvlMenu");
 			break;
 		case SETTINGS:
-			mSettingsMenu->show();
+			mRoot->setProperty("state", "SettingsMenu");
 			break;
 		case CONNECT:
-			mConnectWidget->show();
+			mRoot->setProperty("state", "ConnectWidget");
 			break;
 	}
 }
 
 void QmlMainWindow::hideWidget(Widgets widget)
 {
-	switch (widget)
-	{
-		// показываем новый
-		case START_MENU:
-			mStartMenu->hide();
-			break;
-		case AI_MENU:
-			mAiLvlList->hide();
-			break;
-		case SETTINGS:
-			mSettingsMenu->hide();
-			break;
-		case CONNECT:
-			mConnectWidget->hide();
-			break;
-		case BATTLE:
-			mBattleWidget->hide();
-		break;
-	}
+	Q_UNUSED(widget);
+//	switch (widget)
+//	{
+//		// показываем новый
+//		case START_MENU:
+//			mStartMenu->hide();
+//			break;
+//		case AI_MENU:
+//			mAiLvlList->hide();
+//			break;
+//		case SETTINGS:
+//			mSettingsMenu->hide();
+//			break;
+//		case CONNECT:
+//			mConnectWidget->hide();
+//			break;
+//		case BATTLE:
+//			mBattleWidget->hide();
+//		break;
+//	}
 }
 
 void QmlMainWindow::showMain()
 {
-	showWidget(START_MENU);
+	//showWidget(START_MENU);
 	mQuickView.showExpanded();
 }
 
