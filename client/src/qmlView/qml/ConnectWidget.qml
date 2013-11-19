@@ -2,7 +2,8 @@ import QtQuick 2.0
 
 Rectangle {
 	id: main
-
+	width: parent.width
+	height: parent.height
 	signal repeat
 	signal quitClicked
 

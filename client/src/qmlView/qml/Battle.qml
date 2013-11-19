@@ -26,13 +26,6 @@ Rectangle {
 	property int countOfEnemy: 10;
 	property bool isFight: false;
 
-	Image {
-		id: background
-		width: main.width
-		height: main.height
-		source: "qrc:/qml/background.jpg"
-	}
-
 	Text{
 		id:lableCountOfShip
 		anchors.top: main.top
