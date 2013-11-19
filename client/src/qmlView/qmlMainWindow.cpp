@@ -49,7 +49,7 @@ void QmlMainWindow::showWidget(Widgets widget)
 	// сначала прячем текущий qml
 	if (mCurrentQmlObject)
 	{
-		QMetaObject::invokeMethod(mQuickView.rootObject(), "hideAllWidgets");
+		QMetaObject::invokeMethod(mRoot, "hideAllWidgets");
 	}
 	switch (widget)
 	{

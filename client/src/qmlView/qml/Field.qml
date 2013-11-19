@@ -21,6 +21,7 @@ Rectangle {
 	/*Animated*/Image{
 		id: sea
 		source: "qrc:/pictures/sea_animation.gif"
+
 		height: mSize
 		width: mSize
 	}

@@ -1,9 +1,7 @@
 import QtQuick 2.0
-import QtQuick.Window 2.1
 
 Rectangle {
 	id: main
-
 	// сигналы для внешнего мира :)
 	signal vsAiClicked()
 	signal vsPlayerClicked()

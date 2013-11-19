@@ -22,7 +22,7 @@ Rectangle {
 		}
 	}
 
-	/*Animated*/Image{
+	AnimatedImage{
 		id: loader
 		objectName: "loader"
 		anchors.horizontalCenter: main.horizontalCenter

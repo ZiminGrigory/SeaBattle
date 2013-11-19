@@ -2,7 +2,6 @@ import QtQuick 2.0
 
 Rectangle {
 	id: main
-
 	// сигналы для внешнего мира :)
 	signal vsAiSimpleClicked()
 	signal vsAihardClicked()
