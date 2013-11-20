@@ -43,7 +43,7 @@ void QmlBattleWidget::showInfoTab()
 void QmlBattleWidget::setTime(int time)
 {
 	timer->setProperty("visible", true);
-	timer->setProperty("text", time);
+	timer->setProperty("currentTime", time);
 }
 
 void QmlBattleWidget::hideTimer()

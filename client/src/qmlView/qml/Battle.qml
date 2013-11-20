@@ -77,17 +77,30 @@ Rectangle {
 
 	Text{
 		objectName: "timer"
-		id: timer
+		id: timerText
 		visible: false
 		width:height
 		height: countOfShip.height
 		anchors.left: countOfShip.right
+		property int currentTime: 22;
 		style: Text.Outline; styleColor: "white"
-		text: "22"
+		text: currentTime.toString()
 		font.family: "Helvetica"
 		font.pointSize: height / 1.5
 		color: "black"
+		onVisibleChanged: {
+			timer.running = true
+		}
+		onCurrentTimeChanged: text = currentTime.toString()
 	}
+
+
+	Timer {
+		id: timer
+		interval: 1000; running: false; repeat: true
+		onTriggered: timerText.currentTime = timerText.currentTime - 1
+	}
+
 
 	Field{
 		objectName:"mPlrField"
@@ -285,7 +298,7 @@ Rectangle {
 			arrowButton.visible = false; infoButton.visible = true; buttonReady.visible = true;
 			autoButton.visible = true; plrField.visible = true; enemyField.visible = false; plrField.enabled = true
 			deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
-			timer.visible = false; countOfShip.currentNumber = countOfFleet;
+			timer.visible = false; countOfShip.currentNumber = countOfFleet; timer.running = flse
 		}
 	}
 }
