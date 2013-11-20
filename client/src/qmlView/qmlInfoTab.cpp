@@ -15,6 +15,7 @@ void QmlInfoTab::clearItself()
 {
 	countOfShip = 10;
 	shipCounter->setProperty("currentNumber", countOfShip);
+	buttonReady->setProperty("enabled", true);
 }
 
 void QmlInfoTab::changeCounter(NameOfShips ship, int difference)
@@ -32,6 +33,7 @@ void QmlInfoTab::handleReadyButton()
 {
 	if (shipCounter->property("currentNumber").toInt() == 0){
 		qDebug() << "ready";
+		buttonReady->setProperty("enabled", false);
 		emit readyToFight();
 	}
 }

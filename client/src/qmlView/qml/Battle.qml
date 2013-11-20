@@ -161,6 +161,9 @@ Rectangle {
 				buttonReadyMouseArea.clicked.connect(buttonReady.ready)
 			}
 		}
+		onEnabledChanged: {
+			//to do : show to plr smth
+		}
 	}
 
 	Image{

@@ -99,9 +99,10 @@ void GameMaster::offerTurn()
 	offerTurnHook();
 	if (turnedPlayer == player){
 		view->setMessage("Your Turn");
+		view->switchToEnemyField();
 	} else{
 		view->setMessage("Enemy Turn");
-
+		view->switchToPlayerField();
 	}
 	connect(turnedPlayer.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
 
