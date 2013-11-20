@@ -9,12 +9,14 @@ Rectangle {
 		enemyField.visible = false;
 		plrField.visible = true;
 		arrowButton.currentPicture ="right"
+		countOfShip.currentNumber = countOfPlr;
 	}
 
 	function switchToEnemyField() {
 		plrField.visible = false;
 		enemyField.visible = true;
 		arrowButton.currentPicture ="left"
+		countOfShip.currentNumber = countOfEnemy;
 	}
 
 	signal backPressed()
@@ -277,13 +279,13 @@ Rectangle {
 		if (isFight){
 			arrowButton.visible = true; infoButton.visible = false; buttonReady.visible = false;
 			autoButton.visible = false; plrField.enabled = false; deleteModeButton.visible = false;
-			arrowButton.currentPicture = 0;
+			arrowButton.currentPicture = 0; countOfShip.currentNumber = countOfPlr;
 
 		} else{
 			arrowButton.visible = false; infoButton.visible = true; buttonReady.visible = true;
 			autoButton.visible = true; plrField.visible = true; enemyField.visible = false; plrField.enabled = true
 			deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
-			timer.visible = false
+			timer.visible = false; countOfShip.currentNumber = countOfFleet;
 		}
 	}
 }

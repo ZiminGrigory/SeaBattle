@@ -69,6 +69,7 @@ void QmlBattleWidget::clearItself()
 {
 	//to do call in children
 	mBattleWidget->setProperty("isFight", false);
+	mInfoTab->clearItself();
 	mPlrField->clearItself();
 	mBattleWidget->setProperty("countOfEnemy", 10);
 	mBattleWidget->setProperty("countOfPlr", 10);

@@ -14,6 +14,7 @@ QmlInfoTab::QmlInfoTab(QObject* _buttonAutoSetting
 void QmlInfoTab::clearItself()
 {
 	countOfShip = 10;
+	shipCounter->setProperty("currentNumber", countOfShip);
 }
 
 void QmlInfoTab::changeCounter(NameOfShips ship, int difference)
