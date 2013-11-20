@@ -129,7 +129,7 @@ Rectangle {
 	BombButton {
 		id: backButton
 		type: 3
-
+		z: 3
 		anchors.right: parent.right
 		anchors.bottom: parent.bottom
 
@@ -164,8 +164,19 @@ Rectangle {
 			}
 		}
 		onEnabledChanged: {
-			//to do : show to plr smth
+			if (buttonReady.enabled == false){
+				readyState.visible = true
+			}
 		}
+	}
+
+	Image{
+		id: readyState
+		width: main.width
+		height: main.height
+		source: "qrc:/qml/qml/ready_state.png"
+		visible: false
+		z : 2
 	}
 
 	Image{
@@ -303,7 +314,8 @@ Rectangle {
 			arrowButton.visible = false; infoButton.visible = true; buttonReady.visible = true;
 			autoButton.visible = true; plrField.visible = true; enemyField.visible = false; plrField.enabled = true
 			deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
-			timer.visible = false; countOfShip.currentNumber = countOfFleet; timer.running = flse
+			timer.visible = false; countOfShip.currentNumber = countOfFleet; timer.running = false
 		}
+		readyState.visible = false
 	}
 }
