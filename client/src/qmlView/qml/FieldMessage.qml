@@ -22,11 +22,22 @@ Rectangle {
 		SequentialAnimation {
 			id: opacityAnimation
 			running: false
-			NumberAnimation { target: img; property: "opacity"; duration: 2 * 1000; from: 1.0; to: 0.0}
+			NumberAnimation { target: img; property: "opacity"; duration: 1000; from: 1.5; to: 0.0}
+		}
+
+		SequentialAnimation {
+			id: opacityAnimationForPlr
+			running: false
+			NumberAnimation { target: img; property: "opacity"; duration: 1000; from: 1.0; to: 0.0}
 		}
 
 		onSourceChanged: {
-			opacityAnimation.start()
+			if (img.source != "qrc:/pictures/you_turn.png" &&
+					img.source != "qrc:/pictures/enemy_turn.png"){
+				opacityAnimation.start()
+			} else {
+				opacityAnimationForPlr.start()
+			}
 		}
 	}
 

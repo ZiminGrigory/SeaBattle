@@ -10,6 +10,7 @@ Rectangle {
 		plrField.visible = true;
 		arrowButton.currentPicture ="right"
 		countOfShip.currentNumber = countOfPlr;
+		plrField.fieldStatus = "enemy_turn"
 	}
 
 	function switchToEnemyField() {
@@ -17,6 +18,7 @@ Rectangle {
 		enemyField.visible = true;
 		arrowButton.currentPicture ="left"
 		countOfShip.currentNumber = countOfEnemy;
+		enemyField.fieldStatus = "you_turn"
 	}
 
 	signal backPressed()
