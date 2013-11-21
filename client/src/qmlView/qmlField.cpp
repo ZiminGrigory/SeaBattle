@@ -1,23 +1,35 @@
 #include "qmlField.h"
 #include "QDebug"
 #include "types.h"
-const QString QmlField::componentUrl = "qml/qml/Field.qml";
 
-QmlField::QmlField(const QSharedPointer<QObject> &fieldWidget):
-	mFieldWidgetObject(fieldWidget)
+QmlField::QmlField(QObject* fieldWidget):
+	mFieldWidget(fieldWidget)
 {
-	mFieldWidget = QSharedPointer<QObject>(qobject_cast<QObject*>(mFieldWidgetObject.data()));
 	mField = mFieldWidget->property("array").toList();
 	//qDebug() << mField;
 	//connect(mFieldWidget.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));
 	//connect(mFieldWidget.data(), SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
-	connect(mFieldWidget.data(), SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
-	//repaint(22, WRECK);
+	connect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
 }
 
 void QmlField::showAttackStatus(AttackStatus status)
 {
+	QString state = "";
 
+	switch (status) {
+		case MISS:
+			state = "miss";
+			break;
+		case WOUNDED:
+			state = "wounded";
+			break;
+		case KILLED:
+			state = "killed";
+			break;
+	}
+	if (state != "") {
+		mFieldWidget->setProperty("fieldStatus", state);
+	}
 }
 
 void QmlField::showResult(Players player)
@@ -50,26 +62,26 @@ void QmlField::setAttackable(bool attackable)
 void QmlField::setBattleMode(bool isBattle)
 {
 	if(isBattle){
-		connect(mFieldWidget.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));
-		disconnect(mFieldWidget.data(), SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
-		disconnect(mFieldWidget.data(), SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
+		connect(mFieldWidget, SIGNAL(attack(int)), this, SIGNAL(attack(int)));
+		disconnect(mFieldWidget, SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
+		disconnect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
 	} else {
-		disconnect(mFieldWidget.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));
-		disconnect(mFieldWidget.data(), SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
-		connect(mFieldWidget.data(), SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
+		disconnect(mFieldWidget, SIGNAL(attack(int)), this, SIGNAL(attack(int)));
+		disconnect(mFieldWidget, SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
+		connect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
 	}
 }
 
 void QmlField::setDeleteShipMode(bool isDeleteMode)
 {
 	if(isDeleteMode){
-		disconnect(mFieldWidget.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));
-		connect(mFieldWidget.data(), SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
-		disconnect(mFieldWidget.data(), SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
+		disconnect(mFieldWidget, SIGNAL(attack(int)), this, SIGNAL(attack(int)));
+		connect(mFieldWidget, SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
+		disconnect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
 	} else{
-		disconnect(mFieldWidget.data(), SIGNAL(attack(int)), this, SIGNAL(attack(int)));
-		disconnect(mFieldWidget.data(), SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
-		connect(mFieldWidget.data(), SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
+		disconnect(mFieldWidget, SIGNAL(attack(int)), this, SIGNAL(attack(int)));
+		disconnect(mFieldWidget, SIGNAL(deleteShip(int)), this, SIGNAL(deleteShip(int)));
+		connect(mFieldWidget, SIGNAL(placeShip(int, int)), this, SIGNAL(placeShip(int,int)));
 	}
 }
 

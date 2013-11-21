@@ -6,6 +6,7 @@ Rectangle {
 	height: width
 	color: "transparent"
 
+
 	// 0 -quit
 	// 1 - settings
 	// 9 - hide
@@ -27,18 +28,18 @@ Rectangle {
 		}
 	}
 
-	SequentialAnimation {
-		running: true
-		loops: Animation.Infinite
-		ParallelAnimation {
-			NumberAnimation { target: bomb; property: "x"; to: randomAddition(startX) ; duration: 2000; }
-			NumberAnimation { target: bomb; property: "y"; to: randomAddition(startY) ; duration: 2000; }
-		}
-		ParallelAnimation {
-			NumberAnimation { target: bomb; property: "x"; to: startX; duration: 2000; }
-			NumberAnimation { target: bomb; property: "y"; to: startY; duration: 2000; }
-		}
-	}
+//	SequentialAnimation {
+//		running: true
+//		loops: Animation.Infinite
+//		ParallelAnimation {
+//			NumberAnimation { target: bomb; property: "x"; to: randomAddition(startX) ; duration: 2000; }
+//			NumberAnimation { target: bomb; property: "y"; to: randomAddition(startY) ; duration: 2000; }
+//		}
+//		ParallelAnimation {
+//			NumberAnimation { target: bomb; property: "x"; to: startX; duration: 2000; }
+//			NumberAnimation { target: bomb; property: "y"; to: startY; duration: 2000; }
+//		}
+//	}
 
 
 	Image {
@@ -49,8 +50,9 @@ Rectangle {
 		property string settingPath: "image://provider/qml/settings_button.png"
 		property string toFightPath: "qrc:/qml/qml/fight_button.png"
 		property string backPath: "qrc:/qml/qml/back_button.png"
-		property variant texture:[settingPath, quitPath, toFightPath, backPath]
-		source: texture[parent.type]
+		property string repeatPath: "qrc:/qml/qml/repeat_button.png"
+		property variant texture:[settingPath, quitPath, toFightPath, backPath, repeatPath]
+		source: parent.type != 9 ? texture[parent.type] : ""
 		visible: parent.type != 9
 	}
 }

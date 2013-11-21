@@ -46,6 +46,11 @@
         <file alias="middle-part-burning-animation_hor.gif">middle-part-burning-animation_hor.gif</file>
         <file alias="middle-part-burning-animation.gif">middle-part-burning-animation.gif</file>
         <file alias="small-ship-burning-animation.gif">small-ship-burning-animation.gif</file>
+        <file>wounded.png</file>
+        <file>miss.png</file>
+        <file>killed.png</file>
+        <file>you_turn.png</file>
+        <file>enemy_turn.png</file>
     </qresource>
     <qresource prefix="/qml">
         <file alias="background.jpg">qml/background.jpg</file>
@@ -73,11 +78,17 @@
         <file>qml/9.png</file>
         <file>qml/10.png</file>
         <file>qml/ready.png</file>
-        <file>qml/startTitle.png</file>
         <file>qml/back_button.png</file>
         <file>qml/fight_button.png</file>
         <file>qml/auto.png</file>
         <file>qml/delete button.png</file>
         <file>qml/deleting.png</file>
+        <file>qml/sea_battle_title.png</file>
+        <file>qml/Radar.gif</file>
+        <file>qml/repeat_button.png</file>
+        <file>qml/ready_state.png</file>
+        <file>qml/yes.png</file>
+        <file>qml/no.png</file>
+        <file>qml/quitDilog.png</file>
     </qresource>
 </RCC>

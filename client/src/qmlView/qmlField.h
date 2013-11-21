@@ -12,7 +12,7 @@ class QmlField : public InterfaceField
 {
 	Q_OBJECT
 public:
-	QmlField(const QSharedPointer<QObject> &fieldWidget);
+	QmlField(QObject* fieldWidget);
 
 	void showAttackStatus(AttackStatus status);
 	void showResult(Players player);
@@ -36,11 +36,9 @@ signals:
 	void setNextArrow(int id);
 
 private:
-	static const QString componentUrl;
 
-	QSharedPointer<QObject> mFieldWidget;
+	QObject* mFieldWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
-	QSharedPointer<QObject> mFieldWidgetObject;
 	QVariantList mField;
 };
 

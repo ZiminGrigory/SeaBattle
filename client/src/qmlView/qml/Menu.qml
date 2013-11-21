@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
 	id: menu
+	color: "transparent"
 
 	property alias topShipButtonType: topShipButton.type
 	property alias bottomShipButtonType: bottomShipButton.type
@@ -13,23 +14,12 @@ Rectangle {
 	property alias leftBombButton: leftBombButtonMouseArea
 	property alias rightBombButton: rightBombButtonMouseArea
 
-	// фон
-	Image {
-		id: background
-		width: menu.width
-		height: menu.height
-		// чтобы подхватить картинку из ресурсов, пишем image://, потом имя имэйдж провайдера (см QmlMainWindow)
-		// потом адрес картинке в ресурсах
-		source: "image://provider/qml/background.jpg"
-	}
-
 		Image {
 			id: startTitle
 			width: menu.width
-			height: menu.height / 9
+			height: menu.height / 5
 			anchors.top: menu.top
-			anchors.topMargin: height / 1.5
-			source: "qrc:/qml/qml/startTitle.png"
+			source: "qrc:/qml/qml/sea_battle_title.png"
 		}
 
 	// свои qml компоненты, которые лежат в той же директории, можно спокойно добавлять
@@ -66,8 +56,11 @@ Rectangle {
 	BombButton {
 		id: leftBombButton
 
-		startX: 10
-		startY: parent.height - height - 10
+//		startX: 10
+//		startY: parent.height - height - 10
+
+		anchors.left: parent.left
+		anchors.bottom: parent.bottom
 
 		MouseArea {
 			id: leftBombButtonMouseArea
@@ -79,21 +72,16 @@ Rectangle {
 	BombButton {
 		id: rightBombButton
 
-		startX: parent.width - width - 10
-		startY: parent.height - height - 10
+//		startX: parent.width - width - 10
+//		startY: parent.height - height - 10
+
+		anchors.right: parent.right
+		anchors.bottom: parent.bottom
 
 		MouseArea {
 			id: rightBombButtonMouseArea
 			width: parent.width
 			height: parent.height
-
-			onClicked: {
-				console.log("clicked")
-			}
-
-			Component.onCompleted: {
-
-			}
 		}
 	}
 }

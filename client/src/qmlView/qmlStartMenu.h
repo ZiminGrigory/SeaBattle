@@ -14,7 +14,7 @@ class QmlStartMenu : public InterfaceStartMenu, public QmlRootWidget
 {
 	Q_OBJECT
 public:
-	QmlStartMenu(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder);
+	QmlStartMenu(QObject* widget);
 
 	void show();
 	void hide();
@@ -23,13 +23,12 @@ signals:
 	void buttonVsPcPushed();
 	void buttonExitPushed();
 	void buttonSettingsPushed();
+private slots:
+	void slo();
 
 private:
-	// путь к qml файлу (путь не от исходников, а от исполняемого файла)
-	static const QString componentUrl;
-
 	// QQuickItem - это сам объект, созданный из qml файла
-	QSharedPointer<QQuickItem> mStartMenu;
+	QObject* mStartMenu;
 	// эта штука для добавления элементов на окно
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };

@@ -32,6 +32,7 @@ private:
 	 * Эта штука отвечает за отображение qml компонентов в окошке.
 	 */
 	QtQuick2ApplicationViewer mQuickView;
+	QQuickItem* mRoot;
 
 	QSharedPointer<QmlAiLvlList> mAiLvlList;
 	QSharedPointer<QmlBattleWidget> mBattleWidget;

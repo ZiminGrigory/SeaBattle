@@ -8,6 +8,7 @@
 #include "qmlWidgetAppender.h"
 #include "types.h"
 #include "qmlInfoTab.h"
+#include "qmlChatAndStatus.h"
 #include "qmlField.h"
 
 
@@ -15,7 +16,7 @@ class QmlBattleWidget : public InterfaceBattleWidget, public QmlRootWidget
 {
 	Q_OBJECT
 public:
-	QmlBattleWidget(QQmlEngine *engine, const QSharedPointer<QmlWidgetAppender> &widgetAppeder);
+	QmlBattleWidget(QObject* widget);
 
 	void showPlayerField();
 	void showEnemyField();
@@ -27,6 +28,8 @@ public:
 	void clearItself();
 	void showGameBreakDialog(const QString& message);
 	void showQuitDialog();
+	void switchToPlayerField();
+	void switchToEnemyField();
 
 	void show();
 	void hide();
@@ -46,13 +49,18 @@ public slots:
 	void setMessage(QString text);
 private slots:
 	void handleDeleteShipMode(bool isActive);
+	void delayedSwitchToPlayerField();
+	void delayedSwitchToEnemyField();
 private:
-	static const QString componentUrl;
 	QSharedPointer<QmlInfoTab> mInfoTab;
 	QSharedPointer<QmlField> mPlrField;
 	QSharedPointer<QmlField> mEnemyField;
-	QSharedPointer<QQuickItem> mBattleWidget;
+	QSharedPointer<QmlChatAndStatus> mChatAndStatus;
+
+	QObject* mBattleWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
+	QObject *timer;
+	QObject *dialog;
 };
 
 #endif // QMLBATTLEWIDGET_H

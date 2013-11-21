@@ -1,22 +1,26 @@
 #include "qmlBattleWidget.h"
-#include "QDebug"
+#include <QDebug>
+#include <QTimer>
+
+
 //i know, that this code very horrible, but...deadline and other problem make me to do this
 
-const QString QmlBattleWidget::componentUrl = "qml/qml/Battle.qml";
-
-QmlBattleWidget::QmlBattleWidget(QQmlEngine* engine, const QSharedPointer<QmlWidgetAppender>& widgetAppeder) :
-	mWidgetAppender(widgetAppeder)
+QmlBattleWidget::QmlBattleWidget(QObject* widget) :
+	mBattleWidget(widget),
+	mChatAndStatus(new QmlChatAndStatus())
 {
-	QQmlComponent component(engine, QUrl::fromLocalFile(componentUrl));
-	mBattleWidget = QSharedPointer<QQuickItem>(qobject_cast<QQuickItem*>(component.create()));
-	mBattleWidget->dumpObjectTree();
-	connect(mBattleWidget.data(), SIGNAL(backPressed()), this, SIGNAL(quitDialogOkPressed()));
-	connect(mBattleWidget.data(), SIGNAL(deleteMode(bool)), SLOT(handleDeleteShipMode(bool)));
-	mInfoTab = QSharedPointer<QmlInfoTab>(new QmlInfoTab(QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mAutoButton"))
-													 ,QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mButtonReady"))
-													 ,QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mCountOfShipn"))));
-	mPlrField = QSharedPointer<QmlField>(new QmlField(QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mPlrField"))));
-	mEnemyField = QSharedPointer<QmlField>(new QmlField(QSharedPointer<QObject>(mBattleWidget->findChild<QObject*>("mEnemyField"))));
+	timer = mBattleWidget->findChild<QObject*>("timer");
+	connect(mBattleWidget, SIGNAL(buttonBackPressed()), this, SIGNAL(buttonBackPressed()));
+	connect(mBattleWidget, SIGNAL(deleteMode(bool)), SLOT(handleDeleteShipMode(bool)));
+	mInfoTab = QSharedPointer<QmlInfoTab>(new QmlInfoTab(mBattleWidget->findChild<QObject*>("mAutoButton")
+													 ,mBattleWidget->findChild<QObject*>("mButtonReady")
+													 ,mBattleWidget->findChild<QObject*>("mCountOfShip")));
+	mPlrField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mPlrField")));
+	mEnemyField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mEnemyField")));
+	dialog = mBattleWidget->findChild<QObject*>("dialogs");
+	connect(dialog, SIGNAL(gameBreakDialogOkPressed()), this, SIGNAL(gameBreakDialogOkPressed()));
+	connect(dialog, SIGNAL(quitDialogOkPressed()), this, SIGNAL(quitDialogOkPressed()));
+	connect(dialog, SIGNAL(quitDialogCancelPressed()), this, SIGNAL(quitDialogCancelPressed()));
 }
 
 void QmlBattleWidget::showPlayerField()
@@ -42,13 +46,13 @@ void QmlBattleWidget::showInfoTab()
 
 void QmlBattleWidget::setTime(int time)
 {
-	Q_UNUSED(time)
-	//unused....
+	timer->setProperty("visible", true);
+	timer->setProperty("currentTime", time);
 }
 
 void QmlBattleWidget::hideTimer()
 {
-	//unused....
+	timer->setProperty("visible", false);
 }
 
 void QmlBattleWidget::showCountersOfFleet()
@@ -69,6 +73,7 @@ void QmlBattleWidget::clearItself()
 {
 	//to do call in children
 	mBattleWidget->setProperty("isFight", false);
+	mInfoTab->clearItself();
 	mPlrField->clearItself();
 	mBattleWidget->setProperty("countOfEnemy", 10);
 	mBattleWidget->setProperty("countOfPlr", 10);
@@ -76,25 +81,53 @@ void QmlBattleWidget::clearItself()
 	mPlrField->setBattleMode(false);
 	mEnemyField->setBattleMode(false);
 }
-
+//property alias backButtonVisible: backButton.visible
+//property alias breakDialogOkVisible: breakDialogOk.visible
+//property alias okButtonVisible: okButton.visible
 void QmlBattleWidget::showGameBreakDialog(const QString& message)
 {
-	//unused....
+	dialog->setProperty("text", message);
+	dialog->setProperty("visible", true);
+	dialog->setProperty("backButtonVisible", false);
+	dialog->setProperty("breakDialogOkVisible", true);
+	dialog->setProperty("okButtonVisible", false);
 }
 
 void QmlBattleWidget::showQuitDialog()
 {
-	//unused....
+	dialog->setProperty("text", "Вы уверены, что хотите выйти в главное меню?");
+	dialog->setProperty("visible", true);
+	dialog->setProperty("backButtonVisible", true);
+	dialog->setProperty("breakDialogOkVisible", false);
+	dialog->setProperty("okButtonVisible", true);
+}
+
+void QmlBattleWidget::switchToPlayerField()
+{
+	QTimer::singleShot(1000, this, SLOT(delayedSwitchToPlayerField()));
+}
+
+void QmlBattleWidget::delayedSwitchToPlayerField()
+{
+	QMetaObject::invokeMethod(mBattleWidget, "switchToPlayerField");
+}
+
+void QmlBattleWidget::switchToEnemyField()
+{
+	QTimer::singleShot(1000, this, SLOT(delayedSwitchToEnemyField()));
+}
+
+void QmlBattleWidget::delayedSwitchToEnemyField()
+{
+	QMetaObject::invokeMethod(mBattleWidget, "switchToEnemyField");
 }
 
 void QmlBattleWidget::show()
 {
-	mWidgetAppender->show(mBattleWidget);
 }
 
 void QmlBattleWidget::hide()
 {
-	mWidgetAppender->hide(mBattleWidget);
 }
 
 QSharedPointer<InterfaceField> QmlBattleWidget::getPlayerFieldView()
@@ -114,7 +147,7 @@ QSharedPointer<InterfaceInfoTab> QmlBattleWidget::getInfoTabView()
 
 QSharedPointer<InterfaceChatAndStatus> QmlBattleWidget::getChatAndStatus()
 {
-	return QSharedPointer<InterfaceChatAndStatus>();
+	return mChatAndStatus;
 }
 
 void QmlBattleWidget::setMessage(QString text)
@@ -127,3 +160,4 @@ void QmlBattleWidget::handleDeleteShipMode(bool isActive)
 {
 	mPlrField->setDeleteShipMode(isActive);
 }
+

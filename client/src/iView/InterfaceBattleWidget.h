@@ -23,6 +23,9 @@ public:
     virtual void showGameBreakDialog(const QString& message) = 0;
     virtual void showQuitDialog() = 0;
 
+	virtual void switchToPlayerField() = 0;
+	virtual void switchToEnemyField() = 0;
+
     virtual QSharedPointer<InterfaceField> getPlayerFieldView() = 0;
     virtual QSharedPointer<InterfaceField> getEnemyFieldView() = 0;
 	virtual QSharedPointer<InterfaceInfoTab> getInfoTabView() = 0;
