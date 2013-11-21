@@ -87,5 +87,8 @@
         <file>qml/Radar.gif</file>
         <file>qml/repeat_button.png</file>
         <file>qml/ready_state.png</file>
+        <file>qml/yes.png</file>
+        <file>qml/no.png</file>
+        <file>qml/quitDilog.png</file>
     </qresource>
 </RCC>

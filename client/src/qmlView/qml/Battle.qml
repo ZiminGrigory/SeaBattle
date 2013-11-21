@@ -21,14 +21,23 @@ Rectangle {
 		enemyField.fieldStatus = "you_turn"
 	}
 
-	signal backPressed()
 	signal arrowPressed()
 	signal deleteMode(bool isActive)
+	signal buttonBackPressed();
+
 
 	property int countOfFleet: 10;
 	property int countOfPlr: 10;
 	property int countOfEnemy: 10;
 	property bool isFight: false;
+
+
+
+	Dialog{
+		id: dialogs
+		objectName: "dialogs"
+		visible: false
+	}
 
 	Text{
 		id:lableCountOfShip
@@ -100,7 +109,10 @@ Rectangle {
 	Timer {
 		id: timer
 		interval: 1000; running: false; repeat: true
-		onTriggered: timerText.currentTime = timerText.currentTime - 1
+		onTriggered:{
+			if (timerText.currentTime != 0)
+				timerText.currentTime = timerText.currentTime - 1
+		}
 	}
 
 
@@ -138,7 +150,7 @@ Rectangle {
 			width: parent.width
 			height: parent.height
 			Component.onCompleted: {
-				backMouseArea.clicked.connect(main.backPressed)
+				backMouseArea.clicked.connect(main.buttonBackPressed)
 			}
 		}
 	}

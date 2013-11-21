@@ -10,13 +10,17 @@ QmlBattleWidget::QmlBattleWidget(QObject* widget) :
 	mChatAndStatus(new QmlChatAndStatus())
 {
 	timer = mBattleWidget->findChild<QObject*>("timer");
-	connect(mBattleWidget, SIGNAL(backPressed()), this, SIGNAL(quitDialogOkPressed()));
+	connect(mBattleWidget, SIGNAL(buttonBackPressed()), this, SIGNAL(buttonBackPressed()));
 	connect(mBattleWidget, SIGNAL(deleteMode(bool)), SLOT(handleDeleteShipMode(bool)));
 	mInfoTab = QSharedPointer<QmlInfoTab>(new QmlInfoTab(mBattleWidget->findChild<QObject*>("mAutoButton")
 													 ,mBattleWidget->findChild<QObject*>("mButtonReady")
 													 ,mBattleWidget->findChild<QObject*>("mCountOfShip")));
 	mPlrField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mPlrField")));
 	mEnemyField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mEnemyField")));
+	dialog = mBattleWidget->findChild<QObject*>("dialogs");
+	connect(dialog, SIGNAL(gameBreakDialogOkPressed()), this, SIGNAL(gameBreakDialogOkPressed()));
+	connect(dialog, SIGNAL(quitDialogOkPressed()), this, SIGNAL(quitDialogOkPressed()));
+	connect(dialog, SIGNAL(quitDialogCancelPressed()), this, SIGNAL(quitDialogCancelPressed()));
 }
 
 void QmlBattleWidget::showPlayerField()
@@ -77,15 +81,25 @@ void QmlBattleWidget::clearItself()
 	mPlrField->setBattleMode(false);
 	mEnemyField->setBattleMode(false);
 }
-
+//property alias backButtonVisible: backButton.visible
+//property alias breakDialogOkVisible: breakDialogOk.visible
+//property alias okButtonVisible: okButton.visible
 void QmlBattleWidget::showGameBreakDialog(const QString& message)
 {
-	//unused....
+	dialog->setProperty("text", message);
+	dialog->setProperty("visible", true);
+	dialog->setProperty("backButtonVisible", false);
+	dialog->setProperty("breakDialogOkVisible", true);
+	dialog->setProperty("okButtonVisible", false);
 }
 
 void QmlBattleWidget::showQuitDialog()
 {
-	//unused....
+	dialog->setProperty("text", "Вы уверены, что хотите выйти в главное меню?");
+	dialog->setProperty("visible", true);
+	dialog->setProperty("backButtonVisible", true);
+	dialog->setProperty("breakDialogOkVisible", false);
+	dialog->setProperty("okButtonVisible", true);
 }
 
 void QmlBattleWidget::switchToPlayerField()
