@@ -1,18 +1,19 @@
 #ifndef SETTINGSMENU_H
 #define SETTINGSMENU_H
-
-#include "InterfaceSettingsMenu.h"
+#include "QWidget"
+#include "Settings.h"
+#include "SettingsNetwork.h"
 
 namespace Ui {
 class SettingsMenu;
 }
 
-class SettingsMenu : public InterfaceSettingsMenu
+class SettingsMenu : public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit SettingsMenu();
+	SettingsMenu();
 	~SettingsMenu();
 
 signals:
@@ -28,8 +29,8 @@ private slots:
 
 private:
 	Ui::SettingsMenu *ui;
-	QSharedPointer<InterfaceVolumeSettings> volSettings;
-	QSharedPointer<InterfaceNetworkSettings> netorkSettings;
+	QSharedPointer<Settings> volSettings;
+	QSharedPointer<SettingsNetwork> netorkSettings;
 };
 
 #endif // SETTINGSMENU_H

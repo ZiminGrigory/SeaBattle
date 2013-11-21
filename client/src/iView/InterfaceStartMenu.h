@@ -1,12 +1,13 @@
 #ifndef INTERFACESTARTMENU_H
 #define INTERFACESTARTMENU_H
+
 #include <QWidget>
 
-class InterfaceStartMenu: public QWidget
+class InterfaceStartMenu : public QObject
 {
+	Q_OBJECT
 public:
-	InterfaceStartMenu(QWidget *parent = 0): QWidget(parent){}
-
+	virtual ~InterfaceStartMenu() {}
 signals:
 	void buttonVsPlayerPushed();
 	void buttonVsPcPushed();

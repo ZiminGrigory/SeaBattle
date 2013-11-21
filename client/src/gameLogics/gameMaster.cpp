@@ -26,7 +26,7 @@ void GameMaster::startGame()
 	connect(enemy.data(), SIGNAL(fleetInstalled(Player*)), this, SLOT(playerReadyToBattle(Player*)));
 
 	view->showPlayerField();
-	view->getPlayerFieldView()->setEnabled(true);
+	view->getPlayerFieldView()->setAttackable(true);
 	view->showInfoTab();
 	view->setMessage("Install fleet");
 
@@ -82,8 +82,8 @@ void GameMaster::playerReadyToBattle(Player* sender)
 	if (!isFirst)
 	{
 		view->showEnemyField();
-		view->getEnemyFieldView()->setEnabled(true);
-		view->getPlayerFieldView()->setEnabled(false);
+		view->getEnemyFieldView()->setAttackable(true);
+		view->getPlayerFieldView()->setAttackable(false);
 		plrFleet = 10;
 		enemyFleet = 10;
 		view->setCountOfFleet(YOU, plrFleet);

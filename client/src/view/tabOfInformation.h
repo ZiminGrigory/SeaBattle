@@ -1,4 +1,6 @@
 #pragma once
+
+#include <QObject>
 #include <QWidget>
 #include "types.h"
 #include "InterfaceInfoTab.h"
@@ -7,12 +9,12 @@ namespace Ui {
 class TabOfInformation;
 }
 
-class TabOfInformation : public InterfaceInfoTab
+class TabOfInformation : public QWidget
 {
 	Q_OBJECT
 	
 public:
-	explicit TabOfInformation();
+	TabOfInformation();
 	~TabOfInformation();
 	void clearItself();
 	void changeCountOfShip(NameOfShips ship, int count);

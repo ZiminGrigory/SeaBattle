@@ -9,6 +9,7 @@
 #include "aiGameMaster.h"
 #include "networkGameMaster.h"
 #include "MainWindow.h"
+#include "qmlMainWindow.h"
 #include "audioPlayer.h"
 
 class ConnectionMenu;
@@ -50,6 +51,7 @@ public slots:
 	void settingsMenu();
 private slots:
 	void handleBW();
+	void exitButtonHandler();
 private:
 	void hideAllWidget();
 	QSharedPointer<InterfaceMainWindow> view;

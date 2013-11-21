@@ -1,15 +1,17 @@
 #ifndef INTERFACEBATTLEWIDGET_H
 #define INTERFACEBATTLEWIDGET_H
+
 #include <QSharedPointer>
-#include <QWidget>
 #include "InterfaceField.h"
 #include "InterfaceInfoTab.h"
 #include "InterfaceChatAndStatus.h"
 
-class InterfaceBattleWidget: public QWidget
+class InterfaceBattleWidget : public QObject
 {
+	Q_OBJECT
 public:
-	explicit InterfaceBattleWidget(QWidget *parent = 0): QWidget(parent){}
+	virtual ~InterfaceBattleWidget() {}
+
 	virtual void showPlayerField() = 0;
 	virtual void showEnemyField() = 0;
 	virtual void showInfoTab() = 0;

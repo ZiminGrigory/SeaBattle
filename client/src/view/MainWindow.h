@@ -16,27 +16,28 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public InterfaceMainWindow
+class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	explicit MainWindow();
+	MainWindow();
 	~MainWindow();
 	void showWidget(Widgets widget);
 	void hideWidget(Widgets widget);
-	QSharedPointer<InterfaceAiLvlList> getInterfaceAiLvlList();
-	QSharedPointer<InterfaceBattleWidget> getInterfaceBattleWidget();
-	QSharedPointer<InterfaceConnectWidget> getInterfaceConnectWidget();
-	QSharedPointer<InterfaceStartMenu> getInterfaceStartMenu();
-	QSharedPointer<InterfaceSettingsMenu> getInterfaceSettingsMenu();
+	void showMain();
+	QSharedPointer<AiLvlList> getInterfaceAiLvlList();
+	QSharedPointer<BattleWidget> getInterfaceBattleWidget();
+	QSharedPointer<ConnectWidget> getInterfaceConnectWidget();
+	QSharedPointer<StartMenu> getInterfaceStartMenu();
+	QSharedPointer<SettingsMenu> getInterfaceSettingsMenu();
 private:
 	Ui::MainWindow *ui;
-	QSharedPointer<InterfaceAiLvlList> aiLvlList;
-	QSharedPointer<InterfaceConnectWidget> connectWidget;
-	QSharedPointer<InterfaceStartMenu> startMenu;
-	QSharedPointer<InterfaceBattleWidget> battleWidget;
-	QSharedPointer<InterfaceSettingsMenu> settingsMenu;
+	QSharedPointer<AiLvlList> aiLvlList;
+	QSharedPointer<ConnectWidget> connectWidget;
+	QSharedPointer<StartMenu> startMenu;
+	QSharedPointer<BattleWidget> battleWidget;
+	QSharedPointer<SettingsMenu> settingsMenu;
 };
 
 #endif // MAINWINDOW_H

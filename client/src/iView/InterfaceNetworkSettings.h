@@ -1,12 +1,14 @@
 #ifndef INTERFACENETWORKSETTINGS_H
 #define INTERFACENETWORKSETTINGS_H
+
 #include <QWidget>
 #include "types.h"
 
-class InterfaceNetworkSettings: public QWidget
+class InterfaceNetworkSettings : public QObject
 {
+	Q_OBJECT
 public:
-	InterfaceNetworkSettings(QWidget *parent = 0): QWidget(parent){}
+	virtual ~InterfaceNetworkSettings() {}
 signals:
 	void nameOfServerWithPort(QString server, quint16 port);
 	void buttonBackPushed();

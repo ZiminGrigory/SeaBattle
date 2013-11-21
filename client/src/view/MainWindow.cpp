@@ -2,16 +2,16 @@
 #include "ui_MainWindow.h"
 
 MainWindow::MainWindow() :
-	InterfaceMainWindow(),
+	QMainWindow(),
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
-	aiLvlList = QSharedPointer<InterfaceAiLvlList> (new AiLvlList);
-	connectWidget = QSharedPointer<InterfaceConnectWidget> (new ConnectWidget);
-	startMenu = QSharedPointer<InterfaceStartMenu> (new StartMenu);
-	battleWidget = QSharedPointer<InterfaceBattleWidget> (new BattleWidget);
-	settingsMenu = QSharedPointer<InterfaceSettingsMenu> (new SettingsMenu);
+	aiLvlList = QSharedPointer<AiLvlList> (new AiLvlList);
+	connectWidget = QSharedPointer<ConnectWidget> (new ConnectWidget);
+	startMenu = QSharedPointer<StartMenu> (new StartMenu);
+	battleWidget = QSharedPointer<BattleWidget> (new BattleWidget);
+	settingsMenu = QSharedPointer<SettingsMenu> (new SettingsMenu);
 	this->resize(WINDOW_SIZE);
 	QBrush brush(Qt::TexturePattern);
 	brush.setTexture(QPixmap(":/pictures/fon.jpg"));
@@ -74,27 +74,35 @@ void MainWindow::hideWidget(Widgets widget)
 	}
 }
 
-QSharedPointer<InterfaceAiLvlList> MainWindow::getInterfaceAiLvlList()
+void MainWindow::showMain()
+{
+	startMenu->resize(WINDOW_SIZE);
+	resize(WINDOW_SIZE);
+	update();
+	show();
+}
+
+QSharedPointer<AiLvlList> MainWindow::getInterfaceAiLvlList()
 {
 	return aiLvlList;
 }
 
-QSharedPointer<InterfaceBattleWidget> MainWindow::getInterfaceBattleWidget()
+QSharedPointer<BattleWidget> MainWindow::getInterfaceBattleWidget()
 {
 	return battleWidget;
 }
 
-QSharedPointer<InterfaceConnectWidget> MainWindow::getInterfaceConnectWidget()
+QSharedPointer<ConnectWidget> MainWindow::getInterfaceConnectWidget()
 {
 	return connectWidget;
 }
 
-QSharedPointer<InterfaceStartMenu> MainWindow::getInterfaceStartMenu()
+QSharedPointer<StartMenu> MainWindow::getInterfaceStartMenu()
 {
 	return startMenu;
 }
 
-QSharedPointer<InterfaceSettingsMenu> MainWindow::getInterfaceSettingsMenu()
+QSharedPointer<SettingsMenu> MainWindow::getInterfaceSettingsMenu()
 {
 	return settingsMenu;
 }

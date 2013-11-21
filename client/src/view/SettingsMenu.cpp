@@ -4,7 +4,7 @@
 #include "SettingsNetwork.h"
 
 SettingsMenu::SettingsMenu() :
-	InterfaceSettingsMenu(),
+	QWidget(),
 	ui(new Ui::SettingsMenu)
 {
 	ui->setupUi(this);
@@ -14,8 +14,8 @@ SettingsMenu::SettingsMenu() :
 	connect(ui->buttonBack, SIGNAL(clicked()), SIGNAL(buttonBackPushed()));
 	connect(ui->buttonNetwork, SIGNAL(clicked()), SLOT(showNetworkSettings()));
 	connect(ui->buttonVolume, SIGNAL(clicked()), SLOT(showVolumeSettings()));
-	volSettings = QSharedPointer<InterfaceVolumeSettings> (new Settings);
-	netorkSettings = QSharedPointer<InterfaceNetworkSettings> (new SettingsNetwork);
+	volSettings = QSharedPointer<Settings> (new Settings);
+	netorkSettings = QSharedPointer<SettingsNetwork> (new SettingsNetwork);
 	connect(volSettings.data(), SIGNAL(buttonBackPushed()), SLOT(hideBoth()));
 	connect(netorkSettings.data(), SIGNAL(buttonBackPushed()), SLOT(hideBoth()));
 	connect(volSettings.data(), SIGNAL(changeVolume(int)), SIGNAL(volumeChanched(int)));

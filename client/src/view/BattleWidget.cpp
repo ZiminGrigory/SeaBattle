@@ -1,7 +1,8 @@
 #include "BattleWidget.h"
 #include "ui_BattleWidget.h"
 
-BattleWidget::BattleWidget() :InterfaceBattleWidget(),
+BattleWidget::BattleWidget() :
+	QWidget(),
 	ui(new Ui::BattleWidget),
     gameBreakDialog(this),
     quitDialog(this),
@@ -11,10 +12,10 @@ BattleWidget::BattleWidget() :InterfaceBattleWidget(),
 	ui->lcdNumber->hide();
 	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
 	ui->buttonBack->setText(QString::fromLocal8Bit("Назад в главное меню"));
-	mPlayerField = QSharedPointer<InterfaceField>(new Field);
-	mEnemyField = QSharedPointer<InterfaceField>(new Field);;
-	mInfoTab = QSharedPointer<InterfaceInfoTab>(new TabOfInformation);
-	mChat = QSharedPointer<InterfaceChatAndStatus>(new ChatAndStatus);
+	mPlayerField = QSharedPointer<Field>(new Field);
+	mEnemyField = QSharedPointer<Field>(new Field);;
+	mInfoTab = QSharedPointer<TabOfInformation>(new TabOfInformation);
+	mChat = QSharedPointer<ChatAndStatus>(new ChatAndStatus);
 	timer.setSingleShot(false);
 	showChatAndStatus();
 	ui->EnemyCnt->setText(QString::fromLocal8Bit("<font color = black>Осталось кораблей:<\\font>"));
@@ -113,22 +114,22 @@ void BattleWidget::showChatAndStatus()
 	ui->layoutForChat->addWidget(mChat.data());
 }
 
-QSharedPointer<InterfaceField> BattleWidget::getPlayerFieldView()
+QSharedPointer<Field> BattleWidget::getPlayerFieldView()
 {
 	return mPlayerField;
 }
 
-QSharedPointer<InterfaceField> BattleWidget::getEnemyFieldView()
+QSharedPointer<Field> BattleWidget::getEnemyFieldView()
 {
 	return mEnemyField;
 }
 
-QSharedPointer<InterfaceInfoTab> BattleWidget::getInfoTabView()
+QSharedPointer<TabOfInformation> BattleWidget::getInfoTabView()
 {
 	return mInfoTab;
 }
 
-QSharedPointer<InterfaceChatAndStatus> BattleWidget::getChatAndStatus()
+QSharedPointer<ChatAndStatus> BattleWidget::getChatAndStatus()
 {
 	return mChat;
 }

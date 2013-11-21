@@ -2,18 +2,17 @@
 #define STARTMENU_H
 
 #include <QWidget>
-#include "InterfaceStartMenu.h"
 
 namespace Ui {
 class StartMenu;
 }
 
-class StartMenu :public InterfaceStartMenu
+class StartMenu : public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit StartMenu();
+	StartMenu();
 	~StartMenu();
 
 signals:

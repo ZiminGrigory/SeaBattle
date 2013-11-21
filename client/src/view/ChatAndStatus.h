@@ -9,12 +9,12 @@ namespace Ui {
 class ChatAndStatus;
 }
 
-class ChatAndStatus : public InterfaceChatAndStatus
+class ChatAndStatus : public QWidget
 {
 	Q_OBJECT
 
 public:
-	explicit ChatAndStatus();
+	ChatAndStatus();
 	~ChatAndStatus();
 	void clearChat();
 
