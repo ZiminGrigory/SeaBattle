@@ -15,7 +15,8 @@ enum Sounds
     FINISH_HIM,
     VICTORY_SOUND,
     DEFEAT_SOUND,
-    SHIP_SET_SOUND
+    SHIP_SET_SOUND,
+    SHIP_SET_ERR_SOUND
 };
 
 

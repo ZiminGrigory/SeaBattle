@@ -83,6 +83,10 @@ void RemotePlayer::parseRecievedRequest(Protocol::RequestType type, const QByteA
         QString message = QString::fromLocal8Bit(bytes.mid(4));
         chatMessageHandler(message);
     }
+    case Protocol::PLAYER_QUIT:
+    {
+        quitHandler();
+    }
     }
 }
 
@@ -121,4 +125,9 @@ void RemotePlayer::turnMadeHandler(int id)
 void RemotePlayer::chatMessageHandler(const QString& message)
 {
     emit chat(message);
+}
+
+void RemotePlayer::quitHandler()
+{
+    emit this->quit();
 }

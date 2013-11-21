@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QSharedPointer>
-#include <QTimer>
 
 #include "player.h"
 #include "humanPlayer.h"
@@ -19,21 +18,28 @@ class GameMaster : public QObject
 {
     Q_OBJECT
 public:
-    GameMaster(GameType type,
-               const QSharedPointer<InterfaceBattleWidget>& _view,
-               const QSharedPointer<Client>& _client,
-			   const QSharedPointer<AudioPlayer> audioPlayer,
+    GameMaster(const QSharedPointer<InterfaceBattleWidget>& _view,
+               const QSharedPointer<AudioPlayer> _audioPlayer,
                QObject* parent = 0);
 
+    virtual ~GameMaster() {}
+
+public slots:
     /**
       * Method start the game.
       */
     void startGame();
-public slots:
+signals:
     /**
-      * Print message to chat.
+      * Signalizes about interruption of game.
       */
-    void chat(const QString& message);
+    void gameInterrupted();
+protected slots:
+    /**
+      * Handler of the quit of player.
+      * Calls after player confirms exit from game.
+      */
+    virtual void quitHandler();
 private slots:
     /**
       *
@@ -49,18 +55,26 @@ private slots:
       */
     void informOpponent(int id, AttackStatus turnResult);
     /**
-      * Inform turned player about the result of attack.
-      */
-    //void informPlayer(AttackStatus attackResult);
-    /**
       * This slot ends current turn and start the new one.
       */
     void nextTurn(AttackStatus turnResult);
     /**
+      * Print message to chat.
+      */
+    void chat(const QString& message);
+    /**
       *
       */
     void playShipSetSound(PlacementStatus status);
-private:
+    /**
+      *
+      */
+    void playerWantToQuit();
+protected:
+    void initConnections();
+    virtual void offerTurnHook();
+    virtual void informOpponentHook();
+
     typedef QSharedPointer<Player> ptrPlayer;
     QSharedPointer<GameField> playerField;
     QSharedPointer<GameField> enemyField;
@@ -72,13 +86,7 @@ private:
     ptrPlayer waitingPlayer;
 
 	QSharedPointer<InterfaceBattleWidget> view;
-
-    QTimer turnTimer;
     QSharedPointer<AudioPlayer> audioPlayer;
-
-    QSharedPointer<Client> client;
-
-    static const int turnTimeout;
 
 	int plrFleet;
 	int enemyFleet;

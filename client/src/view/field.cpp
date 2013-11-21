@@ -11,8 +11,8 @@ Field::Field() :
 	ui->setupUi(this);
 	this->setMaximumSize(sizeOfCube + 40, sizeOfCube + 40);
 	this->setMinimumSize(sizeOfCube + 40, sizeOfCube + 40);
-	ui->graphicsView->setMaximumSize(sizeOfCube + 10, sizeOfCube + 10);
-	ui->graphicsView->setMinimumSize(sizeOfCube + 10, sizeOfCube + 10);
+	ui->graphicsView->setMaximumSize(sizeOfCube + 3, sizeOfCube + 3);
+	ui->graphicsView->setMinimumSize(sizeOfCube + 3, sizeOfCube + 3);
 	mScene = new QGraphicsScene;
 	mScene->setSceneRect(0, 0, sizeOfCube, sizeOfCube);
 	int x = sizeOfCube / 10;
@@ -33,11 +33,12 @@ Field::Field() :
 			mScene->addItem(item);
 		}
 	}
-
+	ui->graphicsView->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
+	ui->graphicsView->setCacheMode(QGraphicsView::CacheNone);
 	ui->graphicsView->setScene(mScene);
-
 	backgroundBrush = QSharedPointer<QMovie>(new QMovie(":/pictures/sea_animation.gif"));
 	backgroundBrush->start();
+	ui->graphicsView->setBackgroundBrush(QBrush(backgroundBrush->currentPixmap()));
 	connect(backgroundBrush.data(), SIGNAL(updated(QRect)), SLOT(updateBackground(QRect)));
 	itemForMessage = NULL;
 	attackStatus = NULL;
@@ -65,7 +66,7 @@ void Field::showAttackStatus(AttackStatus status)
 		break;
 	}
 	itemForMessage = mScene->addPixmap(attackStatus->currentPixmap());
-	ui->graphicsView->update();
+	itemForMessage->update();
 	timer.start(950); //связано с длительностью гифки
 	connect(&timer, SIGNAL(timeout()), this, SLOT (deleteMessage()));
 	attackStatus->start();
@@ -84,7 +85,6 @@ void Field::showResult(Players player)
 		break;
 	}
 	itemForEndMessage = QSharedPointer<QGraphicsItem>(mScene->addPixmap(message));
-	ui->graphicsView->update();
 }
 
 Cell* Field::getCellView(int id)
@@ -129,13 +129,11 @@ void Field::addImage(int id, ImageID iD)
 	}
 
 	picturesUnderCell[id] = pictureForCell;
-	ui->graphicsView->update();
 }
 
 void Field::removeImageFromCell(int id)
 {
 	mScene->removeItem(picturesUnderCell[id].data());
-	ui->graphicsView->update();
 }
 
 void Field::clearItself()
@@ -213,14 +211,12 @@ void Field::deleteMessage()
 		delete attackStatus;
 		itemForMessage = NULL;
 		attackStatus = NULL;
-		ui->graphicsView->update();
 	}
 }
 
 void Field::updateBackground(QRect)
 {
-	mScene->setBackgroundBrush(QBrush(backgroundBrush->currentPixmap()));
-	ui->graphicsView->update();
+	ui->graphicsView->setBackgroundBrush(QBrush(backgroundBrush->currentPixmap()));
 }
 
 void Field::updateAttackStatus(QRect)
@@ -228,5 +224,4 @@ void Field::updateAttackStatus(QRect)
 	mScene->removeItem(itemForMessage);
 	delete itemForMessage;
 	itemForMessage = mScene->addPixmap(attackStatus->currentPixmap());
-	ui->graphicsView->update();
 }

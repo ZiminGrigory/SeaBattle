@@ -2,19 +2,24 @@
 
 HumanPlayer::HumanPlayer(const QSharedPointer<GameField>& plrField
 						, const QSharedPointer<GameField>& enmField
+                        , const QSharedPointer<InterfaceBattleWidget>& battleWidget
+                         /*
 						, const QSharedPointer<InterfaceField>& _plrFieldView
 						, const QSharedPointer<InterfaceField>& _enmFieldView
 						, const QSharedPointer<InterfaceInfoTab> &_infoTab
 						, const QSharedPointer<InterfaceChatAndStatus> &_chat
+                                                 */
 						, QObject* parent):
     Player(plrField, enmField, parent),
-    plrFieldView(_plrFieldView),
-    enmFieldView(_enmFieldView),
-	infoTab(_infoTab),
+    plrFieldView(battleWidget->getPlayerFieldView()),
+    enmFieldView(battleWidget->getEnemyFieldView()),
+    infoTab(battleWidget->getInfoTabView()),
 	myTurn(false),
-	mChat(_chat)
+    mChat(battleWidget->getChatAndStatus())
 {
+    connect(battleWidget.data(), SIGNAL(buttonBackPressed()), this, SIGNAL(quit()));
     connect(enmFieldView.data(), SIGNAL(attack(int)), this, SLOT(cellWasAttacked(int)));
+    connect(this, SIGNAL(turnMade(int,AttackStatus)), this, SLOT(cellWasAttacked(int)));
 	connect(infoTab.data(), SIGNAL(needAutoSetting()), this, SLOT(needAutoInstallFleet()));
     connect(mChat.data(), SIGNAL(getNewMessage(QString)), SIGNAL(chat(QString)));
 }

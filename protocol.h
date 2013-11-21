@@ -50,7 +50,9 @@ namespace Protocol
         // expected that next byte are the id of attacked cell
         TURN_MADE = 31,
         // contains the chat text recieved from remote player
-        CHAT_MESSAGE = 32
+        CHAT_MESSAGE = 32,
+        // remote player leaves game
+        PLAYER_QUIT = 33
     };
 
     /**

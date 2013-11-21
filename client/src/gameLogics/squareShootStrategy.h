@@ -1,8 +1,8 @@
 #ifndef SQUARESHOOTSTRATEGY_H
 #define SQUARESHOOTSTRATEGY_H
-#include "GameField.h"
 #include <QTime>
-#include <QList>
+
+#include "gameField.h"
 
 class SquareShootStrategy
 {

@@ -97,7 +97,8 @@ enum Picture{
 enum Players{
 	NONE,
 	YOU,
-	ENEMY
+    ENEMY,
+    GAME
 };
 
 enum ImageID{
