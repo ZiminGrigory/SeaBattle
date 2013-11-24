@@ -3,7 +3,7 @@
 AIPlayerSmart::AIPlayerSmart(const QSharedPointer<GameField> &plrField,
                                 const QSharedPointer<GameField> &enmField,
                                  QObject *parent):
-    AIPlayer(plrField, enmField, parent)
+	AIPlayer(plrField, enmField, parent), mField(plrField)
 {
     qsrand(QTime::currentTime().msec());
     aerocarrier = 1;
@@ -24,7 +24,8 @@ AIPlayerSmart::AIPlayerSmart(const QSharedPointer<GameField> &plrField,
 
 void AIPlayerSmart::installFleet()
 {
-    fleetInstaller->installFleet();
+	fleetInstaller->installFleet();
+	setFleetHealth(mField->getFleet());
     emit fleetInstalled(this);
 }
 
