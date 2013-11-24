@@ -214,15 +214,29 @@ Rectangle {
 			id: infoButtonMouseArea
 			width: parent.width
 			height: parent.height
-			Component.onCompleted: {
-				infoButtonMouseArea.clicked.connect(parent.changePicture)
-			}
+            onClicked: {
+                parent.changePicture()
+                girl.visible = true
+            }
 		}
 		function changePicture(){
 			currentPicture = (currentPicture + 1) % 2
 		}
-		// to do: make girl
 	}
+
+    InfoGirl{
+        id: girl
+        z: 4
+        visible: false
+        mCurrentState: 0
+        currentState: mCurrentState.toString()
+        onCloseMe: {
+            infoButton.changePicture()
+            girl.visible = false
+            girl.mCurrentState = 0
+            girl.currentState = girl.mCurrentState.toString()
+        }
+    }
 
 	Image{
 		objectName:"mDeleteModeButton"

@@ -22,13 +22,13 @@ Rectangle {
 		SequentialAnimation {
 			id: opacityAnimation
 			running: false
-			NumberAnimation { target: img; property: "opacity"; duration: 1000; from: 1.5; to: 0.0}
+            NumberAnimation { target: img; property: "opacity"; duration: 1000; from: 1.5; to: 0.0}
 		}
 
 		SequentialAnimation {
 			id: opacityAnimationForPlr
 			running: false
-			NumberAnimation { target: img; property: "opacity"; duration: 1000; from: 1.0; to: 0.0}
+            NumberAnimation { target: img; property: "opacity"; duration: 800; from: 1.0; to: 0.0}
 		}
 
 		onSourceChanged: {
