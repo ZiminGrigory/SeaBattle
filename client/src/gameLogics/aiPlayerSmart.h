@@ -2,8 +2,8 @@
 #define AIPLAYERSMART_H
 #include "aiPlayer.h"
 #include "squareShootStrategy.h"
-
-
+#include "fleetInstallStrategy.h"
+#include <QObject>
 
 class AIPlayerSmart :  public AIPlayer
 {
@@ -20,18 +20,20 @@ public slots:
 private slots:
   //  void delayTurn();
 
-private:
+protected:
     int chooseCell();
+    void decreaseFleet(int currentShip);
+private:
     QPair<int, int> currentSquare;
     int aerocarrier;
     int cruiser;
     int destroyer;
     int smallship;
-    void decreaseFleet(int currentShip);
     SquareShootStrategy * strategy;
     void changeStrategy();
     SquareShootStrategy * strategy1;
     SquareShootStrategy * strategy2;
+    FleetInstallStrategy * fleetInstaller;
 };
 
 #endif // AIPLAYERSMART_H

@@ -19,11 +19,12 @@ AIPlayerSmart::AIPlayerSmart(const QSharedPointer<GameField> &plrField,
         strategy = strategy1;
     else
         strategy = strategy2;
+    fleetInstaller = new FleetInstallStrategy(plrField);
 }
 
 void AIPlayerSmart::installFleet()
 {
-    this->randomInstallFleet();
+    fleetInstaller->installFleet();
     emit fleetInstalled(this);
 }
 
@@ -38,8 +39,7 @@ void AIPlayerSmart::changeStrategy()
 
 void AIPlayerSmart::turn()
 {
-  QTimer::singleShot(AIPlayer::delay, this, SLOT(delayTurn()));
-
+    QTimer::singleShot(AIPlayer::delay, this, SLOT(delayTurn()));
 }
 
 int AIPlayerSmart::chooseCell()
@@ -118,6 +118,4 @@ void AIPlayerSmart::decreaseFleet(int currentShip)
     changeStrategy();
     currentSquare.first = -1;
     currentSquare.second = -1;
-
-
 }
