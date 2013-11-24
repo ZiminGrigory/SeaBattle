@@ -4,8 +4,6 @@
 FleetInstallStrategy::FleetInstallStrategy(const QSharedPointer<GameField>& myField):
 field(myField){
     qsrand(QTime::currentTime().msec());
-
-
 }
 
 QVector<QPair<int, int> > FleetInstallStrategy::getStrategy()
@@ -82,5 +80,6 @@ void FleetInstallStrategy::installFleet()
             id = qrand()%100;
         }
         while(field->setShip(id, id) != OK);
+		qDebug() << id;
     }
 }

@@ -61,6 +61,7 @@ private:
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 	QObject *timer;
 	QObject *dialog;
+	QObject *endDialog;
 };
 
 #endif // QMLBATTLEWIDGET_H

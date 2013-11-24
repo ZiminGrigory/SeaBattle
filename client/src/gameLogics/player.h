@@ -129,7 +129,7 @@ inline void Player::enemyTurn(int id)
     if (myField->getShip(id) != NULL)
     {
         --fleetHealth;
-    }
+	}
 }
 
 inline void Player::attack(int id)

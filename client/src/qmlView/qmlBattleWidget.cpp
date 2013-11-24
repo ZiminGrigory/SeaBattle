@@ -18,9 +18,11 @@ QmlBattleWidget::QmlBattleWidget(QObject* widget) :
 	mPlrField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mPlrField")));
 	mEnemyField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mEnemyField")));
 	dialog = mBattleWidget->findChild<QObject*>("dialogs");
+	endDialog = mBattleWidget->findChild<QObject*>("endDialogs");
 	connect(dialog, SIGNAL(gameBreakDialogOkPressed()), this, SIGNAL(gameBreakDialogOkPressed()));
 	connect(dialog, SIGNAL(quitDialogOkPressed()), this, SIGNAL(quitDialogOkPressed()));
 	connect(dialog, SIGNAL(quitDialogCancelPressed()), this, SIGNAL(quitDialogCancelPressed()));
+	connect(endDialog, SIGNAL(toMainMenu()), this, SIGNAL(quitDialogOkPressed()));
 }
 
 void QmlBattleWidget::showPlayerField()
@@ -152,8 +154,13 @@ QSharedPointer<InterfaceChatAndStatus> QmlBattleWidget::getChatAndStatus()
 
 void QmlBattleWidget::setMessage(QString text)
 {
-	//unused....
-	Q_UNUSED(text)
+	if (text == "Enemy Win"){
+		endDialog->setProperty("visible", "true");
+		endDialog->setProperty("picture", "looser");
+	} else if(text == "You Win") {
+		endDialog->setProperty("visible", "true");
+		endDialog->setProperty("picture", "winner");
+	}
 }
 
 void QmlBattleWidget::handleDeleteShipMode(bool isActive)

@@ -39,6 +39,14 @@ Rectangle {
 		visible: false
 	}
 
+	EndDialog{
+		id: endDialog
+		objectName: "endDialogs"
+		visible: false
+		z: 10
+		onToMainMenu: visible = false
+	}
+
 	Text{
 		id:lableCountOfShip
 		anchors.top: main.top
@@ -342,6 +350,6 @@ Rectangle {
 			deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
 			timer.visible = false; countOfShip.currentNumber = countOfFleet; timer.running = false
 		}
-		readyState.visible = false
+		readyState.visible = false; endDialog.visible = false
 	}
 }
