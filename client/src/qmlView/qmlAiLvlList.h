@@ -22,7 +22,6 @@ signals:
 	void buttonVsProPushed();
 
 private:
-	static const QString componentUrl;
 
 	QObject* mAiLvlList;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;

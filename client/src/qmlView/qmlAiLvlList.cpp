@@ -1,10 +1,8 @@
 #include "qmlAiLvlList.h"
 
-const QString QmlAiLvlList::componentUrl = "qml/qml/AiLvlMenu.qml";
 
 QmlAiLvlList::QmlAiLvlList(QObject* widget) :
-	mAiLvlList(widget),
-	mWidgetAppender(widgetAppeder)
+	mAiLvlList(widget)
 {
 	// коннектим сигналы, объявленные в qml файле, с сигналами нашего интерфейса
 	connect(mAiLvlList, SIGNAL(vsAiSimpleClicked()), this, SIGNAL(buttonVsSimplePushed()));
@@ -14,10 +12,8 @@ QmlAiLvlList::QmlAiLvlList(QObject* widget) :
 
 void QmlAiLvlList::show()
 {
-	mWidgetAppender->show(mAiLvlList);
 }
 
 void QmlAiLvlList::hide()
 {
-	mWidgetAppender->hide(mAiLvlList);
 }

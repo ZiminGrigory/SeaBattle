@@ -14,15 +14,6 @@ Rectangle {
 	signal volume(int position)
 	signal quitClicked()
 
-	Image {
-		id: background
-		width: main.width
-		height: main.height
-		// чтобы подхватить картинку из ресурсов, пишем image://, потом имя имэйдж провайдера (см QmlMainWindow)
-		// потом адрес картинке в ресурсах
-		source: "image://provider/qml/background.jpg"
-	}
-
 	Text {
 		id: text
 		width: main.width

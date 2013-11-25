@@ -1,7 +1,6 @@
 #include "qmlField.h"
 #include "QDebug"
 #include "types.h"
-const QString QmlField::componentUrl = "qml/qml/Field.qml";
 
 QmlField::QmlField(QObject* fieldWidget):
 	mFieldWidget(fieldWidget)

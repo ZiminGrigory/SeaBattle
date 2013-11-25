@@ -7,7 +7,6 @@
 
 QmlBattleWidget::QmlBattleWidget(QObject* widget) :
 	mBattleWidget(widget),
-	mWidgetAppender(widgetAppeder),
 	mChatAndStatus(new QmlChatAndStatus())
 {
 	timer = mBattleWidget->findChild<QObject*>("timer");
@@ -110,12 +109,10 @@ void QmlBattleWidget::delayedSwitchToEnemyField()
 
 void QmlBattleWidget::show()
 {
-	mWidgetAppender->show(mBattleWidget);
 }
 
 void QmlBattleWidget::hide()
 {
-	mWidgetAppender->hide(mBattleWidget);
 }
 
 QSharedPointer<InterfaceField> QmlBattleWidget::getPlayerFieldView()

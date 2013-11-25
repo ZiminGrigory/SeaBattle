@@ -1,10 +1,7 @@
 #include "qmlConnectWidget.h"
 
-const QString QmlConnectWidget::componentUrl = "qml/qml/ConnectWidget.qml";
-
 QmlConnectWidget::QmlConnectWidget(QObject* widget) :
-	mConnectWidget(widget),
-	mWidgetAppender(widgetAppeder)
+	mConnectWidget(widget)
 {
 	connect(mConnectWidget, SIGNAL(repeat()), this, SIGNAL(buttonTryAgainPushed()));
 	connect(mConnectWidget, SIGNAL(quitClicked()), this, SIGNAL(buttonExitPushed()));
@@ -35,10 +32,8 @@ void QmlConnectWidget::setEnabledTryAgain(bool switcher)
 
 void QmlConnectWidget::show()
 {
-	mWidgetAppender->show(mConnectWidget);
 }
 
 void QmlConnectWidget::hide()
 {
-	mWidgetAppender->hide(mConnectWidget);
 }

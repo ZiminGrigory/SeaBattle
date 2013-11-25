@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
 	id: menu
+	color: "transparent"
 
 	property alias topShipButtonType: topShipButton.type
 	property alias bottomShipButtonType: bottomShipButton.type
@@ -12,16 +13,6 @@ Rectangle {
 	property alias bottomShipButton: bottomShipButtonMouseArea
 	property alias leftBombButton: leftBombButtonMouseArea
 	property alias rightBombButton: rightBombButtonMouseArea
-
-	// фон
-	Image {
-		id: background
-		width: menu.width
-		height: menu.height
-		// чтобы подхватить картинку из ресурсов, пишем image://, потом имя имэйдж провайдера (см QmlMainWindow)
-		// потом адрес картинке в ресурсах
-		source: "image://provider/qml/background.jpg"
-	}
 
 		Image {
 			id: startTitle
@@ -91,14 +82,6 @@ Rectangle {
 			id: rightBombButtonMouseArea
 			width: parent.width
 			height: parent.height
-
-			onClicked: {
-				console.log("clicked")
-			}
-
-			Component.onCompleted: {
-
-			}
 		}
 	}
 }

@@ -46,4 +46,5 @@ OTHER_FILES += \
     src/qmlView/qml/Field.qml \
     src/qmlView/qml/FieldBuilder.js \
     src/qmlView/qml/Battle.qml \
-    src/qmlView/qml/FieldMessage.qml
+    src/qmlView/qml/FieldMessage.qml \
+    src/qmlView/qml/Main.qml

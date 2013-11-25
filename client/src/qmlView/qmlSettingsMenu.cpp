@@ -3,11 +3,9 @@
 #include <QString>
 #include <QDebug>
 
-const QString QmlSettingsMenu::componentUrl = "qml/qml/SettingsMenu.qml";
 
 QmlSettingsMenu::QmlSettingsMenu(QObject* widget) :
-	mSettingsWidget(widget),
-	mWidgetAppender(widgetAppeder)
+	mSettingsWidget(widget)
 {
 	connect(mSettingsWidget, SIGNAL(volume(int)), this, SLOT(volumeHandler(int)));
 	connect(mSettingsWidget, SIGNAL(ipAndPort(QString, QString)), this, SLOT(ipAndPortHandler(QString,QString)));
@@ -19,12 +17,10 @@ QmlSettingsMenu::QmlSettingsMenu(QObject* widget) :
 
 void QmlSettingsMenu::show()
 {
-	mWidgetAppender->show(mSettingsWidget);
 }
 
 void QmlSettingsMenu::hide()
 {
-	mWidgetAppender->hide(mSettingsWidget);
 }
 
 void QmlSettingsMenu::volumeHandler(int lvl)

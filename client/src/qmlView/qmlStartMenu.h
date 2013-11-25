@@ -23,11 +23,10 @@ signals:
 	void buttonVsPcPushed();
 	void buttonExitPushed();
 	void buttonSettingsPushed();
+private slots:
+	void slo();
 
 private:
-	// путь к qml файлу (путь не от исходников, а от исполняемого файла)
-	static const QString componentUrl;
-
 	// QQuickItem - это сам объект, созданный из qml файла
 	QObject* mStartMenu;
 	// эта штука для добавления элементов на окно

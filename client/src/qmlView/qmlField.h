@@ -36,7 +36,6 @@ signals:
 	void setNextArrow(int id);
 
 private:
-	static const QString componentUrl;
 
 	QObject* mFieldWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;

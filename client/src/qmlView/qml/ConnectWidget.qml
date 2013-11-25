@@ -2,7 +2,8 @@ import QtQuick 2.0
 
 Rectangle {
 	id: main
-
+	width: parent.width
+	height: parent.height
 	signal repeat
 	signal quitClicked
 
@@ -22,7 +23,7 @@ Rectangle {
 		}
 	}
 
-	AnimatedImage{
+	/*Animated*/Image{
 		id: loader
 		objectName: "loader"
 		anchors.horizontalCenter: main.horizontalCenter

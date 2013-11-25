@@ -25,7 +25,6 @@ private slots:
 	void volumeHandler(int lvl);
 	void ipAndPortHandler(QString ip, QString port);
 private:
-	static const QString componentUrl;
 
 	QObject* mSettingsWidget;
 	QSharedPointer<QmlWidgetAppender> mWidgetAppender;

@@ -2,11 +2,22 @@ import QtQuick 2.0
 
 Rectangle {
 	id: main
+	width: parent.width
+	height: parent.height
+	color: "transparent"
 	// сигналы для внешнего мира :)
 	signal vsAiClicked()
 	signal vsPlayerClicked()
 	signal settingsClicked()
 	signal quitClicked()
+
+	function at(){
+		console.log("signal from start Menu")
+	}
+
+	Component.onCompleted: {
+		main.vsAiClicked.connect(at)
+	}
 
 	Menu {
 		id: menu

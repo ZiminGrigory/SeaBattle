@@ -22,9 +22,9 @@ QmlMainWindow::QmlMainWindow():
 	mRoot->setHeight(mQuickView.screen()->availableSize().height());
 	mQuickView.resize(mQuickView.screen()->availableSize());
 #else
-	mRoot->setWidth(QML_WINDOW_SIZE.width());
-	mRoot->setHeight(QML_WINDOW_SIZE.height());
-	mQuickView.resize(QML_WINDOW_SIZE);
+	//mRoot->setWidth(QML_WINDOW_SIZE.width());
+//	mRoot->setHeight(QML_WINDOW_SIZE.height());
+//	mQuickView.resize(QML_WINDOW_SIZE);
 #endif
 
 
@@ -38,19 +38,12 @@ QmlMainWindow::QmlMainWindow():
 
 QmlMainWindow::~QmlMainWindow()
 {
-	if (mCurrentQmlObject)
-	{
-		mCurrentQmlObject->hide();
-	}
 }
 
 void QmlMainWindow::showWidget(Widgets widget)
 {
 	// сначала прячем текущий qml
-	if (mCurrentQmlObject)
-	{
-		QMetaObject::invokeMethod(mRoot, "hideAllWidgets");
-	}
+	QMetaObject::invokeMethod(mRoot, "hideAllWidgets");
 	switch (widget)
 	{
 		// показываем новый
@@ -98,7 +91,7 @@ void QmlMainWindow::hideWidget(Widgets widget)
 
 void QmlMainWindow::showMain()
 {
-	showWidget(START_MENU);
+	//showWidget(START_MENU);
 	mQuickView.showExpanded();
 }
 
