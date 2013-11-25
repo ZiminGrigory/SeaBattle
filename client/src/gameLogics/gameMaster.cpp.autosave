@@ -92,7 +92,7 @@ void GameMaster::playerReadyToBattle(Player* sender)
 		offerTurn();
 	}
 	isFirst = false;
-}
+9}
 
 void GameMaster::offerTurn()
 {

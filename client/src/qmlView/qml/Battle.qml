@@ -9,22 +9,43 @@ Rectangle {
 		enemyField.visible = false;
 		plrField.visible = true;
 		arrowButton.currentPicture ="right"
+		countOfShip.currentNumber = countOfPlr;
+		plrField.fieldStatus = "enemy_turn"
 	}
 
 	function switchToEnemyField() {
 		plrField.visible = false;
 		enemyField.visible = true;
 		arrowButton.currentPicture ="left"
+		countOfShip.currentNumber = countOfEnemy;
+		enemyField.fieldStatus = "you_turn"
 	}
 
-	signal backPressed()
 	signal arrowPressed()
 	signal deleteMode(bool isActive)
+	signal buttonBackPressed();
+
 
 	property int countOfFleet: 10;
 	property int countOfPlr: 10;
 	property int countOfEnemy: 10;
 	property bool isFight: false;
+
+
+
+	Dialog{
+		id: dialogs
+		objectName: "dialogs"
+		visible: false
+	}
+
+	EndDialog{
+		id: endDialog
+		objectName: "endDialogs"
+		visible: false
+		z: 10
+		onToMainMenu: visible = false
+	}
 
 	Text{
 		id:lableCountOfShip
@@ -75,18 +96,32 @@ Rectangle {
 
 	Text{
 		objectName: "timer"
-		id: timer
+		id: timerText
 		visible: false
 		width:height
 		height: countOfShip.height
 		anchors.left: countOfShip.right
+		property int currentTime: 22;
 		style: Text.Outline; styleColor: "white"
-		text: "22"
+		text: currentTime.toString()
 		font.family: "Helvetica"
 		font.pointSize: height / 1.5
 		color: "black"
+		onVisibleChanged: {
+			timer.running = true
+		}
+		onCurrentTimeChanged: text = currentTime.toString()
 	}
 
+
+	Timer {
+		id: timer
+		interval: 1000; running: false; repeat: true
+		onTriggered:{
+			if (timerText.currentTime != 0)
+				timerText.currentTime = timerText.currentTime - 1
+		}
+	}
 
 	Field{
 		objectName:"mPlrField"
@@ -113,7 +148,7 @@ Rectangle {
 	BombButton {
 		id: backButton
 		type: 3
-
+		z: 3
 		anchors.right: parent.right
 		anchors.bottom: parent.bottom
 
@@ -122,7 +157,7 @@ Rectangle {
 			width: parent.width
 			height: parent.height
 			Component.onCompleted: {
-				backMouseArea.clicked.connect(main.backPressed)
+				backMouseArea.clicked.connect(main.buttonBackPressed)
 			}
 		}
 	}
@@ -147,6 +182,20 @@ Rectangle {
 				buttonReadyMouseArea.clicked.connect(buttonReady.ready)
 			}
 		}
+		onEnabledChanged: {
+			if (buttonReady.enabled == false){
+				readyState.visible = true
+			}
+		}
+	}
+
+	Image{
+		id: readyState
+		width: main.width
+		height: main.height
+		source: "qrc:/qml/qml/ready_state.png"
+		visible: false
+		z : 2
 	}
 
 	Image{
@@ -172,15 +221,29 @@ Rectangle {
 			id: infoButtonMouseArea
 			width: parent.width
 			height: parent.height
-			Component.onCompleted: {
-				infoButtonMouseArea.clicked.connect(parent.changePicture)
-			}
+            onClicked: {
+                parent.changePicture()
+                girl.visible = true
+            }
 		}
 		function changePicture(){
 			currentPicture = (currentPicture + 1) % 2
 		}
-		// to do: make girl
 	}
+
+    InfoGirl{
+        id: girl
+        z: 4
+        visible: false
+        mCurrentState: 0
+        currentState: mCurrentState.toString()
+        onCloseMe: {
+            infoButton.changePicture()
+            girl.visible = false
+            girl.mCurrentState = 0
+            girl.currentState = girl.mCurrentState.toString()
+        }
+    }
 
 	Image{
 		objectName:"mDeleteModeButton"
@@ -278,13 +341,14 @@ Rectangle {
 		if (isFight){
 			arrowButton.visible = true; infoButton.visible = false; buttonReady.visible = false;
 			autoButton.visible = false; plrField.enabled = false; deleteModeButton.visible = false;
-			arrowButton.currentPicture = 0;
+			arrowButton.currentPicture = 0; countOfShip.currentNumber = countOfPlr;
 
 		} else{
 			arrowButton.visible = false; infoButton.visible = true; buttonReady.visible = true;
 			autoButton.visible = true; plrField.visible = true; enemyField.visible = false; plrField.enabled = true
 			deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
-			timer.visible = false
+			timer.visible = false; countOfShip.currentNumber = countOfFleet; timer.running = false
 		}
+		readyState.visible = false; endDialog.visible = false
 	}
 }

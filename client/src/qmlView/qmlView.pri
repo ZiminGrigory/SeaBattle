@@ -47,4 +47,7 @@ OTHER_FILES += \
     src/qmlView/qml/FieldBuilder.js \
     src/qmlView/qml/Battle.qml \
     src/qmlView/qml/FieldMessage.qml \
-    src/qmlView/qml/Main.qml
+    src/qmlView/qml/Main.qml \
+    src/qmlView/qml/Dialog.qml \
+    src/qmlView/qml/InfoGirl.qml \
+    src/qmlView/qml/EndDialog.qml

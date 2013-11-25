@@ -22,7 +22,8 @@ HEADERS += src/gameLogics/enemyCell.h \
     src/gameLogics/networkGameMaster.h \
     src/gameLogics/aiGameMaster.h \
     src/gameLogics/aiPlayerSmart.h \
-    src/gameLogics/squareShootStrategy.h
+    src/gameLogics/squareShootStrategy.h \
+    src/gameLogics/fleetInstallStrategy.h
 
 SOURCES += src/gameLogics/enemyCell.cpp \
     src/gameLogics/playerCell.cpp \
@@ -44,4 +45,5 @@ SOURCES += src/gameLogics/enemyCell.cpp \
     src/gameLogics/networkGameMaster.cpp \
     src/gameLogics/aiGameMaster.cpp \
     src/gameLogics/aiPlayerSmart.cpp \
-    src/gameLogics/squareShootStrategy.cpp
+    src/gameLogics/squareShootStrategy.cpp \
+    src/gameLogics/fleetInstallStrategy.cpp

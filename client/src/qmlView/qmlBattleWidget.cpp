@@ -10,13 +10,19 @@ QmlBattleWidget::QmlBattleWidget(QObject* widget) :
 	mChatAndStatus(new QmlChatAndStatus())
 {
 	timer = mBattleWidget->findChild<QObject*>("timer");
-	connect(mBattleWidget, SIGNAL(backPressed()), this, SIGNAL(quitDialogOkPressed()));
+	connect(mBattleWidget, SIGNAL(buttonBackPressed()), this, SIGNAL(buttonBackPressed()));
 	connect(mBattleWidget, SIGNAL(deleteMode(bool)), SLOT(handleDeleteShipMode(bool)));
 	mInfoTab = QSharedPointer<QmlInfoTab>(new QmlInfoTab(mBattleWidget->findChild<QObject*>("mAutoButton")
 													 ,mBattleWidget->findChild<QObject*>("mButtonReady")
 													 ,mBattleWidget->findChild<QObject*>("mCountOfShip")));
 	mPlrField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mPlrField")));
 	mEnemyField = QSharedPointer<QmlField>(new QmlField(mBattleWidget->findChild<QObject*>("mEnemyField")));
+	dialog = mBattleWidget->findChild<QObject*>("dialogs");
+	endDialog = mBattleWidget->findChild<QObject*>("endDialogs");
+	connect(dialog, SIGNAL(gameBreakDialogOkPressed()), this, SIGNAL(gameBreakDialogOkPressed()));
+	connect(dialog, SIGNAL(quitDialogOkPressed()), this, SIGNAL(quitDialogOkPressed()));
+	connect(dialog, SIGNAL(quitDialogCancelPressed()), this, SIGNAL(quitDialogCancelPressed()));
+	connect(endDialog, SIGNAL(toMainMenu()), this, SIGNAL(quitDialogOkPressed()));
 }
 
 void QmlBattleWidget::showPlayerField()
@@ -43,7 +49,7 @@ void QmlBattleWidget::showInfoTab()
 void QmlBattleWidget::setTime(int time)
 {
 	timer->setProperty("visible", true);
-	timer->setProperty("text", time);
+	timer->setProperty("currentTime", time);
 }
 
 void QmlBattleWidget::hideTimer()
@@ -69,6 +75,7 @@ void QmlBattleWidget::clearItself()
 {
 	//to do call in children
 	mBattleWidget->setProperty("isFight", false);
+	mInfoTab->clearItself();
 	mPlrField->clearItself();
 	mBattleWidget->setProperty("countOfEnemy", 10);
 	mBattleWidget->setProperty("countOfPlr", 10);
@@ -76,15 +83,25 @@ void QmlBattleWidget::clearItself()
 	mPlrField->setBattleMode(false);
 	mEnemyField->setBattleMode(false);
 }
-
+//property alias backButtonVisible: backButton.visible
+//property alias breakDialogOkVisible: breakDialogOk.visible
+//property alias okButtonVisible: okButton.visible
 void QmlBattleWidget::showGameBreakDialog(const QString& message)
 {
-	//unused....
+	dialog->setProperty("text", message);
+	dialog->setProperty("visible", true);
+	dialog->setProperty("backButtonVisible", false);
+	dialog->setProperty("breakDialogOkVisible", true);
+	dialog->setProperty("okButtonVisible", false);
 }
 
 void QmlBattleWidget::showQuitDialog()
 {
-	//unused....
+	dialog->setProperty("text", "Вы уверены, что хотите выйти в главное меню?");
+	dialog->setProperty("visible", true);
+	dialog->setProperty("backButtonVisible", true);
+	dialog->setProperty("breakDialogOkVisible", false);
+	dialog->setProperty("okButtonVisible", true);
 }
 
 void QmlBattleWidget::switchToPlayerField()
@@ -137,8 +154,13 @@ QSharedPointer<InterfaceChatAndStatus> QmlBattleWidget::getChatAndStatus()
 
 void QmlBattleWidget::setMessage(QString text)
 {
-	//unused....
-	Q_UNUSED(text)
+	if (text == "Enemy Win"){
+		endDialog->setProperty("visible", "true");
+		endDialog->setProperty("picture", "looser");
+	} else if(text == "You Win") {
+		endDialog->setProperty("visible", "true");
+		endDialog->setProperty("picture", "winner");
+	}
 }
 
 void QmlBattleWidget::handleDeleteShipMode(bool isActive)

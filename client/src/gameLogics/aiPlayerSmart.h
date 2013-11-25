@@ -2,11 +2,12 @@
 #define AIPLAYERSMART_H
 #include "aiPlayer.h"
 #include "squareShootStrategy.h"
-
-
+#include "fleetInstallStrategy.h"
+#include <QObject>
 
 class AIPlayerSmart :  public AIPlayer
 {
+	Q_OBJECT
 public:
     explicit AIPlayerSmart(const QSharedPointer<GameField>& plrField,
                       const QSharedPointer<GameField>& enmField,
@@ -20,16 +21,21 @@ public slots:
 private slots:
   //  void delayTurn();
 
-private:
+protected:
     int chooseCell();
+    void decreaseFleet(int currentShip);
+private:
     QPair<int, int> currentSquare;
     int aerocarrier;
     int cruiser;
     int destroyer;
     int smallship;
-    void decreaseFleet(int currentShip);
     SquareShootStrategy * strategy;
-
+    void changeStrategy();
+    SquareShootStrategy * strategy1;
+    SquareShootStrategy * strategy2;
+    FleetInstallStrategy * fleetInstaller;
+	QSharedPointer<GameField> mField;
 };
 
 #endif // AIPLAYERSMART_H

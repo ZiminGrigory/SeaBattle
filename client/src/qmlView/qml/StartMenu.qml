@@ -15,6 +15,7 @@ Rectangle {
 		console.log("signal from start Menu")
 	}
 
+
 	Component.onCompleted: {
 		main.vsAiClicked.connect(at)
 	}

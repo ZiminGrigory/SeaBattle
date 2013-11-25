@@ -1,10 +1,12 @@
 #include "audioPlayer.h"
 #include "QDir"
 #include "types.h"
+#include <QSound>
 
 AudioPlayer::AudioPlayer()
 {
 	sound = new QMediaPlayer();
+	settings.setValue((SettingsKey::VOLUME_KEY), 100);
 	if (settings.contains(SettingsKey::VOLUME_KEY)){
 		int vol = settings.value(SettingsKey::VOLUME_KEY).toInt();
 		sound->setVolume(vol);
@@ -38,7 +40,6 @@ void AudioPlayer::playSound(Sounds track)
 {
 	if (mIsMute)
         return;
-
     switch (track)
     {
     case (BEGIN_SOUND):
