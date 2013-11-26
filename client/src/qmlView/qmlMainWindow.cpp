@@ -5,27 +5,22 @@
 
 QmlMainWindow::QmlMainWindow()
 {
+
+#ifdef Q_OS_ANDROID
+	mQuickView.resize(mQuickView.screen()->availableSize());
+#else
+	mQuickView.resize(QML_WINDOW_SIZE);
+#endif
+	mQuickView.setResizeMode(QQuickView::SizeRootObjectToView);
+
 	// ImageProvider специальный класс, который позволяет qml объектам подгружать картинки, из ресурсов, например
 	ImageProvider* imageProvider = new ImageProvider();
 	// добавляем его в наш qml движок
 	mQuickView.engine()->addImageProvider("provider", imageProvider);
 
-
 	mQuickView.setMainQmlFile("qml/qml/Main.qml");
 
-
 	mRoot = mQuickView.rootObject();
-#ifdef Q_OS_ANDROID
-	mRoot->setWidth(mQuickView.screen()->availableSize().width());
-	mRoot->setHeight(mQuickView.screen()->availableSize().height());
-	mQuickView.resize(mQuickView.screen()->availableSize());
-#else
-	mRoot->setWidth(QML_WINDOW_SIZE.width());
-	mRoot->setHeight(QML_WINDOW_SIZE.height());
-	mQuickView.resize(QML_WINDOW_SIZE);
-#endif
-
-
 
 	mAiLvlList = QSharedPointer<QmlAiLvlList>(new QmlAiLvlList(mRoot->findChild<QObject*>("AiLvlMenu")));
 	mBattleWidget = QSharedPointer<QmlBattleWidget>(new QmlBattleWidget(mRoot->findChild<QObject*>("Battle")));
