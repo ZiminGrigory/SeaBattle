@@ -13,9 +13,11 @@ AudioPlayer::AudioPlayer()
 	if (settings.contains(SettingsKey::VOLUME_KEY)){
 		int vol = settings.value(SettingsKey::VOLUME_KEY).toInt();
 		sound.setVolume(vol);
+		background.setVolume(vol);
 	}
 	else{
 		sound.setVolume(50);
+		background.setVolume(50);
 		settings.setValue((SettingsKey::VOLUME_KEY), 50);
 	}
 	if (settings.contains(SettingsKey::MUTE_KEY)){
@@ -26,17 +28,48 @@ AudioPlayer::AudioPlayer()
 		mIsMute = false;
 	}
 	path = QDir::currentPath();
+
+	connect(&background, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus))
+			, SLOT(handleBackgroundStateChange(QMediaPlayer::MediaStatus)));
+	connect(&sound, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus))
+			, SLOT(handleSoundStateChange(QMediaPlayer::MediaStatus)));
+	background.setMedia(QUrl::fromLocalFile(soundFolder + "sea.mp3"));
 }
 
 void AudioPlayer::mute(bool isMute)
 {
 	mIsMute = isMute;
-	settings.setValue((SettingsKey::MUTE_KEY), isMute);
+	settings.setValue((SettingsKey::MUTE_KEY), mIsMute);
+	background.setMuted(mIsMute);
+	background.setMuted(mIsMute);
 }
+
+
+void AudioPlayer::handleBackgroundStateChange(QMediaPlayer::MediaStatus status)
+{
+	if(mIsMute)
+		return;
+	if (status == QMediaPlayer::LoadedMedia){
+		background.setMuted(false);
+		background.play();
+	}
+}
+
+void AudioPlayer::handleSoundStateChange(QMediaPlayer::MediaStatus status)
+{
+	if(mIsMute)
+		return;
+	if (status == QMediaPlayer::LoadedMedia){
+		sound.setMuted(false);
+		sound.play();
+	}
+}
+
 void AudioPlayer::setVolume(int value)
 {
 	settings.setValue((SettingsKey::VOLUME_KEY), value);
 	sound.setVolume(value);
+	background.setVolume(value);
 }
 
 void AudioPlayer::playSound(Sounds track)
@@ -75,7 +108,6 @@ void AudioPlayer::playSound(Sounds track)
 		case(SHIP_SET_ERR_SOUND):
 			sound.setMedia(QUrl::fromLocalFile(soundFolder + "ship_set_error.mp3"));
 	}
-	sound.play();
 
 }
 
@@ -83,8 +115,7 @@ void AudioPlayer::playBackground()
 {
 	if(mIsMute)
 		return;
-	background.setMedia(QUrl::fromLocalFile(soundFolder + "sea.mp3"));
-	background.play();
+	//background.setMedia(QUrl::fromLocalFile(soundFolder + "sea.mp3"));
 }
 
 void AudioPlayer::stopBackground()
