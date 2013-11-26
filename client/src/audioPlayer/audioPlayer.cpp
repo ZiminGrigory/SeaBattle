@@ -3,16 +3,19 @@
 #include "types.h"
 #include <QSound>
 
+//#define S
+
+const QString AudioPlayer::soundFolder = SOUNDS_DIR;
+
 AudioPlayer::AudioPlayer()
 {
-	sound = new QMediaPlayer();
 	settings.setValue((SettingsKey::VOLUME_KEY), 100);
 	if (settings.contains(SettingsKey::VOLUME_KEY)){
 		int vol = settings.value(SettingsKey::VOLUME_KEY).toInt();
-		sound->setVolume(vol);
+		sound.setVolume(vol);
 	}
 	else{
-		sound->setVolume(50);
+		sound.setVolume(50);
 		settings.setValue((SettingsKey::VOLUME_KEY), 50);
 	}
 	if (settings.contains(SettingsKey::MUTE_KEY)){
@@ -33,54 +36,59 @@ void AudioPlayer::mute(bool isMute)
 void AudioPlayer::setVolume(int value)
 {
 	settings.setValue((SettingsKey::VOLUME_KEY), value);
-	sound->setVolume(value);
+	sound.setVolume(value);
 }
 
 void AudioPlayer::playSound(Sounds track)
 {
 	if (mIsMute)
-        return;
-    switch (track)
-    {
-    case (BEGIN_SOUND):
-		sound->setMedia(QUrl("qrc:/sounds/begin.mp3"));
-        break;
-    case(FIRST_BLOOD):
-		 sound->setMedia(QUrl("qrc:/sounds/first blood.mp3"));
-        break;
-    case(MISS_SOUND):
-		 sound->setMedia(QUrl("qrc:/sounds2/miss.mp3"));
-        break;
-    case(WOUNDED_SOUND):
-		 sound->setMedia(QUrl("qrc:/sounds/wounded.mp3"));
-        break;
-    case(KILLED_SOUND):
-		 sound->setMedia(QUrl("qrc:/sounds/killed.mp3"));
-        break;
-    case(FINISH_HIM):
-		 sound->setMedia(QUrl("qrc:/sounds/finish him.mp3"));
-        break;
-    case(VICTORY_SOUND):
-		 sound->setMedia(QUrl("qrc:/sounds/victory.mp3"));
-        break;
-    case(DEFEAT_SOUND):
-		 sound->setMedia(QUrl("qrc:/sounds/defeat.mp3"));
-        break;
-    case(SHIP_SET_SOUND):
-		sound->setMedia(QUrl("qrc:/sounds/ship_set.mp3"));
-        break;
-    case(SHIP_SET_ERR_SOUND):
-		sound->setMedia(QUrl("qrc:/sounds/ship_set_error.mp3"));
-    }
-    sound->play();
+		return;
+	switch (track)
+	{
+		case (BEGIN_SOUND):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "begin.mp3"));
+		break;
+		case(FIRST_BLOOD):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "first blood.mp3"));
+		break;
+		case(MISS_SOUND):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "miss.mp3"));
+		break;
+		case(WOUNDED_SOUND):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "wounded.mp3"));
+		break;
+		case(KILLED_SOUND):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "killed.mp3"));
+		break;
+		case(FINISH_HIM):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "finish him.mp3"));
+		break;
+		case(VICTORY_SOUND):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "victory.mp3"));
+		break;
+		case(DEFEAT_SOUND):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "defeat.mp3"));
+		break;
+		case(SHIP_SET_SOUND):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "ship_set.mp3"));
+		break;
+		case(SHIP_SET_ERR_SOUND):
+			sound.setMedia(QUrl::fromLocalFile(soundFolder + "ship_set_error.mp3"));
+	}
+	sound.play();
 
 }
 
 void AudioPlayer::playBackground()
 {
 	if(mIsMute)
-        return;
-	 sound->setMedia(QUrl::fromLocalFile("qrc:/sounds/sea.mp3"));
-    sound->play();
+		return;
+	background.setMedia(QUrl::fromLocalFile(soundFolder + "sea.mp3"));
+	background.play();
+}
+
+void AudioPlayer::stopBackground()
+{
+	background.stop();
 }
 

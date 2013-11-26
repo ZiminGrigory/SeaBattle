@@ -34,10 +34,12 @@ void GameMaster::startGame()
 	enemy->installFleet();
 
 	audioPlayer->playSound(BEGIN_SOUND);
+	audioPlayer->playBackground();
 }
 
 void GameMaster::quitHandler()
 {
+	audioPlayer->stopBackground();
 	emit gameInterrupted();
 	// nothing to do here
 }
