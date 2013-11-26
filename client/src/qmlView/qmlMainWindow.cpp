@@ -3,8 +3,7 @@
 
 #include "qmlMainWindow.h"
 
-QmlMainWindow::QmlMainWindow():
-	mWidgetAppender(new QmlWidgetAppender(&mQuickView, mQuickView.screen()))
+QmlMainWindow::QmlMainWindow()
 {
 	// ImageProvider специальный класс, который позволяет qml объектам подгружать картинки, из ресурсов, например
 	ImageProvider* imageProvider = new ImageProvider();
@@ -14,7 +13,6 @@ QmlMainWindow::QmlMainWindow():
 
 	mQuickView.setMainQmlFile("qml/qml/Main.qml");
 
-	// сразу создаём все компоненты интерфейса
 
 	mRoot = mQuickView.rootObject();
 #ifdef Q_OS_ANDROID
@@ -22,9 +20,9 @@ QmlMainWindow::QmlMainWindow():
 	mRoot->setHeight(mQuickView.screen()->availableSize().height());
 	mQuickView.resize(mQuickView.screen()->availableSize());
 #else
-	//mRoot->setWidth(QML_WINDOW_SIZE.width());
-//	mRoot->setHeight(QML_WINDOW_SIZE.height());
-//	mQuickView.resize(QML_WINDOW_SIZE);
+	mRoot->setWidth(QML_WINDOW_SIZE.width());
+	mRoot->setHeight(QML_WINDOW_SIZE.height());
+	mQuickView.resize(QML_WINDOW_SIZE);
 #endif
 
 
@@ -68,30 +66,12 @@ void QmlMainWindow::showWidget(Widgets widget)
 void QmlMainWindow::hideWidget(Widgets widget)
 {
 	Q_UNUSED(widget);
-//	switch (widget)
-//	{
-//		// показываем новый
-//		case START_MENU:
-//			mStartMenu->hide();
-//			break;
-//		case AI_MENU:
-//			mAiLvlList->hide();
-//			break;
-//		case SETTINGS:
-//			mSettingsMenu->hide();
-//			break;
-//		case CONNECT:
-//			mConnectWidget->hide();
-//			break;
-//		case BATTLE:
-//			mBattleWidget->hide();
-//		break;
-//	}
+
+	QMetaObject::invokeMethod(mRoot, "hideAllWidgets");
 }
 
 void QmlMainWindow::showMain()
 {
-	//showWidget(START_MENU);
 	mQuickView.showExpanded();
 }
 

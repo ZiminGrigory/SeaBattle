@@ -17,6 +17,9 @@ public:
                  const QSharedPointer<InterfaceBattleWidget>& _view,
                  const QSharedPointer<AudioPlayer> _audioPlayer,
                  QObject* parent = 0);
+
+protected:
+	void playerReadyToBattleHook();
 };
 
 #endif // AIGAMEMASTER_H

@@ -4,18 +4,13 @@
 #include <QQuickWindow>
 #include <QQuickItem>
 #include "InterfaceSettingsMenu.h"
-#include "qmlRootWidget.h"
-#include "qmlWidgetAppender.h"
 #include "types.h"
 
-class QmlSettingsMenu : public InterfaceSettingsMenu, public QmlRootWidget
+class QmlSettingsMenu : public InterfaceSettingsMenu
 {
 	Q_OBJECT
 public:
 	QmlSettingsMenu(QObject* widget);
-
-	void show();
-	void hide();
 
 signals:
 	void mute(bool switcher);
@@ -27,7 +22,6 @@ private slots:
 private:
 
 	QObject* mSettingsWidget;
-	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 
 #endif // QMLSETTINGSMENU_H

@@ -124,14 +124,6 @@ void QmlBattleWidget::delayedSwitchToEnemyField()
 	QMetaObject::invokeMethod(mBattleWidget, "switchToEnemyField");
 }
 
-void QmlBattleWidget::show()
-{
-}
-
-void QmlBattleWidget::hide()
-{
-}
-
 QSharedPointer<InterfaceField> QmlBattleWidget::getPlayerFieldView()
 {
 	return mPlrField;

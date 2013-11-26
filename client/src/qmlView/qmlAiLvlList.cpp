@@ -9,11 +9,3 @@ QmlAiLvlList::QmlAiLvlList(QObject* widget) :
 	connect(mAiLvlList, SIGNAL(vsAihardClicked()), this, SIGNAL(buttonVsProPushed()));
 	connect(mAiLvlList, SIGNAL(quitClicked()), this, SIGNAL(buttonExitPushed()));
 }
-
-void QmlAiLvlList::show()
-{
-}
-
-void QmlAiLvlList::hide()
-{
-}

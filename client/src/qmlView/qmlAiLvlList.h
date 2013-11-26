@@ -5,17 +5,13 @@
 #include <QString>
 
 #include "InterfaceAiLvlList.h"
-#include "qmlRootWidget.h"
-#include "qmlWidgetAppender.h"
 
-class QmlAiLvlList : public InterfaceAiLvlList, public QmlRootWidget
+class QmlAiLvlList : public InterfaceAiLvlList
 {
 	Q_OBJECT
 public:
 	QmlAiLvlList(QObject* widget);
 
-	void show();
-	void hide();
 signals:
 	void buttonExitPushed();
 	void buttonVsSimplePushed();
@@ -24,7 +20,6 @@ signals:
 private:
 
 	QObject* mAiLvlList;
-	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 
 #endif // QMLAILVLLIST_H

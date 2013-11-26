@@ -15,14 +15,6 @@ QmlSettingsMenu::QmlSettingsMenu(QObject* widget) :
 	mSettingsWidget->setProperty("currentVolumeState", settings.value(SettingsKey::VOLUME_KEY).toInt() / 25);
 }
 
-void QmlSettingsMenu::show()
-{
-}
-
-void QmlSettingsMenu::hide()
-{
-}
-
 void QmlSettingsMenu::volumeHandler(int lvl)
 {
 	qDebug()<< lvl;

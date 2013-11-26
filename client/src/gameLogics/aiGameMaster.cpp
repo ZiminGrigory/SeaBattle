@@ -21,6 +21,10 @@ AiGameMaster::AiGameMaster(AIType type,
 
 	initConnections();
 
+}
+
+void AiGameMaster::playerReadyToBattleHook()
+{
 	turnedPlayer = player;
 	waitingPlayer = enemy;
 }

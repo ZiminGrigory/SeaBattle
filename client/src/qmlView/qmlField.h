@@ -4,8 +4,6 @@
 #include "InterfaceField.h"
 #include <QQuickWindow>
 #include <QQuickItem>
-#include "qmlRootWidget.h"
-#include "qmlWidgetAppender.h"
 #include "types.h"
 
 class QmlField : public InterfaceField
@@ -38,7 +36,6 @@ signals:
 private:
 
 	QObject* mFieldWidget;
-	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 	QVariantList mField;
 };
 

@@ -29,11 +29,3 @@ void QmlConnectWidget::setEnabledTryAgain(bool switcher)
 	//because...Menu{} can not provide access to enabled/disabled button
 	Q_UNUSED(switcher)
 }
-
-void QmlConnectWidget::show()
-{
-}
-
-void QmlConnectWidget::hide()
-{
-}

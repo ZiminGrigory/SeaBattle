@@ -11,8 +11,6 @@
 #include "qmlStartMenu.h"
 #include "qmlSettingsMenu.h"
 #include "qmlViewTypes.h"
-#include "qmlRootWidget.h"
-#include "qmlWidgetAppender.h"
 
 class QmlMainWindow : public InterfaceMainWindow
 {
@@ -39,15 +37,6 @@ private:
 	QSharedPointer<QmlConnectWidget> mConnectWidget;
 	QSharedPointer<QmlStartMenu> mStartMenu;
 	QSharedPointer<QmlSettingsMenu> mSettingsMenu;
-
-	/*
-	 * Отображаемый в данный момент объект.
-	 */
-	QSharedPointer<QmlRootWidget> mCurrentQmlObject;
-	/*
-	 * Эта штука передаётся в конструкторе всем qml виджетам, чтобы они умели себя добавлять в окно.
-	 */
-	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 };
 
 #endif // QMLMAINWINDOW_H

@@ -15,17 +15,5 @@ QmlStartMenu::QmlStartMenu(QObject* widget):
 	connect(mStartMenu, SIGNAL(settingsClicked()), this, SIGNAL(buttonSettingsPushed()));
 	connect(mStartMenu, SIGNAL(quitClicked()), this, SIGNAL(buttonExitPushed()));
 }
-void QmlStartMenu::show()
-{
-}
-
-void QmlStartMenu::hide()
-{
-}
-
-void QmlStartMenu::slo()
-{
-	qDebug() << "signal from qml";
-}
 
 

@@ -89,6 +89,16 @@ void GameMaster::playerReadyToBattle(Player* sender)
 		view->setCountOfFleet(YOU, plrFleet);
 		view->setCountOfFleet(ENEMY, enemyFleet);
 		view->showCountersOfFleet();
+		playerReadyToBattleHook();
+		if (!isFirst) {
+			if (turnedPlayer == player) {
+				view->switchToEnemyField();
+			}
+			else {
+				view->switchToPlayerField();
+			}
+		}
+
 		offerTurn();
 	}
 	isFirst = false;
@@ -99,10 +109,8 @@ void GameMaster::offerTurn()
 	offerTurnHook();
 	if (turnedPlayer == player){
 		view->setMessage("Your Turn");
-		view->switchToEnemyField();
 	} else{
 		view->setMessage("Enemy Turn");
-		view->switchToPlayerField();
 	}
     connect(turnedPlayer.data(), SIGNAL(turnMade(int, AttackStatus)), this, SLOT(informOpponent(int, AttackStatus)));
 
@@ -136,6 +144,12 @@ void GameMaster::nextTurn(AttackStatus turnResult)
 		ptrPlayer tmp = turnedPlayer;
 		turnedPlayer = waitingPlayer;
 		waitingPlayer = tmp;
+		if (turnedPlayer == player) {
+			view->switchToEnemyField();
+		}
+		else {
+			view->switchToPlayerField();
+		}
 		audioPlayer->playSound(MISS_SOUND);
 	}
 	else if (turnResult == WOUNDED)
@@ -173,13 +187,6 @@ void GameMaster::nextTurn(AttackStatus turnResult)
 	}
 	else
 	{
-		if (turnedPlayer == player) {
-			view->switchToEnemyField();
-		}
-		else {
-			view->switchToPlayerField();
-		}
-
 		// else continue game
 		offerTurn();
 	}
@@ -213,6 +220,11 @@ void GameMaster::initConnections()
 
 	connect(playerField.data(), SIGNAL(shipPlacementResult(PlacementStatus)),
 			this, SLOT(playShipSetSound(PlacementStatus)));
+}
+
+void GameMaster::playerReadyToBattleHook()
+{
+
 }
 
 void GameMaster::offerTurnHook()

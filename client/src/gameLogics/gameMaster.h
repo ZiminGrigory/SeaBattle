@@ -72,6 +72,7 @@ private slots:
     void playerWantToQuit();
 protected:
     void initConnections();
+	virtual void playerReadyToBattleHook();
     virtual void offerTurnHook();
     virtual void informOpponentHook();
 

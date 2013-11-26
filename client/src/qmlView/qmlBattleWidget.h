@@ -4,15 +4,13 @@
 #include "InterfaceBattleWidget.h"
 #include <QQuickWindow>
 #include <QQuickItem>
-#include "qmlRootWidget.h"
-#include "qmlWidgetAppender.h"
 #include "types.h"
 #include "qmlInfoTab.h"
 #include "qmlChatAndStatus.h"
 #include "qmlField.h"
 
 
-class QmlBattleWidget : public InterfaceBattleWidget, public QmlRootWidget
+class QmlBattleWidget : public InterfaceBattleWidget
 {
 	Q_OBJECT
 public:
@@ -30,9 +28,6 @@ public:
 	void showQuitDialog();
 	void switchToPlayerField();
 	void switchToEnemyField();
-
-	void show();
-	void hide();
 
 	QSharedPointer<InterfaceField> getPlayerFieldView();
 	QSharedPointer<InterfaceField> getEnemyFieldView();
@@ -58,7 +53,6 @@ private:
 	QSharedPointer<QmlChatAndStatus> mChatAndStatus;
 
 	QObject* mBattleWidget;
-	QSharedPointer<QmlWidgetAppender> mWidgetAppender;
 	QObject *timer;
 	QObject *dialog;
 	QObject *endDialog;

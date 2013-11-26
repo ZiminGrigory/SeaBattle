@@ -67,16 +67,11 @@
         <file alias="sounds_off.png">qml/sounds_off.png</file>
         <file alias="plus.png">qml/plus.png</file>
         <file alias="minus.png">qml/minus.png</file>
-        <file alias="settings.png">qml/settings.png</file>
-        <file alias="label_ip.png">qml/label_ip.png</file>
-        <file alias="label_port.png">qml/label_port.png</file>
         <file alias="arrow right.png">qml/arrow right.png</file>
         <file alias="arrow left.png">qml/arrow left.png</file>
         <file alias="help.png">qml/help.png</file>
         <file alias="helping.png">qml/helping.png</file>
         <file>qml/countOfShip.png</file>
-        <file>qml/9.png</file>
-        <file>qml/10.png</file>
         <file>qml/ready.png</file>
         <file>qml/back_button.png</file>
         <file>qml/fight_button.png</file>
@@ -90,16 +85,16 @@
         <file>qml/yes.png</file>
         <file>qml/no.png</file>
         <file>qml/quitDilog.png</file>
+        <file>qml/girl/defeat.jpg</file>
         <file>qml/girl/girl_start battle_auto_6.jpg</file>
         <file>qml/girl/girl_start battle_battle_8.jpg</file>
         <file>qml/girl/girl_start battle_begin_1.jpg</file>
         <file>qml/girl/girl_start battle_bye_9.jpg</file>
         <file>qml/girl/girl_start battle_deleteship_4.jpg</file>
+        <file>qml/girl/girl_start battle_deleteship2_5.jpg</file>
         <file>qml/girl/girl_start battle_ready_7.jpg</file>
         <file>qml/girl/girl_start battle_ship1_2.jpg</file>
         <file>qml/girl/girl_start battle_ship2_3.jpg</file>
-        <file>qml/girl/girl_start battle_deleteship2_5.jpg</file>
-        <file>qml/girl/defeat.jpg</file>
         <file>qml/girl/victory.jpg</file>
     </qresource>
 </RCC>
