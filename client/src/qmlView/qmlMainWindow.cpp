@@ -8,6 +8,7 @@ QmlMainWindow::QmlMainWindow()
 
 #ifdef Q_OS_ANDROID
 	mQuickView.resize(mQuickView.screen()->availableSize());
+	mQuickView.contentOrientation()
 #else
 	mQuickView.resize(QML_WINDOW_SIZE);
 #endif
