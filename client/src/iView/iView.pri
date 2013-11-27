@@ -10,3 +10,6 @@ HEADERS += src/iView/InterfaceAiLvlList.h \
     src/iView/InterfaceVolumeSettings.h \
     src/iView/InterfaceSettingsMenu.h \
     src/iView/InterfaceNetworkSettings.h \
+
+RESOURCES += \
+    gui/pictures/pictures.qrc

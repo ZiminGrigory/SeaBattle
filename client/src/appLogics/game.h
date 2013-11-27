@@ -8,9 +8,15 @@
 #include "connectionMenu.h"
 #include "aiGameMaster.h"
 #include "networkGameMaster.h"
-#include "MainWindow.h"
-#include "qmlMainWindow.h"
+
+
 #include "audioPlayer.h"
+
+#ifdef QML_VIEW
+	#include "qmlMainWindow.h"
+#elif WIDGETS_VIEW
+	#include "MainWindow.h"
+#endif
 
 class ConnectionMenu;
 
@@ -18,7 +24,7 @@ class Game : public QApplication
 {
     Q_OBJECT
 public:
-    explicit Game(int& argc, char** argv);
+	explicit Game(int& argc, char** argv);
 
 public slots:
     /**

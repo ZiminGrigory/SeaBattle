@@ -1,4 +1,6 @@
 
+message("build with qml view")
+
 folder_01.source = qml
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
