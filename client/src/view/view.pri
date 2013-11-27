@@ -1,4 +1,6 @@
 
+message("build with widgets view")
+
 HEADERS += src/view/field.h \
     src/view/cell.h \
     src/view/tabOfInformation.h \
@@ -61,4 +63,4 @@ FORMS    += src/view/tabOfInformation.ui \
     src/view/tabOfInformation.ui \
     src/view/field.ui
 
-RESOURCES += gui/pictures/pictures.qrc
+RESOURCES +=

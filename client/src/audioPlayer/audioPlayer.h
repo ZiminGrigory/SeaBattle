@@ -37,7 +37,7 @@ private:
 	QMediaPlayer sound;
 	QMediaPlayer background;
 
-	static const QString soundFolder;
+	static QString soundFolder();
 };
 
 #endif // AUDIOPLAYER_H

@@ -2,19 +2,18 @@
 #include "MainWindowAdapter.h"
 
 Game::Game(int& argc, char** argv):
-    QApplication(argc, argv),
+	QApplication(argc, argv),
     gameMaster(QSharedPointer<GameMaster>(NULL)),
     mConnectionMenu(NULL)
 {
 
-	// to do: replace it to constructor argument
 	#ifdef WIDGETS_VIEW
 		view = QSharedPointer<InterfaceMainWindow>(new MainWindowAdapter());
 	#elif QML_VIEW
 		view = QSharedPointer<InterfaceMainWindow>(new QmlMainWindow());
 	#endif
 
-    QSharedPointer<InterfaceConnectWidget> connectWidget = view->getInterfaceConnectWidget();
+	QSharedPointer<InterfaceConnectWidget> connectWidget = view->getInterfaceConnectWidget();
     mConnectionMenu = QSharedPointer<ConnectionMenu>(new ConnectionMenu(this, connectWidget));
 	audioPlayer = QSharedPointer<AudioPlayer> (new AudioPlayer);
 
@@ -55,7 +54,7 @@ void Game::aiLevelMenu()
 void Game::connectionMenu()
 {
 	hideAllWidget();
-    view->showWidget(CONNECT);
+	view->showWidget(CONNECT);
     mConnectionMenu->startConnection();
 }
 
@@ -64,7 +63,7 @@ void Game::startAISimpleGame()
 	hideAllWidget();
 	view->showWidget(BATTLE);
     gameMaster = QSharedPointer<GameMaster>(new AiGameMaster(AiGameMaster::EASY,
-                                                           view->getInterfaceBattleWidget(),
+														   view->getInterfaceBattleWidget(),
 														   audioPlayer,
                                                            this));
     connect(gameMaster.data(), SIGNAL(gameInterrupted()), SLOT(handleBW()));
@@ -76,7 +75,7 @@ void Game::startAIHardGame()
 	hideAllWidget();
 	view->showWidget(BATTLE);
     gameMaster = QSharedPointer<GameMaster>(new AiGameMaster(AiGameMaster::HARD,
-                                                           view->getInterfaceBattleWidget(),
+														   view->getInterfaceBattleWidget(),
 														   audioPlayer,
                                                            this));
     connect(gameMaster.data(), SIGNAL(gameInterrupted()), SLOT(handleBW()));
@@ -86,8 +85,8 @@ void Game::startAIHardGame()
 void Game::startNetworkGame(const QSharedPointer<Client>& client)
 {
 	hideAllWidget();
-    view->showWidget(BATTLE);
-    gameMaster = QSharedPointer<GameMaster>(new NetworkGameMaster(view->getInterfaceBattleWidget(),
+	view->showWidget(BATTLE);
+	gameMaster = QSharedPointer<GameMaster>(new NetworkGameMaster(view->getInterfaceBattleWidget(),
 														   audioPlayer,
                                                            client,
                                                            this));
