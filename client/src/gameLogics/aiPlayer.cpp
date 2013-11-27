@@ -50,34 +50,46 @@ void AIPlayer::delayTurn()
             ((lastAttackResult == WOUNDED) || directionChanged) ) // here we've found right direction for attack (3 or 4 ships)
     {
 
-        if(!directionChanged)
+//        if(!directionChanged)
             currentShip++;
         directionChanged = false;
         switch(direction)
         {
         case LEFT:
-           if(enemyField->attackable(lastAttackedCell - cnt))
+           if(enemyField->attackable(lastAttackedCell - cnt) && ((lastAttackedCell - cnt)/10 == lastAttackedCell/10))
                 id = lastAttackedCell - cnt;
            else
+           {
                changeDirection();
+               id = lastAttackedCell + cnt;
+           }
            break;
         case DOWN:
             if(enemyField->attackable(lastAttackedCell + 10 * cnt))
                 id = lastAttackedCell + 10 * cnt;
             else
+            {
                 changeDirection();
+                id = lastAttackedCell - 10 * cnt;
+            }
             break;
         case RIGHT:
-            if(enemyField->attackable(lastAttackedCell  + cnt))
+            if(enemyField->attackable(lastAttackedCell  + cnt) && ((lastAttackedCell + cnt)/10 == lastAttackedCell/10))
                 id = lastAttackedCell  + cnt;
             else
+            {
                 changeDirection();
-            break;
+                id = lastAttackedCell - cnt;
+            }
+           break;
         case HIGH:
             if (enemyField->attackable(lastAttackedCell - 10 * cnt))
                 id = lastAttackedCell - 10 * cnt;
             else
+            {
                 changeDirection();
+                id = lastAttackedCell + 10 * cnt;
+            }
             break;
         }
         cnt++;
@@ -103,8 +115,9 @@ void AIPlayer::delayTurn()
             id = chooseCell();
             isWounded = false;
             clear();
+
             lastAttackedCell = id;
-            break;
+           break;
         case(WOUNDED):
             isWounded = true;
             id = tryToKill(lastAttackedCell);
@@ -115,7 +128,7 @@ void AIPlayer::delayTurn()
             decreaseFleet(currentShip);
             id = this->chooseCell();
             isWounded = false;
-            lastAttackedCell = id;
+           lastAttackedCell = id;
             clear();
 
             break;
@@ -154,7 +167,7 @@ int AIPlayer::tryToKill(int id)
 			{
 				nextAttacked = i;
 				orintation = i;
-				break;
+                break;
 			}
 		}
 
