@@ -1,7 +1,7 @@
 #include "aiPlayer.h"
 
 // delay for turns of ai players in ms
-const int AIPlayer::delay = 3 * 1000;
+const int AIPlayer::delay = /*3*/.5 * 1000;
 
 AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
 				   const QSharedPointer<GameField> &enmField,
@@ -47,7 +47,7 @@ void AIPlayer::delayTurn()
 
 
     if((isWounded) &&
-            ((lastAttackResult == WOUNDED) || directionChanged) ) // here we've found right direction for attack (3 or 4 ships)
+			((lastAttackResult == WOUNDED) || directionChanged) && lastAttackResult != KILLED) // here we've found right direction for attack (3 or 4 ships)
     {
 
 //        if(!directionChanged)
@@ -105,7 +105,7 @@ void AIPlayer::delayTurn()
     }
     else
     {
-        switch(lastAttackResult)
+		switch(int(lastAttackResult))
         {
         case (NOT_ATTACKED):
             id = this->chooseCell();
@@ -115,7 +115,6 @@ void AIPlayer::delayTurn()
             id = chooseCell();
             isWounded = false;
             clear();
-
             lastAttackedCell = id;
            break;
         case(WOUNDED):
@@ -124,13 +123,13 @@ void AIPlayer::delayTurn()
             currentShip++;
             break;
         case (KILLED):
+			qDebug() << "killed";
             currentShip++;
             decreaseFleet(currentShip);
             id = this->chooseCell();
             isWounded = false;
            lastAttackedCell = id;
             clear();
-
             break;
         }
 

@@ -4,7 +4,7 @@
 
 #include <QObject>
 #include <QTime>
-
+#include <QDebug>
 #include "types.h"
 #include "player.h"
 

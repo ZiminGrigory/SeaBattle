@@ -1,4 +1,5 @@
 #include "aiPlayerSmart.h"
+#include <QDebug>
 
 AIPlayerSmart::AIPlayerSmart(const QSharedPointer<GameField> &plrField,
                                 const QSharedPointer<GameField> &enmField,
@@ -97,6 +98,7 @@ int AIPlayerSmart::chooseCell()
 
 void AIPlayerSmart::decreaseFleet(int currentShip)
 {
+	qDebug() << currentShip;
     switch (currentShip) {
     case 1:
         smallship--;
@@ -109,7 +111,6 @@ void AIPlayerSmart::decreaseFleet(int currentShip)
         break;
     case 4:
         aerocarrier--;
-
         break;
     default:
         break;
