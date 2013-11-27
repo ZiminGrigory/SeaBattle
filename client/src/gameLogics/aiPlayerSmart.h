@@ -7,7 +7,7 @@
 
 class AIPlayerSmart :  public AIPlayer
 {
-	Q_OBJECT
+
 public:
     explicit AIPlayerSmart(const QSharedPointer<GameField>& plrField,
                       const QSharedPointer<GameField>& enmField,

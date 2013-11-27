@@ -106,7 +106,6 @@ void AIPlayerSmart::decreaseFleet(int currentShip)
         break;
     case 2:
         cruiser--;
-
         break;
     case 4:
         aerocarrier--;
