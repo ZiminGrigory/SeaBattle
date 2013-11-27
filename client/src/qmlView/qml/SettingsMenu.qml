@@ -49,6 +49,7 @@ Rectangle {
 					main.currentVolumeState = main.currentVolumeState - 1
 					soundControl.state = soundControl.massivOfStates[main.currentVolumeState]
 				}
+				volume(currentVolumeState)
 			}
 		}
 	}
@@ -106,6 +107,7 @@ Rectangle {
 					main.currentVolumeState = main.currentVolumeState + 1
 					soundControl.state = soundControl.massivOfStates[main.currentVolumeState]
 				}
+				volume(currentVolumeState)
 			}
 		}
 	}
@@ -204,7 +206,6 @@ Rectangle {
 			onClicked: {
 				ipAndPort(textInputIP.getText(0,textInputIP.maximumLength)
 						  , textInputPort.getText(0,textInputPort.maximumLength))
-				volume(currentVolumeState)
 			}
 		}
 	}

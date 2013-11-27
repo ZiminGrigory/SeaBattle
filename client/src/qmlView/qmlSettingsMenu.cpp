@@ -19,11 +19,10 @@ void QmlSettingsMenu::volumeHandler(int lvl)
 {
 	qDebug()<< lvl;
 	if (lvl == 0){
-		settings.setValue(SettingsKey::MUTE_KEY, true);
-		settings.setValue(SettingsKey::VOLUME_KEY, 0);
 		emit mute(true);
+		emit volumeChanched(0);
 	} else {
-		settings.setValue(SettingsKey::VOLUME_KEY, lvl * 25);
+		emit mute(false);
 		emit volumeChanched(lvl * 25);
 	}
 }
