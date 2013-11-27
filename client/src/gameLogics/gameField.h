@@ -102,6 +102,7 @@ signals:
 protected:
 	int position(QVector<int> vector, int id);
 	void markKilled(int i, int j);
+    virtual void setShipHook(PlacementStatus status);
     virtual void repaintCell(int row, int column, int partOfShip, int shipSize, bool orientation);
 	virtual void handleResWOUNDED(int x, int y);
 	virtual void handleResKILLED(int j, int i);

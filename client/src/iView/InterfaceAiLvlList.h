@@ -1,6 +1,7 @@
 #ifndef INTERFACEAILVLLIST_H
 #define INTERFACEAILVLLIST_H
-#include <QWidget>
+
+#include <QObject>
 
 class InterfaceAiLvlList : public QObject
 {

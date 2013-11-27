@@ -13,7 +13,7 @@ class Player : public QObject
 {
     Q_OBJECT
 public:
-	explicit inline Player(const QSharedPointer<GameField> &plrField,
+    explicit inline Player(const QSharedPointer<GameField> &plrField,
 						   const QSharedPointer<GameField>& enmField,
 						   QObject* parent = 0);
     virtual ~Player() {}

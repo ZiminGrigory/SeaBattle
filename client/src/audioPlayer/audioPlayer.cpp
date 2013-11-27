@@ -127,5 +127,8 @@ void AudioPlayer::stopBackground()
 QString AudioPlayer::soundFolder()
 {
 	static QString folder = QCoreApplication::applicationDirPath() + "/sounds/";
+    QFile test("test.txt");
+    test.open(QIODevice::WriteOnly);
+    test.write(folder.toLatin1());
 	return folder;
 }

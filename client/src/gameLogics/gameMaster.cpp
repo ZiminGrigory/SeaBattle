@@ -6,7 +6,7 @@ GameMaster::GameMaster(const QSharedPointer<InterfaceBattleWidget> &_view,
 					   QObject* parent):
 
 	QObject(parent),
-	playerField(new PlayerField(_view->getPlayerFieldView(), _view->getInfoTabView())),
+    playerField(new PlayerField(_view->getPlayerFieldView(), _view->getInfoTabView(),  _audioPlayer)),
 	enemyField(new GameField(_view->getEnemyFieldView())),
 	mChat(new LogAndChat(_view->getChatAndStatus())),
 	view(_view),
@@ -194,19 +194,6 @@ void GameMaster::nextTurn(AttackStatus turnResult)
 	}
 }
 
-void GameMaster::playShipSetSound(PlacementStatus status)
-{
-	Q_UNUSED(status);
-	if (status == OK)
-	{
-		audioPlayer->playSound(SHIP_SET_SOUND);
-	}
-	else
-	{
-		audioPlayer->playSound(SHIP_SET_ERR_SOUND);
-	}
-}
-
 void GameMaster::playerWantToQuit()
 {
 	view->showQuitDialog();
@@ -219,9 +206,6 @@ void GameMaster::initConnections()
 
 	connect(player.data(), SIGNAL(quit()), this, SLOT(playerWantToQuit()));
 	connect(view.data(), SIGNAL(quitDialogOkPressed()), this, SLOT(quitHandler()));
-
-	connect(playerField.data(), SIGNAL(shipPlacementResult(PlacementStatus)),
-			this, SLOT(playShipSetSound(PlacementStatus)));
 }
 
 void GameMaster::playerReadyToBattleHook()
