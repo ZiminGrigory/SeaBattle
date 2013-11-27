@@ -34,6 +34,7 @@ public slots:
 private slots:
 	void handleBackgroundStateChange(QMediaPlayer::MediaStatus status);
 	void handleSoundStateChange(QMediaPlayer::MediaStatus status);
+	void repeatBackground(QMediaPlayer::State state);
 private:
 	QString path;
 	bool mIsMute;

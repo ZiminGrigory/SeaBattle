@@ -36,7 +36,7 @@ void QmlBattleWidget::showPlayerField()
 void QmlBattleWidget::showEnemyField()
 {
 	//to do, there we give command to start
-	mBattleWidget->setProperty("isFight", true);
+	QMetaObject::invokeMethod(mBattleWidget, "prepareToFight");
 	mPlrField->setBattleMode(true);
 	mEnemyField->setBattleMode(true);
 }
@@ -74,7 +74,7 @@ void QmlBattleWidget::setCountOfFleet(Players plr, int count)
 void QmlBattleWidget::clearItself()
 {
 	//to do call in children
-	mBattleWidget->setProperty("isFight", false);
+	QMetaObject::invokeMethod(mBattleWidget, "prepareWelcomeMode");
 	mInfoTab->clearItself();
 	mPlrField->clearItself();
 	mBattleWidget->setProperty("countOfEnemy", 10);

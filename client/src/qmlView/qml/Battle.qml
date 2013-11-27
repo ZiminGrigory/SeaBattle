@@ -337,18 +337,18 @@ Rectangle {
 		}
 	}
 
-	onIsFightChanged: {
-		if (isFight){
-			arrowButton.visible = true; infoButton.visible = false; buttonReady.visible = false;
-			autoButton.visible = false; plrField.enabled = false; deleteModeButton.visible = false;
-			arrowButton.currentPicture = 0; countOfShip.currentNumber = countOfPlr;
+	function prepareWelcomeMode(){
+		arrowButton.visible = false; infoButton.visible = true; buttonReady.visible = true;
+		autoButton.visible = true; plrField.visible = true; enemyField.visible = false; plrField.enabled = true
+		deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
+		timer.visible = false; countOfShip.currentNumber = countOfFleet; timer.running = false;
+		readyState.visible = false; endDialog.visible = false
+	}
 
-		} else{
-			arrowButton.visible = false; infoButton.visible = true; buttonReady.visible = true;
-			autoButton.visible = true; plrField.visible = true; enemyField.visible = false; plrField.enabled = true
-			deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
-			timer.visible = false; countOfShip.currentNumber = countOfFleet; timer.running = false
-		}
+	function prepareToFight(){
+		arrowButton.visible = true; infoButton.visible = false; buttonReady.visible = false;
+		autoButton.visible = false; plrField.enabled = false; deleteModeButton.visible = false;
+		arrowButton.currentPicture = 0; countOfShip.currentNumber = countOfPlr;
 		readyState.visible = false; endDialog.visible = false
 	}
 }

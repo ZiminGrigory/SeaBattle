@@ -34,6 +34,7 @@ AudioPlayer::AudioPlayer()
 	connect(&sound, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus))
 			, SLOT(handleSoundStateChange(QMediaPlayer::MediaStatus)));
 	background.setMedia(QUrl::fromLocalFile(soundFolder + "sea.mp3"));
+	connect(&background,SIGNAL(stateChanged(QMediaPlayer::State)), SLOT(repeatBackground(QMediaPlayer::State)));
 }
 
 void AudioPlayer::mute(bool isMute)
@@ -62,6 +63,13 @@ void AudioPlayer::handleSoundStateChange(QMediaPlayer::MediaStatus status)
 	if (status == QMediaPlayer::LoadedMedia){
 		sound.setMuted(false);
 		sound.play();
+	}
+}
+
+void AudioPlayer::repeatBackground(QMediaPlayer::State state)
+{
+	if (state == QMediaPlayer::StoppedState){
+		background.play();
 	}
 }
 

@@ -1,7 +1,7 @@
 #include "aiPlayer.h"
 
 // delay for turns of ai players in ms
-const int AIPlayer::delay = /*3*/.5 * 1000;
+const int AIPlayer::delay = 3.5 * 1000;
 
 AIPlayer::AIPlayer(const QSharedPointer<GameField> &plrField,
 				   const QSharedPointer<GameField> &enmField,
