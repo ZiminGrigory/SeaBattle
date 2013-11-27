@@ -6,9 +6,9 @@ ConnectWidget::ConnectWidget() :
 	ui(new Ui::ConnectWidget)
 {
 	ui->setupUi(this);
-	ui->buttoCancel->setText(QString::fromLocal8Bit("Назад"));
-	ui->buttonTryAgain->setText(QString::fromLocal8Bit("Переподключиться"));
-	ui->labelTitle->setText(QString::fromLocal8Bit("<font color = black>Состояние подключения:<\\font>"));
+    ui->buttoCancel->setText("Назад");
+    ui->buttonTryAgain->setText("Переподключиться");
+    ui->labelTitle->setText("<font color = black>Состояние подключения:<\\font>");
 
 	loader = QSharedPointer<QMovie>(new QMovie(":/pictures/loader.gif"));
 	ui->labelGif->setMovie(loader.data());

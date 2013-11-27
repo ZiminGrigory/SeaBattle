@@ -12,7 +12,7 @@ ChatAndStatus::ChatAndStatus() :
 	arg += " stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));";
 	ui->textBrowser->setStyleSheet(arg);
 	ui->lineEdit->setStyleSheet(arg);
-	ui->buttonEnter->setText(QString::fromLocal8Bit("Ввод"));
+    ui->buttonEnter->setText("Ввод");
 	connect(ui->buttonEnter, SIGNAL(clicked()), SLOT(getText()));
 	QPixmap picture = QPixmap(":/pictures/forChat/BEGIN.jpg");
 	ui->labelLeft->setPixmap(picture);
@@ -24,11 +24,11 @@ void ChatAndStatus::appendMessage(Players plr, QString text)
 {
 	QString firstText;
 	if (plr == YOU){
-		firstText = QString::fromLocal8Bit("<font color = blue>ВЫ: <\\font>");
+        firstText = "<font color = blue>ВЫ: <\\font>";
     } else if (plr == ENEMY) {
-		firstText = QString::fromLocal8Bit("<font color = red>ВРАГ: <\\font>");
+        firstText = "<font color = red>ВРАГ: <\\font>";
     } else if (plr == GAME) {
-        firstText = QString::fromLocal8Bit("<font color = green>ИГРА: <\\font>");
+        firstText = "<font color = green>ИГРА: <\\font>";
     }
 
 	firstText += QString("<font color = black>" + text + "<\\font>");

@@ -6,7 +6,7 @@ MainWindow::MainWindow() :
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
-	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
+    this->setWindowTitle("МОРСКОЙ БОЙ");
 	aiLvlList = QSharedPointer<AiLvlList> (new AiLvlList);
 	connectWidget = QSharedPointer<ConnectWidget> (new ConnectWidget);
 	startMenu = QSharedPointer<StartMenu> (new StartMenu);

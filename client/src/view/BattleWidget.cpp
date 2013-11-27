@@ -10,21 +10,21 @@ BattleWidget::BattleWidget() :
 {
 	ui->setupUi(this);
 	ui->lcdNumber->hide();
-	this->setWindowTitle(QString::fromLocal8Bit("МОРСКОЙ БОЙ"));
-	ui->buttonBack->setText(QString::fromLocal8Bit("Назад в главное меню"));
+    this->setWindowTitle("МОРСКОЙ БОЙ");
+    ui->buttonBack->setText("Назад в главное меню");
 	mPlayerField = QSharedPointer<Field>(new Field);
 	mEnemyField = QSharedPointer<Field>(new Field);;
 	mInfoTab = QSharedPointer<TabOfInformation>(new TabOfInformation);
 	mChat = QSharedPointer<ChatAndStatus>(new ChatAndStatus);
 	timer.setSingleShot(false);
 	showChatAndStatus();
-	ui->EnemyCnt->setText(QString::fromLocal8Bit("<font color = black>Осталось кораблей:<\\font>"));
+    ui->EnemyCnt->setText("<font color = black>Осталось кораблей:<\\font>");
 	ui->EnemyCnt->hide();
-	ui->YouCnt->setText(QString::fromLocal8Bit("<font color = black>Осталось кораблей:<\\font>"));
+    ui->YouCnt->setText("<font color = black>Осталось кораблей:<\\font>");
 	ui->YouCnt->hide();
 	ui->EnemyCntDisplay->hide();
 	ui->YouCntDisplay->hide();
-    quitDialog.setText(QString::fromLocal8Bit("Вы уверены, что хотите покинуть игру?"));
+    quitDialog.setText("Вы уверены, что хотите покинуть игру?");
     quitDialog.setStandardButtons(QMessageBox::Cancel | QMessageBox::Ok);
 
 	connect(ui->buttonBack, SIGNAL(clicked()), SIGNAL(buttonBackPressed()));
@@ -32,7 +32,7 @@ BattleWidget::BattleWidget() :
 
 void BattleWidget::setMessage(QString text)
 {
-	ui->label->setText(QString::fromLocal8Bit("<font color = black>"+text.toLocal8Bit() + "<\\font>"));
+    ui->label->setText(QString::fromLocal8Bit("<font color = black>"+text.toLocal8Bit() + "<\\font>"));
 }
 
 void BattleWidget::setTime(int time)

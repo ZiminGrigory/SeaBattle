@@ -8,9 +8,9 @@ SettingsMenu::SettingsMenu() :
 	ui(new Ui::SettingsMenu)
 {
 	ui->setupUi(this);
-	ui->buttonBack->setText(QString::fromLocal8Bit("Назад в главное меню"));
-	ui->buttonNetwork->setText(QString::fromLocal8Bit("Настройки сети"));
-	ui->buttonVolume->setText(QString::fromLocal8Bit("Настройки звука"));
+    ui->buttonBack->setText("Назад в главное меню");
+    ui->buttonNetwork->setText("Настройки сети");
+    ui->buttonVolume->setText("Настройки звука");
 	connect(ui->buttonBack, SIGNAL(clicked()), SIGNAL(buttonBackPushed()));
 	connect(ui->buttonNetwork, SIGNAL(clicked()), SLOT(showNetworkSettings()));
 	connect(ui->buttonVolume, SIGNAL(clicked()), SLOT(showVolumeSettings()));
