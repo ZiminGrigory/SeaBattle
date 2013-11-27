@@ -6,12 +6,12 @@ Settings::Settings() :
 	ui(new Ui::Settings)
 {
 	ui->setupUi(this);
-	ui->label->setText(QString::fromLocal8Bit("<font color = black>Настройка громкости:<\\font>"));
+    ui->label->setText("<font color = black>Настройка громкости:<\\font>");
 	ui->checkBox->setText(QString::fromLocal8Bit(""));
-	ui->buttonBack->setText(QString::fromLocal8Bit("Назад"));
-	ui->buttonOK->setText(QString::fromLocal8Bit("ОК"));
-	ui->buttonAPPLY->setText(QString::fromLocal8Bit("Принять"));
-	ui->labelForChecker->setText(QString::fromLocal8Bit("<font color = black>Выключить звук<\\font>"));
+    ui->buttonBack->setText("Назад");
+    ui->buttonOK->setText("ОК");
+    ui->buttonAPPLY->setText("Принять");
+    ui->labelForChecker->setText("<font color = black>Выключить звук<\\font>");
 	if (settings.contains(SettingsKey::VOLUME_KEY)){
 		int s = settings.value(SettingsKey::VOLUME_KEY).toInt();
 		ui->horizontalSlider->setValue(settings.value(SettingsKey::VOLUME_KEY).toInt());

@@ -9,10 +9,10 @@ TabOfInformation::TabOfInformation():
 	QString arg = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,";
 	arg += " stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 0));";
 	ui->textBrowser->setStyleSheet(arg);
-	QString text = "<font color = black>ЗДРАВСТВУЙ, УВАЖАЕМЫЙ ИГРОК!\nУстанови флот и в бой!\n";
-	text += QString::fromLocal8Bit("Подсказка: для установки корабля ЛКМ нажмите на нужной клетке ");
-	text += QString::fromLocal8Bit("и отпустите на той же или на другой клетке, где должен закончится корабль");
-	text += QString::fromLocal8Bit("\nДля удаления корабля нажмите ПКМ на любой клетке, из тех, что он занимает.<\\font>");
+    QString text = "<font color = black>ЗДРАВСТВУЙ, УВАЖАЕМЫЙ ИГРОК!\nУстанови флот и в бой!\n";
+    text += "Подсказка: для установки корабля ЛКМ нажмите на нужной клетке ";
+    text += "и отпустите на той же или на другой клетке, где должен закончится корабль";
+    text += "\nДля удаления корабля нажмите ПКМ на любой клетке, из тех, что он занимает.<\\font>";
 	ui->textBrowser->setText(text);
 	this->setMaximumSize(sizeOfCube + 40, sizeOfCube + 40);
 	this->setMinimumSize(sizeOfCube + 40, sizeOfCube + 40);
@@ -22,9 +22,9 @@ TabOfInformation::TabOfInformation():
 	ui->label_2->setPixmap(QPixmap(":/pictures/cruiser.png"));
 	ui->label_3->setPixmap(QPixmap(":/pictures/destroyer.png"));
 	ui->label_4->setPixmap(QPixmap(":/pictures/boat scout.png"));
-	ui->label_isReady->setText(QString::fromLocal8Bit("<font color = black>Готовность игроков:<\\font>"));
-	ui->label_forCheckBoxEnemy->setText(QString::fromLocal8Bit("<font color = black>Соперник<\\font>"));
-	ui->label_forCheckBoxYou->setText(QString::fromLocal8Bit("<font color = black>Вы<\\font>"));
+    ui->label_isReady->setText("<font color = black>Готовность игроков:<\\font>");
+    ui->label_forCheckBoxEnemy->setText("<font color = black>Соперник<\\font>");
+    ui->label_forCheckBoxYou->setText("<font color = black>Вы<\\font>");
 	ui->checkBox_Enemy->setChecked(false);
 	ui->checkBox_You->setChecked(false);
 }

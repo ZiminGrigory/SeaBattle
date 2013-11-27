@@ -6,10 +6,10 @@ StartMenu::StartMenu() :
 	ui(new Ui::StartMenu)
 {
 	ui->setupUi(this);
-	ui->buttonVsPC->setText(QString::fromLocal8Bit("Игрок против Компьютера"));
-	ui->buttonExit->setText(QString::fromLocal8Bit("Выход"));
-	ui->buttonVsPlayer->setText(QString::fromLocal8Bit("Игрок против игрока"));
-	ui->buttonSettings->setText(QString::fromLocal8Bit("Настройки"));
+    ui->buttonVsPC->setText("Игрок против Компьютера");
+    ui->buttonExit->setText("Выход");
+    ui->buttonVsPlayer->setText("Игрок против игрока");
+    ui->buttonSettings->setText("Настройки");
 	connect(ui->buttonExit, SIGNAL(clicked()), SIGNAL(buttonExitPushed()));
 	connect(ui->buttonVsPC, SIGNAL(clicked()), SIGNAL(buttonVsPcPushed()));
 	connect(ui->buttonVsPlayer, SIGNAL(clicked()), SIGNAL(buttonVsPlayerPushed()));

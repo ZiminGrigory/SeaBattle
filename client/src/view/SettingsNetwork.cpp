@@ -6,11 +6,11 @@ SettingsNetwork::SettingsNetwork() :
 	ui(new Ui::SettingsNetwork)
 {
 	ui->setupUi(this);
-	ui->label_IP->setText(QString::fromLocal8Bit("<font color = black>IP сервера:<\\font>"));
-	ui->label_PORT->setText(QString::fromLocal8Bit("<font color = black>Номер порта:<\\font>"));
-	ui->buttonBACK->setText(QString::fromLocal8Bit("Назад"));
-	ui->buttonOK->setText(QString::fromLocal8Bit("ОК"));
-	ui->buttonAPPLY->setText(QString::fromLocal8Bit("Принять"));
+    ui->label_IP->setText("<font color = black>IP сервера:<\\font>");
+    ui->label_PORT->setText("<font color = black>Номер порта:<\\font>");
+    ui->buttonBACK->setText("Назад");
+    ui->buttonOK->setText("ОК");
+    ui->buttonAPPLY->setText("Принять");
 	ui->lineEdit_IP->setText(settings.value(SettingsKey::IP_KEY).toString());
 	ui->lineEdit_PORT->setText(settings.value(SettingsKey::PORT_KEY).toString());
 	connect(ui->buttonBACK, SIGNAL(clicked()), SIGNAL(buttonBackPushed()));
