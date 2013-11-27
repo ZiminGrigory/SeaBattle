@@ -71,8 +71,6 @@
         <file alias="arrow left.png">qml/arrow left.png</file>
         <file alias="help.png">qml/help.png</file>
         <file alias="helping.png">qml/helping.png</file>
-        <file>qml/countOfShip.png</file>
-        <file>qml/ready.png</file>
         <file>qml/back_button.png</file>
         <file>qml/fight_button.png</file>
         <file>qml/auto.png</file>
