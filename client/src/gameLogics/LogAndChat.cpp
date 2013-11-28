@@ -79,15 +79,15 @@ QString LogAndChat::messageFactory(int id, AttackStatus status)
 
 	switch (int(status)) {
 	case MISS:
-		attackStatus = QString::fromLocal8Bit(" - ПРОМАХ");
+        attackStatus = " - ПРОМАХ";
 		break;
 	case WOUNDED:
-		attackStatus = QString::fromLocal8Bit(" - ПОПАДАНИЕ в корабль");
+        attackStatus = " - ПОПАДАНИЕ в корабль";
 		break;
 	case KILLED:
-		attackStatus = QString::fromLocal8Bit(" - корабль УБИТ");
+        attackStatus = " - корабль УБИТ";
 		break;
 	}
-	return QString(QString::fromLocal8Bit("атака на ") + QString::number(id / FIELD_ROW_NUM + 1)
+    return QString("атака на " + QString::number(id / FIELD_ROW_NUM + 1)
 				   + character + attackStatus);
 }

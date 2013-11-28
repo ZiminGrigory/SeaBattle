@@ -3,9 +3,12 @@
 using namespace Orientation;
 
 PlayerField::PlayerField(const QSharedPointer<InterfaceField> &fieldView,
-                         const QSharedPointer<InterfaceInfoTab> &infoTabView):
+                         const QSharedPointer<InterfaceInfoTab> &infoTabView,
+                         const QSharedPointer<AudioPlayer>& audioPlayer):
     GameField(fieldView, infoTabView),
-    mArrowAnalyzer(this, this->view)
+    mArrowAnalyzer(this, this->view),
+    mAudioPlayer(audioPlayer),
+    mMute(false)
 {
 
 }
@@ -72,7 +75,23 @@ void PlayerField::handleResWOUNDED(int x, int y)
 void PlayerField::handleResKILLED(int j, int i)
 {
 	Q_UNUSED(j)
-	Q_UNUSED(i)
+    Q_UNUSED(i)
+}
+
+void PlayerField::setShipHook(PlacementStatus status)
+{
+    if (mMute) {
+        return;
+    }
+
+    if (status == OK)
+    {
+        mAudioPlayer->playSound(SHIP_SET_SOUND);
+    }
+    else
+    {
+        mAudioPlayer->playSound(SHIP_SET_ERR_SOUND);
+    }
 }
 
 QVector<int> PlayerField::getShipTypesNum()
@@ -84,4 +103,9 @@ QVector<int> PlayerField::getShipTypesNum()
         ++shipTypes[(*ship)->size() - 1];
     }
     return shipTypes;
+}
+
+void PlayerField::muteShipSetSound(bool mute)
+{
+    mMute = mute;
 }

@@ -28,7 +28,20 @@ Rectangle {
 
 	property int countOfFleet: 10;
 	property int countOfPlr: 10;
-	property int countOfEnemy: 10;
+    property int countOfEnemy: 10;
+
+    onCountOfPlrChanged: {
+        if (plrField.visible == true) {
+            countOfShip.currentNumber = countOfPlr
+        }
+    }
+
+    onCountOfEnemyChanged: {
+        if (enemyField.visible == true) {
+            countOfShip.currentNumber = countOfEnemy
+        }
+    }
+
 	property bool isFight: false;
 
 
@@ -136,9 +149,9 @@ Rectangle {
 
 	Field{
 		objectName:"mEnemyField"
+        id: enemyField
 		visible: false
 		z: 1
-		id: enemyField
 		mSize: main.width * 0.9 - (main.width % 10)
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom

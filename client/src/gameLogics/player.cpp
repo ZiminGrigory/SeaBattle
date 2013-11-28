@@ -62,7 +62,7 @@ void Player::randomInstallFleet()
 			}else {
 				if (isHorizontal)
 				{
-					point2.second += shipSize -1;
+                    point2.second += shipSize - 1;
 				}
 				else
 				{

@@ -1,6 +1,6 @@
 #include "humanPlayer.h"
 
-HumanPlayer::HumanPlayer(const QSharedPointer<GameField>& plrField
+HumanPlayer::HumanPlayer(const QSharedPointer<PlayerField>& plrField
 						, const QSharedPointer<GameField>& enmField
                         , const QSharedPointer<InterfaceBattleWidget>& battleWidget
                          /*
@@ -60,6 +60,13 @@ void HumanPlayer::reEmitFleetInstalled()
 
 void HumanPlayer::needAutoInstallFleet()
 {
+    // another piece of dirty code :(
+    GameField* tmp = myField.data();
+    PlayerField* plrField = dynamic_cast<PlayerField*>(tmp);
+    qDebug() << "plrField is null: " << (plrField == NULL);
+
     myField->removeInstalledFleet();
+    plrField->muteShipSetSound(true);
     autoInstallFleet();
+    plrField->muteShipSetSound(false);
 }

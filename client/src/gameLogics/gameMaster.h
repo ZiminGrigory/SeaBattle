@@ -65,10 +65,6 @@ private slots:
     /**
       *
       */
-    void playShipSetSound(PlacementStatus status);
-    /**
-      *
-      */
     void playerWantToQuit();
 protected:
     void initConnections();
@@ -77,7 +73,7 @@ protected:
     virtual void informOpponentHook();
 
     typedef QSharedPointer<Player> ptrPlayer;
-    QSharedPointer<GameField> playerField;
+    QSharedPointer<PlayerField> playerField;
     QSharedPointer<GameField> enemyField;
 	QSharedPointer<LogAndChat> mChat;
     ptrPlayer player;

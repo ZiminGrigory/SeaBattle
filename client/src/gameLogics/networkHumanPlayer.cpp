@@ -2,7 +2,7 @@
 
 using namespace Protocol;
 
-NetworkHumanPlayer::NetworkHumanPlayer(const QSharedPointer<GameField>& plrField,
+NetworkHumanPlayer::NetworkHumanPlayer(const QSharedPointer<PlayerField>& plrField,
                                        const QSharedPointer<GameField>& enmField,
                                        const QSharedPointer<InterfaceBattleWidget>& battleWidget,
                                        /*
