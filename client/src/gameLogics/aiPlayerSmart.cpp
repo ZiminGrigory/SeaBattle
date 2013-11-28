@@ -4,7 +4,7 @@
 AIPlayerSmart::AIPlayerSmart(const QSharedPointer<GameField> &plrField,
                                 const QSharedPointer<GameField> &enmField,
                                  QObject *parent):
-	AIPlayer(plrField, enmField, parent), mField(plrField)
+	AIPlayer(plrField, enmField, parent)
 {
     qsrand(QTime::currentTime().msec());
     aerocarrier = 1;
@@ -13,20 +13,20 @@ AIPlayerSmart::AIPlayerSmart(const QSharedPointer<GameField> &plrField,
     smallship = 4;
     currentSquare.first = -1;
     currentSquare.second = -1;
-    strategy2 = new DoubleDiagonalShoot(enmField);
-    strategy1 = new DiagonalShoot(enmField);
+	strategy2 = QSharedPointer<SquareShootStrategy>(new DoubleDiagonalShoot(enmField));
+	strategy1 = QSharedPointer<SquareShootStrategy>(new DiagonalShoot(enmField));
     int q = qrand () % 2;
     if (q == 1)
         strategy = strategy1;
     else
         strategy = strategy2;
-    fleetInstaller = new FleetInstallStrategy(plrField);
+	fleetInstaller = QSharedPointer<FleetInstallStrategy>(new FleetInstallStrategy(plrField));
 }
 
 void AIPlayerSmart::installFleet()
 {
 	fleetInstaller->installFleet();
-	setFleetHealth(mField->getFleet());
+	setFleetHealth(myField->getFleet());
     emit fleetInstalled(this);
 }
 

@@ -30,12 +30,11 @@ private:
     int cruiser;
     int destroyer;
     int smallship;
-    SquareShootStrategy * strategy;
+	QSharedPointer<SquareShootStrategy>  strategy;
     void changeStrategy();
-    SquareShootStrategy * strategy1;
-    SquareShootStrategy * strategy2;
-    FleetInstallStrategy * fleetInstaller;
-	QSharedPointer<GameField> mField;
+	QSharedPointer<SquareShootStrategy>  strategy1;
+	QSharedPointer<SquareShootStrategy>  strategy2;
+	QSharedPointer<FleetInstallStrategy>  fleetInstaller;
 };
 
 #endif // AIPLAYERSMART_H

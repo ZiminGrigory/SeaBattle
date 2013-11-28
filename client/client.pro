@@ -9,7 +9,7 @@ TEMPLATE = app
 # here we choose view mode
 # qml_view - qml view
 # widgets_view - simple qt widgets
-CONFIG += widgets_view
+CONFIG += qml_view
 
 # define some macroses
 qml_view {
