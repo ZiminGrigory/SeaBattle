@@ -58,8 +58,6 @@
         <file alias="settings_button.png">qml/settings_button.png</file>
         <file alias="vs_computer_button.png">qml/vs_computer_button.png</file>
         <file alias="vs_player_button.png">qml/vs_player_button.png</file>
-        <file alias="vs_computer_button_hard.png">qml/vs_computer_button_hard.png</file>
-        <file alias="vs_computer_button_simple.png">qml/vs_computer_button_simple.png</file>
         <file alias="sounds_0.png">qml/sounds_0.png</file>
         <file alias="sounds_1.png">qml/sounds_1.png</file>
         <file alias="sounds_2.png">qml/sounds_2.png</file>
@@ -99,5 +97,7 @@
         <file>qml/girl/girl_start battle_ship1_2.jpg</file>
         <file>qml/girl/girl_start battle_ship2_3.jpg</file>
         <file>qml/girl/girl_start battle_deleteship2_5.jpg</file>
+        <file alias="vs_computer_button_hard.png">qml/vs_computer_button_hard.png</file>
+        <file>qml/vs_computer_button_simple.png</file>
     </qresource>
 </RCC>
