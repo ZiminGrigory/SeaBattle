@@ -95,3 +95,29 @@ void QmlField::repaint(int id, Textures texture)
 	QObject * obj = qvariant_cast<QObject *>(mField.at(id));
 	obj->setProperty("currentState",int(texture));
 }
+
+void QmlField::showPlacementStatus(PlacementStatus res, int firstId, int secondId)
+{
+	QString resState = "";
+	switch (res) {
+		case OK:
+			resState = "ок";
+			break;
+		case UNCORRECT_COORDINATES:
+			resState = "uncorrect coordinates";
+			break;
+		case NOT_LINE:
+			resState = "not line";
+			break;
+		case HAVE_NOT_SHIP:
+			resState = "have not ship";
+			break;
+		case CELL_OCCUPIED:
+			resState = "cell occupied";
+			break;
+	}
+	QVariant qvarRes = QVariant(resState);
+	QVariant qvarId = QVariant(secondId);
+
+	QMetaObject::invokeMethod(mFieldWidget, "showPlacementResult", Q_ARG(QVariant, qvarId), Q_ARG(QVariant, qvarRes));
+}

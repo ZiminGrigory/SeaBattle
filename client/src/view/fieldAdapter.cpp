@@ -49,3 +49,10 @@ void FieldAdapter::repaint(int id, Textures texture)
 {
 	mAdaptee->repaint(id, texture);
 }
+
+void FieldAdapter::showPlacementStatus(PlacementStatus res, int firstId, int secondId)
+{
+	Q_UNUSED(res);
+	Q_UNUSED(firstId);
+	Q_UNUSED(secondId);
+}

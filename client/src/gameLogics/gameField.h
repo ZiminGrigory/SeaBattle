@@ -93,8 +93,11 @@ signals:
     /**
       * Signal emitted after shipPlaced() slot ended work.
       * Signal contains result of last try to place ship on cells.
+	  * Each signal corresponds to the slot setShip() with the same arguments,
+	  * so only one of them will emitted after the placement of ship.
       */
-    void shipPlacementResult(PlacementStatus res);
+	void shipPlacementResult(PlacementStatus res, int firstId, int secondId);
+	void shipPlacementResult(PlacementStatus res, int id, int size, bool orientation);
     /**
       * This signal emits when all fleet was correctly installed.
       */
