@@ -35,6 +35,7 @@ QVector<QSharedPointer<Ship> > GameField::getInstalledFleet()
 PlacementStatus GameField::setShip(int firstId, int secondId)
 {
     PlacementStatus status = flInst->setShip(firstId, secondId);
+    setShipHook(status);
     emit shipPlacementResult(status);
     return status;
 }
@@ -42,6 +43,7 @@ PlacementStatus GameField::setShip(int firstId, int secondId)
 PlacementStatus GameField::setShip(int id, int size, bool orientation)
 {
     PlacementStatus status = flInst->setShip(id, size, orientation);
+    setShipHook(status);
     emit shipPlacementResult(status);
     return status;
 }
@@ -141,7 +143,12 @@ void GameField::markKilled(int i, int j)
 				field[i][j].attack();
 			}
 		}
-	}
+    }
+}
+
+void GameField::setShipHook(PlacementStatus status)
+{
+    Q_UNUSED(status);
 }
 
 void GameField::setShip(int id, bool orientation, QSharedPointer<Ship> ship)

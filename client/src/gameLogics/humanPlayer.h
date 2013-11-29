@@ -13,7 +13,7 @@ class HumanPlayer : public Player
 {
     Q_OBJECT
 public:
-	explicit HumanPlayer(const QSharedPointer<GameField> &plrField,
+    explicit HumanPlayer(const QSharedPointer<PlayerField> &plrField,
 						 const QSharedPointer<GameField>& enmField,
                          const QSharedPointer<InterfaceBattleWidget>& battleWidget,
                          /*

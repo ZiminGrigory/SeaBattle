@@ -123,7 +123,7 @@ PlacementStatus FleetInstaller::setShip(int firstId, int secondId)
 
 PlacementStatus FleetInstaller::setShip(int id, int size, bool orientation)
 {
-    ptrShip ship = pickShip(size);
+    QSharedPointer<Ship> ship = pickShip(size);
     if (!ship)
     {
         return HAVE_NOT_SHIP;

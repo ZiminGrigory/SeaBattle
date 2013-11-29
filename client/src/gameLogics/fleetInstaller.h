@@ -86,7 +86,7 @@ private:
     ptrShip lastShip;
     GameField* field;
 	QSharedPointer<InterfaceInfoTab> fleetInfoTab;
-	QVector<QSharedPointer<Ship> > existingFleet;
+    QVector< QSharedPointer<Ship> > existingFleet;
 };
 
 
