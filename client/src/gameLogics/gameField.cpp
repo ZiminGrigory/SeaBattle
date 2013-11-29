@@ -9,6 +9,8 @@ GameField::GameField(const QSharedPointer<InterfaceField>& fieldView,
     flInst(new FleetInstaller(fleet, this, infoTabView))
 {
     //fleet << 4 << 3 << 2 << 1; //conut of ship
+	connect(this, SIGNAL(shipPlacementResult(PlacementStatus,int,int)),
+			view.data(), SLOT(showPlacementStatus(PlacementStatus,int,int)));
 }
 
 QSharedPointer<Ship> GameField::getShip(int id)
@@ -36,7 +38,7 @@ PlacementStatus GameField::setShip(int firstId, int secondId)
 {
     PlacementStatus status = flInst->setShip(firstId, secondId);
     setShipHook(status);
-    emit shipPlacementResult(status);
+	emit shipPlacementResult(status, firstId, secondId);
     return status;
 }
 
@@ -44,7 +46,7 @@ PlacementStatus GameField::setShip(int id, int size, bool orientation)
 {
     PlacementStatus status = flInst->setShip(id, size, orientation);
     setShipHook(status);
-    emit shipPlacementResult(status);
+	emit shipPlacementResult(status, id, size, orientation);
     return status;
 }
 

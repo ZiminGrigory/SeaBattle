@@ -19,6 +19,7 @@ public:
 public slots:
 	virtual void setEnabledItself(bool switcher) = 0;
 	virtual void repaint(int id, Textures texture) = 0;
+	virtual void showPlacementStatus(PlacementStatus res, int firstId, int secondId) = 0;
 
 signals:
 	void attack(int id);

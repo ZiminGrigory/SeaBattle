@@ -20,6 +20,7 @@ public:
 public slots:
 	void setEnabledItself(bool switcher);
 	void repaint(int id, Textures texture);
+	void showPlacementStatus(PlacementStatus res, int firstId, int secondId);
 
 signals:
 	void attack(int id);

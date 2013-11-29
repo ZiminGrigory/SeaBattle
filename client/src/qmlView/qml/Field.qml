@@ -28,6 +28,23 @@ Rectangle {
 
 	FieldMessage {
 		id: status
+	}
 
+	PlacementResultText {
+		id: placementResult
+		z: 10
+	}
+
+	// int lastId - id of chell on which result will shown
+	// string result - result as a string (see PlacementResult states)
+	function showPlacementResult(lastId, result) {
+//		var cellSize = mSize / 10;
+//		var row = Math.floor(lastId / 10);
+//		var col = lastId % 10;
+//		var x = row * cellSize;
+//		var y = col * cellSize;
+//		placementResult.x = x;
+//		placementResult.y = y;
+		placementResult.state = result;
 	}
 }
