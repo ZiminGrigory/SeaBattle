@@ -2,7 +2,8 @@
 #include "QDebug"
 
 FleetInstallStrategy::FleetInstallStrategy(const QSharedPointer<GameField>& myField):
-field(myField){
+field(myField)
+{
     qsrand(QTime::currentTime().msec());
 }
 

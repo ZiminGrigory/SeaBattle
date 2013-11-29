@@ -25,13 +25,14 @@ protected:
     int chooseCell();
     void decreaseFleet(int currentShip);
 private:
+	void changeStrategy();
+
     QPair<int, int> currentSquare;
     int aerocarrier;
     int cruiser;
     int destroyer;
     int smallship;
 	QSharedPointer<SquareShootStrategy>  strategy;
-    void changeStrategy();
 	QSharedPointer<SquareShootStrategy>  strategy1;
 	QSharedPointer<SquareShootStrategy>  strategy2;
 	QSharedPointer<FleetInstallStrategy>  fleetInstaller;
