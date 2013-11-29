@@ -43,6 +43,7 @@ int SquareShootStrategy::squareSize(int squareNumberWidth, int squareNumberHeigh
             squaresize = 3;
         else
             squaresize = 1;
+		break;
     case 2:
         squaresize = 2;
 
