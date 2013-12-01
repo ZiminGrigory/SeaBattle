@@ -31,10 +31,13 @@ void QmlInfoTab::playerReady(Players player)
 
 void QmlInfoTab::handleReadyButton()
 {
-	if (shipCounter->property("currentNumber").toInt() == 0){
+	if (shipCounter->property("currentNumber").toInt() == 0) {
 		qDebug() << "ready";
 		buttonReady->setProperty("enabled", false);
 		emit readyToFight();
+	}
+	else {
+		shipCounter->setProperty("uncompletedFleetAnimationRun", QVariant(true));
 	}
 }
 

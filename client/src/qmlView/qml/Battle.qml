@@ -66,9 +66,9 @@ Rectangle {
 		width: main.width / 4 * 2
 		height: main.height / 10
 		style: Text.Outline; styleColor: "black"
-		text: "Корабли:"
+		text: "Корабли: "
 		font.family: "Helvetica"
-		font.pointSize: height / 2
+		font.pixelSize: lableCountOfShip.height * 0.8
 		color: "white"
 	}
 
@@ -76,15 +76,34 @@ Rectangle {
 		objectName: "mCountOfShip"
 		id:countOfShip
 		property int currentNumber: 10
+		property alias uncompletedFleetAnimationRun: uncompletedFleetAnimation.running
+
 		width: lableCountOfShip.width / 2
-		height: lableCountOfShip.height
+		height: main.height / 10
 		anchors.left: lableCountOfShip.right
+		anchors.leftMargin: 5
 		style: Text.Outline; styleColor: "black"
 		text: "10"
 		font.family: "Helvetica"
-		font.pointSize: height / 2
+		font.pixelSize: height * 0.6
 		color: "white"
 		onCurrentNumberChanged: {countOfShip.text = currentNumber.toString()}
+		z: 10;
+
+		SequentialAnimation {
+			id: uncompletedFleetAnimation
+			running: false
+			loops: 2
+
+			ParallelAnimation {
+				ColorAnimation { target: countOfShip; property: "color"; to: "red"; duration: 500 }
+				NumberAnimation { target: countOfShip; property: "font.pointSize"; to: countOfShip.height * 0.8; duration: 500 }
+			}
+			ParallelAnimation {
+				ColorAnimation { target: countOfShip; property: "color"; to: "white"; duration: 500 }
+				NumberAnimation { target: countOfShip; property: "font.pointSize"; to: countOfShip.height * 0.6; duration: 500 }
+			}
+		}
 	}
 
 	Image{
@@ -321,9 +340,6 @@ Rectangle {
 				parent.analizeArrow();
 			}
 
-//			Component.onCompleted: {
-//				arrowButtonMouseArea.clicked.connect(parent.analizeArrow)
-//			}
 		}
 		function changePicture(){
 			if (currentPicture == "right"){
@@ -351,10 +367,19 @@ Rectangle {
 	}
 
 	function prepareWelcomeMode(){
-		arrowButton.visible = false; infoButton.visible = true; buttonReady.visible = true;
-		autoButton.visible = true; plrField.visible = true; enemyField.visible = false; plrField.enabled = true
-		deleteModeButton.visible = true; deleteModeButton.currentPicture = 0; infoButton.currentPicture = 0
-		timer.visible = false; countOfShip.currentNumber = countOfFleet; timer.running = false;
+		arrowButton.visible = false;
+		infoButton.visible = true;
+		buttonReady.visible = true;
+		autoButton.visible = true;
+		plrField.visible = true;
+		enemyField.visible = false;
+		plrField.enabled = true
+		deleteModeButton.visible = true;
+		deleteModeButton.currentPicture = 0;
+		infoButton.currentPicture = 0
+		timer.visible = false;
+		countOfShip.currentNumber = countOfFleet;
+		timer.running = false;
 		readyState.visible = false; endDialog.visible = false
 	}
 
