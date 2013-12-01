@@ -68,7 +68,7 @@ Rectangle {
 		style: Text.Outline; styleColor: "black"
 		text: "Корабли: "
 		font.family: "Helvetica"
-		font.pixelSize: lableCountOfShip.height * 0.8
+		font.pixelSize: height * 0.8
 		color: "white"
 	}
 
@@ -78,6 +78,7 @@ Rectangle {
 		property int currentNumber: 10
 		property alias uncompletedFleetAnimationRun: uncompletedFleetAnimation.running
 
+
 		width: lableCountOfShip.width / 2
 		height: main.height / 10
 		anchors.left: lableCountOfShip.right
@@ -85,7 +86,7 @@ Rectangle {
 		style: Text.Outline; styleColor: "black"
 		text: "10"
 		font.family: "Helvetica"
-		font.pixelSize: height * 0.6
+		font.pixelSize: height * 0.8
 		color: "white"
 		onCurrentNumberChanged: {countOfShip.text = currentNumber.toString()}
 		z: 10;
@@ -96,12 +97,12 @@ Rectangle {
 			loops: 2
 
 			ParallelAnimation {
-				ColorAnimation { target: countOfShip; property: "color"; to: "red"; duration: 500 }
-				NumberAnimation { target: countOfShip; property: "font.pointSize"; to: countOfShip.height * 0.8; duration: 500 }
+				ColorAnimation { target: countOfShip; property: "color"; to: "red"; duration: 300 }
+				NumberAnimation { target: countOfShip; property: "font.pointSize"; to: countOfShip.height; duration: 300 }
 			}
 			ParallelAnimation {
-				ColorAnimation { target: countOfShip; property: "color"; to: "white"; duration: 500 }
-				NumberAnimation { target: countOfShip; property: "font.pointSize"; to: countOfShip.height * 0.6; duration: 500 }
+				ColorAnimation { target: countOfShip; property: "color"; to: "white"; duration: 300 }
+				NumberAnimation { target: countOfShip; property: "font.pointSize"; to: lableCountOfShip.font.pointSize; duration: 300 }
 			}
 		}
 	}
