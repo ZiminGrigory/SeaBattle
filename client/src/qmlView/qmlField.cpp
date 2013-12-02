@@ -50,7 +50,7 @@ void QmlField::removeImageFromCell(int id)
 void QmlField::clearItself()
 {
 	for( int i = 0; i < mField.length(); i++){
-		repaint(i,EMPTY);
+		repaint(i, EMPTY);
 	}
 }
 
@@ -87,7 +87,7 @@ void QmlField::setDeleteShipMode(bool isDeleteMode)
 
 void QmlField::setEnabledItself(bool switcher)
 {
-
+	Q_UNUSED(switcher)
 }
 
 void QmlField::repaint(int id, Textures texture)

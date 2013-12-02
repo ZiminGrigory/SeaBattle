@@ -50,13 +50,14 @@ Rectangle {
 		id: dialogs
 		objectName: "dialogs"
 		visible: false
+		z: 10
 	}
 
 	EndDialog{
 		id: endDialog
 		objectName: "endDialogs"
 		visible: false
-		z: 10
+		z: 8
 		onToMainMenu: visible = false
 	}
 
@@ -89,7 +90,7 @@ Rectangle {
 		font.pixelSize: height * 0.8
 		color: "white"
 		onCurrentNumberChanged: {countOfShip.text = currentNumber.toString()}
-		z: 10;
+		z: 8;
 
 		SequentialAnimation {
 			id: uncompletedFleetAnimation
@@ -160,28 +161,30 @@ Rectangle {
 		objectName:"mPlrField"
 		id: plrField
 		z: 1
+		//enabled: true
 		visible: true
 		mSize: main.width * 0.9 - (main.width % 10)
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
-		anchors.topMargin: 5
+		anchors.topMargin: 3
 	}
 
 	Field{
 		objectName:"mEnemyField"
-        id: enemyField
+		id: enemyField
 		visible: false
 		z: 1
+		//enabled: true
 		mSize: main.width * 0.9 - (main.width % 10)
 		anchors.horizontalCenter: main.horizontalCenter
 		anchors.top: lableCountOfShip.bottom
-		anchors.topMargin: 5
+		anchors.topMargin: 3
 	}
 
 	BombButton {
 		id: backButton
 		type: 3
-		z: 3
+		z: 9
 		anchors.right: parent.right
 		anchors.bottom: parent.bottom
 
@@ -266,7 +269,7 @@ Rectangle {
 
     InfoGirl{
         id: girl
-        z: 4
+		z: 15
         visible: false
         mCurrentState: 0
         currentState: mCurrentState.toString()
@@ -374,7 +377,7 @@ Rectangle {
 		autoButton.visible = true;
 		plrField.visible = true;
 		enemyField.visible = false;
-		plrField.enabled = true
+		//plrField.enabled = true
 		deleteModeButton.visible = true;
 		deleteModeButton.currentPicture = 0;
 		infoButton.currentPicture = 0
@@ -386,7 +389,7 @@ Rectangle {
 
 	function prepareToFight(){
 		arrowButton.visible = true; infoButton.visible = false; buttonReady.visible = false;
-		autoButton.visible = false; plrField.enabled = false; deleteModeButton.visible = false;
+		autoButton.visible = false; /*plrField.enabled = false;*/ deleteModeButton.visible = false;
 		arrowButton.currentPicture = 0; countOfShip.currentNumber = countOfPlr;
 		readyState.visible = false; endDialog.visible = false
 	}

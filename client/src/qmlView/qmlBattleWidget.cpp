@@ -27,9 +27,7 @@ QmlBattleWidget::QmlBattleWidget(QObject* widget) :
 
 void QmlBattleWidget::showPlayerField()
 {
-	// crashed here ...
 	QObject* mField = mBattleWidget->findChild<QObject*>("mPlrField");
-	qDebug() << mField;
 	mField->setProperty("visible", true);
 }
 

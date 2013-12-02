@@ -18,7 +18,7 @@ Rectangle {
 
 	property variant array
 
-	/*Animated*/Image{
+	AnimatedImage{
 		id: sea
 		source: "qrc:/pictures/sea_animation.gif"
 

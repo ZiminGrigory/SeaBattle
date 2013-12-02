@@ -11,8 +11,8 @@ Field::Field() :
 	ui->setupUi(this);
 	this->setMaximumSize(sizeOfCube + 40, sizeOfCube + 40);
 	this->setMinimumSize(sizeOfCube + 40, sizeOfCube + 40);
-	ui->graphicsView->setMaximumSize(sizeOfCube + 3, sizeOfCube + 3);
-	ui->graphicsView->setMinimumSize(sizeOfCube + 3, sizeOfCube + 3);
+	ui->graphicsView->setMaximumSize(sizeOfCube + 5, sizeOfCube + 5);
+	ui->graphicsView->setMinimumSize(sizeOfCube + 5, sizeOfCube + 5);
 	mScene = new QGraphicsScene;
 	mScene->setSceneRect(0, 0, sizeOfCube, sizeOfCube);
 	int x = sizeOfCube / 10;

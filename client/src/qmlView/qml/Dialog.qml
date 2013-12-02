@@ -5,7 +5,7 @@ Rectangle {
 	width: parent.width
 	height: parent.height
 	color: "transparent"
-	z: 4
+	z: 10
 
 	property alias text: message.text
 	property alias backButtonVisible: backButton.visible
@@ -103,6 +103,4 @@ Rectangle {
 			}
 		}
 	}
-
-
 }

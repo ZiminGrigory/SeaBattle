@@ -62,6 +62,24 @@ function handleClicked(id){
 }
 
 function handleReleased(x,y){
+	var shiftOfX = 0;
+	if (x > 0){
+		shiftOfX = integerDivision(x , cellSize);
+	} else {
+		shiftOfX = integerDivision((x - cellSize) , cellSize);
+	}
+
+	var shiftOfY = 0;
+	if (y > 0){
+		shiftOfY = integerDivision(y , cellSize);
+	} else {
+		shiftOfY =integerDivision((y - cellSize) , cellSize);
+	}
+
+	if (shiftOfY * shiftOfX != 0) {
+		console.log((Math.round((x / cellSize + (y / cellSize) * 10) / 10) * integerDivision(pressedId , 10)));
+		placeShip(pressedId, pressedId + shiftOfX + shiftOfY * 10);
+	}else
 	if (x < cellSize && y < cellSize && x > 0 && y > 0){
 		placeShip(pressedId, pressedId);
 	}else if (x > cellSize){
@@ -80,5 +98,5 @@ function handleReleased(x,y){
 }
 
 function integerDivision(x, y){
-	return (x-x%y)/y
+	return (x - x % y) / y
 }
